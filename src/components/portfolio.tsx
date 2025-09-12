@@ -1,28 +1,37 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
-import { ExternalLink, Github, Calendar, User, Tag, ChevronRight, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { projects, categories, type Project } from '@/data/projects'
-import { cn } from '@/lib/utils'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import {
+  ExternalLink,
+  Github,
+  Calendar,
+  User,
+  Tag,
+  ChevronRight,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { projects, categories, type Project } from "@/data/projects";
+import { cn } from "@/lib/utils";
 
 const Portfolio = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
-  const filteredProjects = selectedCategory === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory)
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,21 +41,24 @@ const Portfolio = () => {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
         duration: 0.5,
-      }
+      },
     },
-  }
+  };
 
   return (
-    <section id="portfolio" className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section
+      id="portfolio"
+      className="py-24 bg-gradient-to-b from-background to-muted/20"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +70,9 @@ const Portfolio = () => {
             Our <span className="gradient-text">Portfolio</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore our enterprise cybersecurity platforms, AI-powered threat detection systems, and mission-critical applications that protect and accelerate global organizations
+            Explore our enterprise cybersecurity platforms, AI-powered threat
+            detection systems, and mission-critical applications that protect
+            and accelerate global organizations
           </p>
         </motion.div>
 
@@ -115,18 +129,18 @@ const Portfolio = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl group-hover:text-cyber-blue transition-colors">
                       {project.title}
                     </CardTitle>
                   </CardHeader>
-                  
+
                   <CardContent className="space-y-4">
                     <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 3).map((tech) => (
                         <span
@@ -165,19 +179,25 @@ const Portfolio = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+const ProjectModal = ({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   return (
     <motion.div
@@ -232,7 +252,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
                   />
                 )}
               </div>
-              
+
               {project.images && project.images.length > 1 && (
                 <div className="flex space-x-2 overflow-x-auto">
                   {project.images.map((image, index) => (
@@ -241,8 +261,8 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
                       onClick={() => setCurrentImageIndex(index)}
                       className={cn(
                         "relative w-20 h-16 rounded-md overflow-hidden flex-shrink-0 transition-all",
-                        index === currentImageIndex 
-                          ? "ring-2 ring-cyber-blue" 
+                        index === currentImageIndex
+                          ? "ring-2 ring-cyber-blue"
                           : "opacity-60 hover:opacity-100"
                       )}
                     >
@@ -308,7 +328,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
         </div>
       </motion.div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default Portfolio
+export default Portfolio;
