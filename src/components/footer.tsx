@@ -111,11 +111,7 @@ const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-muted/30 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-muted-foreground">
-            <span>© 2024 WhyCrew. All rights reserved.</span>
-            <div className="hidden md:block w-1 h-1 bg-muted-foreground rounded-full" />
-            <span>Built with Next.js & TypeScript</span>
-            <div className="hidden md:block w-1 h-1 bg-muted-foreground rounded-full" />
-            <span>Secure by design</span>
+            <span>© {new Date().getFullYear()} WhyCrew. All rights reserved.</span>
           </div>
 
           <Button

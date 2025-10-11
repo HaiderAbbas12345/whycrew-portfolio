@@ -188,9 +188,9 @@ const Contact = () => {
                     <CheckCircle className="h-16 w-16 text-cyber-green mx-auto mb-4" />
                     <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
                     <p className="text-muted-foreground mb-6">
-                      Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                      We have got your details. We will be contacting you within 24 hours.
                     </p>
-                    <Button 
+                    <Button
                       variant="cyber-outline"
                       onClick={() => setSubmitStatus('idle')}
                     >

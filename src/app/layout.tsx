@@ -72,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -82,7 +82,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
