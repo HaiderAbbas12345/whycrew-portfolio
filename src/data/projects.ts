@@ -12,6 +12,7 @@ export interface Project {
   timeline: string;
   status: "completed" | "in-progress" | "planning";
   metrics?: string;
+  images?: string[];
 }
 
 export const projects: Project[] = [
