@@ -1,0 +1,16 @@
+{
+  "name": "WhyCrew - Elite Staff Offshoring",
+  "short_name": "WhyCrew",
+  "description": "Elite staff offshoring for Fortune 500 companies specializing in cybersecurity and AI development",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00d4ff",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
