@@ -42,6 +42,12 @@ export function Footer() {
               <Link href="/case-studies" className="mb-2.5 block text-[14px] text-muted hover:text-own">
                 Case studies
               </Link>
+              <Link
+                href="/best-soc-platform-builders-mssps-2025"
+                className="mb-2.5 block text-[14px] text-muted hover:text-own"
+              >
+                SOC platform builders 2025
+              </Link>
               <a
                 href={`mailto:${SITE.email}`}
                 className="mb-2.5 block text-[14px] text-muted hover:text-own"
