@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ScrollTop } from "@/components/ScrollTop";
+
+const GA_MEASUREMENT_ID = "G-BNMPZB5NQN";
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -33,6 +36,9 @@ export const metadata: Metadata = {
   description:
     "WhyCrew is a security and AI engineering partner for MSSPs and teams where sensitive data is the whole problem. We automate SOC operations, integrate tooling, deploy AI agents, and build owned security platforms.",
   icons: { icon: "/icon.jpeg", apple: "/icon.jpeg" },
+  verification: {
+    google: "TYYuh-ev2DxwW0Of-KVoqFbn-RkdU6BojgN0dW5lXrg",
+  },
   openGraph: {
     type: "website",
     url: "https://whycrew.com",
@@ -48,6 +54,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+      </head>
       <body className="font-body text-[17px] leading-[1.6] text-text">
         <div className="bg-canvas" />
         <div className="bg-grid" />
