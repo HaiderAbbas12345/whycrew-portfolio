@@ -5,6 +5,9 @@ import { Reveal } from "@/components/Reveal";
 import { CompetitorTable } from "@/components/CompetitorTable";
 import { FaqList, type FaqItem } from "@/components/FaqList";
 import { Eyebrow, Section, SectionHead, CTABand } from "@/components/Primitives";
+import { JsonLd } from "@/components/JsonLd";
+import { articleSchema, breadcrumbSchema, graph } from "@/lib/schema";
+import { abs } from "@/lib/site";
 
 const PATH = "/best-soc-platform-builders-mssps-2025";
 const TITLE = "Best Custom SOC Platform Builders for MSSPs in 2025";
@@ -25,7 +28,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PATH },
   openGraph: {
     type: "article",
-    url: `https://whycrew.com${PATH}`,
+    url: abs(PATH),
     title: TITLE,
     description:
       "How MSSPs should evaluate custom SOC platform builders in 2025 — ownership, multi-tenancy, AI-native triage, and data sovereignty.",
@@ -99,40 +102,24 @@ const FAQS: FaqItem[] = [
   },
 ];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://whycrew.com" },
-        { "@type": "ListItem", position: 2, name: "For MSSPs", item: "https://whycrew.com/for-mssps" },
-        { "@type": "ListItem", position: 3, name: TITLE, item: `https://whycrew.com${PATH}` },
-      ],
-    },
-    {
-      "@type": "Article",
-      headline: TITLE,
-      description:
-        "A 2025 guide to evaluating custom SOC platform builders for MSSPs, and why owning your platform beats renting a SIEM.",
-      author: { "@type": "Organization", name: "WhyCrew", url: "https://whycrew.com" },
-      publisher: {
-        "@type": "Organization",
-        name: "WhyCrew",
-        logo: { "@type": "ImageObject", url: "https://whycrew.com/logo.jpeg" },
-      },
-      mainEntityOfPage: `https://whycrew.com${PATH}`,
-    },
-  ],
-};
+const jsonLd = graph(
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "For MSSPs", path: "/for-mssps" },
+    { name: TITLE, path: PATH },
+  ]),
+  articleSchema({
+    headline: TITLE,
+    description:
+      "A 2025 guide to evaluating custom SOC platform builders for MSSPs, and why owning your platform beats renting a SIEM.",
+    path: PATH,
+  }),
+);
 
 export default function Page() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       {/* HERO */}
       <section className="border-b border-line-soft pt-20 pb-12">

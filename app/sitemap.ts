@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://whycrew.com";
+import { SITE_URL } from "@/lib/site";
 
 const routes: { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
@@ -17,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   return routes.map(({ path, priority }) => ({
-    url: `${BASE_URL}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified,
     changeFrequency: "monthly",
     priority,

@@ -5,11 +5,46 @@ export const SITE = {
   domain: "whycrew.com",
 };
 
+/**
+ * Canonical origin — apex, no `www`, no trailing slash.
+ * Single source for metadataBase, the sitemap, and every schema.org @id.
+ * Keep public/robots.txt in sync by hand; it can't import.
+ */
+export const SITE_URL = `https://${SITE.domain}`;
+
+/** Absolute URL for a root-relative path. `abs("/for-mssps")` → https://whycrew.com/for-mssps */
+export const abs = (path: string) => `${SITE_URL}${path}`;
+
 export const NAV = [
   { label: "Home", href: "/" },
   { label: "For MSSPs", href: "/for-mssps" },
   { label: "Services", href: "/#services" },
   { label: "Case studies", href: "/case-studies" },
+];
+
+export type Testimonial = {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  /** Out of 5. Feeds both the visible stars and the Review markup. */
+  rating: number;
+};
+
+/**
+ * Client references. Rendered by <Testimonials> and marked up as schema.org
+ * Review nodes from this same array — the quote on the page and the quote in
+ * the structured data can never drift apart.
+ */
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote:
+      "We were paying 45,000 euros per month in SIEM licensing. WhyCrew built a replacement data lake, migrated 18 months of logs with zero downtime, and trained our engineering team in four weeks.",
+    author: "Marcus Weber",
+    role: "CTO",
+    company: "NordSec GmbH",
+    rating: 5,
+  },
 ];
 
 export type Service = {

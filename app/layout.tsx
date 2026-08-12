@@ -5,6 +5,9 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ScrollTop } from "@/components/ScrollTop";
+import { JsonLd } from "@/components/JsonLd";
+import { siteSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/site";
 
 const GA_MEASUREMENT_ID = "G-BNMPZB5NQN";
 
@@ -28,7 +31,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://whycrew.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "WhyCrew — Security & AI engineering partner for MSSPs",
     template: "%s — WhyCrew",
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://whycrew.com",
+    url: SITE_URL,
     siteName: "WhyCrew",
     title: "WhyCrew — Engineering for systems you can't get wrong.",
     description:
@@ -71,6 +74,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body className="font-body text-[17px] leading-[1.6] text-text">
+        {/* Canonical Organization + WebSite entities, referenced by @id site-wide */}
+        <JsonLd schema={siteSchema} />
         <div className="bg-canvas" />
         <div className="bg-grid" />
         <div className="bg-grain" />
