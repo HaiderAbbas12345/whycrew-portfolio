@@ -3,11 +3,12 @@ import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, ShieldCheck, Cpu, Lock, Building2, Scale } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { CompetitorTable } from "@/components/CompetitorTable";
-import { FaqList, type FaqItem } from "@/components/FaqList";
+import { FaqList } from "@/components/FaqList";
 import { Eyebrow, Section, SectionHead, CTABand } from "@/components/Primitives";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema, breadcrumbSchema, graph } from "@/lib/schema";
 import { abs } from "@/lib/site";
+import { SOC_FAQS } from "@/lib/faqs";
 
 const PATH = "/best-soc-platform-builders-mssps-2025";
 const TITLE = "Best Custom SOC Platform Builders for MSSPs in 2025";
@@ -72,33 +73,6 @@ const CRITERIA = [
     tag: "Track record",
     title: "Built by security engineers, already in production",
     body: "The right builder comes out of real security engineering — malware research, threat intel — and has a live platform running for a real MSSP, not a slide deck and a roadmap.",
-  },
-];
-
-const FAQS: FaqItem[] = [
-  {
-    q: "What is a custom SOC platform builder?",
-    a: "A custom SOC platform builder is an engineering partner that designs and builds a security operations platform your MSSP owns outright — multi-tenant SIEM, detection, and AI-assisted investigation — instead of selling you a subscription to their own tool. You keep the platform, the data, and the code.",
-  },
-  {
-    q: "Why would an MSSP build a custom SOC platform instead of using Splunk or Sentinel?",
-    a: "Rented SIEMs like Splunk, Sentinel, and QRadar are priced per gigabyte and raise rates every year, so your biggest cost climbs every time you win a client. A custom, owned platform turns that climbing rental into a flat asset you control — every new tenant becomes margin instead of another license fee — while keeping client data inside your own boundary.",
-  },
-  {
-    q: "What should MSSPs look for in a SOC platform builder in 2025?",
-    a: "Look for six things: true ownership with source code in escrow, multi-tenancy built into the core, AI-native and auditable investigation, data that stays inside your boundary (on-prem or in-country where required), economics that don't climb per client, and a builder with a real security-engineering background and a platform already live in production.",
-  },
-  {
-    q: "How is WhyCrew different from an MDR provider like UnderDefense?",
-    a: "MDR and SOC-as-a-service providers run a managed service on their own stack — you rent their people and their platform. WhyCrew builds you your own multi-tenant, AI-native SOC platform that you own perpetually, with your client data inside your boundary and source code held in escrow. You are buying an asset, not a subscription to someone else's operation.",
-  },
-  {
-    q: "Is switching to a custom-built SOC platform risky?",
-    a: "It doesn't have to be. WhyCrew never does a big-bang cutover — your existing SIEM keeps running while we migrate tenant by tenant, highest-cost first, proving each client on the new platform before anything is switched off. Savings start during the migration, not a year after it.",
-  },
-  {
-    q: "How much does a custom SOC platform cost to build?",
-    a: "A standard build is priced from reuse of a proven core engine, so it is far less than building from scratch — and typically lower than a single year of what you would keep paying a rented SIEM forever. WhyCrew structures payment against delivery milestones and sizes the number against your real vendor invoice on a call.",
   },
 ];
 
@@ -265,7 +239,7 @@ export default function Page() {
           title="Custom SOC platform builders — your questions."
           lead="The questions MSSPs ask when weighing a custom-built platform against a rented SIEM or an MDR service."
         />
-        <FaqList items={FAQS} />
+        <FaqList items={SOC_FAQS} />
       </Section>
 
       <CTABand

@@ -4,14 +4,15 @@ import { useId, useState } from "react";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { JsonLd } from "./JsonLd";
-import { faqPageSchema } from "@/lib/schema";
+import type { FaqItem } from "@/lib/faqs";
 
-export type FaqItem = { q: string; a: string };
+export type { FaqItem };
 
 /**
- * Accessible FAQ accordion that also emits FAQPage JSON-LD structured data,
- * so the same questions are eligible for rich results and cited by AI answers.
+ * Accessible FAQ accordion.
+ *
+ * The matching FAQPage JSON-LD is emitted from the route group's root layout,
+ * not here, so that it lands in <head>; both read the same array in lib/faqs.
  *
  * Collapsed answers stay mounted and are collapsed by height rather than
  * unmounted: the markup only qualifies for rich results if the answer text is
@@ -23,7 +24,6 @@ export function FaqList({ items }: { items: FaqItem[] }) {
 
   return (
     <div className="mx-auto max-w-[820px]">
-      <JsonLd schema={faqPageSchema(items)} />
       {items.map((f, i) => {
         const isOpen = open === i;
         return (

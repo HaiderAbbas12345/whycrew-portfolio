@@ -1,13 +1,11 @@
-import type { Metadata } from "next";
 import Script from "next/script";
 import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ScrollTop } from "@/components/ScrollTop";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema, reviewSchema, websiteSchema } from "@/lib/schema";
-import { SITE_URL } from "@/lib/site";
 
 const GA_MEASUREMENT_ID = "G-BNMPZB5NQN";
 
@@ -30,31 +28,25 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "WhyCrew — Security & AI engineering partner for MSSPs",
-    template: "%s — WhyCrew",
-  },
-  description:
-    "WhyCrew is a security and AI engineering partner for MSSPs and teams where sensitive data is the whole problem. We automate SOC operations, integrate tooling, deploy AI agents, and build owned security platforms.",
-  icons: { icon: "/icon.jpeg", apple: "/icon.jpeg" },
-  verification: {
-    google: "TYYuh-ev2DxwW0Of-KVoqFbn-RkdU6BojgN0dW5lXrg",
-  },
-  openGraph: {
-    type: "website",
-    url: SITE_URL,
-    siteName: "WhyCrew",
-    title: "WhyCrew — Engineering for systems you can't get wrong.",
-    description:
-      "Security, AI, and integrations for MSSPs and teams where sensitive data is the whole problem. Built by security people.",
-    images: ["/logo.jpeg"],
-  },
-  twitter: { card: "summary_large_image" },
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+/**
+ * The single <html> shell, shared by every route group's root layout.
+ *
+ * The app is split into route groups so that each group gets its own root
+ * layout and therefore its own <head> — that is the only way a page-specific
+ * node like FAQPage can be emitted into <head>, since the root layout renders
+ * before the page and cannot otherwise know what the page contains. Groups pass
+ * their page-specific structured data in through `headExtra`.
+ *
+ * Trade-off this buys: navigating between two route groups is a full document
+ * load rather than a client-side transition.
+ */
+export function RootShell({
+  children,
+  headExtra,
+}: {
+  children: React.ReactNode;
+  headExtra?: React.ReactNode;
+}) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
@@ -63,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd schema={organizationSchema} />
         <JsonLd schema={reviewSchema} />
         <JsonLd schema={websiteSchema} />
+        {headExtra}
 
         {/* Google tag (gtag.js) */}
         <Script
