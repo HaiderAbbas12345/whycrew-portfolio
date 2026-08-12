@@ -6,7 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ScrollTop } from "@/components/ScrollTop";
 import { JsonLd } from "@/components/JsonLd";
-import { siteSchema } from "@/lib/schema";
+import { organizationSchema, reviewSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 
 const GA_MEASUREMENT_ID = "G-BNMPZB5NQN";
@@ -58,6 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
+        {/* Site-wide structured data. Organization and Review share one @id and
+            merge into a single entity; WebSite points back at it via publisher. */}
+        <JsonLd schema={organizationSchema} />
+        <JsonLd schema={reviewSchema} />
+        <JsonLd schema={websiteSchema} />
+
         {/* Google tag (gtag.js) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -74,8 +80,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body className="font-body text-[17px] leading-[1.6] text-text">
-        {/* Canonical Organization + WebSite entities, referenced by @id site-wide */}
-        <JsonLd schema={siteSchema} />
         <div className="bg-canvas" />
         <div className="bg-grid" />
         <div className="bg-grain" />

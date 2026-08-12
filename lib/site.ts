@@ -2,11 +2,13 @@ export const SITE = {
   name: "WhyCrew",
   email: "hello@whycrew.com",
   tagline: "Security, AI, and integrations for systems you can't get wrong.",
-  domain: "whycrew.com",
+  domain: "www.whycrew.com",
 };
 
 /**
- * Canonical origin — apex, no `www`, no trailing slash.
+ * Canonical origin — `www`, no trailing slash. The apex 308-redirects here, so
+ * this is the host every canonical URL must name; pointing @ids or the sitemap
+ * at the apex sends crawlers through a redirect to reach the real page.
  * Single source for metadataBase, the sitemap, and every schema.org @id.
  * Keep public/robots.txt in sync by hand; it can't import.
  */

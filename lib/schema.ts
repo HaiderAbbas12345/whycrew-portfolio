@@ -7,6 +7,12 @@ import { SITE, SITE_URL, TESTIMONIALS, abs } from "./site";
  * Every other node on every other page references it by that @id instead of
  * repeating the organization inline, so crawlers resolve one entity rather than
  * a dozen look-alikes.
+ *
+ * The site-wide nodes are emitted as separate <script> tags rather than one
+ * @graph. Organization and Review are two documents sharing the ORG_ID @id;
+ * JSON-LD merges same-@id nodes across scripts into a single entity, so the
+ * review still attaches to the same organization Google resolves from the
+ * first script.
  */
 
 export const ORG_ID = abs("/#organization");
@@ -29,25 +35,20 @@ const reviews = TESTIMONIALS.map((t) => ({
   itemReviewed: ORG_REF,
 }));
 
-/**
- * Google discards self-serving aggregate ratings, and a one-review aggregate
- * reads as thin either way. Emit it only once several genuine references exist —
- * it switches itself on when TESTIMONIALS grows.
- */
-const aggregateRating =
-  TESTIMONIALS.length > 1
-    ? {
-        "@type": "AggregateRating",
-        ratingValue: (
-          TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length
-        ).toFixed(1),
-        bestRating: "5",
-        ratingCount: String(TESTIMONIALS.length),
-        reviewCount: String(TESTIMONIALS.length),
-      }
-    : undefined;
+/** Averaged over the same TESTIMONIALS the page renders, so the two can't drift. */
+const aggregateRating = {
+  "@type": "AggregateRating",
+  ratingValue: (
+    TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length
+  ).toFixed(1),
+  bestRating: "5",
+  ratingCount: String(TESTIMONIALS.length),
+  reviewCount: String(TESTIMONIALS.length),
+};
 
-const organization = {
+/** Script 1 — the canonical Organization entity. */
+export const organizationSchema = {
+  "@context": "https://schema.org",
   "@type": "Organization",
   "@id": ORG_ID,
   name: SITE.name,
@@ -63,6 +64,10 @@ const organization = {
   image: { "@id": abs("/#logo") },
   description:
     "WhyCrew is an engineering partner that builds custom SIEM platforms, AI-powered SOC automation, white-label MSSP platforms, and NIS2/DORA compliance automation, and delivers each one as a fully owned asset to MSSPs and regulated infrastructure operators.",
+  foundingLocation: {
+    "@type": "Place",
+    address: { "@type": "PostalAddress", addressCountry: "EU" },
+  },
   areaServed: { "@type": "Place", name: "Worldwide" },
   knowsAbout: [
     "SIEM Development",
@@ -81,11 +86,21 @@ const organization = {
     url: abs("/#contact"),
     availableLanguage: ["English"],
   },
-  review: reviews,
-  ...(aggregateRating && { aggregateRating }),
 };
 
-const website = {
+/** Script 2 — reviews, merged onto the Organization above by shared @id. */
+export const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": ORG_ID,
+  name: SITE.name,
+  review: reviews,
+  aggregateRating,
+};
+
+/** Script 3 — the WebSite entity, published by the Organization above. */
+export const websiteSchema = {
+  "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": WEBSITE_ID,
   url: `${SITE_URL}/`,
@@ -93,12 +108,6 @@ const website = {
   description: SITE.tagline,
   publisher: ORG_REF,
   inLanguage: "en",
-};
-
-/** Site-wide entity graph. Emitted once, from the root layout. */
-export const siteSchema = {
-  "@context": "https://schema.org",
-  "@graph": [organization, website],
 };
 
 export function faqPageSchema(items: { q: string; a: string }[]) {

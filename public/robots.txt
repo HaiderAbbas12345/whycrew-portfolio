@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /private
 
-Sitemap: https://whycrew.com/sitemap.xml
+Sitemap: https://www.whycrew.com/sitemap.xml
