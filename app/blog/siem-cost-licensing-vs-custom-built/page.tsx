@@ -8,7 +8,6 @@ import {
   P,
   QuickAnswer,
   Ref,
-  Rule,
   Strong,
 } from "@/components/blog/prose";
 import { FaqAccordion } from "@/components/ui/faq";
@@ -180,8 +179,6 @@ export default function Page() {
           />
         </div>
 
-        <Rule />
-
         <H2 id="at-a-glance">Licensed vs. Custom-Built SIEM at a Glance</H2>
         <DataTable
           caption="Comparison of licensed and custom-built SIEM across cost, deployment, and control factors"
@@ -189,8 +186,6 @@ export default function Page() {
           rows={GLANCE.rows}
           highlightCol={2}
         />
-
-        <Rule />
 
         <H2 id="licensing-costs">What Drives SIEM Licensing Costs?</H2>
         <P>
@@ -242,8 +237,6 @@ export default function Page() {
           covers how this plays out in practice.
         </P>
 
-        <Rule />
-
         <H2 id="hidden-costs">What Hidden SIEM Costs Do Teams Overlook?</H2>
         <P>
           Published pricing rarely reflects total cost of ownership. Security
@@ -281,8 +274,6 @@ export default function Page() {
           of base licensing fees — though actual figures vary significantly by
           environment and vendor.
         </P>
-
-        <Rule />
 
         <H2 id="which-costs-less">
           Licensed SIEM vs. Custom-Built: Which Model Costs Less?
@@ -332,8 +323,6 @@ export default function Page() {
           that window.
         </P>
 
-        <Rule />
-
         <H2 id="who-benefits">Who Benefits Most From a Custom-Built SIEM?</H2>
         <P>
           Not every organization should build. Custom-built SIEMs deliver the
@@ -369,8 +358,6 @@ export default function Page() {
           may erode the financial advantage.
         </P>
 
-        <Rule />
-
         <H2 id="real-world-savings">
           What Real-World Cost Reduction Can You Expect?
         </H2>
@@ -391,8 +378,6 @@ export default function Page() {
           <Ref to="siem-migration-guide">SIEM migration guide</Ref>.
         </P>
 
-        <Rule />
-
         <H2 id="which-model">Which SIEM Model Fits Your Situation?</H2>
         <DataTable
           caption="Guidance on choosing between licensed and custom-built SIEM by environment profile"
@@ -400,8 +385,6 @@ export default function Page() {
           rows={FIT.rows}
           highlightCol={1}
         />
-
-        <Rule />
 
         <H2 id="bottom-line">The Bottom Line</H2>
         <P>
@@ -423,8 +406,6 @@ export default function Page() {
           right requires an honest look at your current spend, your growth
           trajectory, and your internal capacity.
         </P>
-
-        <Rule />
 
         <H2 id="faq">Frequently Asked Questions</H2>
         <div className="mt-6">

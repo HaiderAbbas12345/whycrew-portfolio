@@ -92,7 +92,7 @@ export function ArticleShell({
           <aside className="hidden lg:block">
             <nav
               aria-label="On this page"
-              className="sticky top-28 border-l border-line/60 pl-5"
+              className="sticky top-28"
             >
               <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
                 On this page
@@ -110,7 +110,7 @@ export function ArticleShell({
                 ))}
               </ul>
 
-              <div className="mt-8 border-t border-line-soft pt-6">
+              <div className="mt-9">
                 <p className="text-[12.5px] leading-relaxed text-muted">
                   Want this modelled against your own numbers?
                 </p>
@@ -145,7 +145,7 @@ export function ArticleShell({
             </div>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line-soft pt-6">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/resources"
               className="group inline-flex items-center gap-2 text-[13px] font-semibold text-muted transition-colors hover:text-accent"

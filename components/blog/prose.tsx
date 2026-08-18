@@ -4,11 +4,16 @@ import { resolveLink } from "@/lib/blog";
 
 /* ---------------------------------------------------------------- headings */
 
+/**
+ * Section heading. There are no dividers between sections, so this top padding
+ * is what separates them — hence a larger gap than a rule-separated layout
+ * would need.
+ */
 export function H2({ id, children }: { id: string; children: ReactNode }) {
   return (
     <h2
       id={id}
-      className="group scroll-mt-28 pt-14 text-2xl font-semibold leading-tight text-bright first:pt-0 sm:text-[1.75rem]"
+      className="group scroll-mt-28 pt-16 text-2xl font-semibold leading-tight text-bright first:pt-0 sm:text-[1.75rem]"
     >
       <a href={`#${id}`} className="no-underline">
         {children}
@@ -200,8 +205,3 @@ export function DataTable({
   );
 }
 
-/* --------------------------------------------------------------- divider */
-
-export function Rule() {
-  return <div className="hairline my-12 w-full" aria-hidden />;
-}
