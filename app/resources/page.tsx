@@ -16,14 +16,14 @@ import { RESOURCES, RESOURCE_TYPES, liveResources } from "@/lib/resources";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Resources — Guides, Case Studies & Compliance Tooling for MSSPs",
+  title: "Resources — Blog, Case Studies & White Papers for MSSPs",
   description:
-    "Technical guides, case studies, whitepapers, SOC templates, ROI calculators, and NIS2 & DORA compliance checklists for MSSPs and regulated operators.",
+    "Engineering write-ups, client case studies, and in-depth white papers on custom SIEM & SOAR, AI SOC automation, and NIS2 & DORA compliance for MSSPs.",
   alternates: { canonical: "/resources" },
   openGraph: {
     title: "WhyCrew Resources",
     description:
-      "Technical guides, case studies, whitepapers, SOC templates, ROI calculators, and NIS2 & DORA compliance checklists for MSSPs and regulated operators.",
+      "Engineering write-ups, client case studies, and in-depth white papers on custom SIEM & SOAR, AI SOC automation, and NIS2 & DORA compliance for MSSPs.",
     url: `${SITE.url}/resources`,
   },
 };
@@ -35,11 +35,11 @@ const HIGHLIGHTS = [
   },
   {
     title: "No gated fluff",
-    body: "Technical guides and blog posts are open. Only the working templates and compliance packs ask for an email, because we maintain them.",
+    body: "Blog posts and case studies are open. Only the long-form white papers ask for an email, because we keep them current.",
   },
   {
     title: "Regulator-oriented",
-    body: "The compliance material maps to NIS2 Article 21 and DORA obligations directly, not to a generic framework you have to translate.",
+    body: "The NIS2 and DORA writing maps to the obligations directly, not to a generic framework you have to translate first.",
   },
 ];
 
@@ -117,9 +117,9 @@ export default function ResourcesPage() {
 
           <Reveal delay={0.55}>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              Guides, case studies, templates, calculators, and compliance packs
-              for MSSPs and regulated operators — organised by what you&apos;re
-              trying to do, not by what department wrote it.
+              Engineering write-ups, client case studies, and in-depth white
+              papers for MSSPs and regulated operators — organised by what
+              you&apos;re trying to do, not by what department wrote it.
             </p>
           </Reveal>
 
@@ -145,7 +145,8 @@ export default function ResourcesPage() {
       {/* ============================================ WHAT'S HERE */}
       <Section className="border-y border-line/40 bg-ink/40">
         <Eyebrow>What&apos;s in here</Eyebrow>
-        <Heading sub={`${RESOURCE_TYPES.length} categories, spanning platform engineering, SOC automation, and EU regulatory work.`}>
+        <Heading sub="Platform engineering, SOC automation, and EU regulatory work — written up by the people who did it, not a content team.">
+
           Written by the engineers who build it
         </Heading>
 

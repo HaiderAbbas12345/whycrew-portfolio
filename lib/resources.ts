@@ -1,10 +1,10 @@
 /**
  * Central resource library — structure only.
  *
- * Categories mirror the approved site architecture: the Content Hub
- * (blog, case studies, whitepapers, technical guides) and the Resource Hub
- * (SOC templates, ROI calculators, compliance checklists, API docs) merged
- * into one browsable index.
+ * Currently scoped to the three Content Hub categories: Blog, Case Studies,
+ * and White Papers. The wider set from the site architecture (Technical
+ * Guides, SOC Templates, ROI Calculators, Compliance Checklists, API Docs) can
+ * be reinstated by adding them to RESOURCE_TYPES below.
  *
  * ---------------------------------------------------------------------------
  * ADDING CONTENT
@@ -34,15 +34,16 @@
  * ---------------------------------------------------------------------------
  */
 
+/**
+ * Live categories. The architecture diagram also allows for Technical Guides,
+ * SOC Templates, ROI Calculators, Compliance Checklists, and API Docs — adding
+ * any of them back is a one-line change here and the tab, count, and filter
+ * appear on their own.
+ */
 export const RESOURCE_TYPES = [
-  "Blog & Insights",
+  "Blog",
   "Case Studies",
   "White Papers",
-  "Technical Guides",
-  "SOC Templates",
-  "ROI Calculators",
-  "Compliance Checklists",
-  "API Docs",
 ] as const;
 
 export type ResourceType = (typeof RESOURCE_TYPES)[number];

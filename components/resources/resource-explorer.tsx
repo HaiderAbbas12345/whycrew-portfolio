@@ -288,9 +288,8 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
                 The library is being written
               </p>
               <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-muted">
-                Guides, case studies, templates, calculators and compliance
-                packs are on the way. The categories above are where they&apos;ll
-                land.
+                Engineering write-ups, client case studies, and white papers are
+                on the way. The categories above are where they&apos;ll land.
               </p>
             </>
           ) : (
