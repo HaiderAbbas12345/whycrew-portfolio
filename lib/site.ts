@@ -82,9 +82,9 @@ export const SERVICES: ServiceSummary[] = [
     short: "AI agents that never leave your perimeter",
     blurb:
       "Private LLM agents deployed inside your environment. All inference stays within your perimeter. No alert data leaves your infrastructure.",
-    metaTitle: "AI SOC Automation | Own Your Platform | WhyCrew",
+    metaTitle: "AI-Powered SOC Automation | Cut Tier-1 Alerts 80%",
     metaDescription:
-      "Own your AI SOC Automation. WhyCrew deploys on-premise AI agents with no external calls, cuts Tier-1 volume by 80%, and hands you the source code. Book a consultation.",
+      "Deploy AI SOC Automation inside your infrastructure — zero external API calls, 70-80% less Tier-1 workload, full platform ownership. Book a consultation.",
   },
   {
     slug: "mssp-engineering-partner",

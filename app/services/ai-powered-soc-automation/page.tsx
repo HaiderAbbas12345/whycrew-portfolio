@@ -17,13 +17,21 @@ import { CTA_HREF, serviceBySlug } from "@/lib/site";
 const svc = serviceBySlug("ai-powered-soc-automation");
 
 export const metadata: Metadata = {
-  title: "AI SOC Automation | Own Your Platform",
+  // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
+  // renders exactly as specified and stays inside the SERP cutoff.
+  title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
   openGraph: {
     title: svc.metaTitle,
     description: svc.metaDescription,
     url: svc.href,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: svc.metaTitle,
+    description: svc.metaDescription,
   },
 };
 
