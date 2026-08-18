@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
       { source: "/ai-workflows", destination: "/services/ai-powered-soc-automation", permanent: true },
       { source: "/workflow-automation", destination: "/services/ai-powered-soc-automation", permanent: true },
       { source: "/case-studies", destination: "/#results", permanent: true },
+      // /blog has no index of its own — Resources is the hub.
+      { source: "/blog", destination: "/resources", permanent: false },
     ];
   },
 

@@ -84,8 +84,25 @@ export interface Resource {
   gated?: boolean;
 }
 
-/** Empty by design — see the note at the top of this file. */
-export const RESOURCES: Resource[] = [];
+/**
+ * Published resources. Blog entries mirror `POSTS` in lib/blog.ts — the article
+ * itself lives at app/blog/<slug>/page.tsx and this entry is what surfaces it
+ * on the hub.
+ */
+export const RESOURCES: Resource[] = [
+  {
+    id: "blog-siem-cost-licensing-vs-custom-built",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Platform Ownership"],
+    title: "How Much Does a SIEM Cost? Licensing vs. Custom-Built",
+    summary:
+      "Licensed SIEMs charge on ingestion, retention, and feature tiers. Custom-built platforms trade that for upfront engineering. Where the break-even actually falls, and which model fits which environment.",
+    format: "9 min read",
+    status: "live",
+    href: "/blog/siem-cost-licensing-vs-custom-built",
+    date: "2026-08-18",
+  },
+];
 
 /* ------------------------------------------------------------------ helpers */
 
