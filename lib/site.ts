@@ -70,10 +70,9 @@ export const SERVICES: ServiceSummary[] = [
     short: "Own the platform your SOC runs on",
     blurb:
       "Multi-tenant data lake architecture, custom detection engines, SOAR playbook development, and zero-downtime migration off any legacy or vendor-locked platform.",
-    metaTitle:
-      "Custom SIEM & SOAR Development for MSSPs and Regulated Operators | WhyCrew",
+    metaTitle: "Custom SIEM & SOAR Development | Cut Costs 40-70%",
     metaDescription:
-      "Custom SIEM and SOAR platforms built around your ingestion volume and tenancy model, then handed over fully owned. Zero-downtime migration from Splunk, Sentinel, or QRadar.",
+      "Stop renting your SIEM. WhyCrew builds custom SIEM & SOAR platforms you own outright — zero-downtime migration, 40-70% cost cut. Book a free audit.",
   },
   {
     slug: "ai-powered-soc-automation",
@@ -119,9 +118,9 @@ export const serviceBySlug = (slug: ServiceKey) =>
 
 export const PRIMARY_NAV = [
   { label: "Services", href: "/services", hasMenu: true },
+  { label: "Resources", href: "/resources" },
   { label: "Results", href: "/#results" },
   { label: "How it Works", href: "/#how-it-works" },
-  { label: "FAQ", href: "/#faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

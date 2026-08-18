@@ -24,13 +24,22 @@ import { CTA_HREF, serviceBySlug } from "@/lib/site";
 const svc = serviceBySlug("custom-siem-soar-development");
 
 export const metadata: Metadata = {
-  title: "Custom SIEM & SOAR Development for MSSPs and Regulated Operators",
+  // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
+  // renders exactly as specified — appending the brand would push it past the
+  // ~60 character SERP cutoff and add a third pipe.
+  title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
   openGraph: {
     title: svc.metaTitle,
     description: svc.metaDescription,
     url: svc.href,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: svc.metaTitle,
+    description: svc.metaDescription,
   },
 };
 
