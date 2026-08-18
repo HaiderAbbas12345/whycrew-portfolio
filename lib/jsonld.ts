@@ -11,10 +11,21 @@ export const organizationLd = () => ({
   "@id": `${SITE.url}/#organization`,
   name: SITE.name,
   url: SITE.url,
-  logo: `${SITE.url}/logo.jpeg`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE.url}/logo.jpeg`,
+    width: 800,
+    height: 800,
+  },
+  image: `${SITE.url}/logo.jpeg`,
   description: SITE.description,
   email: SITE.email,
   slogan: "Stop renting. Start owning.",
+  // Entity disambiguation — carried over from the previous site's schema.
+  sameAs: [
+    "https://www.linkedin.com/company/whycrew",
+    "https://twitter.com/whycrew",
+  ],
   knowsAbout: [
     "SIEM development",
     "SOAR automation",
