@@ -6,7 +6,6 @@ import {
   Card,
   Eyebrow,
   Heading,
-  Pill,
   Section,
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
@@ -48,10 +47,7 @@ export default function ServicesPage() {
               { name: "Services", path: "/services" },
             ]}
           />
-          <Reveal>
-            <Pill tone="brand">Four core engineering services</Pill>
-          </Reveal>
-          <h1 className="mt-7 max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-5xl">
+          <h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-5xl">
             <WordsUp
               text="We build it. You own it."
               delay={0.1}

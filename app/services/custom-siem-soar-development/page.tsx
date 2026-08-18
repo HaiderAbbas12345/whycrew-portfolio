@@ -301,7 +301,6 @@ export default function Page() {
       />
 
       <ServiceHero
-        eyebrow="Platform Ownership"
         title="Custom SIEM & SOAR Development for MSSPs and Regulated Operators"
         highlight={["Development"]}
         lead="Stop renting your security stack. Own it."

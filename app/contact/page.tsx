@@ -8,7 +8,6 @@ import {
   Card,
   Eyebrow,
   Heading,
-  Pill,
   Section,
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
@@ -174,11 +173,7 @@ export default function ContactPage() {
       <section className="relative overflow-hidden pt-32 pb-16 text-center sm:pt-40">
         <Backdrop />
         <div className="container-page">
-          <Reveal>
-            <Pill>Contact WhyCrew</Pill>
-          </Reveal>
-
-          <h1 className="mx-auto mt-8 max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-[3.6rem]">
+          <h1 className="mx-auto max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-[3.6rem]">
             <WordsUp text="Talk to an Engineer." delay={0.12} />{" "}
             <WordsUp text="Not a Salesperson." delay={0.4} gradient />
           </h1>

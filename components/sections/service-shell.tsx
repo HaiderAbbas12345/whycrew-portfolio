@@ -3,7 +3,6 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
-  Pill,
   Section,
   StatBar,
   type Stat,
@@ -11,7 +10,6 @@ import {
 import { Parallax, Reveal, WordsUp } from "@/components/motion";
 
 export function ServiceHero({
-  eyebrow,
   title,
   highlight,
   lead,
@@ -22,7 +20,6 @@ export function ServiceHero({
   breadcrumbName,
   breadcrumbPath,
 }: {
-  eyebrow: string;
   title: string;
   highlight?: string[];
   lead: string;
@@ -45,11 +42,7 @@ export function ServiceHero({
           ]}
         />
 
-        <Reveal>
-          <Pill tone="brand">{eyebrow}</Pill>
-        </Reveal>
-
-        <h1 className="mt-7 max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
+        <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
           <WordsUp text={title} delay={0.12} highlight={highlight} />
         </h1>
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
-import { Breadcrumb, Pill } from "@/components/ui/primitives";
+import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
 import type { BlogPost } from "@/lib/blog";
 
@@ -44,11 +44,7 @@ export function ArticleShell({
 
           <div className="max-w-3xl">
             <Reveal>
-              <Pill tone="brand">{post.cluster}</Pill>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <h1 className="mt-7 text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.9rem]">
+              <h1 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.9rem]">
                 {post.title}
               </h1>
             </Reveal>

@@ -7,7 +7,6 @@ import {
   Card,
   Eyebrow,
   Heading,
-  Pill,
   Section,
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
@@ -106,11 +105,7 @@ export default function ResourcesPage() {
               { name: "Resources", path: "/resources" },
             ]}
           />
-          <Reveal>
-            <Pill tone="brand">Resource Library</Pill>
-          </Reveal>
-
-          <h1 className="mt-7 max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
+          <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
             <WordsUp text="Everything we know," delay={0.12} />{" "}
             <WordsUp text="in one place." delay={0.34} gradient />
           </h1>

@@ -260,7 +260,6 @@ export default function Page() {
       />
 
       <ServiceHero
-        eyebrow="On-Premise AI Agents"
         title="AI-Powered SOC Automation"
         highlight={["Automation"]}
         lead="Your SOC, Running on AI Agents You Actually Own"

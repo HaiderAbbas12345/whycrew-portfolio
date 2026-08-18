@@ -77,32 +77,6 @@ export function Heading({
   );
 }
 
-/* ---------------------------------------------- Pill badge */
-
-export function Pill({
-  children,
-  tone = "accent",
-}: {
-  children: ReactNode;
-  tone?: "accent" | "brand";
-}) {
-  const ring =
-    tone === "brand"
-      ? "border-brand/35 text-brand-hi bg-brand/10"
-      : "border-accent/30 text-accent bg-accent/8";
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full border ${ring} px-4 py-1.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em]`}
-    >
-      <span className="relative flex size-1.5">
-        <span className="absolute inline-flex size-full animate-ping rounded-full bg-current opacity-60" />
-        <span className="relative inline-flex size-1.5 rounded-full bg-current" />
-      </span>
-      {children}
-    </span>
-  );
-}
-
 /* ---------------------------------------------- Card */
 
 export function Card({

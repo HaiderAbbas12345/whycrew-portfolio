@@ -9,7 +9,6 @@ import {
   Eyebrow,
   Heading,
   Hairline,
-  Pill,
   ProcessSteps,
   Quote,
   Section,
@@ -227,11 +226,7 @@ export default function HomePage() {
         <Backdrop />
         <div className="container-page">
           <div className="mx-auto max-w-4xl text-center">
-            <Reveal duration={0.7}>
-              <Pill>Engineering Partner for MSSPs &amp; Regulated Operators</Pill>
-            </Reveal>
-
-            <h1 className="mt-8 text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.9rem]">
+            <h1 className="text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.9rem]">
               <WordsUp
                 text="The Engineering Partner Behind"
                 delay={0.15}

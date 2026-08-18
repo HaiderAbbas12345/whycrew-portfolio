@@ -199,7 +199,6 @@ export default function Page() {
       />
 
       <ServiceHero
-        eyebrow="White-Label SOC Platforms"
         title="MSSP Engineering Partner"
         highlight={["Partner"]}
         lead="Stop Reselling a Platform. Start Owning One."

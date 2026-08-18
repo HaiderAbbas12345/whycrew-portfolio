@@ -256,7 +256,6 @@ export default function Page() {
       />
 
       <ServiceHero
-        eyebrow="Continuous Compliance Program"
         title="NIS2 and DORA Don't Wait for Your Team to Catch Up."
         highlight={["Catch", "Up."]}
         lead="Compliance that runs without you holding it together."

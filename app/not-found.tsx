@@ -1,6 +1,5 @@
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
-import { Pill } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
 
 export default function NotFound() {
@@ -9,10 +8,7 @@ export default function NotFound() {
       <Backdrop />
       <div className="container-page text-center">
         <Reveal>
-          <Pill tone="brand">404 — Not found</Pill>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h1 className="mx-auto mt-8 max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="mx-auto max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">
             This page isn&apos;t part of the{" "}
             <span className="text-gradient">architecture</span>.
           </h1>
