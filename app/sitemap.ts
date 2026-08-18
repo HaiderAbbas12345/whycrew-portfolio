@@ -1,24 +1,33 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
-
-const routes: { path: string; priority: number }[] = [
-  { path: "/", priority: 1 },
-  { path: "/for-mssps", priority: 0.9 },
-  { path: "/security-products", priority: 0.8 },
-  { path: "/workflow-automation", priority: 0.8 },
-  { path: "/ai-workflows", priority: 0.8 },
-  { path: "/integrations", priority: 0.8 },
-  { path: "/case-studies", priority: 0.8 },
-  { path: "/best-soc-platform-builders-mssps-2025", priority: 0.7 },
-];
+import { SERVICES, SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const now = new Date();
 
-  return routes.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority,
-  }));
+  return [
+    {
+      url: SITE.url,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${SITE.url}/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    ...SERVICES.map((s) => ({
+      url: `${SITE.url}${s.href}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
+    {
+      url: `${SITE.url}/contact`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+  ];
 }

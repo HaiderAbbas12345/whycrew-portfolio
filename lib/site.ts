@@ -1,103 +1,141 @@
 export const SITE = {
   name: "WhyCrew",
+  legalName: "WhyCrew",
+  /**
+   * Canonical origin — `www`, no trailing slash. The apex 308-redirects here,
+   * so this is the host every canonical URL, OG tag, sitemap entry, and
+   * schema.org @id must name. Pointing them at the apex sends crawlers through
+   * a redirect to reach the real page.
+   */
+  url: "https://www.whycrew.com",
+  tagline: "The Engineering Partner Behind Independent Security Teams",
+  description:
+    "MSSP engineering partner building custom SIEM platforms you own. No vendor lock-in, no subscriptions. Global delivery, EU-proven. Book a strategy call.",
   email: "hello@whycrew.com",
-  tagline: "Security, AI, and integrations for systems you can't get wrong.",
-  domain: "www.whycrew.com",
-};
+  incidentEmail: "incident@whycrew.com",
+  pressEmail: "press@whycrew.com",
+  locale: "en_US",
+} as const;
 
 /**
- * Canonical origin — `www`, no trailing slash. The apex 308-redirects here, so
- * this is the host every canonical URL must name; pointing @ids or the sitemap
- * at the apex sends crawlers through a redirect to reach the real page.
- * Single source for metadataBase, the sitemap, and every schema.org @id.
- * Keep public/robots.txt in sync by hand; it can't import.
+ * Where every "Book a call" CTA points. Set NEXT_PUBLIC_BOOKING_URL to a
+ * Cal.com / Calendly link and the buttons go straight there; unset, they fall
+ * back to the on-site contact form. Same convention as the previous site, so
+ * the existing Vercel env var works unchanged.
  */
-export const SITE_URL = `https://${SITE.domain}`;
+export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
+export const CTA_HREF = BOOKING_URL || "/contact";
+export const IS_EXTERNAL_CTA = Boolean(BOOKING_URL);
 
-/** Absolute URL for a root-relative path. `abs("/for-mssps")` → https://whycrew.com/for-mssps */
-export const abs = (path: string) => `${SITE_URL}${path}`;
+/** GA4 property carried over from the previous deployment. */
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-BNMPZB5NQN";
 
-export const NAV = [
-  { label: "Home", href: "/" },
-  { label: "For MSSPs", href: "/for-mssps" },
-  { label: "Services", href: "/#services" },
-  { label: "Case studies", href: "/case-studies" },
-];
+/** Search Console ownership token carried over from the previous deployment. */
+export const GOOGLE_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  "TYYuh-ev2DxwW0Of-KVoqFbn-RkdU6BojgN0dW5lXrg";
 
-export type Testimonial = {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  /** Out of 5. Feeds both the visible stars and the Review markup. */
-  rating: number;
-};
+export const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
+export const FOUNDER_LINKEDIN = process.env.NEXT_PUBLIC_FOUNDER_LINKEDIN || "";
 
-/**
- * Client references. Rendered by <Testimonials> and marked up as schema.org
- * Review nodes from this same array — the quote on the page and the quote in
- * the structured data can never drift apart.
- */
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote:
-      "We were paying 45,000 euros per month in SIEM licensing. WhyCrew built a replacement data lake, migrated 18 months of logs with zero downtime, and trained our engineering team in four weeks.",
-    author: "Marcus Weber",
-    role: "CTO",
-    company: "NordSec GmbH",
-    rating: 5,
-  },
-];
+export type ServiceKey =
+  | "custom-siem-soar-development"
+  | "ai-powered-soc-automation"
+  | "mssp-engineering-partner"
+  | "nis2-dora-compliance-automation";
 
-export type Service = {
-  slug: string;
+export interface ServiceSummary {
+  slug: ServiceKey;
   href: string;
-  cat: string;
-  title: string;
+  name: string;
+  short: string;
+  navLabel: string;
   blurb: string;
-  flagship?: boolean;
-};
+  metaTitle: string;
+  metaDescription: string;
+}
 
-export const SERVICES: Service[] = [
+/**
+ * Slugs come straight from the content docs — the MSSP page specifies
+ * /services/mssp-engineering-partner, so every service sits flat under
+ * /services/ for consistency.
+ */
+export const SERVICES: ServiceSummary[] = [
   {
-    slug: "for-mssps",
-    href: "/for-mssps",
-    cat: "Flagship · For MSSPs",
-    title: "Owned SOC platforms for MSSPs",
+    slug: "custom-siem-soar-development",
+    href: "/services/custom-siem-soar-development",
+    name: "Custom SIEM & SOAR Development",
+    navLabel: "Custom SIEM & SOAR",
+    short: "Own the platform your SOC runs on",
     blurb:
-      "Stop renting Splunk, Sentinel, or QRadar. We build MSSPs their own multi-tenant, AI-native security platform — so growth stops raising your costs and every new client becomes margin.",
-    flagship: true,
+      "Multi-tenant data lake architecture, custom detection engines, SOAR playbook development, and zero-downtime migration off any legacy or vendor-locked platform.",
+    metaTitle:
+      "Custom SIEM & SOAR Development for MSSPs and Regulated Operators | WhyCrew",
+    metaDescription:
+      "Custom SIEM and SOAR platforms built around your ingestion volume and tenancy model, then handed over fully owned. Zero-downtime migration from Splunk, Sentinel, or QRadar.",
   },
   {
-    slug: "ai-workflows",
-    href: "/ai-workflows",
-    cat: "AI & Agentic",
-    title: "AI & agentic workflows",
+    slug: "ai-powered-soc-automation",
+    href: "/services/ai-powered-soc-automation",
+    name: "AI-Powered SOC Automation",
+    navLabel: "AI SOC Automation",
+    short: "AI agents that never leave your perimeter",
     blurb:
-      "AI and agents built into your product or operations, with the data controls that make them safe to ship in production.",
+      "Private LLM agents deployed inside your environment. All inference stays within your perimeter. No alert data leaves your infrastructure.",
+    metaTitle: "AI SOC Automation | Own Your Platform | WhyCrew",
+    metaDescription:
+      "Own your AI SOC Automation. WhyCrew deploys on-premise AI agents with no external calls, cuts Tier-1 volume by 80%, and hands you the source code. Book a consultation.",
   },
   {
-    slug: "integrations",
-    href: "/integrations",
-    cat: "Integrations",
-    title: "Integrations",
+    slug: "mssp-engineering-partner",
+    href: "/services/mssp-engineering-partner",
+    name: "MSSP Engineering Partner",
+    navLabel: "MSSP Engineering Partner",
+    short: "Stop reselling a platform. Start owning one.",
     blurb:
-      "Connect your tools, systems, and APIs into one clean flow, so data moves instead of being copied by hand.",
+      "White-label SOC platforms for MSSPs, VARs, and managed security operators who want to own their stack outright, not rent it from a vendor.",
+    metaTitle:
+      "MSSP Engineering Partner | Build a White-Label SOC Platform | WhyCrew",
+    metaDescription:
+      "WhyCrew is an MSSP engineering partner that builds you a white-label SOC platform you own outright — source code included, no reseller fees, no vendor lock-in.",
   },
   {
-    slug: "workflow-automation",
-    href: "/workflow-automation",
-    cat: "Automation",
-    title: "Workflow automation",
+    slug: "nis2-dora-compliance-automation",
+    href: "/services/nis2-dora-compliance-automation",
+    name: "NIS2 & DORA Compliance Automation",
+    navLabel: "NIS2 & DORA Compliance",
+    short: "Compliance that runs without you holding it together",
     blurb:
-      "Automate the repetitive, rule-based work with deterministic playbooks, so your team's time goes to what needs a human.",
-  },
-  {
-    slug: "security-products",
-    href: "/security-products",
-    cat: "Product Development",
-    title: "Cybersecurity product development",
-    blurb:
-      "Security tooling and products, from detection engines to dashboards, built by people who understand threats.",
+      "Automated incident reporting, ICT risk management, gap assessment, third-party risk, and audit evidence — running continuously as a managed program.",
+    metaTitle: "NIS2 & DORA Compliance Automation | WhyCrew",
+    metaDescription:
+      "WhyCrew automates NIS2 and DORA compliance for essential entities, financial operators, and MSSPs — incident reporting, ICT risk, audit prep, and third-party risk, all handled continuously.",
   },
 ];
+
+export const serviceBySlug = (slug: ServiceKey) =>
+  SERVICES.find((s) => s.slug === slug)!;
+
+export const PRIMARY_NAV = [
+  { label: "Services", href: "/services", hasMenu: true },
+  { label: "Results", href: "/#results" },
+  { label: "How it Works", href: "/#how-it-works" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/contact" },
+] as const;
+
+export const TRUST_STRIP = [
+  "Elasticsearch",
+  "OpenSearch",
+  "Wazuh",
+  "Splunk migration",
+  "Microsoft Sentinel migration",
+  "IBM QRadar migration",
+  "Llama 3",
+  "Mistral",
+  "MITRE ATT&CK",
+  "NIS2",
+  "DORA",
+  "GDPR",
+] as const;
