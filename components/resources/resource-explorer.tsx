@@ -144,6 +144,8 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
 
   const visible = filtered.slice(0, shown);
   const reset = () => setShown(PAGE_SIZE);
+  /** Nothing published at all, vs. filters that happen to match nothing. */
+  const libraryEmpty = resources.length === 0;
 
   return (
     <div>
@@ -263,20 +265,57 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
 
       {/* ---------------------------------------------- grid */}
       {filtered.length === 0 ? (
-        <div className="mt-8 rounded-lg border border-dashed border-line/60 bg-surface/30 px-6 py-16 text-center">
-          <p className="text-[15px] font-semibold text-bright">
-            Nothing matches that yet
-          </p>
-          <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-muted">
-            This library is still being filled in. Tell us what would actually
-            be useful and we&apos;ll prioritise it.
-          </p>
+        <div className="mt-8 rounded-lg border border-dashed border-line/60 bg-surface/30 px-6 py-20 text-center">
+          <span
+            aria-hidden
+            className="mx-auto grid size-11 place-items-center rounded-full border border-line/70 text-faint"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="size-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            >
+              <path d="M4 5h11l2 2h3v12H4zM8 13h8" />
+            </svg>
+          </span>
+
+          {libraryEmpty ? (
+            <>
+              <p className="mt-5 text-[15px] font-semibold text-bright">
+                The library is being written
+              </p>
+              <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-muted">
+                Guides, case studies, templates, calculators and compliance
+                packs are on the way. The categories above are where they&apos;ll
+                land.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mt-5 text-[15px] font-semibold text-bright">
+                Nothing matches that yet
+              </p>
+              <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-muted">
+                Try a different category, or clear the filters to see
+                everything.
+              </p>
+            </>
+          )}
+
           <Link
             href="/contact"
-            className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-accent-hi"
+            className="group mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-accent-hi"
           >
-            Request a resource
-            <span aria-hidden>→</span>
+            Tell us what would help
+            <span
+              aria-hidden
+              className="transition-transform duration-400 group-hover:translate-x-1"
+            >
+              →
+            </span>
           </Link>
         </div>
       ) : (
