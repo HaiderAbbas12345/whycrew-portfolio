@@ -60,13 +60,20 @@ export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
  * ------------------------------------------------------------------------- */
 
 export const INTERNAL_LINKS: Record<string, string | null> = {
-  // Live pages
-  "nis2-dora-compliance": "/services/nis2-dora-compliance-automation",
+  /**
+   * Live service pages. Only map an anchor here when it genuinely refers to
+   * the service page — "…development services", "…partner services". An anchor
+   * that says "guide" means a content article, and pointing it at a service
+   * page sends the reader somewhere they weren't promised.
+   */
   "custom-siem-soar-services": "/services/custom-siem-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
-  "ai-soc-automation": "/services/ai-powered-soc-automation",
 
-  // Planned articles in this cluster — null renders as plain text
+  /**
+   * Planned articles. `null` renders the anchor as plain text, so nothing
+   * links to a page that doesn't exist yet. Set the path once each is live.
+   */
+  "nis2-dora-compliance-guide": null,
   "soar-playbooks-guide": null,
   "multi-tenant-siem-architecture": null,
   "open-source-vs-custom-siem": null,

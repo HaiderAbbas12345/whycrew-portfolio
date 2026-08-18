@@ -208,7 +208,10 @@ export default function Page() {
           Standard licensed SIEM plans often include 30 to 90 days of hot
           storage. Extending retention to meet regulatory requirements — NIS2
           and DORA both mandate longer log retention windows, as detailed in our{" "}
-          <Ref to="nis2-dora-compliance">NIS2 and DORA compliance guide</Ref> —
+          <Ref to="nis2-dora-compliance-guide">
+            NIS2 and DORA compliance guide
+          </Ref>{" "}
+          —
           triggers additional storage tiers that can meaningfully increase
           annual costs.
         </P>
