@@ -3,13 +3,24 @@ export const SITE = {
   email: "hello@whycrew.com",
   tagline: "Security, AI, and integrations for systems you can't get wrong.",
   domain: "whycrew.com",
+  url: "https://whycrew.com",
+  linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL || "",
 };
+
+/**
+ * Where every "Book a call" button points. Set NEXT_PUBLIC_BOOKING_URL to a
+ * Zoho Bookings / Calendly link to send buyers straight to a calendar;
+ * otherwise they land on the contact form, which is still a tracked conversion.
+ */
+export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
+export const CTA_HREF = BOOKING_URL || "/contact";
 
 export const NAV = [
   { label: "Home", href: "/" },
   { label: "For MSSPs", href: "/for-mssps" },
   { label: "Services", href: "/#services" },
   { label: "Case studies", href: "/case-studies" },
+  { label: "About", href: "/about" },
 ];
 
 export type Service = {

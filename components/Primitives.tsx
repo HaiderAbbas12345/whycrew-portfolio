@@ -2,6 +2,36 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight, Home } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { JsonLd } from "./JsonLd";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { CTA_HREF } from "@/lib/site";
+
+/**
+ * The single "Book a call" destination for the whole site. Renders a plain
+ * anchor when CTA_HREF is an external booking link, and a prefetched Link when
+ * it's the internal contact page — so there is exactly one conversion path.
+ */
+export function BookCall({
+  children,
+  className = "btn btn-gold",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const external = /^https?:\/\//.test(CTA_HREF);
+  if (external) {
+    return (
+      <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={CTA_HREF} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
@@ -53,13 +83,28 @@ export function ServiceHero({
   kicker,
   title,
   sub,
+  schema,
 }: {
   kicker: string;
   title: ReactNode;
   sub: ReactNode;
+  /** Emits Service + BreadcrumbList JSON-LD matching the visual breadcrumb below. */
+  schema?: { path: string; name: string; description: string; serviceType: string };
 }) {
   return (
     <section className="pt-20 pb-8 md:pt-24">
+      {schema && (
+        <JsonLd
+          data={[
+            serviceSchema(schema),
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Services", path: "/#services" },
+              { name: schema.name, path: schema.path },
+            ]),
+          ]}
+        />
+      )}
       <div className="wrap">
         <div className="flex items-center gap-4 font-mono text-[12px] text-muted">
           <Link href="/" className="inline-flex items-center gap-1.5 transition-colors hover:text-own">
@@ -79,9 +124,9 @@ export function ServiceHero({
             {sub}
           </p>
           <div className="mt-7 flex flex-wrap gap-3.5">
-            <Link href="/#contact" className="btn btn-gold">
+            <BookCall>
               Book a call <ArrowUpRight size={16} />
-            </Link>
+            </BookCall>
             <a href="#how" className="btn btn-ghost">
               How we work
             </a>
@@ -128,6 +173,59 @@ export function Steps({
   );
 }
 
+/**
+ * Concrete "this is what it looks like in practice" scenarios. Specific,
+ * self-contained claims are what AI answer engines can actually quote — the
+ * abstract benefit lists above them are not.
+ */
+export function UseCases({
+  cases,
+}: {
+  cases: { tag: string; title: string; body: string }[];
+}) {
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      {cases.map((c, i) => (
+        <Reveal key={c.title} delay={i * 0.05}>
+          <div className="card h-full p-6">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-own">
+              {c.tag}
+            </span>
+            <h3 className="mt-2.5 font-display text-[19px] font-bold leading-[1.2]">{c.title}</h3>
+            <p className="mt-2 text-[15px] leading-relaxed text-muted">{c.body}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/** Contextual internal links — the supporting-content graph the audit found missing. */
+export function RelatedLinks({
+  links,
+}: {
+  links: { href: string; label: string; note: string }[];
+}) {
+  return (
+    <div className="grid gap-3.5 md:grid-cols-3">
+      {links.map((l, i) => (
+        <Reveal key={l.href} delay={i * 0.05}>
+          <Link href={l.href} className="card group flex h-full flex-col gap-2 p-5">
+            <span className="flex items-center gap-1.5 font-display text-[16px] font-bold text-text">
+              {l.label}
+              <ArrowUpRight
+                size={14}
+                className="text-own transition-transform group-hover:translate-x-0.5"
+              />
+            </span>
+            <p className="text-[14px] leading-relaxed text-muted">{l.note}</p>
+          </Link>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
 export function Assure({ children }: { children: ReactNode }) {
   return (
     <Reveal className="mt-10">
@@ -156,9 +254,9 @@ export function CTABand({
             {title}
           </h2>
           <p className="mx-auto mt-4 max-w-[48ch] text-muted">{body}</p>
-          <a href="mailto:hello@whycrew.com" className="btn btn-gold mx-auto mt-7">
+          <BookCall className="btn btn-gold mx-auto mt-7">
             Book a call <ArrowUpRight size={16} />
-          </a>
+          </BookCall>
         </Reveal>
       </div>
     </section>

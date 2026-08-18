@@ -10,13 +10,25 @@ import { MigrationTimeline } from "@/components/MigrationTimeline";
 import { Pricing } from "@/components/Pricing";
 import { FAQ } from "@/components/FAQ";
 import { ContactForm } from "@/components/ContactForm";
-import { Eyebrow, Section, SectionHead } from "@/components/Primitives";
+import { Eyebrow, Section, SectionHead, RelatedLinks } from "@/components/Primitives";
+import { JsonLd } from "@/components/JsonLd";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/for-mssps",
   title: "Own your SOC platform. Stop renting your SIEM",
   description:
     "We build MSSPs an owned, multi-tenant, AI-native security platform, so growth stops raising your costs. Built for teams leaving Splunk, Sentinel, or QRadar.",
-};
+  keywords: [
+    "owned SOC platform",
+    "SIEM alternative for MSSPs",
+    "multi-tenant SIEM",
+    "QRadar alternative",
+    "Splunk alternative for MSSPs",
+    "MSSP SIEM cost",
+  ],
+});
 
 const FACTS = [
   { n: "Per GB", p: "You pay for every gigabyte ingested, across every tenant, every day." },
@@ -85,6 +97,22 @@ const REGIONS = [
 export default function MsspPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          serviceSchema({
+            path: "/for-mssps",
+            name: "Owned SOC platforms for MSSPs",
+            serviceType: "Security platform engineering",
+            description:
+              "WhyCrew builds MSSPs their own multi-tenant, AI-native security platform, so growth stops raising their costs. Built for providers leaving Splunk, Microsoft Sentinel, or IBM QRadar.",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "For MSSPs", path: "/for-mssps" },
+          ]),
+        ]}
+      />
+
       {/* HERO */}
       <section className="pt-16 pb-8 md:pt-20">
         <div className="wrap grid items-center gap-12 md:grid-cols-[1.05fr_1fr] md:gap-14">
@@ -108,13 +136,16 @@ export default function MsspPage() {
               </p>
             </Reveal>
             <Reveal delay={0.16}>
-              <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-own/30 bg-own/[0.06] px-4 py-2 text-[13.5px] text-muted">
+              <Link
+                href="/about"
+                className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-own/30 bg-own/[0.06] px-4 py-2 text-[13.5px] text-muted transition-colors hover:border-own/60 hover:text-text"
+              >
                 <BadgeCheck size={16} className="text-own" />
                 <span>
                   <b className="font-semibold text-text">Already live for a regional MSSP.</b> Built by
                   malware-research &amp; threat-intel engineers.
                 </span>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.2}>
               <div className="mt-8 flex flex-wrap gap-3.5">
@@ -305,6 +336,34 @@ export default function MsspPage() {
           lead="The doubts you'd raise on the call, answered before you have to."
         />
         <FAQ />
+      </Section>
+
+      {/* RELATED */}
+      <Section>
+        <SectionHead
+          eyebrow="Before you decide"
+          title="Do the homework on us too."
+          lead="Everything here is a claim until you check it against the alternatives. These are the places to do that."
+        />
+        <RelatedLinks
+          links={[
+            {
+              href: "/best-soc-platform-builders-mssps-2025",
+              label: "How to evaluate a SOC platform builder",
+              note: "The criteria that separate a real partner from a rebadged dev shop — including the ones we would fail on.",
+            },
+            {
+              href: "/case-studies",
+              label: "What the migration looked like",
+              note: "The provider already running on their own platform, and how the tenant-by-tenant move actually went.",
+            },
+            {
+              href: "/about",
+              label: "Who you'd be working with",
+              note: "The team, the background behind the claims, and what we will not take on.",
+            },
+          ]}
+        />
       </Section>
 
       {/* CONTACT */}

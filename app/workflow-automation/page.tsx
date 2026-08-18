@@ -8,13 +8,19 @@ import {
   Steps,
   Assure,
   CTABand,
+  UseCases,
+  RelatedLinks,
 } from "@/components/Primitives";
+import { FaqList } from "@/components/FaqList";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/workflow-automation",
   title: "Workflow Automation",
   description:
     "WhyCrew automates the repetitive, rule-based work with deterministic playbooks, so your team's time goes to the work that needs a human.",
-};
+  keywords: ["SOC automation", "security playbooks", "SOAR alternative", "workflow automation"],
+});
 
 export default function Page() {
   return (
@@ -22,6 +28,13 @@ export default function Page() {
       <ServiceHero
         kicker="Workflow Automation"
         title="Stop doing by hand what software should do."
+        schema={{
+          path: "/workflow-automation",
+          name: "Workflow automation",
+          serviceType: "Process automation",
+          description:
+            "Deterministic playbooks that automate repetitive, rule-based work so a team's time goes to what actually needs a human.",
+        }}
         sub={
           <>
             We automate the repetitive, rule-based work with deterministic playbooks, so your team&apos;s
@@ -58,6 +71,38 @@ export default function Page() {
         />
       </Section>
 
+      <Section>
+        <SectionHead
+          eyebrow="In practice"
+          title="The work that should have been automated already."
+          lead="Four processes we are asked to take off people's hands, and the reason each one survives manually for so long."
+        />
+        <UseCases
+          cases={[
+            {
+              tag: "SOC · Enrichment",
+              title: "The first ten minutes of every alert",
+              body: "Pulling asset owner, recent activity, threat-intel reputation, and prior tickets — the same lookups, in the same order, on every single alert. It is pure rule-following, and it is where analyst hours quietly go.",
+            },
+            {
+              tag: "Reporting",
+              title: "The monthly client report nobody wants to build",
+              body: "For a provider with dozens of tenants, this is days of assembly every month. The inputs are already in your systems; what is missing is the pipeline that collects, formats, and delivers them on schedule.",
+            },
+            {
+              tag: "Onboarding",
+              title: "Standing up a new tenant the same way every time",
+              body: "Provisioning, log source configuration, baseline detections, access. Done by hand it drifts between clients, and the drift is what causes the incident nobody can explain six months later.",
+            },
+            {
+              tag: "Handoffs",
+              title: "The steps between two teams",
+              body: "Escalations, approvals, ticket routing. Automation here rarely saves the most hours, but it removes the delay where work sits waiting for someone to notice it exists.",
+            },
+          ]}
+        />
+      </Section>
+
       <Section id="how">
         <SectionHead eyebrow="How we work" title="Find it, build it, measure it." />
         <Steps
@@ -71,6 +116,61 @@ export default function Page() {
           <b className="font-semibold text-text">We know where automation ends and judgment begins,</b>{" "}
           and we don&apos;t cross it.
         </Assure>
+      </Section>
+
+      <Section id="faq">
+        <SectionHead
+          eyebrow="Straight answers"
+          title="Before you automate anything."
+          lead="The questions worth settling first, because automating the wrong process well is worse than leaving it alone."
+        />
+        <FaqList
+          items={[
+            {
+              q: "How do we know which work is actually worth automating?",
+              a: "Frequency times duration times error cost. A task that runs a hundred times a week and takes four minutes is worth more than one that takes an hour and runs monthly — and anything where a human slip has real consequences moves up the list regardless of time saved. We start by finding those, not by automating whatever is easiest to script.",
+            },
+            {
+              q: "Is this the same as SOAR?",
+              a: "It overlaps. SOAR is a product category built around security playbooks; what we build is the automation your process actually needs, which may sit inside a SOAR tool you already own, alongside it, or entirely outside it. If a platform you are paying for can do the job, we would rather configure that than sell you a build.",
+            },
+            {
+              q: "What happens when the process changes?",
+              a: "Processes always change, so playbooks are built to be readable and edited rather than as opaque scripts only their author understands. Where we maintain them, changes are part of the arrangement; where you take them in-house, they are documented well enough for your team to change them safely.",
+            },
+            {
+              q: "Will this replace people on our team?",
+              a: "It replaces the part of their week that is mechanical. Every provider we talk to has more work queued than people to do it — the constraint is capacity, not headcount cost. Automating the routine path means the same team covers more without the quality falling over.",
+            },
+            {
+              q: "Should this be AI instead?",
+              a: "Only where the decision genuinely cannot be expressed as a rule. Deterministic automation is cheaper, faster, and auditable in a way a model is not, so it should handle everything it can. Use AI for the judgment calls that remain — that boundary is the whole design question, and we take it seriously in both directions.",
+            },
+          ]}
+        />
+      </Section>
+
+      <Section>
+        <SectionHead eyebrow="Related" title="Where this fits with the rest." />
+        <RelatedLinks
+          links={[
+            {
+              href: "/ai-workflows",
+              label: "AI & agentic workflows",
+              note: "For the cases a fixed rule cannot express. The two are designed to hand off to each other.",
+            },
+            {
+              href: "/integrations",
+              label: "Integrations",
+              note: "Automation needs the systems to be reachable first. This is usually the prerequisite step.",
+            },
+            {
+              href: "/for-mssps",
+              label: "Owned SOC platforms",
+              note: "For MSSPs, the biggest automation win sits inside a platform you own rather than rent.",
+            },
+          ]}
+        />
       </Section>
 
       <CTABand

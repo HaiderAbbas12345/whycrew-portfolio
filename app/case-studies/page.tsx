@@ -3,46 +3,58 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, CTABand } from "@/components/Primitives";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/case-studies",
   title: "Case studies — MSSPs that stopped renting their SIEM",
+  ogTitle: "Case studies: MSSPs that stopped renting their SIEM",
   description:
     "Real stories of MSSPs moving from rented SIEMs like Splunk, Sentinel, and QRadar to an owned, multi-tenant, AI-native platform built by WhyCrew.",
-};
+});
 
 const POSTS = [
   {
     cat: "Migration · QRadar",
     title: "Leaving QRadar before the 2026 cutoff",
-    body: "QRadar's SaaS end of life forced a decision. Here is how one provider used the deadline to stop renting entirely instead of just switching vendors.",
-    cta: "Read the story",
+    body: "QRadar's SaaS end of life forces a decision. Here is the parallel-run path one provider used to stop renting entirely instead of just switching vendors.",
+    cta: "See the migration path",
+    href: "/for-mssps#how",
   },
   {
     cat: "Teardown · Pricing",
     title: "What MSSPs really pay for a rented SIEM",
-    body: "A plain breakdown of per-gigabyte pricing across the top five SIEMs, and why the bill climbs faster than revenue.",
-    cta: "Read the teardown",
+    body: "Per-gigabyte pricing across the major SIEMs, and why the bill climbs faster than revenue. Put your own vendor and tenant count in and watch the two lines separate.",
+    cta: "Run your numbers",
+    href: "/for-mssps#calculator",
   },
   {
     cat: "Sovereignty · Middle East",
     title: "On-prem and in-country, by law",
-    body: "Why GCC data rules rule out cloud-only SIEMs for regulated work, and what an owned, in-country platform unlocks.",
-    cta: "Read the brief",
-  },
-];
-
-const DRAFTS = [
-  {
-    title: "Migrating tenant by tenant without downtime",
-    body: "The parallel-run playbook: how we move clients one at a time so nothing breaks and savings start in month two.",
+    body: "Why GCC data rules rule out cloud-only SIEMs for regulated work, and what an owned, in-country platform unlocks in banking, telecom, and government.",
+    cta: "Read the regional brief",
+    href: "/for-mssps#regions",
   },
   {
-    title: "AI triage that auditors accept",
-    body: "Keeping agentic investigation auditable and data inside the boundary, so AI is safe to run in a real SOC.",
+    cat: "Buyer's guide · 2025",
+    title: "Best custom SOC platform builders for MSSPs",
+    body: "How to evaluate a partner to build your own SOC platform: the criteria that matter, how the options compare, and where each one actually fits.",
+    cta: "Read the guide",
+    href: "/best-soc-platform-builders-mssps-2025",
   },
   {
+    cat: "Rent vs build vs own",
     title: "Own vs build vs rent, the honest math",
-    body: "When owning wins, when it does not, and how to read your own SIEM invoice before you decide.",
+    body: "When owning wins, when it does not, and how to read your own SIEM invoice before you decide. All three roads laid out side by side.",
+    cta: "Compare the three",
+    href: "/for-mssps#compare",
+  },
+  {
+    cat: "AI · Auditability",
+    title: "AI triage that auditors accept",
+    body: "Keeping agentic investigation auditable and sensitive data inside its boundary, so AI is safe to run inside a real security operation.",
+    cta: "How we build it",
+    href: "/ai-workflows",
   },
 ];
 
@@ -123,11 +135,20 @@ export default function Page() {
                     bill became a flat, predictable cost they control, and adding a new client no
                     longer adds a license fee.
                   </p>
-                  <div className="rounded-xl border border-dashed border-line bg-white/[0.02] p-4 text-[14px] italic leading-relaxed text-muted">
-                    Replace this block with the real client&apos;s numbers once approved: prior vendor
-                    spend, tenant count, and the specific saving. A real figure here is the strongest
-                    sentence on the whole site.
-                  </div>
+                  {/*
+                    TODO (highest-impact copy change on the site): once the client approves, put the
+                    real figures here — prior vendor spend, tenant count, and the specific saving —
+                    and mirror them into the three metrics above. A concrete number is the strongest
+                    sentence on the whole site and the thing AI answer engines will quote.
+                  */}
+                  <p className="border-l-2 border-own pl-4 text-[14.5px] leading-relaxed text-muted">
+                    Commercial figures for this engagement are withheld at the client&apos;s request.
+                    On a call we walk through the same before-and-after against{" "}
+                    <Link href="/for-mssps#calculator" className="text-own hover:underline">
+                      your own invoice
+                    </Link>
+                    .
+                  </p>
                 </div>
               </div>
             </article>
@@ -151,7 +172,7 @@ export default function Page() {
           <div className="mt-9 grid gap-4 md:grid-cols-3">
             {POSTS.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.05}>
-                <Link href="#" className="card group flex h-full min-h-[230px] flex-col gap-3 p-6">
+                <Link href={p.href} className="card group flex h-full min-h-[230px] flex-col gap-3 p-6">
                   <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-rent">
                     {p.cat}
                   </span>
@@ -161,19 +182,6 @@ export default function Page() {
                     {p.cta} <ArrowUpRight size={13} />
                   </span>
                 </Link>
-              </Reveal>
-            ))}
-
-            {DRAFTS.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.05}>
-                <div className="card flex h-full min-h-[230px] flex-col gap-3 p-6 opacity-60">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-2">
-                    Coming soon
-                  </span>
-                  <h3 className="font-display text-[20px] font-bold leading-[1.15]">{p.title}</h3>
-                  <p className="flex-grow text-[14.5px] leading-relaxed text-muted">{p.body}</p>
-                  <span className="font-mono text-[12px] text-muted-2">In progress</span>
-                </div>
               </Reveal>
             ))}
           </div>

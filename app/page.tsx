@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, ShieldCheck, Cpu, Lock, BadgeCheck } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { BoundaryMotif } from "@/components/BoundaryMotif";
-import { Eyebrow, Section, SectionHead, CTABand } from "@/components/Primitives";
+import { Eyebrow, Section, SectionHead, CTABand, RelatedLinks } from "@/components/Primitives";
 import { SERVICES } from "@/lib/site";
+
+// The root layout's OG block already describes the homepage, so this only needs
+// to pin the canonical.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const WHY = [
   {
@@ -48,14 +55,17 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={0.16}>
-              <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-own/30 bg-own/[0.06] px-4 py-2 text-[13.5px] text-muted">
+              <Link
+                href="/about"
+                className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-own/30 bg-own/[0.06] px-4 py-2 text-[13.5px] text-muted transition-colors hover:border-own/60 hover:text-text"
+              >
                 <BadgeCheck size={16} className="text-own" />
                 <span>
                   <b className="font-semibold text-text">Built by malware-research &amp; threat-intel
                   engineers.</b>{" "}
                   Already live for a regional MSSP.
                 </span>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.2}>
               <div className="mt-7 flex flex-wrap gap-3.5">
@@ -159,6 +169,34 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      {/* GO DEEPER — the pillar guide was previously reachable only from the footer */}
+      <Section>
+        <SectionHead
+          eyebrow="Go deeper"
+          title="Reading for anyone weighing this up."
+          lead="If you are somewhere between curious and building a business case, start here."
+        />
+        <RelatedLinks
+          links={[
+            {
+              href: "/best-soc-platform-builders-mssps-2025",
+              label: "Best custom SOC platform builders for MSSPs in 2025",
+              note: "The buyer's guide: how to evaluate anyone offering to build your SOC platform, and how the options compare.",
+            },
+            {
+              href: "/for-mssps#calculator",
+              label: "What are you really paying to rent?",
+              note: "Move the sliders with your own vendor, tenant count, and volume, and watch the rented line climb away from the flat one.",
+            },
+            {
+              href: "/case-studies",
+              label: "What happened when an MSSP stopped renting",
+              note: "The migration, the parallel run, and what changed about the economics on the other side.",
+            },
+          ]}
+        />
       </Section>
 
       <CTABand

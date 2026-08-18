@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Linkedin } from "lucide-react";
 import { Logo } from "./Logo";
+import { BookCall } from "./Primitives";
 import { SERVICES, SITE } from "@/lib/site";
 
 export function Footer() {
@@ -12,9 +14,18 @@ export function Footer() {
             <p className="mt-4 text-[14px] leading-relaxed text-muted">
               Owned, multi-tenant, AI-native security platforms for MSSPs. Stop renting. Start owning.
             </p>
-            <Link href="/#contact" className="btn btn-gold mt-6">
-              Book a call
-            </Link>
+            <BookCall className="btn btn-gold mt-6">Book a call</BookCall>
+            {SITE.linkedin && (
+              <a
+                href={SITE.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${SITE.name} on LinkedIn`}
+                className="mt-6 ml-3 inline-grid h-10 w-10 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-own hover:text-own"
+              >
+                <Linkedin size={17} />
+              </a>
+            )}
           </div>
 
           <div className="flex gap-16">
@@ -36,8 +47,8 @@ export function Footer() {
               <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-2">
                 Company
               </div>
-              <Link href="/#why" className="mb-2.5 block text-[14px] text-muted hover:text-own">
-                Why us
+              <Link href="/about" className="mb-2.5 block text-[14px] text-muted hover:text-own">
+                About
               </Link>
               <Link href="/case-studies" className="mb-2.5 block text-[14px] text-muted hover:text-own">
                 Case studies
@@ -48,12 +59,9 @@ export function Footer() {
               >
                 SOC platform builders 2025
               </Link>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="mb-2.5 block text-[14px] text-muted hover:text-own"
-              >
+              <Link href="/contact" className="mb-2.5 block text-[14px] text-muted hover:text-own">
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         </div>

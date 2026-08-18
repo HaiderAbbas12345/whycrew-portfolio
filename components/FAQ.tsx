@@ -1,11 +1,11 @@
-"use client";
+import { FaqList, type FaqItem } from "./FaqList";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Plus } from "lucide-react";
-import { Reveal } from "./Reveal";
-
-const FAQS = [
+/**
+ * The objection-handling FAQ for /for-mssps. Exported as data so the same
+ * questions can feed FAQPage structured data and be reused elsewhere; rendering
+ * is delegated to FaqList, which keeps every answer in the server HTML.
+ */
+export const MSSP_FAQS: FaqItem[] = [
   {
     q: "Can a small firm really match Splunk or Sentinel?",
     a: "We're not asking you to trust our SIEM over theirs. We build you your own platform that does the job, you own it, and we've already done exactly this for another MSSP. We compete on ownership, not on being a bigger product — you stop renting a billion-dollar tool you'll never own and start owning one built for your tenants.",
@@ -33,40 +33,5 @@ const FAQS = [
 ];
 
 export function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <div className="mx-auto max-w-[820px]">
-      {FAQS.map((f, i) => {
-        const isOpen = open === i;
-        return (
-          <Reveal key={f.q} delay={i * 0.04}>
-            <div className="border-b border-line">
-              <button
-                onClick={() => setOpen(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-5 text-left"
-              >
-                <span className="font-display text-[17px] font-semibold text-text">{f.q}</span>
-                <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="shrink-0 text-own">
-                  <Plus size={18} />
-                </motion.span>
-              </button>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <p className="max-w-[68ch] pb-6 text-[15.5px] leading-relaxed text-muted">{f.a}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </Reveal>
-        );
-      })}
-    </div>
-  );
+  return <FaqList items={MSSP_FAQS} />;
 }

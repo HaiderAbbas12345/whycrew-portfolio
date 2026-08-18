@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Home, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { NAV, SITE } from "@/lib/site";
+import { NAV, SITE, CTA_HREF } from "@/lib/site";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -62,7 +62,7 @@ export function Nav() {
               </Link>
             );
           })}
-          <Link href="mailto:hello@whycrew.com" className="btn btn-gold ml-3 !px-[17px] !py-[10px]">
+          <Link href={CTA_HREF} className="btn btn-gold ml-3 !px-[17px] !py-[10px]">
             Book a call <ArrowUpRight size={15} />
           </Link>
         </nav>
@@ -93,7 +93,7 @@ export function Nav() {
               </Link>
             ))}
             <Link
-              href="mailto:hello@whycrew.com"
+              href={CTA_HREF}
               onClick={() => setOpen(false)}
               className="btn btn-gold mt-2 justify-center"
             >

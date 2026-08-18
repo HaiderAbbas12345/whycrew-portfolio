@@ -4,6 +4,8 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ScrollTop } from "@/components/ScrollTop";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -43,12 +45,22 @@ export const metadata: Metadata = {
     images: ["/logo.jpeg"],
   },
   twitter: { card: "summary_large_image" },
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="font-body text-[17px] leading-[1.6] text-text">
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <div className="bg-canvas" />
         <div className="bg-grid" />
         <div className="bg-grain" />
