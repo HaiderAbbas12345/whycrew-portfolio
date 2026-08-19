@@ -149,7 +149,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "How long does it take to launch?",
-    a: "Most builds run 8 to 12 weeks from kickoff to production. Allow extra time if you're migrating existing client data.",
+    a: "Most builds run 12 weeks from kickoff to production. Allow extra time if you're migrating existing client data.",
   },
   {
     q: "What is an MSSP engineering partner?",
@@ -394,7 +394,7 @@ export default function Page() {
             <Reveal delay={0.16}>
               <Card className="p-7">
                 <div className="text-3xl font-semibold text-gradient">
-                  8–12 wks
+                  12 wks
                 </div>
                 <h3 className="mt-2 text-[14px] font-semibold">
                   Time to launch

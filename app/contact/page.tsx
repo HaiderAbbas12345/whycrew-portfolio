@@ -327,7 +327,7 @@ export default function ContactPage() {
             },
             {
               title: "How it Works",
-              body: "Live in 8 weeks, not 18 months",
+              body: "Live in 12 weeks, not 18 months",
               href: "/#how-it-works",
             },
           ].map((c) => (

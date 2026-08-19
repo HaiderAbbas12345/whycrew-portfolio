@@ -76,7 +76,7 @@ const MARGIN_FACTS = [
     label: "A structural margin problem for multi-tenant MSSPs",
   },
   {
-    value: "6–8 weeks",
+    value: "12 weeks",
     label: "Standard timeline for zero-downtime SIEM migration",
   },
 ];
@@ -203,7 +203,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "How long does implementation take?",
-    a: "Standard SIEM migration and platform builds take 8 to 12 weeks from kickoff to production. White-label MSSP platforms deploy in 8 weeks. NIS2 compliance automation typically takes 4 to 6 weeks depending on integration depth.",
+    a: "Standard SIEM migration and platform builds take 12 weeks from kickoff to production. White-label MSSP platforms deploy in 12 weeks as well. NIS2 compliance automation typically takes 4 to 6 weeks depending on integration depth.",
   },
 ];
 

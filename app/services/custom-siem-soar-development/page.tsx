@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 const STATS = [
   { value: "40–70%", label: "SIEM TCO Reduction" },
   { value: "0 hrs", label: "Migration Downtime" },
-  { value: "6–10 wks", label: "To Full Production" },
+  { value: "12 wks", label: "To Full Production" },
   { value: "12–18 mo", label: "Typical Breakeven" },
 ];
 
@@ -411,7 +411,7 @@ export default function Page() {
       {/* ------------------------------------------------ process */}
       <Section id="process">
         <Eyebrow>Our process</Eyebrow>
-        <Heading sub="Typical timeline: 6–10 weeks to full production. Complex or high-volume multi-tenant environments may extend to 12 weeks. Zero downtime throughout.">
+        <Heading sub="Typical timeline: 12 weeks to full production. Zero downtime throughout.">
           How We Deliver Your Platform
         </Heading>
         <div className="mt-12">
