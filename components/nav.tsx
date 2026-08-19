@@ -55,7 +55,7 @@ export function Nav() {
             <span className="relative block overflow-hidden rounded-md ring-1 ring-brand/40 transition-all duration-500 group-hover:ring-accent/60">
               <Image
                 src="/WhyCrew.jpeg"
-                alt="WhyCrew"
+                alt="whycrew"
                 width={30}
                 height={30}
                 priority
