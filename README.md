@@ -107,7 +107,7 @@ data-residency terms yourself before committing.
 
 ## Theme
 
-Palette is keyed to `logo.jpeg` — electric royal blue (`--color-brand: #2f5cff`)
+Palette is keyed to `WhyCrew.jpeg` — electric royal blue (`--color-brand: #2f5cff`)
 on a deep navy ground, with the teal from the approved page designs
 (`--color-accent: #2dd4a8`) as the secondary accent. All tokens live in the
 `@theme` block at the top of `app/globals.css`.
@@ -146,7 +146,7 @@ Large soft glows use a radial alpha **mask** on a solid element rather than
 ## Still to do
 
 - `SITE.url` currently points at `https://whycrew.com`; update if the origin differs
-- Replace `logo.jpeg` with a transparent SVG/PNG mark if one exists, and add a
+- Replace `WhyCrew.jpeg` with a transparent SVG/PNG mark if one exists, and add a
   dedicated 1200×630 OG image (the square logo is the current fallback)
 - The NIS2 & DORA copy is from the doc marked "Not Final" — refresh when signed off
 - Fill in the real EU hub city on `/contact` (the design left it as `[City, Country]`)

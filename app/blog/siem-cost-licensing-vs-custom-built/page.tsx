@@ -120,7 +120,7 @@ function articleLd() {
     isPartOf: { "@id": `${SITE.url}/#website` },
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
-    image: `${SITE.url}/logo.jpeg`,
+    image: `${SITE.url}/WhyCrew.jpeg`,
     articleSection: post.cluster,
     keywords: post.topics.join(", "),
   };

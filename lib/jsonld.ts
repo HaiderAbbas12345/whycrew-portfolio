@@ -13,11 +13,11 @@ export const organizationLd = () => ({
   url: SITE.url,
   logo: {
     "@type": "ImageObject",
-    url: `${SITE.url}/logo.jpeg`,
+    url: `${SITE.url}/WhyCrew.jpeg`,
     width: 800,
     height: 800,
   },
-  image: `${SITE.url}/logo.jpeg`,
+  image: `${SITE.url}/WhyCrew.jpeg`,
   description: SITE.description,
   email: SITE.email,
   slogan: "Stop renting. Start owning.",

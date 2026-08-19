@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: [
       {
-        url: "/logo.jpeg",
+        url: "/WhyCrew.jpeg",
         width: 800,
         height: 800,
         alt: "WhyCrew",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
-    images: ["/logo.jpeg"],
+    images: ["/WhyCrew.jpeg"],
   },
   robots: {
     index: true,
@@ -80,8 +80,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/WhyCrew.jpeg",
+    apple: "/WhyCrew.jpeg",
   },
   category: "technology",
   // Carried over from the previous deployment so Search Console ownership and

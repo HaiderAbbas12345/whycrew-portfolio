@@ -45,8 +45,8 @@ export function Footer() {
           <div>
             <Link href="/" className="inline-flex items-center gap-2.5">
               <Image
-                src="/logo.jpeg"
-                alt=""
+                src="/WhyCrew.jpeg"
+                alt="WhyCrew"
                 width={34}
                 height={34}
                 className="rounded-md ring-1 ring-brand/40"
