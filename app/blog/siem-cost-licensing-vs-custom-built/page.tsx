@@ -62,7 +62,7 @@ const GLANCE = {
     ["Customization", "Limited by vendor roadmap", "Fully configurable"],
     ["Multi-tenancy", "Add-on or unavailable", "Native"],
     ["Compliance control", "Vendor-dependent", "Full ownership"],
-    ["Break-even point", "N/A", "Typically 18–36 months"],
+    ["Break-even point", "N/A", "Typically 12–18 months"],
   ],
 };
 
@@ -171,7 +171,7 @@ export default function Page() {
           <KeyTakeaways
             items={[
               "Licensed SIEMs charge primarily on ingestion volume, retention, and feature tiers — costs that compound quickly as data volumes grow.",
-              "Custom-built SIEMs replace recurring license fees with upfront engineering investment, often breaking even within 18–36 months for high-volume environments.",
+              "Custom-built SIEMs replace recurring license fees with upfront engineering investment, often breaking even within 12–18 months for high-volume environments.",
               "Hidden costs — tuning, professional services, storage overruns, and data egress — frequently add 30–50% on top of published SIEM pricing.",
               "Multi-tenant operators (MSSPs and large enterprises) typically see the strongest ROI from custom-built architectures.",
               "The right model depends on your data volume, in-house engineering capacity, compliance requirements, and growth trajectory.",
@@ -319,7 +319,7 @@ export default function Page() {
         <P>
           For most high-volume environments, the crossover point where
           custom-built total cost of ownership falls below licensed SIEM spend
-          typically occurs somewhere between 18 and 36 months. Organizations
+          typically occurs somewhere between 12 and 18 months. Organizations
           ingesting under 50 GB/day may not reach break-even quickly enough to
           justify the build. Those managing 100 GB/day or more, especially MSSPs
           handling multiple clients, generally see a clear financial case within
