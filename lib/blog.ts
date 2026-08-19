@@ -36,10 +36,11 @@ export const POSTS: BlogPost[] = [
     title: "How Much Does a SIEM Cost? Licensing vs. Custom-Built",
     metaTitle: "SIEM Cost: Licensed vs. Custom-Built Compared",
     metaDescription:
-      "Licensed SIEMs cost $50K–$500K+ per year. Custom-built SIEMs cut long-term spend—but require upfront investment. Find out which model fits your environment.",
+      "Licensed SIEMs cost €50K–€500K+ per year. Custom-built SIEMs cut long-term spend but require upfront investment. Find out which model fits your environment.",
     summary:
       "Licensed SIEMs charge on ingestion, retention, and feature tiers. Custom-built platforms trade that for upfront engineering. Where the break-even actually falls, and which model fits which environment.",
     datePublished: "2026-08-18",
+    dateModified: "2026-08-19",
     readTime: "9 min read",
     topics: ["SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",

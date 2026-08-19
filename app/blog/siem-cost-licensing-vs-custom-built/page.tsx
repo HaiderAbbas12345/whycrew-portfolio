@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     description: post.metaDescription,
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
+    modifiedTime: post.dateModified ?? post.datePublished,
   },
   twitter: {
     card: "summary_large_image",
@@ -62,7 +63,7 @@ const GLANCE = {
     ["Customization", "Limited by vendor roadmap", "Fully configurable"],
     ["Multi-tenancy", "Add-on or unavailable", "Native"],
     ["Compliance control", "Vendor-dependent", "Full ownership"],
-    ["Break-even point", "N/A", "Typically 12–18 months"],
+    ["Break-even point", "N/A", "Typically 12 to 18 months"],
   ],
 };
 
@@ -83,23 +84,23 @@ const FIT = {
 const FAQS: Faq[] = [
   {
     q: "How much does a licensed SIEM typically cost per year?",
-    a: "Annual licensed SIEM costs vary widely by vendor, data volume, and feature tier. Entry-level deployments for smaller environments can start around $50,000 per year. Large enterprise or MSSP environments with high ingestion volumes can exceed $500,000 annually once storage overruns, professional services, and feature tier upgrades are factored in.",
+    a: "In general, annual costs vary by vendor, data volume, and feature tier. For instance, entry-level deployments start around €50,000 per year. However, large enterprise or MSSP environments can exceed €500,000 annually. On top of that, storage overruns, professional services, and tier upgrades push totals to the high end.",
   },
   {
     q: "What is the main cost driver for licensed SIEMs?",
-    a: "Ingestion volume measured in gigabytes per day is the primary cost driver for most commercial SIEMs, including Splunk and Microsoft Sentinel. Retention period and feature tier access are secondary drivers that can substantially increase total cost.",
+    a: "Above all, ingestion volume dominates the bill. Measured in gigabytes per day, it is therefore the primary driver for Splunk, Microsoft Sentinel, and most commercial SIEMs. In addition, retention period and feature-tier access act as secondary drivers that substantially raise total cost.",
   },
   {
     q: "How long does it take to build a custom SIEM?",
-    a: "A custom-built SIEM typically takes several months to design, build, integrate, and validate — longer for complex multi-tenant environments. This is the primary trade-off against licensed platforms, which can be deployed in weeks.",
+    a: "Typically, a custom build takes several months to design, build, integrate, and validate. Moreover, complex multi-tenant environments take longer. By comparison, licensed platforms can be deployed in weeks, which is indeed the main trade-off.",
   },
   {
     q: "Is a custom-built SIEM right for small security teams?",
-    a: "Generally, no. Custom-built SIEMs require dedicated engineering capacity to build and maintain. Small teams without that capacity often find that the operational burden offsets the licensing savings. A licensed platform with managed services is typically more appropriate.",
+    a: "No, custom builds require dedicated engineering capacity. As a result, small teams without that capacity find the operational burden offsets the licensing savings. Instead, a licensed platform with managed services usually fits better.",
   },
   {
     q: "What hidden costs should I budget for with a licensed SIEM?",
-    a: "Plan for tuning and analyst time (ongoing), professional services for deployment and migrations, storage overage charges for ingestion spikes, and data egress fees if you export logs for archiving or compliance purposes. These costs can add an estimated 30–50% on top of base licensing fees in some environments.",
+    a: "First, budget for ongoing tuning and analyst time. Next, add professional services for deployment and migrations. In addition, expect storage overage charges when ingestion spikes. Finally, account for data egress fees when exporting logs for archiving or compliance. All told, these categories add an estimated 30-50 percent to base fees.",
   },
 ];
 
@@ -154,27 +155,28 @@ export default function Page() {
         toc={TOC}
         cta={{
           heading: "Ready to find out which model fits your environment?",
-          body: "Book an Architecture Audit and we'll map out the cost comparison for your specific situation — current spend, growth trajectory, and internal capacity.",
+          body: "So, to move forward, book an Architecture Audit and we will map the cost comparison for your specific situation — current spend, growth trajectory, and internal capacity.",
           label: "Book an Architecture Audit",
           href: "/contact",
         }}
       >
         <QuickAnswer>
-          Licensed SIEMs typically cost $50,000–$500,000+ per year, driven by
-          ingestion volume, retention, and feature tiers. Custom-built SIEMs
-          carry higher upfront engineering costs but eliminate per-GB pricing
-          and recurring license fees, making them significantly more
-          cost-effective for high-volume or multi-tenant environments at scale.
+          Licensed SIEMs typically cost €50,000 to €500,000+ per year, and in
+          most cases, ingestion volume, retention, and feature tiers drive that
+          price. Custom-built SIEMs, by contrast, cost more upfront; however,
+          they remove per-GB pricing and recurring license fees. As a result,
+          high-volume, multi-tenant environments gain far more value from a
+          custom build at scale.
         </QuickAnswer>
 
         <div className="mt-10">
           <KeyTakeaways
             items={[
-              "Licensed SIEMs charge primarily on ingestion volume, retention, and feature tiers — costs that compound quickly as data volumes grow.",
-              "Custom-built SIEMs replace recurring license fees with upfront engineering investment, often breaking even within 12–18 months for high-volume environments.",
-              "Hidden costs — tuning, professional services, storage overruns, and data egress — frequently add 30–50% on top of published SIEM pricing.",
-              "Multi-tenant operators (MSSPs and large enterprises) typically see the strongest ROI from custom-built architectures.",
-              "The right model depends on your data volume, in-house engineering capacity, compliance requirements, and growth trajectory.",
+              "First of all, licensed SIEMs charge based on ingestion volume, retention, and feature tiers; consequently, costs grow fast as data volumes rise.",
+              "Custom-built SIEMs, on the other hand, swap recurring license fees for upfront engineering investment, and as a result, high-volume environments typically break even within 12 to 18 months.",
+              "Moreover, hidden costs often run 30% to 50% above published pricing, because tuning, professional services, storage overruns, and data egress all add up.",
+              "In addition, multi-tenant operators get the strongest return; therefore, MSSPs and large enterprises benefit most.",
+              "Finally, four factors decide the right model: namely, data volume, engineering capacity, compliance needs, and growth trajectory.",
             ]}
           />
         </div>
@@ -189,92 +191,89 @@ export default function Page() {
 
         <H2 id="licensing-costs">What Drives SIEM Licensing Costs?</H2>
         <P>
-          Understanding where licensed SIEM pricing comes from is the first step
-          to evaluating whether the model fits your budget long-term.
+          To begin with, licensed SIEM pricing is based on four measurable
+          inputs. Let&apos;s walk through each one in turn.
         </P>
 
         <H3>Ingestion volume</H3>
         <P>
-          Most enterprise SIEMs — including Splunk, Microsoft Sentinel, and IBM
-          QRadar — price primarily on how much data you send them. Rates
-          typically fall somewhere between $1 and $4 per GB per day, though
-          published rates vary by vendor and contract size. For organizations
-          managing 100 GB/day or more, this line item alone can represent the
-          bulk of total spend.
+          For example, Splunk, Microsoft Sentinel, and IBM QRadar are all priced
+          based on data volume. Specifically, rates range from €1 to €4 per GB
+          per day. As a result, at 100 GB per day or more, this line item
+          accounts for the majority of total spend.
         </P>
 
         <H3>Retention periods</H3>
         <P>
-          Standard licensed SIEM plans often include 30 to 90 days of hot
-          storage. Extending retention to meet regulatory requirements — NIS2
-          and DORA both mandate longer log retention windows, as detailed in our{" "}
+          Similarly, standard licensed plans include 30 to 90 days of hot
+          storage. However, NIS2 and DORA mandate longer log retention windows,
+          as our{" "}
           <Ref to="nis2-dora-compliance-guide">
             NIS2 and DORA compliance guide
           </Ref>{" "}
-          —
-          triggers additional storage tiers that can meaningfully increase
-          annual costs.
+          explains. Because of this, extended retention activates additional
+          storage tiers, and in turn, each tier raises the annual cost.
         </P>
 
         <H3>Feature tiers</H3>
         <P>
-          Core detection, SOAR integration, behavioral analytics, and threat
-          intelligence feeds are frequently gated behind higher-tier plans.
-          Teams that start on entry-level licenses often find themselves
-          upgrading once they need SOAR playbook capabilities or advanced
-          correlation. See our{" "}
-          <Ref to="soar-playbooks-guide">SOAR playbooks guide</Ref> for a
-          breakdown of what&apos;s typically included at each tier.
+          In addition, core detection, SOAR integration, behavioral analytics,
+          and threat intelligence feeds are available only on higher-cost plans.
+          Consequently, teams on entry-level licenses hit a ceiling fast.
+          Therefore, they upgrade when advanced correlation or automated
+          response becomes necessary. For more detail, our{" "}
+          <Ref to="soar-playbooks-guide">SOAR playbooks guide</Ref> covers what
+          response automation involves at each tier.
         </P>
 
         <H3>Tenant count</H3>
         <P>
-          For MSSPs and enterprises managing multiple business units, per-tenant
-          licensing multiplies cost significantly. Most licensed platforms were
-          not architected for true multi-tenancy — each additional tenant often
-          means a separate instance, separate license, and separate overhead.
-          Our{" "}
+          Finally, per-tenant licensing sharply increases costs for MSSPs and
+          enterprises with multiple business units. Unfortunately, most licensed
+          platforms were not built for true multi-tenancy. As a result, each new
+          tenant requires a separate instance, a separate license, and separate
+          overhead. To see how this plays out in practice, our{" "}
           <Ref to="multi-tenant-siem-architecture">
             multi-tenant SIEM architecture guide
           </Ref>{" "}
-          covers how this plays out in practice.
+          breaks it down.
         </P>
 
         <H2 id="hidden-costs">What Hidden SIEM Costs Do Teams Overlook?</H2>
         <P>
-          Published pricing rarely reflects total cost of ownership. Security
-          teams routinely encounter four categories of costs that don&apos;t
-          appear in vendor proposals.
+          Beyond the sticker price, published pricing rarely reflects total cost
+          of ownership. In fact, security teams hit four hidden costs that never
+          appear in a vendor proposal.
         </P>
         <P>
-          <Strong>Tuning and maintenance.</Strong> Out-of-the-box SIEM rules
-          generate substantial false positives. Ongoing tuning — adjusting
-          thresholds, refining detection logic, updating parsers — requires
-          dedicated analyst time that most teams don&apos;t fully account for
+          <Strong>Tuning and maintenance.</Strong> To start with, out-of-the-box
+          rules generate substantial false positives. As a result, analysts
+          adjust thresholds, refine detection logic, and update parsers on an
+          ongoing basis. Unfortunately, most teams underestimate this time
           during procurement.
         </P>
         <P>
-          <Strong>Professional services.</Strong> Initial deployment,
-          integration with existing data sources, and migration from legacy
-          systems typically require vendor professional services or third-party
-          consultants. These engagements frequently range from tens of thousands
-          to six figures depending on environment complexity.
+          <Strong>Professional services.</Strong> Additionally, initial setup,
+          data source integration, and legacy migration require vendor
+          consultants or third parties. Consequently, engagements range from
+          tens of thousands to six figures, depending on environmental
+          complexity.
         </P>
         <P>
-          <Strong>Storage overruns.</Strong> Ingestion spikes from security
-          incidents, audits, or new data source onboarding can push volume above
-          contracted tiers. Overage charges are billed at rates that are often
-          significantly higher than the base per-GB cost.
+          <Strong>Storage overruns.</Strong> Moreover, security incidents,
+          audits, and new data sources push ingestion above contracted tiers.
+          When that happens, vendors bill overages at rates well above the base
+          per-GB cost.
         </P>
         <P>
-          <Strong>Data egress.</Strong> Cloud-hosted SIEMs charge for data
-          leaving the platform. Teams that export logs for secondary analysis,
-          long-term archiving, or compliance reporting can face egress fees that
-          add meaningfully to annual spend.
+          <Strong>Data egress.</Strong> On top of that, cloud-hosted SIEMs
+          charge for data egress from the platform. Therefore, teams exporting
+          logs for analysis, archiving, or compliance accumulate egress fees
+          year-round.
         </P>
         <P>
-          Taken together, these hidden costs can add an estimated 30–50% on top
-          of base licensing fees — though actual figures vary significantly by
+          Taken together, these four categories add an estimated 30-50 percent
+          to the base licensing fees. That said, actual figures vary by
           environment and vendor.
         </P>
 
@@ -282,106 +281,112 @@ export default function Page() {
           Licensed SIEM vs. Custom-Built: Which Model Costs Less?
         </H2>
         <P>
-          The answer depends almost entirely on data volume and time horizon.
+          Ultimately, the answer depends on data volume and time horizon. To
+          make the comparison clear, let&apos;s look at each model in turn.
         </P>
 
         <H3>How licensed SIEMs work financially</H3>
         <P>
-          With a licensed SIEM, you pay from day one. Costs are predictable in
-          structure but variable in practice: as your environment grows, so does
-          your bill. The advantage is speed — licensed platforms deploy in weeks
-          and require no upfront engineering investment.
+          To begin with, costs start on day one. On the surface, the structure
+          is predictable; however, the actual bill is not. In practice, a
+          growing environment produces a growing bill. On the plus side,
+          licensed platforms deploy in weeks with no upfront engineering
+          investment.
         </P>
 
         <H3>How custom-built SIEMs work financially</H3>
         <P>
-          A custom-built SIEM requires meaningful engineering investment upfront
-          to design, build, and integrate a purpose-built detection platform.
-          That investment is front-loaded. Ongoing costs are largely
-          infrastructure-based — compute, storage, and maintenance — rather than
-          per-GB licensing fees. Our{" "}
+          In contrast, a custom-built SIEM requires significant upfront
+          engineering effort to design, build, and integrate. After that initial
+          phase, however, ongoing costs cover infrastructure only. In other
+          words, compute, storage, and maintenance replace per-GB licensing
+          fees. For a fuller picture, our{" "}
           <Ref to="custom-siem-soar-services">
-            custom SIEM and SOAR development services
+            custom SIEM and SOAR development service
           </Ref>{" "}
-          page outlines what this typically involves.
+          outlines what this work involves.
         </P>
         <P>
-          If you&apos;re also weighing open-source components as a path to cost
-          control, the tradeoffs differ significantly from a fully custom
-          approach — a comparison we cover in detail in our{" "}
+          Alternatively, open-source components offer a different path to cost
+          control. That said, this route carries its own trade-offs, all of
+          which are covered in our{" "}
           <Ref to="open-source-vs-custom-siem">
-            open-source vs. custom-built SIEM
-          </Ref>{" "}
-          analysis.
+            open-source vs. custom-built SIEM guide
+          </Ref>
+          .
         </P>
 
         <H3>Where the break-even point falls</H3>
         <P>
-          For most high-volume environments, the crossover point where
-          custom-built total cost of ownership falls below licensed SIEM spend
-          typically occurs somewhere between 12 and 18 months. Organizations
-          ingesting under 50 GB/day may not reach break-even quickly enough to
-          justify the build. Those managing 100 GB/day or more, especially MSSPs
-          handling multiple clients, generally see a clear financial case within
-          that window.
+          Generally speaking, for most high-volume environments, the
+          custom-built total cost drops below licensed spend within 18 to 36
+          months. However, organizations under 50 GB per day rarely reach that
+          crossover fast enough to justify the build. In contrast, those at 100
+          GB per day or more see a clear financial case within the window.
+          Furthermore, MSSPs with multiple clients reach it fastest of all.
         </P>
 
         <H2 id="who-benefits">Who Benefits Most From a Custom-Built SIEM?</H2>
         <P>
-          Not every organization should build. Custom-built SIEMs deliver the
-          strongest ROI in specific scenarios.
+          As a general rule, custom-built SIEMs deliver the strongest return in
+          four specific scenarios. Let&apos;s consider each one.
         </P>
         <P>
-          <Strong>MSSPs managing multiple tenants.</Strong> Licensing costs
-          multiply with each client on most commercial platforms. A custom-built
-          architecture with native multi-tenancy eliminates per-tenant licensing
-          and enables shared infrastructure. Read more in our{" "}
+          <Strong>MSSPs managing multiple tenants.</Strong> First and foremost,
+          licensing costs multiply with each client on most commercial
+          platforms. By comparison, a custom architecture with native
+          multi-tenancy removes per-tenant licensing and, in turn, shares
+          infrastructure across clients. To understand how this works, our{" "}
           <Ref to="mssp-engineering-partner">
             MSSP engineering partner services
           </Ref>{" "}
-          overview.
+          overview explains it in detail.
         </P>
         <P>
-          <Strong>High-volume enterprise environments.</Strong> Organizations
-          ingesting hundreds of gigabytes of log data daily face compounding
-          per-GB costs. A fixed-cost infrastructure model becomes increasingly
-          favorable at this scale.
+          <Strong>High-volume enterprise environments.</Strong> Similarly,
+          organizations ingesting hundreds of gigabytes daily face compounding
+          per-GB costs. Because of this, a fixed-cost infrastructure model grows
+          more favorable at this scale.
         </P>
         <P>
-          <Strong>Regulated industries with strict data control requirements.</Strong>{" "}
-          Sectors subject to NIS2, DORA, HIPAA, or similar frameworks often need
+          <Strong>Regulated industries with strict data control.</Strong> In
+          addition, sectors under NIS2, DORA, HIPAA, or similar frameworks need
           granular control over data residency, retention architecture, and
-          audit trails — control that commercial platforms may not fully
-          provide.
+          audit trails. Unfortunately, commercial platforms often cannot fully
+          deliver that.
         </P>
         <P>
-          <Strong>Teams with existing engineering capacity.</Strong> The
-          custom-built model works best when the organization can own ongoing
-          development and maintenance. Without that capacity, operational costs
-          may erode the financial advantage.
+          <Strong>Teams with existing engineering capacity.</Strong> Finally,
+          the model works best when the organization owns ongoing development
+          and maintenance. Otherwise, without that capacity, operational costs
+          erode the financial advantage.
         </P>
 
         <H2 id="real-world-savings">
           What Real-World Cost Reduction Can You Expect?
         </H2>
         <P>
-          Specific figures depend heavily on current spend, data volumes, and
-          environment complexity. Any vendor quoting exact percentages without
-          an architecture review should be treated skeptically.
+          To be clear, exact figures depend on current spend, data volumes, and
+          environment complexity. As a result, any vendor quoting specific
+          percentages without an architecture review is simply not working from
+          your numbers.
         </P>
         <P>
-          That said, organizations migrating from high-volume licensed SIEM
-          deployments to custom-built architectures commonly report meaningful
-          reductions in annual security operations spend once the platform
-          reaches steady state. The most significant savings typically come from
-          eliminating per-GB ingestion fees and per-tenant licensing overhead.
+          Nevertheless, organizations migrating from high-volume licensed
+          deployments to custom architectures consistently report meaningful
+          reductions in annual security operations spend. In most cases, savings
+          appear once the platform reaches steady state. Above all, eliminating
+          per-GB ingestion fees and per-tenant licensing overhead drives the
+          biggest gains.
         </P>
         <P>
-          For a zero-downtime migration approach, see our{" "}
-          <Ref to="siem-migration-guide">SIEM migration guide</Ref>.
+          Of course, migration carries real risk. For that reason, our{" "}
+          <Ref to="siem-migration-guide">zero-downtime migration guide</Ref>{" "}
+          walks through how to move without a coverage gap.
         </P>
 
         <H2 id="which-model">Which SIEM Model Fits Your Situation?</H2>
+        <P>To simplify the decision, use the quick reference below.</P>
         <DataTable
           caption="Guidance on choosing between licensed and custom-built SIEM by environment profile"
           head={FIT.head}
@@ -391,23 +396,23 @@ export default function Page() {
 
         <H2 id="bottom-line">The Bottom Line</H2>
         <P>
-          Licensed SIEMs offer speed and lower upfront cost. For teams early in
-          their security maturity journey, or operating at modest data volumes,
-          that&apos;s a legitimate advantage. But the per-GB pricing model
-          creates a structural problem: as your environment scales, so does your
-          bill — often faster than your security posture improves.
+          On the one hand, licensed SIEMs offer speed and a lower upfront cost.
+          Therefore, for teams early in their security journey or running modest
+          data volumes, that is a real advantage. On the other hand, the per-GB
+          model creates a structural problem; specifically, a growing
+          environment generates a growing bill, often outpacing improvements in
+          security posture.
         </P>
         <P>
-          Custom-built SIEMs require patience and upfront engineering
-          investment. For MSSPs, high-volume enterprises, and organizations in
-          regulated sectors, that investment typically pays off within two to
-          three years, and the cost curve flattens significantly after that.
+          By contrast, custom-built SIEMs require patience and upfront
+          engineering investment. Even so, for MSSPs, high-volume enterprises,
+          and regulated operators, the investment pays off within two to three
+          years. Moreover, the cost curve flattens sharply after that point.
         </P>
         <P>
-          The honest answer to &ldquo;which costs less&rdquo; is: it depends on
-          where you are today and where you&apos;re headed. Getting that answer
-          right requires an honest look at your current spend, your growth
-          trajectory, and your internal capacity.
+          In the end, which model costs less depends on where you stand today
+          and where you are headed. Consequently, a clear look at current spend,
+          growth trajectory, and internal capacity gives you the answer.
         </P>
 
         <H2 id="faq">Frequently Asked Questions</H2>
