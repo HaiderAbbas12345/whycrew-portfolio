@@ -17,13 +17,22 @@ import { CTA_HREF, serviceBySlug } from "@/lib/site";
 const svc = serviceBySlug("nis2-dora-compliance-automation");
 
 export const metadata: Metadata = {
-  title: "NIS2 & DORA Compliance Automation",
+  // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
+  // renders exactly as specified — the brand is already in the string.
+  title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
   openGraph: {
     title: svc.metaTitle,
     description: svc.metaDescription,
     url: svc.href,
+    type: "website",
+  },
+  // Without this the page inherits the root layout's site-wide Twitter card.
+  twitter: {
+    card: "summary_large_image",
+    title: svc.metaTitle,
+    description: svc.metaDescription,
   },
 };
 

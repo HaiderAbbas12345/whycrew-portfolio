@@ -94,10 +94,9 @@ export const SERVICES: ServiceSummary[] = [
     short: "Stop reselling a platform. Start owning one.",
     blurb:
       "White-label SOC platforms for MSSPs, VARs, and managed security operators who want to own their stack outright, not rent it from a vendor.",
-    metaTitle:
-      "MSSP Engineering Partner | Build a White-Label SOC Platform | WhyCrew",
+    metaTitle: "White-Label SOC Platform | MSSP Partner | WhyCrew",
     metaDescription:
-      "WhyCrew is an MSSP engineering partner that builds you a white-label SOC platform you own outright — source code included, no reseller fees, no vendor lock-in.",
+      "WhyCrew is your MSSPs engineering partner — we build a white-label SOC platform you own outright. Full ownership, no reseller fees, no lock-in.",
   },
   {
     slug: "nis2-dora-compliance-automation",
@@ -107,9 +106,9 @@ export const SERVICES: ServiceSummary[] = [
     short: "Compliance that runs without you holding it together",
     blurb:
       "Automated incident reporting, ICT risk management, gap assessment, third-party risk, and audit evidence — running continuously as a managed program.",
-    metaTitle: "NIS2 & DORA Compliance Automation | WhyCrew",
+    metaTitle: "NIS2 & DORA Compliance Automation for MSSPs | WhyCrew",
     metaDescription:
-      "WhyCrew automates NIS2 and DORA compliance for essential entities, financial operators, and MSSPs — incident reporting, ICT risk, audit prep, and third-party risk, all handled continuously.",
+      "WhyCrew automates NIS2 & DORA compliance for essential entities, financial operators, and MSSPs — incident reporting, ICT risk, and audit-ready evidence.",
   },
 ];
 

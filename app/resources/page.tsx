@@ -14,16 +14,27 @@ import { breadcrumbLd } from "@/lib/jsonld";
 import { RESOURCES, RESOURCE_TYPES, liveResources } from "@/lib/resources";
 import { SITE } from "@/lib/site";
 
+const TITLE = "Resources — Blog, Case Studies & White Papers | WhyCrew";
+const DESCRIPTION =
+  "Engineering write-ups, client case studies, and technical papers on SIEM & SOAR, AI SOC automation, and NIS2/DORA compliance for MSSPs.";
+
 export const metadata: Metadata = {
-  title: "Resources — Blog, Case Studies & White Papers for MSSPs",
-  description:
-    "Engineering write-ups, client case studies, and in-depth white papers on custom SIEM & SOAR, AI SOC automation, and NIS2 & DORA compliance for MSSPs.",
+  // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
+  // renders exactly as specified — the brand is already in the string.
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/resources" },
   openGraph: {
-    title: "WhyCrew Resources",
-    description:
-      "Engineering write-ups, client case studies, and in-depth white papers on custom SIEM & SOAR, AI SOC automation, and NIS2 & DORA compliance for MSSPs.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: `${SITE.url}/resources`,
+    type: "website",
+  },
+  // Without this the page inherits the root layout's site-wide Twitter card.
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 

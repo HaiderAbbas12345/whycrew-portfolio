@@ -14,11 +14,30 @@ import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { SERVICES, SITE } from "@/lib/site";
 
+const TITLE = "Contact WhyCrew — Talk to an Engineer, Not Sales";
+const DESCRIPTION =
+  "Every conversation starts with an engineer, not a salesperson. Book a technical consultation, apply as an MSSP partner, or report a security incident.";
+
 export const metadata: Metadata = {
-  title: "Contact WhyCrew — Talk to an Engineer, Not a Salesperson",
-  description:
-    "Every WhyCrew conversation starts with an engineer who can answer the technical question. Book a technical consultation, become an MSSP partner, or report a security incident.",
+  // `absolute` bypasses the root layout's "%s | WhyCrew" template. The brand is
+  // already in the string, and appending it again would read "Contact WhyCrew
+  // … | WhyCrew".
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/contact" },
+  // This page previously declared neither, so both its OpenGraph and Twitter
+  // previews fell back to the root layout's site-wide copy.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: `${SITE.url}/contact`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 const ROUTES = [
