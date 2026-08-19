@@ -11,7 +11,7 @@ import {
   ProcessSteps,
   Section,
 } from "@/components/ui/primitives";
-import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, serviceBySlug } from "@/lib/site";
 
@@ -32,7 +32,7 @@ const STATS = [
   { value: "100%", label: "Platform & Code Ownership" },
   { value: "12 wks", label: "Typical Time to Launch" },
   { value: "0", label: "Ongoing Licensing Fees" },
-  { value: "62%", label: "Avg. Margin Improvement" },
+  { value: "40–70%", label: "Typical Margin Improvement" },
 ];
 
 const MARGIN_BREAKERS = [
@@ -161,7 +161,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "How much can an MSSP save by owning its platform?",
-    a: "On average, 62% in year one. One German MSSP running 40+ enterprise clients cut €340K in annual licensing fees after switching to a WhyCrew-built platform. Your platform costs stay flat as you grow. A reseller's fees don't.",
+    a: "Typically 40–70% in year one. One German MSSP running 40+ enterprise clients cut €340K in annual licensing fees — a 62% reduction — after switching to a WhyCrew-built platform. Your platform costs stay flat as you grow. A reseller's fees don't.",
   },
 ];
 
@@ -377,17 +377,17 @@ export default function Page() {
             <Reveal delay={0.08}>
               <Card className="p-7">
                 <div className="text-3xl font-semibold text-gradient">
-                  <CountUp to={62} suffix="%" />
+                  40–70%
                 </div>
                 <h3 className="mt-2 text-[14px] font-semibold">
-                  Margin improvement on average
+                  Typical margin improvement
                 </h3>
                 <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
                   Across completed MSSP Engineering engagements, clients moving
-                  from reseller licensing to an owned platform cut platform costs
-                  by 62% in year one — and the gap keeps widening as their client
-                  count grows, because their costs stay flat while a
-                  reseller&apos;s fees keep rising.
+                  from reseller licensing to an owned platform typically cut
+                  platform costs by 40–70% in year one — and the gap keeps
+                  widening as their client count grows, because their costs stay
+                  flat while a reseller&apos;s fees keep rising.
                 </p>
               </Card>
             </Reveal>

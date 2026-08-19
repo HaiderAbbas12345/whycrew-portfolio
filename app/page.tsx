@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 /* ------------------------------------------------------------------ data */
 
 const HERO_STATS = [
-  { value: "60%", label: "SIEM Cost Cut" },
+  { value: "40–70%", label: "SIEM Cost Cut" },
   { value: "24h", label: "NIS2 Reporting" },
   { value: "100%", label: "Source Code Yours" },
   { value: "12 wks", label: "Call to Live" },
@@ -417,6 +417,12 @@ export default function HomePage() {
         </Reveal>
 
         <Reveal className="mt-8">
+          {/* These are the NordSec engagement's own measured figures, not a
+              site-wide average. Labelling them keeps the 62% here from reading
+              as a contradiction of the 40–70% typical range quoted above. */}
+          <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
+            NordSec GmbH engagement
+          </p>
           <div className="grid grid-cols-2 divide-line/60 overflow-hidden rounded-lg border border-line/70 bg-surface/40 sm:grid-cols-4 sm:divide-x">
             {PROJECT_RESULTS.map((p) => (
               <div key={p.label} className="px-5 py-7 text-center">
