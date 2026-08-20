@@ -45,6 +45,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "open-source-vs-custom-built-siem",
+    title: "Open-Source vs. Custom-Built SIEM: The Real Trade-off",
+    metaTitle: "Open-Source vs. Custom-Built SIEM: Key Facts",
+    metaDescription:
+      "Open-source SIEMs cut licensing costs but shift the burden to your team. Custom-built SIEMs offer full platform ownership. See the breakdown.",
+    summary:
+      "Open-source SIEMs remove licensing fees but move the cost to engineering, infrastructure, and maintenance. Where multi-tenancy, compliance, and detection quality separate the two models — and which fits which environment.",
+    datePublished: "2026-08-20",
+    readTime: "8 min read",
+    topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -70,6 +83,9 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "custom-siem-soar-services": "/services/custom-siem-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
 
+  /** Published articles. */
+  "open-source-vs-custom-siem": "/blog/open-source-vs-custom-built-siem",
+
   /**
    * Planned articles. `null` renders the anchor as plain text, so nothing
    * links to a page that doesn't exist yet. Set the path once each is live.
@@ -77,7 +93,6 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "nis2-dora-compliance-guide": null,
   "soar-playbooks-guide": null,
   "multi-tenant-siem-architecture": null,
-  "open-source-vs-custom-siem": null,
   "siem-migration-guide": null,
 };
 

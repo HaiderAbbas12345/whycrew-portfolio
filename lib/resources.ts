@@ -102,6 +102,18 @@ export const RESOURCES: Resource[] = [
     href: "/blog/siem-cost-licensing-vs-custom-built",
     date: "2026-08-18",
   },
+  {
+    id: "blog-open-source-vs-custom-built-siem",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
+    title: "Open-Source vs. Custom-Built SIEM: The Real Trade-off",
+    summary:
+      "Open-source SIEMs remove licensing fees but move the cost to engineering, infrastructure, and maintenance. Where multi-tenancy, compliance, and detection quality separate the two models — and which fits which environment.",
+    format: "8 min read",
+    status: "live",
+    href: "/blog/open-source-vs-custom-built-siem",
+    date: "2026-08-20",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */
