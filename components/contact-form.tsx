@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ThankYouModal } from "@/components/ui/thank-you-modal";
 import { SITE } from "@/lib/site";
 
 const COMPANY_SIZES = ["1–10", "11–50", "51–200", "200+"];
@@ -21,7 +22,7 @@ const INTERESTS = [
 type Status =
   | { kind: "idle" }
   | { kind: "sending" }
-  | { kind: "sent" }
+  | { kind: "sent"; reference: number | null }
   | { kind: "unconfigured"; mailto: string }
   | { kind: "error"; message: string };
 
@@ -35,6 +36,13 @@ export function ContactForm() {
   const params = useSearchParams();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [interest, setInterest] = useState("");
+
+  /**
+   * Tracked separately from `status` so dismissing the modal leaves the inline
+   * confirmation behind — the reassurance stays on the page instead of the
+   * submission appearing to vanish.
+   */
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Deep links like /contact?topic=careers preselect the routing dropdown
   useEffect(() => {
@@ -62,7 +70,11 @@ export function ContactForm() {
       });
 
       if (res.ok) {
-        setStatus({ kind: "sent" });
+        const ok = (await res.json().catch(() => ({}))) as {
+          reference?: number | null;
+        };
+        setStatus({ kind: "sent", reference: ok.reference ?? null });
+        setModalOpen(true);
         form.reset();
         setInterest("");
         return;
@@ -109,6 +121,12 @@ export function ContactForm() {
 
   return (
     <div className="relative">
+      <ThankYouModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        reference={status.kind === "sent" ? status.reference : null}
+      />
+
       <AnimatePresence mode="wait">
         {status.kind === "sent" ? (
           <motion.div
@@ -131,10 +149,15 @@ export function ContactForm() {
             </span>
             <h3 className="mt-5 text-xl font-semibold">Message received</h3>
             <p className="mx-auto mt-3 max-w-md text-[13.5px] leading-relaxed text-muted">
-              An engineer will reply within one business day. Technical
-              consultations are usually scheduled within 48 hours of the initial
-              reply.
+              An engineer will reply within one business day — inside 24 hours.
+              Technical consultations are usually scheduled within 48 hours of
+              the initial reply.
             </p>
+            {status.reference ? (
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-faint">
+                Reference #{String(status.reference).padStart(4, "0")}
+              </p>
+            ) : null}
           </motion.div>
         ) : (
           <motion.form

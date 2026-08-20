@@ -155,5 +155,13 @@ export async function POST(req: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true });
+  // The lead number, when the database took it. Shown in the confirmation so
+  // the sender has something to quote if they follow up. Null when only email
+  // or the webhook succeeded — there is no record to reference in that case.
+  const reference =
+    dbEnabled && results[0].status === "fulfilled"
+      ? (results[0].value as number)
+      : null;
+
+  return NextResponse.json({ ok: true, reference });
 }

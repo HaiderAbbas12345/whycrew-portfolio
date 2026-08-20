@@ -1,19 +1,27 @@
 /**
  * Lead store.
  *
- * SQLite, with two interchangeable backends chosen by LEADS_DB_URL:
+ * Three interchangeable backends. MONGODB_URI wins if set; otherwise
+ * LEADS_DB_URL picks between the two SQLite ones:
  *
- *   unset / "file:..."   → node:sqlite, a real local .db file. Built into
- *                          Node 22+, so no dependency. Right for local dev
- *                          and for any self-hosted (VPS/Docker) deployment.
- *   "https://" | "libsql://" → Turso over its HTTP API, via plain fetch.
+ *   MONGODB_URI set       → MongoDB (see lib/leads-mongo.ts). The production
+ *                           store: managed, survives deploys, works on
+ *                           serverless.
+ *   LEADS_DB_URL unset    → node:sqlite, a real local .db file. Built into
+ *                           Node 22+, so no dependency and no setup. Right for
+ *                           local dev and self-hosted (VPS/Docker).
+ *   "https://"|"libsql://" → Turso over its HTTP API, via plain fetch.
  *
- * The second backend exists because Vercel's filesystem is ephemeral: a file
+ * The non-file backends exist because Vercel's filesystem is ephemeral: a file
  * database there is wiped on every deploy and is not shared between lambda
- * instances. Turso is libSQL — the same SQLite, the same SQL — just reachable
- * over the network, so nothing above this file changes between the two.
+ * instances.
+ *
+ * Every backend is reached through the exported functions below and returns
+ * the same shapes, so nothing above this file — the contact route, /admin —
+ * changes when the engine does.
  */
 
+import * as mongo from "./leads-mongo";
 import { isStage, type Stage } from "./lead-stages";
 
 export { STAGES, isStage, type Stage } from "./lead-stages";
@@ -67,15 +75,24 @@ const FILE = RAW_URL.replace(/^file:/, "") || ".data/leads.db";
  */
 const ON_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
 
+/**
+ * Which engine is live. Read once at module load — these are deployment
+ * settings, not per-request ones. Mongo takes precedence so that adding
+ * MONGODB_URI is all it takes to move off SQLite.
+ */
+const MONGO = mongo.mongoConfigured();
+
 export function leadsConfigured(): boolean {
+  if (MONGO) return true;
   if (REMOTE) return Boolean(TOKEN);
   return !ON_SERVERLESS;
 }
 
 export function leadsConfigError(): string | null {
+  if (MONGO) return null;
   if (REMOTE && !TOKEN) return "LEADS_DB_URL is set but LEADS_DB_TOKEN is missing.";
   if (!REMOTE && ON_SERVERLESS)
-    return "A file-backed SQLite database cannot persist on a serverless host. Set LEADS_DB_URL + LEADS_DB_TOKEN to a Turso database.";
+    return "No lead database is configured for a serverless host. Set MONGODB_URI, or LEADS_DB_URL + LEADS_DB_TOKEN for Turso — a file-backed SQLite database cannot persist here.";
   return null;
 }
 
@@ -278,6 +295,8 @@ const LEAD_SELECT = `
 /* ---------------------------------------------------------------- mutations */
 
 export async function createLead(input: NewLead): Promise<number> {
+  if (MONGO) return mongo.createLead(input);
+
   const now = new Date().toISOString();
   const { lastInsertRowid } = await run(
     `INSERT INTO leads
@@ -299,6 +318,8 @@ export async function createLead(input: NewLead): Promise<number> {
 }
 
 export async function setStage(id: number, stage: Stage): Promise<void> {
+  if (MONGO) return mongo.setStage(id, stage);
+
   await run(`UPDATE leads SET stage = ?, updated_at = ? WHERE id = ?`, [
     stage,
     new Date().toISOString(),
@@ -307,6 +328,8 @@ export async function setStage(id: number, stage: Stage): Promise<void> {
 }
 
 export async function addNote(leadId: number, body: string): Promise<void> {
+  if (MONGO) return mongo.addNote(leadId, body);
+
   const now = new Date().toISOString();
   await run(`INSERT INTO lead_notes (lead_id, body, created_at) VALUES (?, ?, ?)`, [
     leadId,
@@ -317,6 +340,8 @@ export async function addNote(leadId: number, body: string): Promise<void> {
 }
 
 export async function deleteLead(id: number): Promise<void> {
+  if (MONGO) return mongo.deleteLead(id);
+
   // Explicit child delete: PRAGMA foreign_keys is per-connection, and Turso's
   // HTTP sessions don't guarantee it, so cascade can't be relied on.
   await run(`DELETE FROM lead_notes WHERE lead_id = ?`, [id]);
@@ -326,6 +351,8 @@ export async function deleteLead(id: number): Promise<void> {
 /* ----------------------------------------------------------------- queries */
 
 export async function listLeads(opts: { stage?: Stage; q?: string } = {}): Promise<Lead[]> {
+  if (MONGO) return mongo.listLeads(opts);
+
   const where: string[] = [];
   const args: Arg[] = [];
 
@@ -348,11 +375,15 @@ export async function listLeads(opts: { stage?: Stage; q?: string } = {}): Promi
 }
 
 export async function getLead(id: number): Promise<Lead | null> {
+  if (MONGO) return mongo.getLead(id);
+
   const rows = await query(`${LEAD_SELECT} WHERE l.id = ?`, [id]);
   return rows[0] ? toLead(rows[0]) : null;
 }
 
 export async function getNotes(leadId: number): Promise<Note[]> {
+  if (MONGO) return mongo.getNotes(leadId);
+
   const rows = await query(
     `SELECT * FROM lead_notes WHERE lead_id = ? ORDER BY created_at DESC`,
     [leadId]
@@ -366,6 +397,8 @@ export async function getNotes(leadId: number): Promise<Note[]> {
 }
 
 export async function stageCounts(): Promise<Record<string, number>> {
+  if (MONGO) return mongo.stageCounts();
+
   const rows = await query(`SELECT stage, COUNT(*) AS n FROM leads GROUP BY stage`);
   const out: Record<string, number> = { all: 0 };
   for (const r of rows) {

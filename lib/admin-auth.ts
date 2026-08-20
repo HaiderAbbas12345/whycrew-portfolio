@@ -1,31 +1,53 @@
 /**
  * Admin session.
  *
- * A single shared password (ADMIN_PASSWORD) exchanged for a signed, httpOnly
- * cookie. Deliberately small: this guards an internal lead list for one team,
- * not a multi-user product, so there are no accounts to manage.
+ * Credentials are checked against the single user seeded into MongoDB (see
+ * lib/admin-users.ts), whose password is stored only as a salted scrypt hash.
+ * A correct pair is exchanged for a signed, httpOnly cookie.
  *
- * The cookie carries only an expiry plus an HMAC of it, keyed by
- * ADMIN_SESSION_SECRET. Nothing sensitive is stored client-side and the value
- * can't be forged or extended without the secret.
+ * The cookie carries the username and an expiry plus an HMAC over both, keyed
+ * by ADMIN_SESSION_SECRET. Nothing sensitive is stored client-side and the
+ * value can't be forged or extended without the secret.
+ *
+ * Deliberately small: this guards an internal lead list for one team, not a
+ * multi-user product, so there are no accounts to manage.
  */
 
 import { createHmac, timingSafeEqual, randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
+import { mongoConfigured } from "./mongo-client";
+import { recordLogin, verifyAdminCredentials } from "./admin-users";
 
 export const SESSION_COOKIE = "wc_admin";
 const MAX_AGE_SECONDS = 60 * 60 * 12; // 12h
 
-const password = () => process.env.ADMIN_PASSWORD?.trim() ?? "";
+/**
+ * Signing key for the session cookie.
+ *
+ * Falls back to ADMIN_PASSWORD so an existing single-variable setup keeps
+ * working, but that variable is now only a seed input: once `npm run
+ * seed:admin` has run it can be deleted from the environment, and at that
+ * point ADMIN_SESSION_SECRET is what keeps sessions valid.
+ */
+const secret = () =>
+  process.env.ADMIN_SESSION_SECRET?.trim() ||
+  process.env.ADMIN_PASSWORD?.trim() ||
+  "";
 
 /**
- * Falls back to the password itself so a working setup needs one variable, not
- * two. Setting ADMIN_SESSION_SECRET separately is better — it lets you rotate
- * the password without it also being the signing key.
+ * Auth needs both a signing key and the database holding the user. Without
+ * either, /admin reports that it is not configured rather than falling back to
+ * something weaker.
  */
-const secret = () => process.env.ADMIN_SESSION_SECRET?.trim() || password();
+export const adminConfigured = () => secret().length > 0 && mongoConfigured();
 
-export const adminConfigured = () => password().length > 0;
+export function adminConfigError(): string | null {
+  if (!mongoConfigured())
+    return "MONGODB_URI is not set — the admin user lives in the database.";
+  if (!secret())
+    return "ADMIN_SESSION_SECRET is not set, so sessions cannot be signed.";
+  return null;
+}
 
 const sign = (value: string) =>
   createHmac("sha256", secret()).update(value).digest("hex");
@@ -42,31 +64,53 @@ function safeEqual(a: string, b: string): boolean {
   return timingSafeEqual(ab, bb);
 }
 
-export const passwordMatches = (candidate: string): boolean =>
-  adminConfigured() && safeEqual(candidate, password());
+/**
+ * Checks a username/password pair against the seeded user.
+ *
+ * Returns only a boolean: the caller cannot tell a wrong username from a wrong
+ * password, and both paths cost the same scrypt work.
+ */
+export async function credentialsMatch(
+  username: string,
+  password: string
+): Promise<boolean> {
+  if (!adminConfigured()) return false;
 
-function mint(): string {
+  const user = await verifyAdminCredentials(username, password);
+  if (!user) return false;
+
+  // Best-effort: a failed timestamp write must not block a valid sign-in.
+  await recordLogin().catch(() => {});
+  return true;
+}
+
+function mint(username: string): string {
   const expires = Date.now() + MAX_AGE_SECONDS * 1000;
   // The nonce makes each session token distinct, so one can't be recognised
   // as a replay of another issued in the same millisecond.
-  const payload = `${expires}.${randomBytes(8).toString("hex")}`;
+  const payload = `${expires}.${encodeURIComponent(username)}.${randomBytes(8).toString("hex")}`;
   return `${payload}.${sign(payload)}`;
 }
 
-function valid(token: string | undefined): boolean {
-  if (!token || !adminConfigured()) return false;
+/** Returns the signed-in username, or null if the token is absent or invalid. */
+function read(token: string | undefined): string | null {
+  if (!token || !adminConfigured()) return null;
+
   const idx = token.lastIndexOf(".");
-  if (idx < 0) return false;
+  if (idx < 0) return null;
 
   const payload = token.slice(0, idx);
-  if (!safeEqual(token.slice(idx + 1), sign(payload))) return false;
+  if (!safeEqual(token.slice(idx + 1), sign(payload))) return null;
 
-  const expires = Number(payload.split(".")[0]);
-  return Number.isFinite(expires) && expires > Date.now();
+  const [expiresRaw, username] = payload.split(".");
+  const expires = Number(expiresRaw);
+  if (!Number.isFinite(expires) || expires <= Date.now()) return null;
+
+  return username ? decodeURIComponent(username) : null;
 }
 
-export async function startSession(): Promise<void> {
-  (await cookies()).set(SESSION_COOKIE, mint(), {
+export async function startSession(username: string): Promise<void> {
+  (await cookies()).set(SESSION_COOKIE, mint(username), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -80,5 +124,9 @@ export async function endSession(): Promise<void> {
 }
 
 export async function isAuthenticated(): Promise<boolean> {
-  return valid((await cookies()).get(SESSION_COOKIE)?.value);
+  return (await currentUser()) !== null;
+}
+
+export async function currentUser(): Promise<string | null> {
+  return read((await cookies()).get(SESSION_COOKIE)?.value);
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { isAuthenticated } from "@/lib/admin-auth";
+import { currentUser } from "@/lib/admin-auth";
 import { logout } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,8 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!(await isAuthenticated())) redirect("/admin/login");
+  const user = await currentUser();
+  if (!user) redirect("/admin/login");
 
   return (
     <>
@@ -31,14 +32,19 @@ export default async function DashboardLayout({
             Lead pipeline
           </Link>
         </div>
-        <form action={logout}>
-          <button
-            type="submit"
-            className="rounded-md border border-line/70 px-3.5 py-2 text-[12.5px] font-semibold text-muted transition-colors hover:border-accent/40 hover:text-accent"
-          >
-            Sign out
-          </button>
-        </form>
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">
+            {user}
+          </span>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="rounded-md border border-line/70 px-3.5 py-2 text-[12.5px] font-semibold text-muted transition-colors hover:border-accent/40 hover:text-accent"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
       </header>
 
       <main className="pb-24 pt-8">{children}</main>

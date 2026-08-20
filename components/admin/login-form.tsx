@@ -17,26 +17,46 @@ function Submit() {
   );
 }
 
+const labelClass =
+  "mb-2 block font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-muted";
+
+const inputClass =
+  "w-full rounded-md border border-line/70 bg-void/60 px-4 py-3 text-[14px] text-bright outline-none transition-all duration-300 focus:border-accent/60 focus:bg-void";
+
 export function LoginForm() {
   const [error, action] = useActionState(login, null);
 
   return (
     <form action={action} className="mt-7">
-      <label
-        htmlFor="password"
-        className="mb-2 block font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-muted"
-      >
-        Password
+      <label htmlFor="username" className={labelClass}>
+        Username
       </label>
       <input
-        id="password"
-        name="password"
-        type="password"
-        autoComplete="current-password"
+        id="username"
+        name="username"
+        type="text"
+        autoComplete="username"
+        autoCapitalize="none"
+        spellCheck={false}
         required
         autoFocus
-        className="w-full rounded-md border border-line/70 bg-void/60 px-4 py-3 text-[14px] text-bright outline-none transition-all duration-300 focus:border-accent/60 focus:bg-void"
+        className={inputClass}
       />
+
+      <div className="mt-5">
+        <label htmlFor="password" className={labelClass}>
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          className={inputClass}
+        />
+      </div>
+
       {error && (
         <p role="alert" className="mt-3 text-[13px] text-red-400">
           {error}

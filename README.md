@@ -50,10 +50,17 @@ canonicals, OG URLs, and the sitemap all derive from it.
 
 ## Contact form & email
 
-`POST /api/contact` validates the submission, then delivers it over two
-independent channels — email (primary) and an optional webhook mirror. They run
-concurrently; one failing does not block the other, and the request only errors
-if every configured channel failed.
+`POST /api/contact` validates the submission, then delivers it over three
+independent channels — the lead database (the durable record, readable at
+`/admin`), email, and an optional webhook mirror. They run concurrently; one
+failing does not block the others, and the request only errors if every
+configured channel failed.
+
+On success the form opens a confirmation modal
+(`components/ui/thank-you-modal.tsx`) quoting the lead's reference number, and
+leaves an inline confirmation behind when it is dismissed. The modal traps
+focus, closes on `Escape` or a backdrop click, restores focus to the Submit
+button, and honours `prefers-reduced-motion`.
 
 Copy `.env.example` → `.env.local` and fill it in.
 
@@ -101,13 +108,13 @@ data-residency terms yourself before committing.
 ### Abuse protection
 
 - Honeypot field (`website`) — filled submissions are accepted and discarded
-- In-memory rate limit: 5 submissions per IP per minute. Single-instance only —
+- In-memory rate limit: 10 submissions per IP per minute. Single-instance only —
   if this ever runs on multiple nodes, move the limit to Redis or the CDN edge.
 - All fields length-capped and HTML-escaped before templating
 
 ## Admin lead dashboard
 
-Contact-form submissions are written to SQLite and managed at `/admin`:
+Contact-form submissions are written to the lead database and managed at `/admin`:
 pipeline stage (New → Contacted → Qualified → Proposal → Won/Lost), free-text
 notes per lead, stage filtering, and search across name, email, company, and
 interest.
@@ -118,28 +125,84 @@ configured**, and the request only fails if every configured channel failed.
 
 ### Setup
 
+Sign-in is a single user stored in MongoDB. Create it once:
+
 ```bash
-ADMIN_PASSWORD="…"          # required — without it /admin cannot be signed into
-ADMIN_SESSION_SECRET="…"    # optional; openssl rand -hex 32
+npm run seed:admin
+# or non-interactively:
+npm run seed:admin -- --username admin --password 'a long passphrase'
 ```
+
+The script reads `.env.local` when present, so it needs no arguments locally.
+Against a deployed database, pass the same `MONGODB_URI` in the environment.
+**Re-running it is how the password is rotated** — it replaces the single user
+rather than adding a second one.
+
+```bash
+ADMIN_USERNAME="admin"      # seed input; defaults to "admin"
+ADMIN_PASSWORD="…"          # seed input ONLY — delete it after seeding
+ADMIN_SESSION_SECRET="…"    # signs the session cookie; openssl rand -hex 32
+```
+
+Because the admin user lives in the database, **`/admin` requires
+`MONGODB_URI`.** Leads still work on any backend, but there is no
+file-database fallback for sign-in — a plaintext password in an env var is
+exactly what this replaces.
 
 ### Storage
 
-`LEADS_DB_URL` selects the backend, and the SQL is identical either way:
+Three interchangeable backends. `MONGODB_URI` wins if set; otherwise
+`LEADS_DB_URL` picks between the two SQLite ones:
 
-| Value | Backend | Use for |
+| Env | Backend | Use for |
 |---|---|---|
-| unset / `file:…` | `node:sqlite`, a real local `.db` file | local dev, self-hosted (VPS/Docker) |
-| `https://…` | Turso (libSQL) over its HTTP API | **Vercel** |
+| `MONGODB_URI` set | MongoDB (`lib/leads-mongo.ts`) | **production / Vercel** |
+| both unset | `node:sqlite`, a real local `.db` file | local dev, self-hosted (VPS/Docker) |
+| `LEADS_DB_URL=https://…` | Turso (libSQL) over its HTTP API | serverless, if you prefer SQL |
 
-`node:sqlite` is built into Node 22+ and Turso is called over plain `fetch`, so
-neither backend adds a dependency.
+All three are reached through the exported functions in `lib/leads.ts` and
+return the same shapes, so nothing above that file — the contact route,
+`/admin` — changes when the engine does.
 
-**On Vercel you must use Turso.** The filesystem there is ephemeral: a file
-database is wiped on every deploy and is not shared between lambda instances.
-Rather than lose leads silently, a file-backed database on a serverless host is
-treated as *unconfigured* — `/admin` shows an explicit warning and
-`/api/contact` returns `503` so the form falls back to its `mailto:`.
+**Local dev needs no database at all.** Leave `MONGODB_URI` empty and leads go
+to `.data/leads.db` via `node:sqlite`, which is built into Node 22+.
+
+#### MongoDB (Atlas)
+
+```bash
+MONGODB_URI="mongodb+srv://USER:PASSWORD@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_DB="whycrew"   # optional, defaults to "whycrew"
+```
+
+Get the string from Atlas → **Database → Connect → Drivers**. URL-encode any
+special characters in the password. Under **Network Access**, allow the
+deploying host — Vercel's egress IPs are not fixed, so in practice that means
+`0.0.0.0/0` with a strong database password, or a private endpoint on a paid
+tier.
+
+Three collections, created automatically on first write along with their
+indexes:
+
+| Collection | Holds |
+|---|---|
+| `leads` | one document per submission; `_id` is the lead number |
+| `lead_notes` | notes, `leadId` → `leads._id` |
+| `counters` | one document per sequence, for the lead numbers |
+| `admin_users` | the single sign-in user; password as a scrypt hash |
+
+Ids are sequential integers rather than ObjectIds, handed out by an atomic
+`$inc` on the `counters` document. That keeps `Lead.id` a number on every
+backend — the admin routes are `/admin/[id]` guarded by `Number.isInteger` —
+and reads better in the dashboard than a 24-character hex string.
+
+**Why not a file database on Vercel?** The filesystem there is ephemeral: a
+file database is wiped on every deploy and is not shared between lambda
+instances. Rather than lose leads silently, a file-backed database on a
+serverless host is treated as *unconfigured* — `/admin` shows an explicit
+warning and `/api/contact` returns `503` so the form falls back to its
+`mailto:`.
+
+#### Turso (SQLite alternative)
 
 ```bash
 turso db create whycrew-leads
@@ -151,11 +214,32 @@ The schema is created automatically on first use.
 
 ### Access control
 
-One shared password exchanged for an HMAC-signed, httpOnly session cookie (12h).
-There are no user accounts — this guards an internal list for one team. Every
-server action re-checks the session independently of the page guard, since
-actions are reachable as POST endpoints in their own right. `/admin` is
-`noindex, nofollow` and disallowed in `robots.txt`.
+One user, held at a fixed `_id` in the `admin_users` collection so a second
+account cannot be created by accident. Its password is stored only as a salted
+**scrypt** hash (`scrypt$N$r$p$salt$hash`, N=16384 — roughly 16MB and ~200ms
+per attempt). Anyone who reads the database still cannot sign in, and cannot
+recover a password that may be reused elsewhere. scrypt is memory-hard and
+built into Node, so this adds no dependency and no native build step.
+
+A correct pair is exchanged for an HMAC-signed, httpOnly session cookie (12h)
+carrying the username and expiry. Tampering with either invalidates the
+signature.
+
+Hardening beyond the hash:
+
+- **No user enumeration.** A missing user is verified against a decoy hash, so
+  a wrong username and a wrong password cost the same ~200ms and return the
+  same message.
+- **Constant-time comparison** on both the username digest and the password
+  hash — no early return on the first differing byte.
+- **Login throttling**: 8 failed attempts per IP per 10 minutes. In-memory, so
+  it is per-instance — move it to Redis or the CDN edge if this ever runs on
+  more than one node.
+- Every server action re-checks the session independently of the page guard,
+  since actions are reachable as POST endpoints in their own right.
+- `/admin` is `noindex, nofollow` and disallowed in `robots.txt`.
+- A misconfiguration reason is shown only in development; in production it goes
+  to the server log, so the page never reveals whether a user is seeded.
 
 ## Theme
 
