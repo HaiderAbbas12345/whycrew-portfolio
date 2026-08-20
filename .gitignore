@@ -13,3 +13,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 _shot*.mjs
+
+# local lead database (node:sqlite)
+.data/
+*.db
+*.db-wal
+*.db-shm

@@ -105,6 +105,58 @@ data-residency terms yourself before committing.
   if this ever runs on multiple nodes, move the limit to Redis or the CDN edge.
 - All fields length-capped and HTML-escaped before templating
 
+## Admin lead dashboard
+
+Contact-form submissions are written to SQLite and managed at `/admin`:
+pipeline stage (New → Contacted → Qualified → Proposal → Won/Lost), free-text
+notes per lead, stage filtering, and search across name, email, company, and
+interest.
+
+This is a third capture channel alongside email and the webhook. All three run
+concurrently and independently — **a lead is stored even when email is not
+configured**, and the request only fails if every configured channel failed.
+
+### Setup
+
+```bash
+ADMIN_PASSWORD="…"          # required — without it /admin cannot be signed into
+ADMIN_SESSION_SECRET="…"    # optional; openssl rand -hex 32
+```
+
+### Storage
+
+`LEADS_DB_URL` selects the backend, and the SQL is identical either way:
+
+| Value | Backend | Use for |
+|---|---|---|
+| unset / `file:…` | `node:sqlite`, a real local `.db` file | local dev, self-hosted (VPS/Docker) |
+| `https://…` | Turso (libSQL) over its HTTP API | **Vercel** |
+
+`node:sqlite` is built into Node 22+ and Turso is called over plain `fetch`, so
+neither backend adds a dependency.
+
+**On Vercel you must use Turso.** The filesystem there is ephemeral: a file
+database is wiped on every deploy and is not shared between lambda instances.
+Rather than lose leads silently, a file-backed database on a serverless host is
+treated as *unconfigured* — `/admin` shows an explicit warning and
+`/api/contact` returns `503` so the form falls back to its `mailto:`.
+
+```bash
+turso db create whycrew-leads
+turso db show whycrew-leads --url      # → LEADS_DB_URL
+turso db tokens create whycrew-leads   # → LEADS_DB_TOKEN
+```
+
+The schema is created automatically on first use.
+
+### Access control
+
+One shared password exchanged for an HMAC-signed, httpOnly session cookie (12h).
+There are no user accounts — this guards an internal list for one team. Every
+server action re-checks the session independently of the page guard, since
+actions are reachable as POST endpoints in their own right. `/admin` is
+`noindex, nofollow` and disallowed in `robots.txt`.
+
 ## Theme
 
 Palette is keyed to `WhyCrew.jpeg` — electric royal blue (`--color-brand: #2f5cff`)

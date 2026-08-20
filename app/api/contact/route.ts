@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { emailConfig, sendContactEmail, type Submission } from "@/lib/email";
+import { createLead, leadsConfigured } from "@/lib/leads";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -92,26 +93,32 @@ export async function POST(req: Request) {
   };
 
   const { enabled: emailEnabled } = emailConfig();
+  const dbEnabled = leadsConfigured();
   // LEAD_WEBHOOK_URL is the name already set in Vercel from the previous site.
   const webhook =
     process.env.LEAD_WEBHOOK_URL ?? process.env.CONTACT_WEBHOOK_URL;
 
   /**
-   * Nothing configured to deliver to. Tell the client explicitly rather than
-   * pretending the lead was captured — the form falls back to a prefilled
+   * Nothing configured to capture the lead anywhere. Tell the client explicitly
+   * rather than pretending it was received — the form falls back to a prefilled
    * mailto so nothing is lost. See README for setup.
    */
-  if (!emailEnabled && !webhook) {
+  if (!dbEnabled && !emailEnabled && !webhook) {
     console.warn(
-      "[contact] no delivery target configured (set RESEND_API_KEY + LEAD_TO_EMAIL) — submission not delivered:",
+      "[contact] no capture target configured (set ADMIN_PASSWORD + LEADS_DB_*, or RESEND_API_KEY + LEAD_TO_EMAIL) — submission not stored:",
       { ...submission, message: submission.message?.slice(0, 120) }
     );
     return NextResponse.json({ configured: false }, { status: 503 });
   }
 
-  // Email is the primary channel; the webhook is an optional mirror (Slack,
-  // Teams, a CRM). Run both, and only fail if every channel failed.
+  /**
+   * Three independent channels, run concurrently: the lead database (the
+   * durable record, readable at /admin), email, and an optional webhook
+   * mirror. One failing never blocks the others; the request only errors if
+   * every configured channel failed.
+   */
   const results = await Promise.allSettled([
+    dbEnabled ? createLead(submission) : Promise.reject(new Error("skip")),
     emailEnabled ? sendContactEmail(submission) : Promise.reject(new Error("skip")),
     webhook
       ? fetch(webhook, {
@@ -128,7 +135,7 @@ export async function POST(req: Request) {
       : Promise.reject(new Error("skip")),
   ]);
 
-  const attempted = [emailEnabled, Boolean(webhook)];
+  const attempted = [dbEnabled, emailEnabled, Boolean(webhook)];
   const failures = results.filter(
     (r, i) => attempted[i] && r.status === "rejected"
   );
