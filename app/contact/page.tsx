@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { SERVICES, SITE } from "@/lib/site";
+import { OG_IMAGE, SERVICES, SITE } from "@/lib/site";
 
 const TITLE = "Contact WhyCrew — Talk to an Engineer, Not Sales";
 const DESCRIPTION =
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: `${SITE.url}/contact`,
     type: "website",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",

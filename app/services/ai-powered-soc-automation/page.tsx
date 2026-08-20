@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/primitives";
 import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
 
 const svc = serviceBySlug("ai-powered-soc-automation");
 
@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     description: svc.metaDescription,
     url: svc.href,
     type: "website",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",

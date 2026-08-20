@@ -12,7 +12,7 @@ import {
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { RESOURCES, RESOURCE_TYPES, liveResources } from "@/lib/resources";
-import { SITE } from "@/lib/site";
+import { OG_IMAGE, SITE } from "@/lib/site";
 
 const TITLE = "Resources — Blog, Case Studies & White Papers | WhyCrew";
 const DESCRIPTION =
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: `${SITE.url}/resources`,
     type: "website",
+    images: OG_IMAGE,
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {

@@ -19,7 +19,7 @@ import {
   serviceLd,
   type Faq,
 } from "@/lib/jsonld";
-import { CTA_HREF, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
 
 const svc = serviceBySlug("custom-siem-soar-development");
 
@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     description: svc.metaDescription,
     url: svc.href,
     type: "website",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",

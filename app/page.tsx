@@ -24,7 +24,7 @@ import {
   WordsUp,
 } from "@/components/motion";
 import { faqLd, serviceListLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Custom Security Platform Development for MSSPs",
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
     url: SITE.url,
+    images: OG_IMAGE,
   },
 };
 

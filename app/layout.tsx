@@ -4,7 +4,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { organizationLd, websiteLd } from "@/lib/jsonld";
-import { GOOGLE_SITE_VERIFICATION, SITE } from "@/lib/site";
+import { GOOGLE_SITE_VERIFICATION, OG_IMAGE, SITE } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -53,20 +53,13 @@ export const metadata: Metadata = {
     url: SITE.url,
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
-    images: [
-      {
-        url: "/WhyCrew.jpeg",
-        width: 800,
-        height: 800,
-        alt: "WhyCrew",
-      },
-    ],
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
-    images: ["/WhyCrew.jpeg"],
+    images: OG_IMAGE,
   },
   robots: {
     index: true,

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
 
 const svc = serviceBySlug("mssp-engineering-partner");
 
@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     description: svc.metaDescription,
     url: svc.href,
     type: "website",
+    images: OG_IMAGE,
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {

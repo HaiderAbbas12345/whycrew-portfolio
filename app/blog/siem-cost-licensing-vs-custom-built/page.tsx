@@ -13,7 +13,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { SITE } from "@/lib/site";
+import { OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("siem-cost-licensing-vs-custom-built")!;
 const PATH = `/blog/${post.slug}`;
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",

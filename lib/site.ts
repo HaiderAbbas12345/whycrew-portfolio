@@ -18,6 +18,32 @@ export const SITE = {
 } as const;
 
 /**
+ * The link-preview image — og:image and twitter:image.
+ *
+ * Defined once and spread into every page's `openGraph`, because Next.js
+ * *overwrites* the openGraph object rather than deep-merging it: a page that
+ * declares its own openGraph without `images` drops the one inherited from
+ * app/layout.tsx, and the page ends up with no og:image at all.
+ *
+ * The URL is absolute. Relative paths resolve against metadataBase, but
+ * several scrapers (WhatsApp and older LinkedIn among them) do not follow
+ * that, and simply skip the tag.
+ *
+ * NOTE: WhyCrew.jpeg is the 800x800 square logo, so it is letterboxed or
+ * centre-cropped in the 1.91:1 slot `summary_large_image` expects. Replacing
+ * it with a purpose-made 1200x630 image is the remaining task here — swap the
+ * three values below and every page follows.
+ */
+export const OG_IMAGE = [
+  {
+    url: "https://www.whycrew.com/WhyCrew.jpeg",
+    width: 800,
+    height: 800,
+    alt: "WhyCrew — the engineering partner behind independent security teams",
+  },
+];
+
+/**
  * Where every "Book a call" CTA points. Set NEXT_PUBLIC_BOOKING_URL to a
  * Cal.com / Calendly link and the buttons go straight there; unset, they fall
  * back to the on-site contact form. Same convention as the previous site, so
