@@ -10,7 +10,13 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import React, { useCallback, useEffect, useRef, type ReactNode } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
 /* ------------------------------------------------------------------
    Reveal — rise + fade on scroll into view
@@ -267,7 +273,19 @@ export function CountUp({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      <span ref={out}>{(reduced ? to : from).toFixed(decimals)}</span>
+      {/*
+        Always the `from` value, never `reduced ? to : from`.
+
+        useReducedMotion() reads null on the server but the real preference
+        synchronously on the client's first render, so branching on it here
+        made the server emit "0" while a reduced-motion visitor's browser
+        emitted the final number — a hydration text mismatch (React #418).
+
+        The effect above writes `to` immediately when reduced is set, so that
+        visitor still lands on the final figure; it is just applied a tick
+        after mount instead of during hydration.
+      */}
+      <span ref={out}>{from.toFixed(decimals)}</span>
       {suffix}
     </span>
   );
@@ -457,9 +475,21 @@ export function Parallax({
   });
   const y = useTransform(scrollYProgress, [0, 1], [amount, -amount]);
 
+  /**
+   * useReducedMotion() reads null on the server but the real preference on the
+   * client's first render, so branching on it directly made the two disagree
+   * about the transform — the same hydration mismatch CountUp had. Deferring
+   * to after mount keeps the first render identical on both sides; the CSS
+   * media query can't cover this because the offset is scroll-driven, not an
+   * animation or transition.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const still = mounted && reduced;
+
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ y: reduced ? 0 : y }}>{children}</motion.div>
+      <motion.div style={{ y: still ? 0 : y }}>{children}</motion.div>
     </div>
   );
 }
