@@ -58,6 +58,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "siem-migration-guide-zero-downtime",
+    title: "SIEM Migration Guide: Move Off Legacy With Zero Downtime",
+    metaTitle: "SIEM Migration: Move Off Legacy With Zero Downtime",
+    metaDescription:
+      "Migrating a SIEM feels risky but does not have to be. Learn a zero-downtime approach that protects coverage, data, and detection during the switch.",
+    summary:
+      "A zero-downtime switch means running both systems on live traffic until the new one catches the same threats. The seven phases, the three risks that break migrations, and why MSSPs should move one client at a time.",
+    datePublished: "2026-08-21",
+    readTime: "8 min read",
+    topics: ["SIEM & SOAR", "Migration", "Platform Ownership"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -84,7 +97,9 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
 
   /** Published articles. */
+  "siem-cost-licensing": "/blog/siem-cost-licensing-vs-custom-built",
   "open-source-vs-custom-siem": "/blog/open-source-vs-custom-built-siem",
+  "siem-migration-guide": "/blog/siem-migration-guide-zero-downtime",
 
   /**
    * Planned articles. `null` renders the anchor as plain text, so nothing
@@ -93,7 +108,6 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "nis2-dora-compliance-guide": null,
   "soar-playbooks-guide": null,
   "multi-tenant-siem-architecture": null,
-  "siem-migration-guide": null,
 };
 
 export const resolveLink = (key: string): string | null =>

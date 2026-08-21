@@ -205,3 +205,61 @@ export function DataTable({
   );
 }
 
+
+/* --------------------------------------------------------- ordered content */
+
+/**
+ * Ordered steps. Distinct from `Bullets` because order is load-bearing here —
+ * the content docs use numbering where a sequence must be followed exactly
+ * (rule-by-rule migration order, for instance), not merely enumerated.
+ */
+export function Numbered({ items }: { items: ReactNode[] }) {
+  return (
+    <ol className="mt-5 space-y-3">
+      {items.map((it, i) => (
+        <li key={i} className="flex gap-3.5 text-[15px] leading-[1.7] text-body">
+          <span
+            aria-hidden
+            className="mt-[3px] flex size-5 shrink-0 items-center justify-center rounded-full border border-accent/30 bg-accent/8 font-mono text-[10.5px] font-semibold text-accent"
+          >
+            {i + 1}
+          </span>
+          <span>{it}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/**
+ * Pre-flight checklist. Same check-mark vocabulary as `KeyTakeaways`, but a
+ * standalone block with its own heading rather than a fixed-title summary
+ * aside, so it can sit mid-article under its own H2.
+ */
+export function Checklist({ items }: { items: ReactNode[] }) {
+  return (
+    <div className="mt-6 rounded-lg border border-line/70 bg-surface/60 p-6 sm:p-7">
+      <ul className="space-y-3.5">
+        {items.map((it, i) => (
+          <li key={i} className="flex gap-3 text-[14px] leading-[1.7] text-body">
+            <svg
+              viewBox="0 0 20 20"
+              className="mt-1 size-3.5 shrink-0 text-accent"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M4 10.5l3.6 3.5L16 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

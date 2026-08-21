@@ -114,6 +114,18 @@ export const RESOURCES: Resource[] = [
     href: "/blog/open-source-vs-custom-built-siem",
     date: "2026-08-20",
   },
+  {
+    id: "blog-siem-migration-guide-zero-downtime",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Migration", "Platform Ownership"],
+    title: "SIEM Migration Guide: Move Off Legacy With Zero Downtime",
+    summary:
+      "A zero-downtime switch means running both systems on live traffic until the new one catches the same threats. The seven phases, the three risks that break migrations, and why MSSPs should move one client at a time.",
+    format: "8 min read",
+    status: "live",
+    href: "/blog/siem-migration-guide-zero-downtime",
+    date: "2026-08-21",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */
