@@ -23,6 +23,7 @@ export function Button({
   variant = "primary",
   className = "",
   external = false,
+  download = false,
   magnetic = true,
   onClick,
   type,
@@ -32,6 +33,12 @@ export function Button({
   variant?: Variant;
   className?: string;
   external?: boolean;
+  /**
+   * Serves `href` as a file download. Required for anything under public/ —
+   * next/link would treat a static asset as a route and client-navigate into
+   * a 404 instead of handing the file to the browser.
+   */
+  download?: boolean;
   magnetic?: boolean;
   onClick?: () => void;
   type?: "button" | "submit";
@@ -67,7 +74,11 @@ export function Button({
   const opensNewTab = external || isAbsolute;
 
   const node = href ? (
-    opensNewTab ? (
+    download ? (
+      <a href={href} className={cls} download>
+        {inner}
+      </a>
+    ) : opensNewTab ? (
       <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
         {inner}
       </a>

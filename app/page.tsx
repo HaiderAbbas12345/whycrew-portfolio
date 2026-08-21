@@ -478,7 +478,11 @@ export default function HomePage() {
           <Reveal delay={0.22}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <Button href={CTA_HREF}>Book Your Free Strategy Call</Button>
-              <Button href="/services/nis2-dora-compliance-automation" variant="ghost">
+              <Button
+                href="/whycrew-mssp-guide-to-nis2.pdf"
+                variant="ghost"
+                download
+              >
                 Download: &ldquo;The MSSP&apos;s Guide to NIS2&rdquo;
               </Button>
             </div>
