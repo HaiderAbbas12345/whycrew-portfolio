@@ -47,18 +47,22 @@ const CSP = [
   .concat(";");
 
 /**
- * Report-Only until proven clean.
+ * Enforcing.
  *
- * In this mode the browser reports violations to the console but blocks
- * nothing, so a directive that is too tight cannot take the site down. Watch
- * the console on the homepage, /contact (submit the form), and /admin (sign
- * in). When there are no reports, set CSP_ENFORCE=true in the environment to
- * switch to the enforcing header — no code change needed.
+ * Shipped Report-Only first and verified against the live deployment — no
+ * violations on any page, and the contact form still delivered — so the
+ * browser now blocks anything outside the policy rather than just reporting
+ * it.
+ *
+ * If a future change (a new embed, a tag manager, a chat widget) starts
+ * getting blocked, set CSP_REPORT_ONLY=true in the environment to drop back to
+ * reporting while the directive is widened. That is a temporary escape hatch,
+ * not a resting state: in Report-Only the policy protects nothing.
  */
 const CSP_HEADER =
-  process.env.CSP_ENFORCE === "true"
-    ? "Content-Security-Policy"
-    : "Content-Security-Policy-Report-Only";
+  process.env.CSP_REPORT_ONLY === "true"
+    ? "Content-Security-Policy-Report-Only"
+    : "Content-Security-Policy";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
