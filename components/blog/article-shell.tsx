@@ -11,6 +11,27 @@ export interface TocEntry {
   label: string;
 }
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+/**
+ * Formats "2026-08-18" as "18 August 2026" from the string itself.
+ *
+ * Deliberately avoids `new Date(iso).toLocaleDateString()`: a date-only ISO
+ * string parses as UTC midnight, and toLocaleDateString then renders it in the
+ * *runtime's* timezone. The page is prerendered on a UTC build machine, so any
+ * visitor west of UTC would format it as the previous day — the server HTML
+ * and the client render would disagree, which is a hydration mismatch
+ * (React #418) and swaps the date under the reader.
+ */
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  if (!y || !m || !d) return iso; // unparseable — show it rather than "NaN"
+  return `${d} ${MONTHS[m - 1]} ${y}`;
+}
+
 export function ArticleShell({
   post,
   toc,
@@ -22,11 +43,7 @@ export function ArticleShell({
   children: ReactNode;
   cta: { heading: string; body: string; label: string; href: string };
 }) {
-  const published = new Date(post.datePublished).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const published = formatDate(post.datePublished);
 
   return (
     <>
