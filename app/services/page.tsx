@@ -10,13 +10,31 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, serviceListLd } from "@/lib/jsonld";
-import { CTA_HREF, SERVICES } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SERVICES, SITE } from "@/lib/site";
+
+const TITLE = "Security Engineering Services for MSSPs & Regulated Operators";
+const DESCRIPTION =
+  "Custom SIEM & SOAR development, AI SOC automation, white-label MSSP platforms, and NIS2 & DORA compliance automation — built once, handed over fully owned.";
 
 export const metadata: Metadata = {
-  title: "Security Engineering Services for MSSPs & Regulated Operators",
-  description:
-    "Custom SIEM & SOAR development, AI SOC automation, white-label MSSP platforms, and NIS2 & DORA compliance automation — built once, handed over fully owned.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/services" },
+  // Without these the hub inherits the root layout's card wholesale, which
+  // names the homepage — so a shared /services link showed the homepage title,
+  // description, and og:url.
+  openGraph: {
+    title: `${TITLE} | ${SITE.name}`,
+    description: DESCRIPTION,
+    url: `${SITE.url}/services`,
+    type: "website",
+    images: OG_IMAGE,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${TITLE} | ${SITE.name}`,
+    description: DESCRIPTION,
+  },
 };
 
 export default function ServicesPage() {
