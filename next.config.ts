@@ -127,6 +127,36 @@ const nextConfig: NextConfig = {
           { key: CSP_HEADER, value: CSP },
         ],
       },
+      /**
+       * Canonical for the downloadable NIS2 guide.
+       *
+       * A PDF has no <head>, so a <link rel="canonical"> has nowhere to live —
+       * the response header is the only way to declare one, and its absence is
+       * what the audit flags. It is self-referencing on purpose: the PDF is the
+       * original, not a duplicate of /resources or of the page linking to it,
+       * so canonicalising it elsewhere would ask Google to drop it.
+       *
+       * The URL must be absolute and must name the www origin (SITE.url in
+       * lib/site.ts). A relative one resolves against the request, which makes
+       * the apex a second canonical for the same file.
+       *
+       * Rules here accumulate rather than override, so this file still gets the
+       * headers from the /:path* rule above. And since next.config headers cover
+       * public/ as well, a static asset needs no handler — there is no
+       * res.setHeader to write, because nothing in app/ serves this URL.
+       *
+       * A second PDF needs its own entry (the value is per-file), or a shared
+       * "/:file.pdf" rule with :file interpolated into the value.
+       */
+      {
+        source: "/whycrew-mssp-guide-to-nis2.pdf",
+        headers: [
+          {
+            key: "Link",
+            value: '<https://www.whycrew.com/whycrew-mssp-guide-to-nis2.pdf>; rel="canonical"',
+          },
+        ],
+      },
     ];
   },
 };
