@@ -7,19 +7,19 @@ export default function NotFound() {
     <section className="relative flex min-h-[75vh] items-center overflow-hidden py-32">
       <Backdrop />
       <div className="container-page text-center">
-        <Reveal>
+        <Reveal mount>
           <h1 className="mx-auto max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">
             This page isn&apos;t part of the{" "}
             <span className="text-gradient">architecture</span>.
           </h1>
         </Reveal>
-        <Reveal delay={0.18}>
+        <Reveal delay={0.18} mount>
           <p className="mx-auto mt-6 max-w-lg text-[15px] leading-relaxed text-body">
             The link is broken or the page moved. Start from the services
             overview, or talk to an engineer directly.
           </p>
         </Reveal>
-        <Reveal delay={0.26}>
+        <Reveal delay={0.26} mount>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Button href="/services">See All Services</Button>
             <Button href="/" variant="ghost">

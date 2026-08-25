@@ -44,13 +44,19 @@ function ResourceCard({ r }: { r: Resource }) {
         )}
       </div>
 
-      <h3
+      {/*
+        h2, not h3. These cards are the first headings under the page's <h1>,
+        so an h3 here skips a level — the "heading hierarchy" error an SEO
+        audit flags. The visual size is set by the utility classes, not by the
+        tag, so the card looks identical either way.
+      */}
+      <h2
         className={`mt-4 text-[15px] font-semibold leading-snug transition-colors duration-400 ${
           planned ? "text-body" : "text-bright group-hover:text-accent-hi"
         }`}
       >
         {r.title}
-      </h3>
+      </h2>
 
       <p className="mt-2.5 flex-1 text-[13px] leading-relaxed text-muted">
         {r.summary}

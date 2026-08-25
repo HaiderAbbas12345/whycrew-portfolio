@@ -122,7 +122,7 @@ export default function ResourcesPage() {
             <WordsUp text="in one place." delay={0.34} gradient />
           </h1>
 
-          <Reveal delay={0.55}>
+          <Reveal delay={0.55} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
               Engineering write-ups, client case studies, and in-depth white
               papers for MSSPs and regulated operators — organised by what
@@ -131,7 +131,7 @@ export default function ResourcesPage() {
           </Reveal>
 
           {liveCount === 0 && (
-            <Reveal delay={0.66}>
+            <Reveal delay={0.66} mount>
               <p className="mt-7 inline-flex flex-wrap items-center gap-2 rounded-full border border-warn/30 bg-warn/8 px-5 py-2.5 text-[12.5px] text-body">
                 <span aria-hidden className="text-warn">
                   ◷

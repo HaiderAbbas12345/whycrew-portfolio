@@ -44,6 +44,19 @@ const offsetFor = (d: Direction, dist: number) => {
  * re-rasterise the whole subtree every frame, which is what made staggered
  * card grids stutter — the GPU can composite opacity/transform for free but
  * not a changing blur radius.
+ *
+ * Two trigger modes:
+ *
+ *   default   reveals when the element scrolls into view (IntersectionObserver)
+ *   mount      reveals as soon as the component mounts, no observer involved
+ *
+ * `mount` exists for anything above the fold, and the page's <h1> in
+ * particular. The server ships these elements at `opacity: 0`, so with the
+ * observer they stay invisible until they intersect — and on a reload the
+ * browser restores the previous scroll position (or jumps to a `#hash`)
+ * *before* the observer's first callback, so an element already scrolled past
+ * never intersects and never appears. That is exactly how the blog headline
+ * vanished on refresh. Mount-triggered elements have no such dependency.
  */
 export function Reveal({
   children,
@@ -53,6 +66,7 @@ export function Reveal({
   duration = 0.8,
   className,
   as = "div",
+  mount = false,
 }: {
   children: ReactNode;
   delay?: number;
@@ -61,27 +75,47 @@ export function Reveal({
   duration?: number;
   className?: string;
   as?: "div" | "section" | "li" | "span" | "header";
+  /** Animate on mount instead of on scroll. Use for above-the-fold content. */
+  mount?: boolean;
 }) {
   const reduced = useReducedMotion();
   const Comp = motion[as] as typeof motion.div;
   const off = offsetFor(direction, distance);
+  const shown = { opacity: 1, x: 0, y: 0 };
 
-  if (reduced) {
-    const Plain = as as React.ElementType;
-    return <Plain className={className}>{children}</Plain>;
-  }
+  /**
+   * useReducedMotion() reads null on the server but the real preference on the
+   * client's first render. Branching on it during render therefore made the
+   * server emit a motion element and a reduced-motion visitor's browser emit a
+   * plain one — a hydration mismatch (React #418) that makes React throw away
+   * the server HTML and re-render the tree, which can blank content mid-load.
+   * Same fix as CountUp and Parallax: defer the branch to after mount, so the
+   * first render is identical on both sides.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const still = mounted && reduced;
+
+  // Reduced motion and mount mode both resolve on their own; only the default
+  // path attaches an observer.
+  const trigger =
+    still || mount
+      ? { animate: shown }
+      : {
+          whileInView: shown,
+          viewport: { once: true, margin: "-12% 0px -8% 0px" },
+        };
 
   return (
     <Comp
       className={className}
       initial={{ opacity: 0, ...off }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-12% 0px -8% 0px" }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      {...trigger}
+      transition={
+        still
+          ? { duration: 0 }
+          : { duration, delay, ease: [0.16, 1, 0.3, 1] as const }
+      }
     >
       {children}
     </Comp>

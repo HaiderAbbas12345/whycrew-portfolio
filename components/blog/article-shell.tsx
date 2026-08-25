@@ -60,13 +60,13 @@ export function ArticleShell({
           />
 
           <div className="max-w-3xl">
-            <Reveal>
+            <Reveal mount>
               <h1 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.9rem]">
                 {post.title}
               </h1>
             </Reveal>
 
-            <Reveal delay={0.18}>
+            <Reveal delay={0.18} mount>
               <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint">
                 <time dateTime={post.datePublished}>{published}</time>
                 <span aria-hidden className="text-line">
@@ -80,7 +80,7 @@ export function ArticleShell({
               </div>
             </Reveal>
 
-            <Reveal delay={0.24}>
+            <Reveal delay={0.24} mount>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {post.topics.map((t) => (
                   <span

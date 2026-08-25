@@ -70,8 +70,8 @@ const ROUTES = [
     icon: "tools",
     title: "Existing Client Support",
     body: "Already running a WhyCrew-built platform and need help, an upgrade, or a runbook question.",
-    cta: "Open a Support Request",
-    href: "/contact?topic=support#form",
+    cta: "Go to Client Support",
+    href: "/support",
     tone: "default" as const,
   },
   {
@@ -86,8 +86,8 @@ const ROUTES = [
     icon: "briefcase",
     title: "Careers",
     body: "Engineering roles, not sales roles — we don't have a sales team to hire for.",
-    cta: "See Open Roles",
-    href: "/contact?topic=careers#form",
+    cta: "See Careers",
+    href: "/careers",
     tone: "default" as const,
   },
 ];
@@ -198,7 +198,7 @@ export default function ContactPage() {
             <WordsUp text="Not a Salesperson." delay={0.4} gradient />
           </h1>
 
-          <Reveal delay={0.75}>
+          <Reveal delay={0.75} mount>
             <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-relaxed text-body">
               Every conversation with WhyCrew starts with someone who can
               actually answer the technical question — not a rep reading from a
@@ -207,7 +207,7 @@ export default function ContactPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.88}>
+          <Reveal delay={0.88} mount>
             <p className="mx-auto mt-8 inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-line/70 bg-surface/50 px-5 py-2.5 text-[12.5px] text-muted backdrop-blur-sm">
               <span aria-hidden className="text-accent">
                 ⏱

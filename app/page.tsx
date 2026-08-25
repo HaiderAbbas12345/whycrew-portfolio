@@ -236,7 +236,7 @@ export default function HomePage() {
               <WordsUp text="Independent Security Teams" delay={0.42} gradient />
             </h1>
 
-            <Reveal delay={0.85} distance={16}>
+            <Reveal delay={0.85} distance={16} mount>
               <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-relaxed text-body sm:text-base">
                 We build custom security platforms, AI agents, and compliance
                 automation for MSSPs and regulated operators — with a track
@@ -249,7 +249,7 @@ export default function HomePage() {
               </p>
             </Reveal>
 
-            <Reveal delay={1} distance={14}>
+            <Reveal delay={1} distance={14} mount>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
                 <Button href={CTA_HREF}>Book a 20-Min Strategy Call</Button>
                 <Button href="/#results" variant="ghost">
@@ -259,7 +259,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          <Reveal delay={1.15} className="mx-auto mt-16 max-w-4xl">
+          <Reveal delay={1.15} className="mx-auto mt-16 max-w-4xl" mount>
             <StatBar stats={HERO_STATS} />
           </Reveal>
         </div>

@@ -13,6 +13,8 @@ const columns = [
       { label: "Resources", href: "/resources" },
       { label: "Results", href: "/#results" },
       { label: "How it Works", href: "/#how-it-works" },
+      { label: "Careers", href: "/careers" },
+      { label: "Support", href: "/support" },
       { label: "FAQ", href: "/#faq" },
       { label: "Contact", href: "/contact" },
     ],
@@ -23,7 +25,8 @@ const columns = [
       { label: "Book a technical consultation", href: CTA_HREF },
       { label: "Report a security incident", href: `mailto:${SITE.incidentEmail}` },
       { label: "Press & media", href: `mailto:${SITE.pressEmail}` },
-      { label: "Engineering roles", href: "/contact?topic=careers" },
+      { label: "Client support", href: "/support" },
+      { label: "Engineering roles", href: "/careers" },
     ],
   },
 ];

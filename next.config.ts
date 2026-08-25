@@ -93,6 +93,24 @@ const nextConfig: NextConfig = {
       { source: "/case-studies", destination: "/#results", permanent: true },
       // /blog has no index of its own — Resources is the hub.
       { source: "/blog", destination: "/resources", permanent: false },
+      /**
+       * Careers and Support used to be the contact form under a query string,
+       * so /contact?topic=careers and /contact?topic=support were the same
+       * page as /contact at two more URLs. They now have pages of their own;
+       * these consolidate anything already linking to the old form.
+       */
+      {
+        source: "/contact",
+        has: [{ type: "query", key: "topic", value: "careers" }],
+        destination: "/careers",
+        permanent: true,
+      },
+      {
+        source: "/contact",
+        has: [{ type: "query", key: "topic", value: "support" }],
+        destination: "/support",
+        permanent: true,
+      },
     ];
   },
 

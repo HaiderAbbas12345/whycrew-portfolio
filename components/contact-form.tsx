@@ -32,10 +32,19 @@ const field =
 const label =
   "mb-2 block font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-muted";
 
-export function ContactForm() {
+export function ContactForm({
+  defaultInterest = "",
+}: {
+  /**
+   * Preselects the routing dropdown. Lets /careers and /support embed the
+   * form directly instead of linking to /contact?topic=..., which kept the
+   * same form on two URLs that differed only by a query string.
+   */
+  defaultInterest?: string;
+} = {}) {
   const params = useSearchParams();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
-  const [interest, setInterest] = useState("");
+  const [interest, setInterest] = useState(defaultInterest);
 
   /**
    * Tracked separately from `status` so dismissing the modal leaves the inline
@@ -44,7 +53,8 @@ export function ContactForm() {
    */
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Deep links like /contact?topic=careers preselect the routing dropdown
+  // Deep links like /contact?topic=mssp preselect the routing dropdown. Kept
+  // for links already in the wild; nothing on the site points here any more.
   useEffect(() => {
     const topic = params.get("topic");
     if (topic === "careers") setInterest("Careers");

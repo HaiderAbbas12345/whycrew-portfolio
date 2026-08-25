@@ -46,19 +46,19 @@ export function ServiceHero({
           <WordsUp text={title} delay={0.12} highlight={highlight} />
         </h1>
 
-        <Reveal delay={0.5} distance={16}>
+        <Reveal delay={0.5} distance={16} mount>
           <p className="mt-6 max-w-3xl text-lg font-medium leading-snug text-accent-hi sm:text-xl">
             {lead}
           </p>
         </Reveal>
 
-        <Reveal delay={0.6} distance={14}>
+        <Reveal delay={0.6} distance={14} mount>
           <div className="mt-6 max-w-3xl space-y-4 text-[15px] leading-relaxed text-body">
             {intro}
           </div>
         </Reveal>
 
-        <Reveal delay={0.72} distance={12}>
+        <Reveal delay={0.72} distance={12} mount>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Button href={primaryCta.href}>{primaryCta.label}</Button>
             {secondaryCta && (
@@ -69,7 +69,7 @@ export function ServiceHero({
           </div>
         </Reveal>
 
-        <Reveal delay={0.85} className="mt-14">
+        <Reveal delay={0.85} className="mt-14" mount>
           <StatBar stats={stats} />
         </Reveal>
       </div>

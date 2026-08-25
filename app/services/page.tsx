@@ -72,7 +72,7 @@ export default function ServicesPage() {
               highlight={["own"]}
             />
           </h1>
-          <Reveal delay={0.5}>
+          <Reveal delay={0.5} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
               Every engagement ends the same way: source code, infrastructure,
               documentation, and roadmap transfer to your team. No per-GB
