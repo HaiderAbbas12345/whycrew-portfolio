@@ -71,6 +71,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "Migration", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "multi-tenant-siem-architecture-mssps",
+    title: "Multi-Tenant SIEM for MSSPs: A Full Guide",
+    metaTitle: "Multi-Tenant SIEM for MSSPs: A Full Guide",
+    metaDescription:
+      "Learn how multi-tenant SIEM helps MSSPs manage all clients from one platform, cut costs, and keep data fully separate, without the chaos.",
+    summary:
+      "One platform serving every client, with each tenant's data, rules, and dashboards fully separated. How isolation, layered detection, branding, and data residency should be designed — and when a custom build beats a vendor platform.",
+    datePublished: "2026-08-25",
+    readTime: "9 min read",
+    topics: ["SIEM & SOAR", "MSSP & White-Label", "Multi-Tenancy"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -100,6 +113,8 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "siem-cost-licensing": "/blog/siem-cost-licensing-vs-custom-built",
   "open-source-vs-custom-siem": "/blog/open-source-vs-custom-built-siem",
   "siem-migration-guide": "/blog/siem-migration-guide-zero-downtime",
+  "multi-tenant-siem-architecture":
+    "/blog/multi-tenant-siem-architecture-mssps",
 
   /**
    * Planned articles. `null` renders the anchor as plain text, so nothing
@@ -107,7 +122,6 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
    */
   "nis2-dora-compliance-guide": null,
   "soar-playbooks-guide": null,
-  "multi-tenant-siem-architecture": null,
 };
 
 export const resolveLink = (key: string): string | null =>

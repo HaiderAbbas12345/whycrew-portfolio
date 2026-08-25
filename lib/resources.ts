@@ -126,6 +126,18 @@ export const RESOURCES: Resource[] = [
     href: "/blog/siem-migration-guide-zero-downtime",
     date: "2026-08-21",
   },
+  {
+    id: "blog-multi-tenant-siem-architecture-mssps",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "MSSP & White-Label", "Multi-Tenancy"],
+    title: "Multi-Tenant SIEM for MSSPs: A Full Guide",
+    summary:
+      "One platform serving every client, with each tenant's data, rules, and dashboards fully separated. How isolation, layered detection, branding, and data residency should be designed — and when a custom build beats a vendor platform.",
+    format: "9 min read",
+    status: "live",
+    href: "/blog/multi-tenant-siem-architecture-mssps",
+    date: "2026-08-25",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */
