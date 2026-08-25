@@ -74,7 +74,7 @@ export const POSTS: BlogPost[] = [
   {
     slug: "multi-tenant-siem-architecture-mssps",
     title: "Multi-Tenant SIEM for MSSPs: A Full Guide",
-    metaTitle: "Multi-Tenant SIEM for MSSPs: A Full Guide",
+    metaTitle: "Multi-Tenant SIEM Architecture for MSSP: A Full Guide",
     metaDescription:
       "Learn how multi-tenant SIEM helps MSSPs manage all clients from one platform, cut costs, and keep data fully separate, without the chaos.",
     summary:
