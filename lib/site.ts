@@ -84,6 +84,14 @@ export const IS_EXTERNAL_CTA = Boolean(BOOKING_URL);
 export const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-BNMPZB5NQN";
 
+/**
+ * Microsoft Clarity project — session recordings and heatmaps, alongside GA4.
+ * Unset the env var to an empty string to switch it off without a code change;
+ * the tag is skipped entirely rather than loaded with no project.
+ */
+export const CLARITY_PROJECT_ID =
+  process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "y7w4w5shbx";
+
 /** Search Console ownership token carried over from the previous deployment. */
 export const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||

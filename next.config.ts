@@ -20,6 +20,13 @@ import type { NextConfig } from "next";
  *   connect-src  'self' covers the contact form POST and the /admin server
  *                actions. vercel-insights is listed so enabling Speed Insights
  *                later does not silently start failing.
+ *   clarity      Microsoft Clarity (components/analytics.tsx) fetches its
+ *                tag from www.clarity.ms and beacons recordings back to
+ *                whichever *.clarity.ms host it is load-balanced onto, so
+ *                the wildcard is Microsoft's own documented guidance rather
+ *                than laziness. c.bing.com is the Bing sync pixel fired
+ *                alongside it. Blocked, Clarity fails silently — the
+ *                dashboard simply stays empty.
  *
  * 'unsafe-inline' in script-src is required by the inline gtag bootstrap and
  * the JSON-LD blocks. The stricter fix is a per-request nonce, but that forces
@@ -32,11 +39,11 @@ const CSP = [
   "default-src 'self'",
   // 'unsafe-eval' is only needed by the dev-server's hot reload; production
   // runs without it.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com",
+  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://*.clarity.ms https://c.bing.com",
   "frame-ancestors 'self'",
   // Not in the original draft, all cheap and worth having:
   "base-uri 'self'", // blocks an injected <base> rewriting every relative URL
