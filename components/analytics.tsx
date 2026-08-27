@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { CLARITY_PROJECT_ID, GA_MEASUREMENT_ID } from "@/lib/site";
+import { CLARITY_PROJECT_ID, GA_MEASUREMENT_ID, GTM_CONTAINER_ID } from "@/lib/site";
 
 /**
  * GA4, carried over from the previous deployment so historical reporting stays
@@ -53,9 +53,61 @@ function Clarity() {
   );
 }
 
+/**
+ * Google Tag Manager — the container, so tags can be added from the GTM UI
+ * without a deploy.
+ *
+ * GTM's own <head> snippet, unchanged apart from the container id coming from
+ * lib/site.ts. `afterInteractive` is what Next's own GTM component uses as
+ * well: the container still loads on every page, just off the critical path.
+ *
+ * The <noscript> half is exported separately below — it has to be real markup
+ * in the initial HTML, which a <Script> never is.
+ */
+function GoogleTagManager() {
+  if (!GTM_CONTAINER_ID) return null;
+
+  return (
+    <Script id="gtm-init" strategy="afterInteractive">
+      {`
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');
+      `}
+    </Script>
+  );
+}
+
+/**
+ * The GTM <noscript> fallback. Belongs immediately after the opening <body>
+ * tag (app/layout.tsx) — Google's placement, and the reason it is not part of
+ * <Analytics />, which renders at the end of the body.
+ *
+ * Its iframe needs frame-src in the CSP (next.config.ts) or the browser blocks
+ * it, since default-src 'self' is what a missing frame-src falls back to.
+ */
+export function GoogleTagManagerNoScript() {
+  if (!GTM_CONTAINER_ID) return null;
+
+  return (
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+        height="0"
+        width="0"
+        style={{ display: "none", visibility: "hidden" }}
+      />
+    </noscript>
+  );
+}
+
 export function Analytics() {
   return (
     <>
+      <GoogleTagManager />
       <GoogleAnalytics />
       <Clarity />
     </>

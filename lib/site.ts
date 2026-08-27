@@ -92,6 +92,19 @@ export const GA_MEASUREMENT_ID =
 export const CLARITY_PROJECT_ID =
   process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "y7w4w5shbx";
 
+/**
+ * Google Tag Manager container. Tags added in the GTM UI then ship without a
+ * deploy. Set the env var to an empty string to switch it off without a code
+ * change; both halves of the snippet (the loader in components/analytics.tsx
+ * and the <noscript> iframe in app/layout.tsx) are skipped entirely.
+ *
+ * NOTE: GA4 above is loaded directly by the page. If a GA4 tag for the same
+ * property is also configured inside this container, every pageview is counted
+ * twice — load GA4 in one place, not both.
+ */
+export const GTM_CONTAINER_ID =
+  process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "GTM-PVSVFHH3";
+
 /** Search Console ownership token carried over from the previous deployment. */
 export const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||

@@ -9,8 +9,10 @@ import type { NextConfig } from "next";
  * fetches need to appear below.
  *
  * What the site actually loads, and why each directive is here:
- *   script-src   GA4 (components/analytics.tsx) pulls gtag from
- *                googletagmanager.com and it beacons to google-analytics.com.
+ *   script-src   GA4 and Google Tag Manager (components/analytics.tsx) pull
+ *                gtag/gtm.js from googletagmanager.com and GA4 beacons to
+ *                google-analytics.com.
+ *   frame-src    GTM's <noscript> fallback frames googletagmanager.com.
  *   style-src    'unsafe-inline' — Next injects critical CSS inline, and
  *                framer-motion writes inline styles on every animated element.
  *   font-src     'self' is enough: next/font/google self-hosts Inter and
@@ -44,6 +46,10 @@ const CSP = [
   "img-src 'self' data: https:",
   "font-src 'self' data:",
   "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://*.clarity.ms https://c.bing.com",
+  // GTM's <noscript> fallback (components/analytics.tsx) frames
+  // googletagmanager.com. Without this it falls back to default-src 'self'
+  // and the iframe is blocked.
+  "frame-src 'self' https://www.googletagmanager.com",
   "frame-ancestors 'self'",
   // Not in the original draft, all cheap and worth having:
   "base-uri 'self'", // blocks an injected <base> rewriting every relative URL
