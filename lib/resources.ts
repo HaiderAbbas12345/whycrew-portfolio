@@ -138,6 +138,18 @@ export const RESOURCES: Resource[] = [
     href: "/blog/multi-tenant-siem-architecture-mssps",
     date: "2026-08-25",
   },
+  {
+    id: "blog-siem-nis2-dora-compliance",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "NIS2", "DORA"],
+    title: "SIEM for NIS2 & DORA Compliance: What Your Platform Must Deliver",
+    summary:
+      "NIS2 gives you 24 hours to file a first report; DORA gives you 4. The five capabilities a compliant platform needs — rule-tied detection, automated reporting, tamper-proof records, EU residency, and test evidence — and the three gaps that show up repeatedly in bought SIEMs.",
+    format: "9 min read",
+    status: "live",
+    href: "/blog/siem-nis2-dora-compliance",
+    date: "2026-08-27",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */

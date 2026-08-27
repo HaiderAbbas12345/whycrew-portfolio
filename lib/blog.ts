@@ -84,6 +84,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "MSSP & White-Label", "Multi-Tenancy"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "siem-nis2-dora-compliance",
+    title: "SIEM for NIS2 & DORA Compliance: What Your Platform Must Deliver",
+    metaTitle: "SIEM for NIS2 & DORA Compliance: A Guide",
+    metaDescription:
+      "Does your SIEM meet NIS2 and DORA requirements? See the 5 things a compliant platform must deliver, and where most tools fall short.",
+    summary:
+      "NIS2 gives you 24 hours to file a first report; DORA gives you 4. The five capabilities a compliant platform needs — rule-tied detection, automated reporting, tamper-proof records, EU residency, and test evidence — and the three gaps that show up repeatedly in bought SIEMs.",
+    datePublished: "2026-08-27",
+    readTime: "9 min read",
+    topics: ["SIEM & SOAR", "NIS2", "DORA"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -115,12 +128,12 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "siem-migration-guide": "/blog/siem-migration-guide-zero-downtime",
   "multi-tenant-siem-architecture":
     "/blog/multi-tenant-siem-architecture-mssps",
+  "nis2-dora-compliance-guide": "/blog/siem-nis2-dora-compliance",
 
   /**
    * Planned articles. `null` renders the anchor as plain text, so nothing
    * links to a page that doesn't exist yet. Set the path once each is live.
    */
-  "nis2-dora-compliance-guide": null,
   "soar-playbooks-guide": null,
 };
 
