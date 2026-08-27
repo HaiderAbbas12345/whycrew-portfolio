@@ -1,4 +1,4 @@
-import { SITE, SERVICES } from "./site";
+import { ADDRESS, SITE, SERVICES } from "./site";
 
 export interface Faq {
   q: string;
@@ -20,6 +20,15 @@ export const organizationLd = () => ({
   image: `${SITE.url}/WhyCrew.jpeg`,
   description: SITE.description,
   email: SITE.email,
+  telephone: SITE.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: ADDRESS.street,
+    addressLocality: ADDRESS.locality,
+    addressRegion: ADDRESS.region,
+    postalCode: ADDRESS.postalCode,
+    addressCountry: ADDRESS.country,
+  },
   slogan: "Stop renting. Start owning.",
   // Entity disambiguation — carried over from the previous site's schema.
   sameAs: [
@@ -46,6 +55,7 @@ export const organizationLd = () => ({
       "@type": "ContactPoint",
       contactType: "sales",
       email: SITE.email,
+      telephone: SITE.phone,
       availableLanguage: ["English"],
     },
     {

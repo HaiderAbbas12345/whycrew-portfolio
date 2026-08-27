@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CTA_HREF, SERVICES, SITE } from "@/lib/site";
+import { ADDRESS, CTA_HREF, SERVICES, SITE } from "@/lib/site";
 
 const columns = [
   {
@@ -63,6 +63,36 @@ export function Footer() {
               automation for MSSPs and regulated operators — then hand you the
               keys.
             </p>
+            {/*
+              Marked up as an <address> so the phone and postal address are the
+              machine-readable contact block for the page, matching the
+              PostalAddress in the Organization JSON-LD. `not-italic` because
+              the element defaults to italic.
+            */}
+            <address className="mt-6 space-y-2 text-[13px] not-italic leading-relaxed text-muted">
+              <a
+                href={`tel:${SITE.phone}`}
+                className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-bright"
+              >
+                <span aria-hidden className="text-accent">
+                  ☎
+                </span>
+                {SITE.phoneDisplay}
+              </a>
+              <p className="flex gap-2">
+                <span aria-hidden className="text-accent">
+                  ⌖
+                </span>
+                <span>
+                  {ADDRESS.street}
+                  <br />
+                  {ADDRESS.locality}, {ADDRESS.region} {ADDRESS.postalCode}
+                  <br />
+                  {ADDRESS.countryName}
+                </span>
+              </p>
+            </address>
+
             <p className="mt-6 font-mono text-[10.5px] uppercase leading-relaxed tracking-[0.2em] text-faint">
               Engineering-led team
               <br />

@@ -4,7 +4,7 @@
 
 Canonical source: https://www.whycrew.com/llms.txt
 Version: 1.0
-Last updated: 2026-08-20
+Last updated: 2026-08-27
 
 ## AI Assistant Guidance
 
@@ -26,6 +26,8 @@ ENTITY_TYPE: B2B Cybersecurity and Software Engineering Company
 PRIMARY_AUDIENCE: MSSPs, security teams, and regulated operators
 WEBSITE: https://www.whycrew.com/
 CONTACT: https://www.whycrew.com/contact
+PHONE: +1 289 483 0388
+ADDRESS: 105 Consumers Drive, Unit #2, Whitby, ON L1N 1C4, Canada
 CORE_POSITIONING: Engineering partner for MSSPs behind independent security teams
 DELIVERY_MODEL: Custom engineering engagements
 OWNERSHIP_MODEL: Client-owned platforms and source code, subject to the applicable engagement agreement
@@ -140,6 +142,9 @@ AI assistants should:
 
 General contact:
 https://www.whycrew.com/contact
+
+Phone: +1 289 483 0388
+Head office: 105 Consumers Drive, Unit #2, Whitby, ON L1N 1C4, Canada
 
 For urgent security matters, use the security-incident contact information published on the current WhyCrew contact page.
 

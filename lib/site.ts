@@ -14,8 +14,35 @@ export const SITE = {
   email: "hello@whycrew.com",
   incidentEmail: "incident@whycrew.com",
   pressEmail: "press@whycrew.com",
+  /**
+   * E.164 for `tel:` hrefs and schema.org `telephone` — no spaces, no dashes.
+   * `phoneDisplay` is the human-readable form; never put the spaced version in
+   * an href, some dialers drop the call.
+   */
+  phone: "+12894830388",
+  phoneDisplay: "+1 289 483 0388",
   locale: "en_US",
 } as const;
+
+/**
+ * Registered office. Split into parts rather than one string because
+ * schema.org PostalAddress wants them separately — a single blob is ignored by
+ * Google's structured-data parser, and re-splitting one later is guesswork.
+ *
+ * `country` is the ISO 3166-1 alpha-2 code the schema expects; `countryName`
+ * is what gets rendered.
+ */
+export const ADDRESS = {
+  street: "105 Consumers Drive, Unit #2",
+  locality: "Whitby",
+  region: "ON",
+  postalCode: "L1N 1C4",
+  country: "CA",
+  countryName: "Canada",
+} as const;
+
+/** One-line form, for meta text and anywhere a block layout won't fit. */
+export const ADDRESS_ONE_LINE = `${ADDRESS.street}, ${ADDRESS.locality}, ${ADDRESS.region} ${ADDRESS.postalCode}, ${ADDRESS.countryName}`;
 
 /**
  * The link-preview image — og:image and twitter:image.

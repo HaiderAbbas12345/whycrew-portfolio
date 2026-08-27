@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { OG_IMAGE, SERVICES, SITE } from "@/lib/site";
+import { ADDRESS, OG_IMAGE, SERVICES, SITE } from "@/lib/site";
 
 const TITLE = "Contact WhyCrew — Talk to an Engineer, Not Sales";
 const DESCRIPTION =
@@ -119,6 +119,10 @@ const FAQS: Faq[] = [
   {
     q: "Does WhyCrew have a sales team I should ask to speak with?",
     a: "No. Every inquiry reaches an engineer. That's a deliberate choice, not a staffing gap.",
+  },
+  {
+    q: "Can I call WhyCrew instead of using the form?",
+    a: `Yes — ${SITE.phoneDisplay} reaches the team during business hours. The form is still the faster route for anything technical, because it lands with the engineer who can answer it rather than whoever picks up.`,
   },
 ];
 
@@ -277,6 +281,56 @@ export default function ContactPage() {
               </StaggerItem>
             );
           })}
+        </Stagger>
+      </Section>
+
+      {/* ============================================ DIRECT */}
+      <Section id="direct">
+        <Eyebrow>Prefer to skip the form?</Eyebrow>
+        <Heading>Call us, or come find us</Heading>
+        <Stagger className="mt-12 grid gap-5 lg:grid-cols-2">
+          <StaggerItem>
+            <Card className="h-full p-8">
+              <h3 className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
+                Direct line
+              </h3>
+              {/*
+                href uses SITE.phone (E.164, unspaced) while the label uses
+                phoneDisplay — a spaced number in a tel: href is dropped by some
+                mobile dialers.
+              */}
+              <a
+                href={`tel:${SITE.phone}`}
+                className="mt-4 inline-block text-2xl font-semibold tracking-tight text-bright transition-colors duration-300 hover:text-accent"
+              >
+                {SITE.phoneDisplay}
+              </a>
+              <p className="mt-4 text-[13.5px] leading-relaxed text-muted">
+                Business hours, answered by the engineering team. For an active
+                breach use the 24/7 incident address above — the phone line is
+                not monitored overnight.
+              </p>
+            </Card>
+          </StaggerItem>
+
+          <StaggerItem>
+            <Card className="h-full p-8">
+              <h3 className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
+                Head office
+              </h3>
+              <address className="mt-4 text-[15px] not-italic leading-relaxed text-bright">
+                {ADDRESS.street}
+                <br />
+                {ADDRESS.locality}, {ADDRESS.region} {ADDRESS.postalCode}
+                <br />
+                {ADDRESS.countryName}
+              </address>
+              <p className="mt-4 text-[13.5px] leading-relaxed text-muted">
+                Visits by appointment — the team is remote-first, so book a slot
+                before travelling rather than dropping in.
+              </p>
+            </Card>
+          </StaggerItem>
         </Stagger>
       </Section>
 
