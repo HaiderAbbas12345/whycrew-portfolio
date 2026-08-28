@@ -141,6 +141,33 @@ const nextConfig: NextConfig = {
         ],
       },
       /**
+       * Keep every non-production hostname out of the index.
+       *
+       * whycrew-portfolio.vercel.app serves a byte-identical copy of the
+       * production site, and the robots.txt it generates says `Allow: /` —
+       * the route is generated from SITE.url, so it cannot know which host is
+       * answering. That leaves a fully crawlable duplicate of every page. The
+       * canonical tags do point back at www.whycrew.com, which is likely why
+       * this has not done real damage yet, but relying on canonical
+       * consolidation alone leaves Google free to pick the wrong URL, and an
+       * unstable canonical choice is one of the things that shows up as pages
+       * being indexed and then dropped.
+       *
+       * X-Robots-Tag rather than a redirect on purpose: a redirect would make
+       * preview deployments unusable for reviewing changes before they ship,
+       * while noindex leaves them fully browsable and merely uninteresting to
+       * crawlers. The header applies to every response type, including the PDF
+       * and the sitemap, which a <meta> tag could not reach.
+       *
+       * Matching on `has: host` means production is untouched — the rule only
+       * fires when the request actually arrives on a *.vercel.app host.
+       */
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(?<deployment>.*)\\.vercel\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      /**
        * Canonical for the downloadable NIS2 guide.
        *
        * A PDF has no <head>, so a <link rel="canonical"> has nowhere to live —
