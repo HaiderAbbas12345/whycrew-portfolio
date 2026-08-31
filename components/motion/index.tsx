@@ -13,6 +13,7 @@ import {
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
@@ -251,6 +252,14 @@ export function WordsUp({
    CountUp — animates a numeric stat when scrolled into view
    ------------------------------------------------------------------ */
 
+/**
+ * React logs a warning when useLayoutEffect is reached during a server
+ * render, so fall back to useEffect on the server. Only the client branch
+ * ever does any work — the server branch exists to keep the console quiet.
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export function CountUp({
   to,
   from = 0,
@@ -272,6 +281,23 @@ export function CountUp({
   const out = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
   const reduced = useReducedMotion();
+
+  /*
+    The markup carries the finished figure (see the render below), so this
+    rewinds to `from` before the browser paints its first frame — early
+    enough that nobody sees the final number flash and drop back to zero.
+
+    Skipped entirely when reduced motion is set: there is no count to play,
+    so the value already in the HTML is the one to keep.
+  */
+  useIsomorphicLayoutEffect(() => {
+    if (reduced) return;
+    const node = out.current;
+    if (node) node.textContent = from.toFixed(decimals);
+    // Mount only. Re-running this on a prop change would rewind a count that
+    // had already finished.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const node = out.current;
@@ -308,18 +334,22 @@ export function CountUp({
     <span ref={ref} className={className}>
       {prefix}
       {/*
-        Always the `from` value, never `reduced ? to : from`.
+        The destination value, unconditionally.
 
-        useReducedMotion() reads null on the server but the real preference
-        synchronously on the client's first render, so branching on it here
-        made the server emit "0" while a reduced-motion visitor's browser
-        emitted the final number — a hydration text mismatch (React #418).
+        This used to render `from`, which meant the served HTML read
+        "0% SIEM cost reduction, 0 hours downtime, 0 weeks to production" —
+        the real figures existed only after the animation ran. Anyone whose
+        JavaScript was slow, blocked or broken read a row of zeros, and so
+        did any crawler that did not execute it. The count is decoration; the
+        number is content, and content belongs in the markup.
 
-        The effect above writes `to` immediately when reduced is set, so that
-        visitor still lands on the final figure; it is just applied a tick
-        after mount instead of during hydration.
+        Note this is `to`, not `reduced ? to : from`. useReducedMotion() reads
+        null on the server but the real preference synchronously on the
+        client's first render, so branching on it here would put a different
+        string on each side of hydration (React #418). The layout effect above
+        does the rewinding instead, after hydration has agreed on `to`.
       */}
-      <span ref={out}>{from.toFixed(decimals)}</span>
+      <span ref={out}>{to.toFixed(decimals)}</span>
       {suffix}
     </span>
   );

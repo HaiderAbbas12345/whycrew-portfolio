@@ -1,7 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { Faq } from "@/lib/jsonld";
 
 export function FaqAccordion({
@@ -12,9 +11,12 @@ export function FaqAccordion({
   columns?: 1 | 2;
 }) {
   const [open, setOpen] = useState<number | null>(0);
+  const uid = useId();
 
   const item = (f: Faq, i: number) => {
     const isOpen = open === i;
+    const panelId = `${uid}-panel-${i}`;
+
     return (
       <div key={f.q} className="border-b border-line-soft">
         <h3>
@@ -22,6 +24,7 @@ export function FaqAccordion({
             type="button"
             onClick={() => setOpen(isOpen ? null : i)}
             aria-expanded={isOpen}
+            aria-controls={panelId}
             className="group flex w-full items-start justify-between gap-6 py-5 text-left"
           >
             <span
@@ -52,25 +55,34 @@ export function FaqAccordion({
             </span>
           </button>
         </h3>
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              key="body"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                height: { duration: 0.42, ease: [0.16, 1, 0.3, 1] },
-                opacity: { duration: 0.3 },
-              }}
-              className="overflow-hidden"
-            >
-              <p className="pb-6 pr-10 text-[13.5px] leading-relaxed text-muted">
-                {f.a}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/*
+          Collapsed with CSS, never unmounted.
+
+          The answer used to be mounted only while its item was open, so on a
+          seven-question page six answers existed nowhere in the served HTML.
+          Googlebot runs JavaScript but it does not click, which put that copy
+          permanently out of reach — and left the FAQPage JSON-LD declaring
+          answers the page did not visibly carry, which Google's structured
+          data policy treats as a mismatch.
+
+          The 0fr → 1fr grid row collapses the panel to nothing while leaving
+          the text in the document, and animates as smoothly as the height
+          tween it replaces. A browser too old to interpolate
+          grid-template-rows snaps open instead of easing; nothing is hidden
+          or revealed incorrectly either way.
+        */}
+        <div
+          id={panelId}
+          className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <p className="pb-6 pr-10 text-[13.5px] leading-relaxed text-muted">
+              {f.a}
+            </p>
+          </div>
+        </div>
       </div>
     );
   };
