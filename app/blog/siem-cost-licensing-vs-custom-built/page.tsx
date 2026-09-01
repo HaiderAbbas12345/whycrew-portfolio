@@ -13,7 +13,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("siem-cost-licensing-vs-custom-built")!;
 const PATH = `/blog/${post.slug}`;
@@ -158,7 +158,7 @@ export default function Page() {
           heading: "Ready to find out which model fits your environment?",
           body: "So, to move forward, book an Architecture Audit and we will map the cost comparison for your specific situation — current spend, growth trajectory, and internal capacity.",
           label: "Book an Architecture Audit",
-          href: "/contact",
+          href: CTA_HREF,
         }}
       >
         <QuickAnswer>

@@ -13,7 +13,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("open-source-vs-custom-built-siem")!;
 const PATH = `/blog/${post.slug}`;
@@ -164,7 +164,7 @@ export default function Page() {
           heading: "Not sure which model your environment can realistically support?",
           body: "Book an Architecture Audit to map out the right approach for your data volumes, team capacity, and compliance requirements.",
           label: "Book an Architecture Audit",
-          href: "/contact",
+          href: CTA_HREF,
         }}
       >
         <QuickAnswer>

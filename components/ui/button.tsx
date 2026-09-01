@@ -73,9 +73,21 @@ export function Button({
   const isAbsolute = Boolean(href && /^https?:\/\//i.test(href));
   const opensNewTab = external || isAbsolute;
 
+  /**
+   * tel: and mailto: are handed to the OS, not to the router. next/link is for
+   * routes and would try to client-navigate to one; and these must never get
+   * target="_blank", which leaves the visitor staring at a blank tab once the
+   * dialler or mail client takes over.
+   */
+  const isProtocol = Boolean(href && /^(tel:|mailto:|sms:)/i.test(href));
+
   const node = href ? (
     download ? (
       <a href={href} className={cls} download>
+        {inner}
+      </a>
+    ) : isProtocol ? (
+      <a href={href} className={cls}>
         {inner}
       </a>
     ) : opensNewTab ? (

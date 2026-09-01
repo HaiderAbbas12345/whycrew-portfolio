@@ -466,7 +466,7 @@ export default function Page() {
         body="NIS2 is enforceable now. DORA has been in force since January 2025. Every week your program runs on manual processes, your exposure grows — and your team absorbs work that automation should be doing."
         primary={{
           label: "Book Your NIS2 & DORA Compliance Assessment",
-          href: "/contact",
+          href: CTA_HREF,
         }}
         secondary={{ label: "Talk to a Compliance Specialist", href: "/contact" }}
         footnote="Purpose-built for NIS2 and DORA · Your evidence stays yours · Export and leave at any time"

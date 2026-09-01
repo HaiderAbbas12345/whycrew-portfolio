@@ -16,7 +16,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("siem-migration-guide-zero-downtime")!;
 const PATH = `/blog/${post.slug}`;
@@ -150,7 +150,7 @@ export default function Page() {
           heading: "Still deciding what to move to?",
           body: "Book an Architecture Audit and we will map your sources, rules, and storage needs against a platform you own outright — before anything moves.",
           label: "Book an Architecture Audit",
-          href: "/contact",
+          href: CTA_HREF,
         }}
       >
         <QuickAnswer>

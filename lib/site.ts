@@ -70,15 +70,23 @@ export const OG_IMAGE = [
   },
 ];
 
-/**
- * Where every "Book a call" CTA points. Set NEXT_PUBLIC_BOOKING_URL to a
- * Cal.com / Calendly link and the buttons go straight there; unset, they fall
- * back to the on-site contact form. Same convention as the previous site, so
- * the existing Vercel env var works unchanged.
- */
 export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
-export const CTA_HREF = BOOKING_URL || "/contact";
-export const IS_EXTERNAL_CTA = Boolean(BOOKING_URL);
+
+/**
+ * Where every "Book a call" CTA points.
+ *
+ * These open the phone dialler, so the number behind every CTA is the same one
+ * printed in the footer — one number to change, in SITE.phone.
+ *
+ * NEXT_PUBLIC_BOOKING_URL is deliberately bypassed. If a Cal.com / Calendly
+ * link is set in Vercel it no longer reaches these buttons. To hand the CTAs
+ * back to the booking flow, restore:
+ *
+ *   export const CTA_HREF = BOOKING_URL || "/contact";
+ *   export const IS_EXTERNAL_CTA = Boolean(BOOKING_URL);
+ */
+export const CTA_HREF = `tel:${SITE.phone}`;
+export const IS_EXTERNAL_CTA = false;
 
 /** GA4 property carried over from the previous deployment. */
 export const GA_MEASUREMENT_ID =

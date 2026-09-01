@@ -15,7 +15,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("multi-tenant-siem-architecture-mssps")!;
 const PATH = `/blog/${post.slug}`;
@@ -187,7 +187,7 @@ export default function Page() {
           heading: "Ready to check your SIEM setup?",
           body: "A SIEM that works well at 10 clients often struggles at 25 — not because it failed, but because it was never built for that size. A structured audit finds the gaps before they become client problems.",
           label: "Book an Architecture Audit",
-          href: "/contact",
+          href: CTA_HREF,
         }}
       >
         <QuickAnswer>

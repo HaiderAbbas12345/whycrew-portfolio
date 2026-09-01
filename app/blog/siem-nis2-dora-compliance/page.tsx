@@ -15,7 +15,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { postBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("siem-nis2-dora-compliance")!;
 const PATH = `/blog/${post.slug}`;
@@ -172,7 +172,7 @@ export default function Page() {
           heading: "Check your platform before a regulator does",
           body: "Most compliance gaps show up during audits and real incidents, not during vendor demos. That is the worst time to find them. A structured review maps your platform against NIS2 and DORA, finds your biggest gaps, and gives you a clear fix plan.",
           label: "Book an Architecture Audit",
-          href: "/contact",
+          href: CTA_HREF,
         }}
       >
         <QuickAnswer>

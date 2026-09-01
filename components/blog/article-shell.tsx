@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
 import type { BlogPost } from "@/lib/blog";
+import { CTA_HREF } from "@/lib/site";
 
 export interface TocEntry {
   id: string;
@@ -127,8 +128,9 @@ export function ArticleShell({
                 <p className="text-[12.5px] leading-relaxed text-muted">
                   Want this modelled against your own numbers?
                 </p>
-                <Link
-                  href="/contact"
+                {/* Plain <a>: CTA_HREF is a tel: link, which the OS handles. */}
+                <a
+                  href={CTA_HREF}
                   className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
                 >
                   Book an Architecture Audit
@@ -138,7 +140,7 @@ export function ArticleShell({
                   >
                     →
                   </span>
-                </Link>
+                </a>
               </div>
             </nav>
           </aside>
