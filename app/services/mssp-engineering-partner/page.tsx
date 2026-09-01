@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
 import { FaqAccordion } from "@/components/ui/faq";
 import {
@@ -131,15 +132,6 @@ const PROCESS = [
   },
 ];
 
-const CASE_ROWS = [
-  ["Client profile", "German MSSP running 40+ enterprise clients"],
-  ["Action taken", "Replaced vendor-licensed SIEM with a WhyCrew-built platform"],
-  ["Migration downtime", "Zero"],
-  ["Time to launch", "Live in 6 weeks"],
-  ["Annual savings", "€340K in eliminated per-tenant licensing fees"],
-  ["Ownership status", "Platform owned outright. No ongoing fees, no vendor contract to renew."],
-];
-
 const FAQS: Faq[] = [
   {
     q: "Do we need existing security engineering expertise to run this?",
@@ -171,7 +163,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "How much can an MSSP save by owning its platform?",
-    a: "Typically 40–70% in year one. One German MSSP running 40+ enterprise clients cut €340K in annual licensing fees — a 62% reduction — after switching to a WhyCrew-built platform. Your platform costs stay flat as you grow. A reseller's fees don't.",
+    a: "Typically 40–70% in year one. Platform costs stay flat as you grow, while reseller fees keep climbing with every new client.",
   },
 ];
 
@@ -359,64 +351,59 @@ export default function Page() {
           Annual Savings, Margin Improvement, and Time to Launch
         </Heading>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
-          <Reveal>
-            <Card className="h-full p-8" interactive={false}>
-              <h3 className="text-lg font-semibold">
-                €340K Saved Per Year: German MSSP
+        <Reveal className="mt-12">
+          <Card className="p-8" interactive={false}>
+            <p className="text-[15px] leading-relaxed text-body">
+              A German MSSP saved €340K/year switching to an owned platform.
+            </p>
+            <Link
+              href="/services/custom-siem-soar-development"
+              className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
+            >
+              See the full case study
+              <span
+                aria-hidden
+                className="transition-transform duration-400 group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          </Card>
+        </Reveal>
+
+        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          <Reveal delay={0.08}>
+            <Card className="p-7">
+              <div className="text-3xl font-semibold text-gradient">
+                40–70%
+              </div>
+              <h3 className="mt-2 text-[14px] font-semibold">
+                Typical margin improvement
               </h3>
-              <dl className="mt-6 divide-y divide-line-soft">
-                {CASE_ROWS.map(([k, v]) => (
-                  <div
-                    key={k}
-                    className="grid gap-1 py-3.5 sm:grid-cols-[10rem_1fr] sm:gap-6"
-                  >
-                    <dt className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">
-                      {k}
-                    </dt>
-                    <dd className="text-[13.5px] leading-relaxed text-body">
-                      {v}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
+                Across completed MSSP Engineering engagements, clients moving
+                from reseller licensing to an owned platform typically cut
+                platform costs by 40–70% in year one — and the gap keeps
+                widening as their client count grows, because their costs stay
+                flat while a reseller&apos;s fees keep rising.
+              </p>
             </Card>
           </Reveal>
-
-          <div className="grid gap-5">
-            <Reveal delay={0.08}>
-              <Card className="p-7">
-                <div className="text-3xl font-semibold text-gradient">
-                  40–70%
-                </div>
-                <h3 className="mt-2 text-[14px] font-semibold">
-                  Typical margin improvement
-                </h3>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
-                  Across completed MSSP Engineering engagements, clients moving
-                  from reseller licensing to an owned platform typically cut
-                  platform costs by 40–70% in year one — and the gap keeps
-                  widening as their client count grows, because their costs stay
-                  flat while a reseller&apos;s fees keep rising.
-                </p>
-              </Card>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <Card className="p-7">
-                <div className="text-3xl font-semibold text-gradient">
-                  12 wks
-                </div>
-                <h3 className="mt-2 text-[14px] font-semibold">
-                  Time to launch
-                </h3>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
-                  That&apos;s the typical build window, kickoff to production.
-                  Most clients are running live client accounts before their old
-                  vendor contract even expires.
-                </p>
-              </Card>
-            </Reveal>
-          </div>
+          <Reveal delay={0.16}>
+            <Card className="p-7">
+              <div className="text-3xl font-semibold text-gradient">
+                12 wks
+              </div>
+              <h3 className="mt-2 text-[14px] font-semibold">
+                Time to launch
+              </h3>
+              <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
+                That&apos;s the typical build window, kickoff to production.
+                Most clients are running live client accounts before their old
+                vendor contract even expires.
+              </p>
+            </Card>
+          </Reveal>
         </div>
       </Section>
 
