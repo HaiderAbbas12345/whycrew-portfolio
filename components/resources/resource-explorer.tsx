@@ -2,10 +2,13 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  RESOURCE_TAB_PARAM,
+  RESOURCE_TAB_SLUGS,
   RESOURCE_TOPICS,
   RESOURCE_TYPES,
+  tabSlugToType,
   type Resource,
   type ResourceTopic,
   type ResourceType,
@@ -127,6 +130,41 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
   const [shown, setShown] = useState(PAGE_SIZE);
   const reduced = useReducedMotion();
 
+  /*
+    The active tab is mirrored into ?resources_tab=, read from the URL after
+    mount rather than with useSearchParams(). useSearchParams() would opt this
+    route out of static rendering, which would strip the resource cards from
+    the served HTML — the opposite of what the hub is for. Reading
+    window.location here keeps the page prerendered and still honours a link
+    someone shares.
+  */
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get(
+      RESOURCE_TAB_PARAM
+    );
+    const fromUrl = tabSlugToType(slug);
+    if (fromUrl !== "All") setType(fromUrl);
+  }, []);
+
+  /**
+   * Switches tab and rewrites the query string. "All" drops the parameter
+   * entirely so the default view stays on a bare /resources.
+   *
+   * history.replaceState, not router.replace: the filtering is client-side, so
+   * there is no server state to refetch, and replace (over push) keeps the
+   * back button pointing at wherever the visitor came from instead of walking
+   * them back through every tab they tried.
+   */
+  const selectType = useCallback((next: ResourceType | "All") => {
+    setType(next);
+    setShown(PAGE_SIZE);
+
+    const url = new URL(window.location.href);
+    if (next === "All") url.searchParams.delete(RESOURCE_TAB_PARAM);
+    else url.searchParams.set(RESOURCE_TAB_PARAM, RESOURCE_TAB_SLUGS[next]);
+    window.history.replaceState(null, "", `${url.pathname}${url.search}`);
+  }, []);
+
   const counts = useMemo(() => {
     const m = new Map<string, number>();
     for (const r of resources) m.set(r.type, (m.get(r.type) ?? 0) + 1);
@@ -169,10 +207,7 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
               key={t}
               role="tab"
               aria-selected={active}
-              onClick={() => {
-                setType(t);
-                reset();
-              }}
+              onClick={() => selectType(t)}
               className={`relative shrink-0 rounded-full border px-4 py-2 text-[12.5px] font-medium transition-colors duration-300 ${
                 active
                   ? "border-accent/50 bg-accent/12 text-accent"
@@ -257,10 +292,9 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
         {(type !== "All" || topic || query) && (
           <button
             onClick={() => {
-              setType("All");
+              selectType("All");
               setTopic(null);
               setQuery("");
-              reset();
             }}
             className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-accent transition-colors hover:text-accent-hi"
           >
@@ -294,8 +328,8 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
                 The library is being written
               </p>
               <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-relaxed text-muted">
-                Engineering write-ups, client case studies, and white papers are
-                on the way. The categories above are where they&apos;ll land.
+                Engineering write-ups for MSSPs and regulated operators are on
+                the way. The categories above are where they&apos;ll land.
               </p>
             </>
           ) : (

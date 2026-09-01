@@ -97,6 +97,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "NIS2", "DORA"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "soar-playbooks-explained",
+    title: "What Are SOAR Playbooks? Use Cases, Examples, and MSSP Scale",
+    metaTitle: "What Are SOAR Playbooks? Examples, Uses & MSSP Scale",
+    metaDescription:
+      "See how SOAR playbooks work, real use cases, and where they break down as MSSPs scale. Practical examples, ROI, and what to fix first.",
+    summary:
+      "A playbook turns a detection into a logged response in seconds. Which alerts to automate first, the four playbook types that pay off, where fixed branches break down, and what changes when you run them across many client environments.",
+    datePublished: "2026-09-01",
+    readTime: "15 min read",
+    topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -129,12 +142,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "multi-tenant-siem-architecture":
     "/blog/multi-tenant-siem-architecture-mssps",
   "nis2-dora-compliance-guide": "/blog/siem-nis2-dora-compliance",
-
-  /**
-   * Planned articles. `null` renders the anchor as plain text, so nothing
-   * links to a page that doesn't exist yet. Set the path once each is live.
-   */
-  "soar-playbooks-guide": null,
+  "soar-playbooks-guide": "/blog/soar-playbooks-explained",
 };
 
 export const resolveLink = (key: string): string | null =>

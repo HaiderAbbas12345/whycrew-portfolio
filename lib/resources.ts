@@ -1,10 +1,12 @@
 /**
  * Central resource library — structure only.
  *
- * Currently scoped to the three Content Hub categories: Blog, Case Studies,
- * and White Papers. The wider set from the site architecture (Technical
- * Guides, SOC Templates, ROI Calculators, Compliance Checklists, API Docs) can
- * be reinstated by adding them to RESOURCE_TYPES below.
+ * Currently scoped to Blog. Case Studies and White Papers were removed while
+ * they had no entries: an empty tab is a thin, contentless view for crawlers.
+ * They — and the wider set from the site architecture (Technical Guides, SOC
+ * Templates, ROI Calculators, Compliance Checklists, API Docs) — come back by
+ * adding them to RESOURCE_TYPES and RESOURCE_TAB_SLUGS below, once there is
+ * something to put in them.
  *
  * ---------------------------------------------------------------------------
  * ADDING CONTENT
@@ -17,7 +19,7 @@
  *
  *   {
  *     id: "wp-mssp-guide-nis2",              // unique, stable, kebab-case
- *     type: "White Papers",                  // must be one of RESOURCE_TYPES
+ *     type: "Blog",                          // must be one of RESOURCE_TYPES
  *     topics: ["NIS2", "MSSP & White-Label"],// zero or more RESOURCE_TOPICS
  *     title: "The MSSP's Guide to NIS2",
  *     summary: "One or two sentences shown on the card.",
@@ -29,24 +31,50 @@
  * Optional: `date` (ISO, shown on live items), `gated: true` (marks it as
  * requiring an email), `featured: true` (reserved — see note on the field).
  *
- * To add a whole new category, add it to RESOURCE_TYPES; the tab, its count,
- * and its filter appear automatically. Same for RESOURCE_TOPICS.
+ * To add a whole new category, add it to RESOURCE_TYPES and give it a slug in
+ * RESOURCE_TAB_SLUGS; the tab, its count, and its filter appear automatically.
+ * Same for RESOURCE_TOPICS.
  * ---------------------------------------------------------------------------
  */
 
 /**
- * Live categories. The architecture diagram also allows for Technical Guides,
- * SOC Templates, ROI Calculators, Compliance Checklists, and API Docs — adding
- * any of them back is a one-line change here and the tab, count, and filter
- * appear on their own.
+ * Live categories. Only categories that actually have entries belong here —
+ * a tab with a zero count is an empty page for a crawler to index.
  */
-export const RESOURCE_TYPES = [
-  "Blog",
-  "Case Studies",
-  "White Papers",
-] as const;
+export const RESOURCE_TYPES = ["Blog"] as const;
 
 export type ResourceType = (typeof RESOURCE_TYPES)[number];
+
+/* --------------------------------------------------------------- tab URLs */
+
+/**
+ * Query parameter mirroring the active type tab on /resources.
+ *
+ * "All" is the default and carries no parameter, so the unfiltered page stays
+ * a bare /resources — which is also its canonical URL.
+ */
+export const RESOURCE_TAB_PARAM = "resources_tab";
+
+/**
+ * Public slug per category. Kept separate from the display name so a tab can
+ * be renamed without breaking links people have already shared.
+ */
+export const RESOURCE_TAB_SLUGS: Record<ResourceType, string> = {
+  Blog: "blog_posts",
+};
+
+/**
+ * Resolves a `?resources_tab=` value to a tab. Anything unrecognised — a typo,
+ * or a link to a category that has since been removed — falls back to "All"
+ * rather than showing an empty grid.
+ */
+export const tabSlugToType = (slug: string | null): ResourceType | "All" => {
+  if (!slug) return "All";
+  const match = (Object.keys(RESOURCE_TAB_SLUGS) as ResourceType[]).find(
+    (t) => RESOURCE_TAB_SLUGS[t] === slug
+  );
+  return match ?? "All";
+};
 
 export const RESOURCE_TOPICS = [
   "SIEM & SOAR",
@@ -149,6 +177,18 @@ export const RESOURCES: Resource[] = [
     status: "live",
     href: "/blog/siem-nis2-dora-compliance",
     date: "2026-08-27",
+  },
+  {
+    id: "blog-soar-playbooks-explained",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
+    title: "What Are SOAR Playbooks? Use Cases, Examples, and MSSP Scale",
+    summary:
+      "A playbook turns a detection into a logged response in seconds. Which alerts to automate first, the four playbook types that pay off, where fixed branches break down, and what changes when you run them across many client environments.",
+    format: "15 min read",
+    status: "live",
+    href: "/blog/soar-playbooks-explained",
+    date: "2026-09-01",
   },
 ];
 

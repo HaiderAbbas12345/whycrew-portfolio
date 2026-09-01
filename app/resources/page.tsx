@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd } from "@/lib/jsonld";
-import { RESOURCES, RESOURCE_TYPES, liveResources } from "@/lib/resources";
+import { RESOURCES, liveResources } from "@/lib/resources";
 import { OG_IMAGE, SITE } from "@/lib/site";
 
-const TITLE = "Resources — Blog, Case Studies & White Papers | WhyCrew";
+const TITLE = "Resources — SIEM, SOC & Compliance Guides | WhyCrew";
 const DESCRIPTION =
-  "Engineering write-ups, client case studies, and technical papers on SIEM & SOAR, AI SOC automation, and NIS2/DORA compliance for MSSPs.";
+  "Engineering write-ups on SIEM & SOAR, AI SOC automation, and NIS2/DORA compliance for MSSPs and regulated operators.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
@@ -46,7 +46,7 @@ const HIGHLIGHTS = [
   },
   {
     title: "No gated fluff",
-    body: "Blog posts and case studies are open. Only the long-form white papers ask for an email, because we keep them current.",
+    body: "Everything here is open. No email wall and no lead-capture form standing between you and a technical answer.",
   },
   {
     title: "Regulator-oriented",
@@ -124,9 +124,9 @@ export default function ResourcesPage() {
 
           <Reveal delay={0.55} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              Engineering write-ups, client case studies, and in-depth white
-              papers for MSSPs and regulated operators — organised by what
-              you&apos;re trying to do, not by what department wrote it.
+              In-depth engineering write-ups for MSSPs and regulated
+              operators — organised by what you&apos;re trying to do, not by
+              what department wrote it.
             </p>
           </Reveal>
 
