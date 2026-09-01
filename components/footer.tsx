@@ -110,14 +110,37 @@ export function Footer() {
                 </h2>
                 <ul className="space-y-2.5">
                   {col.links.map((l) => (
-                    <li key={l.href + l.label}>
-                      <Link
-                        href={l.href}
-                        className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
-                      >
-                        <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
-                        {l.label}
-                      </Link>
+                    /*
+                      Key on the label alone, never on the href.
+                      React keys are serialised into the RSC flight payload in
+                      the page source, and `href + label` produced URL-shaped
+                      strings there ("/careersCareers", "/supportSupport").
+                      Googlebot extracted those as links and reported them as
+                      404s. Labels are unique within a column, so this is still
+                      a stable key.
+                    */
+                    <li key={l.label}>
+                      {/*
+                        tel: and mailto: go to the OS, so they need a plain <a>
+                        rather than next/link, which is for routes.
+                      */}
+                      {/^(tel:|mailto:)/i.test(l.href) ? (
+                        <a
+                          href={l.href}
+                          className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
+                        >
+                          <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
+                          {l.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={l.href}
+                          className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
+                        >
+                          <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
+                          {l.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
