@@ -192,6 +192,7 @@ export const serviceBySlug = (slug: ServiceKey) =>
 export const PRIMARY_NAV = [
   { label: "Services", href: "/services", hasMenu: true },
   { label: "Resources", href: "/resources" },
+  { label: "Blog", href: "/blog" },
   { label: "Results", href: "/#results" },
   { label: "How it Works", href: "/#how-it-works" },
   { label: "Contact", href: "/contact" },
