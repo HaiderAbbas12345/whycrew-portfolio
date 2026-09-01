@@ -27,14 +27,24 @@ import { faqLd, serviceListLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, OG_IMAGE, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Custom Security Platform Development for MSSPs",
-  description: SITE.description,
+  // `absolute` opts out of the root layout's "%s | WhyCrew" title template.
+  title: { absolute: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs" },
+  description:
+    "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Custom Security Platform Development for MSSPs | WhyCrew",
-    description: SITE.description,
+    title: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs",
+    description:
+      "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
     url: SITE.url,
     images: OG_IMAGE,
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: OG_IMAGE,
+    title: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs",
+    description:
+      "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
   },
 };
 
