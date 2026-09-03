@@ -101,14 +101,14 @@ const BUILT_FOR = [
 const BUILD_INCLUDES = [
   "White-label SOC portal — your brand, your UX, from day one",
   "Multi-tenant backend — every client's data stays isolated and yours to control",
-  "Source code ownership — full transfer at handover, no escrow, no conditions",
+  "Platform ownership, including source code full transfer at handover, no escrow, no conditions",
   "Migration support — if you're moving off a current platform, we build alongside it with zero downtime",
   "Documentation and handover — runbooks, API docs, and hands-on training so your team runs it without us",
 ];
 
 const GLOBAL_INCLUDES = [
   "EU data residency and regional hosting: on-premise or in-region by default, not a special request",
-  "Source code handed directly to you at handover. No escrow, no waiting on a vendor failure condition. You hold the code from day one.",
+  "You own the platform, including the source code, handed directly to you at handover. No escrow, no waiting on a vendor failure condition. You hold the code from day one.",
   "Audit-ready compliance documentation, built into the platform from the start",
   "Full API docs and runbooks, so your team can extend the platform without calling us back",
 ];
@@ -215,9 +215,9 @@ export default function Page() {
               margin they leave you.
             </p>
             <p>
-              WhyCrew builds your platform instead. We hand you the source code
-              and walk away. You set the price. You set the roadmap. You own the
-              business.
+              WhyCrew builds your platform instead. You own the platform,
+              including the source code we hand over and walk away. You set the
+              price. You set the roadmap. You own the business.
             </p>
             <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
               20 minutes with an engineer, not a channel rep. No pitch deck.
@@ -455,7 +455,7 @@ export default function Page() {
           label: "Explore Custom SIEM & SOAR",
           href: "/services/custom-siem-soar-development",
         }}
-        footnote="Fixed price · Your source code · Your roadmap · No pitch deck"
+        footnote="Fixed price · You own the platform · Your roadmap · No pitch deck"
       />
     </>
   );

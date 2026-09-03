@@ -203,11 +203,11 @@ const FAQS: Faq[] = [
   },
   {
     q: "How is this different from Microsoft Security Copilot or other cloud AI SOC tools?",
-    a: "Cloud copilots route your alert data through external APIs and shared inference layers. WhyCrew makes zero external API calls. You own the model, the source code, and the audit trail. A cloud copilot is a subscription you rent. WhyCrew is a platform you keep.",
+    a: "Cloud copilots route your alert data through external APIs and shared inference layers. WhyCrew makes zero external API calls. You own the platform, including the model, the source code, and the audit trail. A cloud copilot is a subscription you rent. WhyCrew is a platform you keep.",
   },
   {
     q: "Do we own the platform after handover?",
-    a: "Yes. Source code, model weights, workflow configuration, and documentation all transfer to your team. No recurring licensing fees, and no ongoing dependency on WhyCrew.",
+    a: "Yes. You own the platform, including the source code, model weights, workflow configuration, and documentation. All of these transfer to your team. No recurring licensing fees, and no ongoing dependency on WhyCrew.",
   },
   {
     q: "Do our analysts stay in control of what the AI does?",

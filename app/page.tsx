@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 const HERO_STATS = [
   { value: "40–70%", label: "SIEM Cost Cut" },
   { value: "24h", label: "NIS2 Reporting" },
-  { value: "100%", label: "Source Code Yours" },
+  { value: "100%", label: "Platform Yours" },
   { value: "12 wks", label: "Call to Live" },
 ];
 
@@ -201,7 +201,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "Do you own the platform WhyCrew builds for you?",
-    a: "Yes. Everything we build is yours: the platform, the source code, and all underlying components. We provide the engineering, and you own the output outright. That means you control the infrastructure, the roadmap, and the data, with no ongoing licensing and no vendor dependency. Every engagement includes API documentation, deployment runbooks, and hands-on engineering training so your team can run and evolve it independently.",
+    a: "Yes. Everything we build is yours. You own the platform, including the source code, and all underlying components. We provide the engineering, and you own the output outright. That means you control the infrastructure, the roadmap, and the data, with no ongoing licensing and no vendor dependency. Every engagement includes API documentation, deployment runbooks, and hands-on engineering training so your team can run and evolve it independently.",
   },
   {
     q: "Is the AI SOC automation truly on-premise?",
@@ -452,7 +452,7 @@ export default function HomePage() {
       <Section id="how-it-works">
         <Eyebrow>How it works</Eyebrow>
         <Heading sub="One fixed price. Four stages. You approve every decision, and you walk away owning everything.">
-          Live in 8 Weeks, Not 18 Months
+          Live in 12 Weeks, Not 18 Months
         </Heading>
         <div className="mt-12">
           <ProcessSteps steps={PROCESS} />
