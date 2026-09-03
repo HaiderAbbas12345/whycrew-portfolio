@@ -55,8 +55,8 @@ export function ArticleShell({
           <Breadcrumb
             trail={[
               { name: "Home", path: "/" },
-              { name: "Resources", path: "/resources" },
-              { name: "Blog", path: "/resources" },
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
             ]}
           />
 
@@ -179,9 +179,6 @@ export function ArticleShell({
               </span>
               All resources
             </Link>
-            <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint">
-              {post.cluster}
-            </p>
           </div>
         </div>
       </div>

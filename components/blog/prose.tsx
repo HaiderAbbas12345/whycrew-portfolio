@@ -109,12 +109,18 @@ export function QuickAnswer({ children }: { children: ReactNode }) {
 export function KeyTakeaways({ items }: { items: ReactNode[] }) {
   return (
     <aside className="rounded-lg border border-line/70 bg-surface/60 p-6 sm:p-7">
-      <h2
+      {/*
+        A <p>, not an <h2>. This label repeated the article's own section
+        headings in the outline, so it read as a second-level section in the
+        document structure when it is a callout. The id stays: the table of
+        contents still anchors to it.
+      */}
+      <p
         id="key-takeaways"
         className="mb-5 scroll-mt-28 font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-brand-hi"
       >
         Key takeaways
-      </h2>
+      </p>
       <ul className="space-y-3.5">
         {items.map((it, i) => (
           <li

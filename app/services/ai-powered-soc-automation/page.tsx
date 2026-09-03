@@ -191,8 +191,8 @@ const AUDIENCES = [
     body: "Run threat hunting and autonomous response in air-gapped or near-air-gapped environments, even where cloud connectivity is off the table.",
   },
   {
-    title: "Regulated Operators Across the EU",
-    body: "Meet NIS2, DORA, and GDPR obligations with a platform built for data sovereignty from the ground up. No foreign cloud processing, no third-party AI model dependencies.",
+    title: "MSSPs & Regulated Operators Outside Europe",
+    body: "The same on-premise, zero-external-API architecture deploys anywhere no dependency on European infrastructure. Deepest compliance-specific work has been NIS2/DORA/GDPR, but the model works for any regulated environment, globally.",
   },
 ];
 

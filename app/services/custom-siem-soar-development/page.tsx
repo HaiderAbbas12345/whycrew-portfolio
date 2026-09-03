@@ -525,7 +525,7 @@ export default function Page() {
                 processing and retail banking.
               </p>
               <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
-                <li>48% reduction in annual SIEM spend</li>
+                <li>63% reduction in annual SIEM spend</li>
                 <li>Full DORA compliance</li>
                 <li>8 weeks to handover</li>
               </ul>

@@ -150,7 +150,7 @@ export default function Page() {
           __html: JSON.stringify(
             breadcrumbLd([
               { name: "Home", path: "/" },
-              { name: "Resources", path: "/resources" },
+              { name: "Blog", path: "/blog" },
               { name: post.title, path: PATH },
             ])
           ),
