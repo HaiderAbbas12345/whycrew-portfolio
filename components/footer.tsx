@@ -121,12 +121,21 @@ export function Footer() {
                     */
                     <li key={l.label}>
                       {/*
-                        tel: and mailto: go to the OS, so they need a plain <a>
-                        rather than next/link, which is for routes.
+                        next/link is for routes. tel: and mailto: go to the OS,
+                        and an absolute URL (the booking page) leaves the site
+                        altogether — both need a plain <a>. Only the off-site
+                        one gets a new tab; handing the dialler or mail client a
+                        target="_blank" strands the visitor on an empty tab.
                       */}
-                      {/^(tel:|mailto:)/i.test(l.href) ? (
+                      {/^(tel:|mailto:|https?:)/i.test(l.href) ? (
                         <a
                           href={l.href}
+                          target={/^https?:/i.test(l.href) ? "_blank" : undefined}
+                          rel={
+                            /^https?:/i.test(l.href)
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
                           className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
                         >
                           <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />

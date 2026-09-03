@@ -128,9 +128,15 @@ export function ArticleShell({
                 <p className="text-[12.5px] leading-relaxed text-muted">
                   Want this modelled against your own numbers?
                 </p>
-                {/* Plain <a>: CTA_HREF is a tel: link, which the OS handles. */}
+                {/*
+                  Plain <a>: CTA_HREF is an external booking page, not a route,
+                  so next/link has nothing to do here. Opened in a new tab to
+                  leave the article the visitor was reading behind them.
+                */}
                 <a
                   href={CTA_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
                 >
                   Book an Architecture Audit

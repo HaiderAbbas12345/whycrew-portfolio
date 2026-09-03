@@ -72,21 +72,23 @@ export const OG_IMAGE = [
 
 export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
 
+/** WhyCrew's Microsoft Bookings page — the default CTA destination. */
+const OUTLOOK_BOOKING_URL =
+  "https://outlook.office.com/bookwithme/user/fc18944866164d86b10284f39503c65e@whycrew.com/meetingtype/9MYETObQEEGGKKO1yo4Bag2?bookingcode=c83e957f-ffc4-477b-adad-bd9a1fcea659&anonymous&ismsaljsauthenabled&ep=mlink";
+
 /**
  * Where every "Book a call" CTA points.
  *
- * These open the phone dialler, so the number behind every CTA is the same one
- * printed in the footer — one number to change, in SITE.phone.
+ * A booking page, not `tel:${SITE.phone}`. The dialler href did nothing on a
+ * desktop browser, which is where most of the visitors these CTAs are written
+ * for actually read them. The number is still reachable — the footer and the
+ * contact page both print it as their own tel: link.
  *
- * NEXT_PUBLIC_BOOKING_URL is deliberately bypassed. If a Cal.com / Calendly
- * link is set in Vercel it no longer reaches these buttons. To hand the CTAs
- * back to the booking flow, restore:
- *
- *   export const CTA_HREF = BOOKING_URL || "/contact";
- *   export const IS_EXTERNAL_CTA = Boolean(BOOKING_URL);
+ * NEXT_PUBLIC_BOOKING_URL still wins when it is set, so a Cal.com or Calendly
+ * link can replace the Bookings page from the environment without a code change.
  */
-export const CTA_HREF = `tel:${SITE.phone}`;
-export const IS_EXTERNAL_CTA = false;
+export const CTA_HREF = BOOKING_URL || OUTLOOK_BOOKING_URL;
+export const IS_EXTERNAL_CTA = true;
 
 /** GA4 property carried over from the previous deployment. */
 export const GA_MEASUREMENT_ID =
