@@ -15,7 +15,6 @@ import {
   StatBar,
 } from "@/components/ui/primitives";
 import {
-  CountUp,
   Marquee,
   Parallax,
   Reveal,
@@ -162,10 +161,10 @@ const RESULTS = [
 ];
 
 const PROJECT_RESULTS = [
-  { to: 62, suffix: "%", label: "SIEM Cost Reduction" },
-  { to: 0, suffix: " hours", label: "Migration Downtime" },
-  { to: 6, suffix: " weeks", label: "Time to Production" },
-  { to: 100, suffix: "%", label: "Platform Ownership" },
+  { value: "62%", label: "SIEM Cost Reduction" },
+  { value: "0 hours", label: "Migration Downtime" },
+  { value: "6 weeks", label: "Time to Production" },
+  { value: "100%", label: "Platform Ownership" },
 ];
 
 const PROCESS = [
@@ -438,7 +437,7 @@ export default function HomePage() {
             {PROJECT_RESULTS.map((p) => (
               <div key={p.label} className="px-5 py-7 text-center">
                 <div className="text-2xl font-semibold text-bright sm:text-3xl">
-                  <CountUp to={p.to} suffix={p.suffix} />
+                  {p.value}
                 </div>
                 <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
                   {p.label}
