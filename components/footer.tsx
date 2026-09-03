@@ -93,12 +93,15 @@ export function Footer() {
               </p>
             </address>
 
-            <p className="mt-6 font-mono text-[10.5px] uppercase leading-relaxed tracking-[0.2em] text-faint">
-              Engineering-led team
-              <br />
-              GDPR-aligned deployment options
-              <br />
-              NIS2 reporting built in
+            {/*
+              Prose, not the three uppercase badges this replaced — a sentence
+              set in mono caps at 0.2em tracking is a wall to read. Sized and
+              coloured to sit below the address without competing with it.
+            */}
+            <p className="mt-6 max-w-xs text-[12.5px] leading-relaxed text-faint">
+              Headquartered in Canada. Delivering NIS2, DORA, and
+              GDPR-compliant engineering to clients across Europe, North
+              America, and beyond.
             </p>
           </div>
 
