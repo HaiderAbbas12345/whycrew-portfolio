@@ -225,6 +225,10 @@ const FAQS: Faq[] = [
     q: "Will this work alongside our existing SIEM and SOAR stack?",
     a: "Yes. WhyCrew integrates with your existing tooling instead of replacing it. The platform is configured and tested against your live alert environment before any autonomous action is enabled.",
   },
+  {
+    q: "Do you deploy AI SOC automation outside Europe?",
+    a: "Yes. Our AI agents run on-premise anywhere the architecture doesn't depend on European infrastructure. Our deepest compliance-specific work (NIS2, DORA, GDPR) has been in Europe, but the same on-premise, zero-external-API model deploys for MSSPs and regulated operators globally.",
+  },
 ];
 
 export default function Page() {
