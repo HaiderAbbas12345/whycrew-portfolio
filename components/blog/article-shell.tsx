@@ -54,9 +54,13 @@ export function ArticleShell({
         <div className="container-page">
           <Breadcrumb
             trail={[
+              // The last crumb is the slug, not post.title: a full article
+              // headline wrapped onto a second line and crowded the hero on
+              // mobile. The JSON-LD on each post carries the same string,
+              // because structured breadcrumbs have to match the visible ones.
               { name: "Home", path: "/" },
               { name: "Blog", path: "/blog" },
-              { name: post.title, path: `/blog/${post.slug}` },
+              { name: post.slug, path: `/blog/${post.slug}` },
             ]}
           />
 

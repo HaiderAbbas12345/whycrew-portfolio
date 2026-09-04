@@ -159,7 +159,7 @@ export default function Page() {
             breadcrumbLd([
               { name: "Home", path: "/" },
               { name: "Blog", path: "/blog" },
-              { name: post.title, path: PATH },
+              { name: post.slug, path: PATH },
             ])
           ),
         }}
