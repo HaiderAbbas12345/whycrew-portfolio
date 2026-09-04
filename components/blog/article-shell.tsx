@@ -4,7 +4,7 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
-import type { BlogPost } from "@/lib/blog";
+import { breadcrumbLabel, type BlogPost } from "@/lib/blog";
 import { CTA_HREF } from "@/lib/site";
 
 export interface TocEntry {
@@ -60,7 +60,7 @@ export function ArticleShell({
               // because structured breadcrumbs have to match the visible ones.
               { name: "Home", path: "/" },
               { name: "Blog", path: "/blog" },
-              { name: post.slug, path: `/blog/${post.slug}` },
+              { name: breadcrumbLabel(post.slug), path: `/blog/${post.slug}` },
             ]}
           />
 

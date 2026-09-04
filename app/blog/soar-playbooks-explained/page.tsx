@@ -15,7 +15,7 @@ import {
 } from "@/components/blog/prose";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { postBySlug } from "@/lib/blog";
+import { breadcrumbLabel, postBySlug } from "@/lib/blog";
 import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("soar-playbooks-explained")!;
@@ -161,7 +161,7 @@ export default function Page() {
             breadcrumbLd([
               { name: "Home", path: "/" },
               { name: "Blog", path: "/blog" },
-              { name: post.slug, path: PATH },
+              { name: breadcrumbLabel(post.slug), path: PATH },
             ])
           ),
         }}

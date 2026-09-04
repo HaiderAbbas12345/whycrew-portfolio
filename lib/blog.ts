@@ -114,6 +114,16 @@ export const POSTS: BlogPost[] = [
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
 
+/**
+ * A slug as breadcrumb text. The hyphens read as punctuation in a crumb, so
+ * they come out as spaces; the crumb is CSS-uppercased where it renders.
+ *
+ * Used by both the visible trail and the BreadcrumbList JSON-LD, which have
+ * to carry the same string or Google treats the structured data as not
+ * matching the page.
+ */
+export const breadcrumbLabel = (slug: string) => slug.replace(/-/g, " ");
+
 /* ---------------------------------------------------------------------------
  * Internal link registry
  *
