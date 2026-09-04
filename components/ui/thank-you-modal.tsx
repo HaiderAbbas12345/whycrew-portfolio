@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { BOOKING_URL } from "@/lib/site";
+import { BOOKING_URL, EXTERNAL_REL } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -163,7 +163,7 @@ export function ThankYouModal({
                 <a
                   href={BOOKING_URL}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={EXTERNAL_REL}
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-brand via-brand to-brand-hi px-6 py-3 text-[13.5px] font-semibold text-white shadow-[0_0_0_1px_rgba(91,131,255,0.35),0_12px_34px_-12px_rgba(47,92,255,0.75)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
                   Book a call now

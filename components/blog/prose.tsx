@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { resolveLink } from "@/lib/blog";
+import { EXTERNAL_REL } from "@/lib/site";
 
 /* ---------------------------------------------------------------- headings */
 
@@ -72,6 +73,32 @@ export function Ref({ to, children }: { to: string; children: ReactNode }) {
     >
       {children}
     </Link>
+  );
+}
+
+/**
+ * Outbound citation — regulatory text, reference works, anything off-site.
+ *
+ * Separate from `Ref`, which resolves internal targets through the link
+ * registry. The rel comes from EXTERNAL_REL rather than being written out
+ * here, so an article cannot cite a source without the nofollow attached.
+ */
+export function ExtRef({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel={EXTERNAL_REL}
+      className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+    >
+      {children}
+    </a>
   );
 }
 

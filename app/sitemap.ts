@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { POSTS } from "@/lib/blog";
+import { LEGAL_PAGES } from "@/lib/legal";
 import { SERVICES, SITE } from "@/lib/site";
 
 const now = new Date();
@@ -67,5 +68,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    // Policy pages. Low priority and rarely changed, but they must be
+    // crawlable: a consent banner that cites a Cookie Policy Google has never
+    // seen is a policy the visitor cannot verify either.
+    ...LEGAL_PAGES.map((l) => ({
+      url: `${BASE_URL}/${l.slug}`,
+      lastModified: safeDate(l.lastUpdated),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
   ];
 }

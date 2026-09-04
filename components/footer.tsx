@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ADDRESS, CTA_HREF, SERVICES, SITE } from "@/lib/site";
+import { CookiePreferencesButton } from "@/components/cookie-consent";
+import { LEGAL_PAGES } from "@/lib/legal";
+import { ADDRESS, CTA_HREF, EXTERNAL_REL, SERVICES, SITE } from "@/lib/site";
 
 const columns = [
   {
@@ -135,9 +137,7 @@ export function Footer() {
                           href={l.href}
                           target={/^https?:/i.test(l.href) ? "_blank" : undefined}
                           rel={
-                            /^https?:/i.test(l.href)
-                              ? "noopener noreferrer"
-                              : undefined
+                            /^https?:/i.test(l.href) ? EXTERNAL_REL : undefined
                           }
                           className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
                         >
@@ -161,14 +161,40 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-line-soft pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[12px] text-faint">
-            © {new Date().getFullYear()} {SITE.legalName}. Engineering-led. No
-            sales team — you talk to engineers.
-          </p>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
-            Built for MSSPs running Splunk, Sentinel &amp; QRadar
-          </p>
+        <div className="mt-14 border-t border-line-soft pt-7">
+          {/*
+            The Cookie Policy tells the reader the preference centre is reached
+            "from the link in the site footer", so this row is where that
+            promise is kept. The control is a button because it opens a panel
+            on the current page rather than navigating anywhere.
+          */}
+          <nav
+            aria-label="Legal"
+            className="flex flex-wrap items-center gap-x-5 gap-y-2.5"
+          >
+            {LEGAL_PAGES.map((l) => (
+              <Link
+                key={l.slug}
+                href={`/${l.slug}`}
+                className="text-[12.5px] text-muted transition-colors duration-300 hover:text-bright"
+              >
+                {l.navLabel}
+              </Link>
+            ))}
+            <CookiePreferencesButton className="text-[12.5px] text-muted transition-colors duration-300 hover:text-bright">
+              Cookie preferences
+            </CookiePreferencesButton>
+          </nav>
+
+          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[12px] text-faint">
+              © {new Date().getFullYear()} {SITE.legalName}. Engineering-led. No
+              sales team — you talk to engineers.
+            </p>
+            <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
+              Built for MSSPs running Splunk, Sentinel &amp; QRadar
+            </p>
+          </div>
         </div>
       </div>
     </footer>

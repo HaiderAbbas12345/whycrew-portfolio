@@ -14,6 +14,8 @@ export const SITE = {
   email: "hello@whycrew.com",
   incidentEmail: "incident@whycrew.com",
   pressEmail: "press@whycrew.com",
+  /** Privacy, terms, and cookie enquiries — the address the policy pages give. */
+  legalEmail: "legal@whycrew.com",
   /**
    * E.164 for `tel:` hrefs and schema.org `telephone` — no spaces, no dashes.
    * `phoneDisplay` is the human-readable form; never put the spaced version in
@@ -71,6 +73,22 @@ export const OG_IMAGE = [
 ];
 
 export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
+
+/**
+ * The rel for every link that leaves whycrew.com.
+ *
+ * nofollow because an outbound link is not an endorsement — none of ours are
+ * editorial recommendations we mean to pass ranking signal to, and the Terms
+ * of Use say exactly that: "We do not control, endorse, or take responsibility
+ * for the content, accuracy, or practices of any third-party site."
+ *
+ * noopener noreferrer because a page opened with target="_blank" can otherwise
+ * reach back through window.opener and navigate the tab it came from.
+ *
+ * Anything rendering an off-site anchor should use this rather than spelling
+ * the value out, so a link cannot be added later that quietly skips nofollow.
+ */
+export const EXTERNAL_REL = "nofollow noopener noreferrer";
 
 /** WhyCrew's Microsoft Bookings page — the default CTA destination. */
 const OUTLOOK_BOOKING_URL =

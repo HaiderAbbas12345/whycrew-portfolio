@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { Analytics, GoogleTagManagerNoScript } from "@/components/analytics";
+import { Analytics } from "@/components/analytics";
+import { CookieConsent } from "@/components/cookie-consent";
 import { organizationLd, websiteLd } from "@/lib/jsonld";
 import { GOOGLE_SITE_VERIFICATION, OG_IMAGE, SITE } from "@/lib/site";
 import "./globals.css";
@@ -97,9 +98,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body className="wc-noise antialiased">
-        {/* Google Tag Manager (noscript) — first thing in the body, per Google. */}
-        <GoogleTagManagerNoScript />
-
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-md focus:bg-brand focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
@@ -120,6 +118,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd()) }}
         />
 
+        <CookieConsent />
         <Analytics />
       </body>
     </html>

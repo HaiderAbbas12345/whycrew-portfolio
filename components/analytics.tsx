@@ -1,5 +1,12 @@
+"use client";
+
 import Script from "next/script";
-import { CLARITY_PROJECT_ID, GA_MEASUREMENT_ID, GTM_CONTAINER_ID } from "@/lib/site";
+import { useConsent } from "@/components/cookie-consent";
+import {
+  CLARITY_PROJECT_ID,
+  GA_MEASUREMENT_ID,
+  GTM_CONTAINER_ID,
+} from "@/lib/site";
 
 /**
  * GA4, carried over from the previous deployment so historical reporting stays
@@ -60,9 +67,6 @@ function Clarity() {
  * GTM's own <head> snippet, unchanged apart from the container id coming from
  * lib/site.ts. `afterInteractive` is what Next's own GTM component uses as
  * well: the container still loads on every page, just off the critical path.
- *
- * The <noscript> half is exported separately below — it has to be real markup
- * in the initial HTML, which a <Script> never is.
  */
 function GoogleTagManager() {
   if (!GTM_CONTAINER_ID) return null;
@@ -82,29 +86,28 @@ function GoogleTagManager() {
 }
 
 /**
- * The GTM <noscript> fallback. Belongs immediately after the opening <body>
- * tag (app/layout.tsx) — Google's placement, and the reason it is not part of
- * <Analytics />, which renders at the end of the body.
+ * Measurement, gated on consent.
  *
- * Its iframe needs frame-src in the CSP (next.config.ts) or the browser blocks
- * it, since default-src 'self' is what a missing frame-src falls back to.
+ * Nothing here renders until the visitor has actively accepted analytics
+ * cookies. That is stricter than PIPEDA requires in Ontario, and it is what
+ * the Cookie Policy promises: "you'll be shown a cookie banner where you can
+ * accept or decline non-essential cookies". A tag that fired before the
+ * banner was answered would make that sentence untrue.
+ *
+ * `ready` matters as much as the answer itself. Before the stored choice has
+ * been read, consent is not "denied" — it is unknown, and an unknown answer
+ * must not load a tag.
+ *
+ * Note there is no GTM <noscript> fallback any more. It was an iframe in the
+ * server-rendered body, so it fired the container for anyone without
+ * JavaScript — who by definition cannot be shown a consent banner, and so can
+ * never have agreed to it.
  */
-export function GoogleTagManagerNoScript() {
-  if (!GTM_CONTAINER_ID) return null;
-
-  return (
-    <noscript>
-      <iframe
-        src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
-        height="0"
-        width="0"
-        style={{ display: "none", visibility: "hidden" }}
-      />
-    </noscript>
-  );
-}
-
 export function Analytics() {
+  const { consent, ready } = useConsent();
+
+  if (!ready || !consent?.analytics) return null;
+
   return (
     <>
       <GoogleTagManager />

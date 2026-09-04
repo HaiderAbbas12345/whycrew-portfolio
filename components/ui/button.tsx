@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EXTERNAL_REL } from "@/lib/site";
 import type { ReactNode } from "react";
 import { Magnetic } from "@/components/motion";
 
@@ -91,7 +92,7 @@ export function Button({
         {inner}
       </a>
     ) : opensNewTab ? (
-      <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
+      <a href={href} className={cls} target="_blank" rel={EXTERNAL_REL}>
         {inner}
       </a>
     ) : (
