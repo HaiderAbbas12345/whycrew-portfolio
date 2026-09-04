@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
 import { breadcrumbLabel, type BlogPost } from "@/lib/blog";
-import { CTA_HREF } from "@/lib/site";
+import { CTA_HREF, EXTERNAL_REL } from "@/lib/site";
 
 export interface TocEntry {
   id: string;
@@ -140,7 +140,7 @@ export function ArticleShell({
                 <a
                   href={CTA_HREF}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={EXTERNAL_REL}
                   className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
                 >
                   Book an Architecture Audit
