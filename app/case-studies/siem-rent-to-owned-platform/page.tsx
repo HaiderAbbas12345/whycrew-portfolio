@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CaseStudyShell } from "@/components/case-study/case-study-shell";
 import { Bullets, H2, P } from "@/components/blog/prose";
 import { breadcrumbLd } from "@/lib/jsonld";
-import { caseStudyBySlug } from "@/lib/case-studies";
+import { breadcrumbLabel, caseStudyBySlug } from "@/lib/case-studies";
 import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const study = caseStudyBySlug("siem-rent-to-owned-platform")!;
@@ -66,7 +66,7 @@ export default function Page() {
             breadcrumbLd([
               { name: "Home", path: "/" },
               { name: "Case Studies", path: "/case-studies" },
-              { name: study.number, path: PATH },
+              { name: breadcrumbLabel(study.slug), path: PATH },
             ])
           ),
         }}

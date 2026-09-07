@@ -47,6 +47,22 @@ const ORDERED = [...CASE_STUDIES].sort((a, b) =>
   b.datePublished.localeCompare(a.datePublished)
 );
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+/**
+ * Same string-based formatting as the blog index, and for the same reason: a
+ * date-only ISO string parsed through `new Date()` renders in the runtime's
+ * timezone, so a UTC build machine and a visitor west of UTC disagree by a day.
+ */
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  if (!y || !m || !d) return iso;
+  return `${d} ${MONTHS[m - 1]} ${y}`;
+}
+
 export default function CaseStudiesIndexPage() {
   return (
     <>
@@ -104,7 +120,9 @@ export default function CaseStudiesIndexPage() {
                 className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40"
               >
                 <p className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">
-                  <span className="text-accent">{c.number}</span>
+                  <time dateTime={c.datePublished} className="text-accent">
+                    {formatDate(c.datePublished)}
+                  </time>
                   <span className="text-line" aria-hidden>
                     /
                   </span>

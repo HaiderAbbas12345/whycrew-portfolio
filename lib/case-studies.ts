@@ -20,12 +20,6 @@ export interface CaseStudyMetric {
 
 export interface CaseStudy {
   slug: string;
-  /**
-   * Sequence label shown as the eyebrow ("Case Study 01"). Stored rather than
-   * derived from array position: the number is part of how the study is
-   * referred to elsewhere, so reordering the array must not renumber it.
-   */
-  number: string;
   /** <h1> on the page. */
   title: string;
   /** Exact <title> from the content doc. */
@@ -46,7 +40,6 @@ export interface CaseStudy {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "siem-rent-to-owned-platform",
-    number: "Case Study 01",
     title: "From SIEM Rent to an Owned Security Platform",
     metaTitle: "How a Growing MSSP Saved $270K in 24 Months",
     metaDescription:
@@ -66,3 +59,11 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 export const caseStudyBySlug = (slug: string) =>
   CASE_STUDIES.find((c) => c.slug === slug);
+
+/**
+ * A slug as breadcrumb text — the same treatment the blog gives its last
+ * crumb, so both sections read the same way. Re-exported from lib/blog rather
+ * than reimplemented: the visible trail and the BreadcrumbList JSON-LD have to
+ * carry an identical string, and one implementation is what guarantees that.
+ */
+export { breadcrumbLabel } from "@/lib/blog";

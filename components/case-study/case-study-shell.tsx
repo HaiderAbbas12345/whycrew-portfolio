@@ -4,7 +4,7 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
-import type { CaseStudy } from "@/lib/case-studies";
+import { breadcrumbLabel, type CaseStudy } from "@/lib/case-studies";
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
@@ -42,16 +42,20 @@ export function CaseStudyShell({
             trail={[
               { name: "Home", path: "/" },
               { name: "Case Studies", path: "/case-studies" },
-              { name: study.number, path: `/case-studies/${study.slug}` },
+              // The last crumb is the slug, not the title — the same rule the
+              // blog follows, and the JSON-LD on the page carries the same
+              // string because structured breadcrumbs have to match visible
+              // ones.
+              {
+                name: breadcrumbLabel(study.slug),
+                path: `/case-studies/${study.slug}`,
+              },
             ]}
           />
 
           <div className="max-w-3xl">
             <Reveal mount>
-              <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-accent">
-                {study.number}
-              </p>
-              <h1 className="mt-4 text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.9rem]">
+              <h1 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.9rem]">
                 {study.title}
               </h1>
             </Reveal>
