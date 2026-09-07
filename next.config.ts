@@ -103,7 +103,12 @@ const nextConfig: NextConfig = {
       { source: "/integrations", destination: "/services/custom-siem-soar-development", permanent: true },
       { source: "/ai-workflows", destination: "/services/ai-powered-soc-automation", permanent: true },
       { source: "/workflow-automation", destination: "/services/ai-powered-soc-automation", permanent: true },
-      { source: "/case-studies", destination: "/#results", permanent: true },
+      /**
+       * /case-studies used to redirect to /#results — the homepage summary
+       * strip was the closest thing to it at the v2 cutover. It is a real
+       * section now, so the redirect is gone: leaving it in would have made
+       * the page unreachable, since a redirect is matched before a route.
+       */
       /**
        * Careers and Support used to be the contact form under a query string,
        * so /contact?topic=careers and /contact?topic=support were the same
