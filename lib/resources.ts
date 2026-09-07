@@ -190,6 +190,18 @@ export const RESOURCES: Resource[] = [
     href: "/blog/soar-playbooks-explained",
     date: "2026-09-01",
   },
+  {
+    id: "blog-what-is-siem",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Platform Ownership", "NIS2", "DORA"],
+    title: "What Is SIEM? How It Works and What It Costs",
+    summary:
+      "The four steps every SIEM runs, what it changes for the team using it, and where it sits next to SOAR and EDR. Plus the cost split between licensing a vendor platform and owning one.",
+    format: "10 min read",
+    status: "live",
+    href: "/blog/what-is-siem",
+    date: "2026-09-07",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */

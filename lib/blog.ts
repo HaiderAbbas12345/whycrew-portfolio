@@ -110,6 +110,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "what-is-siem",
+    title: "What Is SIEM? How It Works and What It Costs",
+    metaTitle: "What Is SIEM? Meaning, Cost & How It Works",
+    metaDescription:
+      "What is SIEM? A clear guide covering how it works, real cost numbers, and when building your own makes more sense than renting.",
+    summary:
+      "The four steps every SIEM runs, what it changes for the team using it, and where it sits next to SOAR and EDR. Plus the cost split between licensing a vendor platform and owning one.",
+    datePublished: "2026-09-07",
+    readTime: "10 min read",
+    topics: ["SIEM & SOAR", "Platform Ownership", "NIS2", "DORA"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -153,6 +166,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
     "/blog/multi-tenant-siem-architecture-mssps",
   "nis2-dora-compliance-guide": "/blog/siem-nis2-dora-compliance",
   "soar-playbooks-guide": "/blog/soar-playbooks-explained",
+  "what-is-siem": "/blog/what-is-siem",
 };
 
 export const resolveLink = (key: string): string | null =>
