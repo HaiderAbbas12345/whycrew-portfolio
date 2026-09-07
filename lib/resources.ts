@@ -41,7 +41,7 @@
  * Live categories. Only categories that actually have entries belong here —
  * a tab with a zero count is an empty page for a crawler to index.
  */
-export const RESOURCE_TYPES = ["Blog"] as const;
+export const RESOURCE_TYPES = ["Blog", "Case Study"] as const;
 
 export type ResourceType = (typeof RESOURCE_TYPES)[number];
 
@@ -61,6 +61,7 @@ export const RESOURCE_TAB_PARAM = "resources_tab";
  */
 export const RESOURCE_TAB_SLUGS: Record<ResourceType, string> = {
   Blog: "blog_posts",
+  "Case Study": "case_studies",
 };
 
 /**
@@ -200,6 +201,18 @@ export const RESOURCES: Resource[] = [
     format: "10 min read",
     status: "live",
     href: "/blog/what-is-siem",
+    date: "2026-09-07",
+  },
+  {
+    id: "cs-siem-rent-to-owned-platform",
+    type: "Case Study",
+    topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
+    title: "From SIEM Rent to an Owned Security Platform",
+    summary:
+      "A growing MSSP was paying more for its SIEM with every client it won. Moving to an owned, multi-tenant platform removed the per-gigabyte pricing curve and returned $270K across 24 months.",
+    format: "4 min read",
+    status: "live",
+    href: "/case-studies/siem-rent-to-owned-platform",
     date: "2026-09-07",
   },
 ];

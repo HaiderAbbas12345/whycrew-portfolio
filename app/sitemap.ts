@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { POSTS } from "@/lib/blog";
+import { CASE_STUDIES } from "@/lib/case-studies";
 import { LEGAL_PAGES } from "@/lib/legal";
 import { SERVICES, SITE } from "@/lib/site";
 
@@ -48,6 +49,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/blog/${p.slug}`,
       lastModified: safeDate(p.dateModified ?? p.datePublished),
       changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${BASE_URL}/case-studies`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...CASE_STUDIES.filter((c) => Boolean(c.slug)).map((c) => ({
+      url: `${BASE_URL}/case-studies/${c.slug}`,
+      lastModified: safeDate(c.dateModified ?? c.datePublished),
+      changeFrequency: "yearly" as const,
       priority: 0.7,
     })),
     {
