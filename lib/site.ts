@@ -221,11 +221,6 @@ export const PRIMARY_NAV = [
   { label: "Services", href: "/services", hasMenu: true },
   { label: "Resources", href: "/resources" },
   { label: "Blog", href: "/blog" },
-  // "Results" is the homepage summary strip; "Case Studies" is the section of
-  // full write-ups. Deliberately both: the strip is a few headline figures
-  // read in passing, the section is the engagement behind them. They cover
-  // different clients, so one is not a shortcut to the other.
-  { label: "Results", href: "/#results" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "How it Works", href: "/#how-it-works" },
   { label: "Contact", href: "/contact" },
