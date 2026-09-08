@@ -215,6 +215,42 @@ export const RESOURCES: Resource[] = [
     href: "/case-studies/siem-rent-to-owned-platform",
     date: "2026-09-07",
   },
+  {
+    id: "cs-mssp-engineering-capacity-pod",
+    type: "Case Study",
+    topics: ["SIEM & SOAR", "MSSP & White-Label"],
+    title: "Scaling MSSP Engineering Without Scaling Headcount",
+    summary:
+      "A growing MSSP had one engineer covering work that realistically needed three or four. An embedded WhyCrew engineering pod consolidated detection, ingestion, and automation under one team, shipping production work in 10 days.",
+    format: "3 min read",
+    status: "live",
+    href: "/case-studies/mssp-engineering-capacity-pod",
+    date: "2026-09-08",
+  },
+  {
+    id: "cs-owned-threat-intelligence-pipeline",
+    type: "Case Study",
+    topics: ["SIEM & SOAR", "Platform Ownership"],
+    title: "Replacing a Rented Threat-Intel Feed With an Owned Pipeline",
+    summary:
+      "A regional SOC paid $40K a year for a commercial threat-intel feed that still left analysts checking domains and hashes by hand. An owned ingestion and enrichment pipeline cut manual triage by 80%.",
+    format: "3 min read",
+    status: "live",
+    href: "/case-studies/owned-threat-intelligence-pipeline",
+    date: "2026-09-08",
+  },
+  {
+    id: "cs-in-house-dark-web-monitoring",
+    type: "Case Study",
+    topics: ["Platform Ownership", "SIEM & SOAR"],
+    title: "Bringing Identity Monitoring In-House to Escape a Capped Vendor",
+    summary:
+      "A cybersecurity provider paid $180K a year for dark-web monitoring capped by API limits and delayed alerts. A proprietary collection pipeline, deployed in six weeks, removed the caps entirely.",
+    format: "3 min read",
+    status: "live",
+    href: "/case-studies/in-house-dark-web-monitoring",
+    date: "2026-09-08",
+  },
 ];
 
 /* ------------------------------------------------------------------ helpers */
