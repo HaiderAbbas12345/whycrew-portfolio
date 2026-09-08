@@ -29,7 +29,7 @@ const SOCIAL_LINKS = [
 const columns = [
   {
     title: "Services",
-    links: SERVICES.map((s) => ({ label: s.navLabel, href: s.href })),
+    links: SERVICES.map((s) => ({ label: s.name, href: s.href })),
   },
   {
     title: "Resources",
@@ -73,7 +73,7 @@ export function Footer() {
       />
 
       <div className="container-page relative py-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(260px,320px)_1fr]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(300px,380px)_1fr]">
           <div className="rounded-2xl border border-line/60 bg-surface/40 p-7">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <Image
