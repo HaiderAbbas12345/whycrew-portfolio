@@ -26,6 +26,10 @@ const SOCIAL_LINKS = [
   },
 ];
 
+/**
+ * A 2×2 grid rather than a single row — four even columns side by side read
+ * as cramped, so two sit on top and two below instead.
+ */
 const columns = [
   {
     title: "Services",
@@ -42,7 +46,7 @@ const columns = [
   {
     title: "Company",
     links: [
-      { label: "About WhyCrew", href: "/" },
+      { label: "About WhyCrew", href: "/about" },
       { label: "Contact Us", href: "/contact" },
       { label: "Careers", href: "/careers" },
       { label: "Support", href: "/support" },
@@ -59,6 +63,57 @@ const columns = [
     ],
   },
 ];
+
+function FooterNavColumn({ col }: { col: (typeof columns)[number] }) {
+  return (
+    <nav aria-label={col.title}>
+      {/*
+        A styled <p>, not a heading — these are nav-group labels inside the
+        footer's own <nav>, not document section headings, so h2/h3 would
+        misrepresent the page outline.
+      */}
+      <p className="mb-4 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
+        {col.title}
+      </p>
+      <ul className="space-y-2.5">
+        {col.links.map((l) => (
+          /*
+            Key on the label alone, never on the href.
+            React keys are serialised into the RSC flight payload in the page
+            source, and `href + label` produced URL-shaped strings there
+            ("/careersCareers", "/supportSupport"). Googlebot extracted those
+            as links and reported them as 404s. Labels are unique within a
+            column, so this is still a stable key.
+          */
+          <li key={l.label}>
+            {/*
+              next/link is for routes. mailto: goes to the OS and needs a
+              plain <a> with no target="_blank" — handing the mail client a
+              new tab strands the visitor on an empty one.
+            */}
+            {/^mailto:/i.test(l.href) ? (
+              <a
+                href={l.href}
+                className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
+              >
+                <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                href={l.href}
+                className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
+              >
+                <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
+                {l.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
 
 export function Footer() {
   return (
@@ -169,56 +224,9 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {columns.map((col) => (
-              <nav key={col.title} aria-label={col.title}>
-                {/*
-                  A styled <p>, not a heading — these are nav-group labels
-                  inside the footer's own <nav>, not document section
-                  headings, so h2/h3 would misrepresent the page outline.
-                */}
-                <p className="mb-4 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
-                  {col.title}
-                </p>
-                <ul className="space-y-2.5">
-                  {col.links.map((l) => (
-                    /*
-                      Key on the label alone, never on the href.
-                      React keys are serialised into the RSC flight payload in
-                      the page source, and `href + label` produced URL-shaped
-                      strings there ("/careersCareers", "/supportSupport").
-                      Googlebot extracted those as links and reported them as
-                      404s. Labels are unique within a column, so this is still
-                      a stable key.
-                    */
-                    <li key={l.label}>
-                      {/*
-                        next/link is for routes. mailto: goes to the OS and
-                        needs a plain <a> with no target="_blank" — handing
-                        the mail client a new tab strands the visitor on an
-                        empty one.
-                      */}
-                      {/^mailto:/i.test(l.href) ? (
-                        <a
-                          href={l.href}
-                          className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
-                        >
-                          <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
-                          {l.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={l.href}
-                          className="group inline-flex items-center gap-1.5 text-[13px] text-muted transition-colors duration-300 hover:text-bright"
-                        >
-                          <span className="h-px w-0 bg-accent transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-3" />
-                          {l.label}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+              <FooterNavColumn key={col.title} col={col} />
             ))}
           </div>
         </div>
