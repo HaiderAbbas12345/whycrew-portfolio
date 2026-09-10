@@ -111,6 +111,19 @@ export const POSTS: BlogPost[] = [
     cluster: "Custom SIEM & SOAR Development",
   },
   {
+    slug: "what-is-soar",
+    title: "What Is SOAR? Security Orchestration, Automation, and Response Explained",
+    metaTitle: "What Is SOAR? Meaning, Components & How It Works",
+    metaDescription:
+      "What is SOAR? A clear guide to Security Orchestration, Automation, and Response — how it works, what it automates, and where it fits next to SIEM.",
+    summary:
+      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What orchestration, automation, and response actually mean, where SOAR delivers the most value, and what it can't replace.",
+    datePublished: "2026-09-10",
+    readTime: "7 min read",
+    topics: ["SIEM & SOAR", "AI SOC Automation"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
+  {
     slug: "what-is-siem",
     title: "What Is SIEM? How It Works and What It Costs",
     metaTitle: "What Is SIEM? Meaning, Cost & How It Works",
@@ -167,6 +180,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "nis2-dora-compliance-guide": "/blog/siem-nis2-dora-compliance",
   "soar-playbooks-guide": "/blog/soar-playbooks-explained",
   "what-is-siem": "/blog/what-is-siem",
+  "what-is-soar": "/blog/what-is-soar",
 };
 
 export const resolveLink = (key: string): string | null =>

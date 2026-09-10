@@ -204,6 +204,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-07",
   },
   {
+    id: "blog-what-is-soar",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "AI SOC Automation"],
+    title: "What Is SOAR? Security Orchestration, Automation, and Response Explained",
+    summary:
+      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What orchestration, automation, and response actually mean, where SOAR delivers the most value, and what it can't replace.",
+    format: "7 min read",
+    status: "live",
+    href: "/blog/what-is-soar",
+    date: "2026-09-10",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
