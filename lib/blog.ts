@@ -113,14 +113,15 @@ export const POSTS: BlogPost[] = [
   {
     slug: "what-is-soar",
     title: "What Is SOAR? Security Orchestration, Automation, and Response Explained",
-    metaTitle: "What Is SOAR? Meaning, Components & How It Works",
+    metaTitle: "What Is SOAR? Simple Guide to Security Automation",
     metaDescription:
-      "What is SOAR? A clear guide to Security Orchestration, Automation, and Response — how it works, what it automates, and where it fits next to SIEM.",
+      "SOAR meaning, made simple: security software that connects your tools and handles alerts fast. See how SOAR works, with real examples.",
     summary:
-      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What orchestration, automation, and response actually mean, where SOAR delivers the most value, and what it can't replace.",
+      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What it automates, where it breaks down in practice, and what separates a SOAR license from a SOAR program that actually cuts workload.",
     datePublished: "2026-09-10",
-    readTime: "7 min read",
-    topics: ["SIEM & SOAR", "AI SOC Automation"],
+    dateModified: "2026-09-11",
+    readTime: "11 min read",
+    topics: ["SIEM & SOAR", "AI SOC Automation", "NIS2", "DORA"],
     cluster: "Custom SIEM & SOAR Development",
   },
   {

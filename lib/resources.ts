@@ -206,11 +206,11 @@ export const RESOURCES: Resource[] = [
   {
     id: "blog-what-is-soar",
     type: "Blog",
-    topics: ["SIEM & SOAR", "AI SOC Automation"],
+    topics: ["SIEM & SOAR", "AI SOC Automation", "NIS2", "DORA"],
     title: "What Is SOAR? Security Orchestration, Automation, and Response Explained",
     summary:
-      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What orchestration, automation, and response actually mean, where SOAR delivers the most value, and what it can't replace.",
-    format: "7 min read",
+      "SOAR turns a detection into a logged response in seconds by orchestrating your existing tools with predefined playbooks. What it automates, where it breaks down in practice, and what separates a SOAR license from a SOAR program that actually cuts workload.",
+    format: "11 min read",
     status: "live",
     href: "/blog/what-is-soar",
     date: "2026-09-10",

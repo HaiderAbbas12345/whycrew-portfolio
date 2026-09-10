@@ -4,8 +4,11 @@ import {
   Bullets,
   DataTable,
   H2,
+  H3,
   KeyTakeaways,
+  Numbered,
   P,
+  QuickAnswer,
   Ref,
   Strong,
 } from "@/components/blog/prose";
@@ -42,64 +45,100 @@ export const metadata: Metadata = {
 const TOC: TocEntry[] = [
   { id: "key-takeaways", label: "Key takeaways" },
   { id: "what-soar-stands-for", label: "What SOAR stands for" },
-  { id: "what-it-changes", label: "What it changes for a team" },
-  { id: "practical-applications", label: "Where SOAR gets used" },
-  { id: "soar-vs-siem", label: "SOAR vs. SIEM" },
-  { id: "limitations", label: "What SOAR doesn't do" },
+  { id: "why-it-matters", label: "Why SOAR matters" },
+  { id: "how-soar-works", label: "How SOAR works" },
+  { id: "capabilities", label: "Common SOAR capabilities" },
+  { id: "use-cases", label: "What SOAR can automate" },
+  { id: "phishing-example", label: "A real-world example" },
+  { id: "benefits", label: "Benefits of SOAR" },
+  { id: "limitations", label: "Limitations of SOAR" },
+  { id: "why-rollouts-stall", label: "Why most rollouts stall" },
+  { id: "who-uses-soar", label: "Who actually uses SOAR" },
+  { id: "compliance", label: "SOAR and compliance" },
+  { id: "buying-checklist", label: "What to look for in a platform" },
+  { id: "soar-vs-siem-vs-xdr", label: "SOAR vs. SIEM vs. XDR" },
+  { id: "whycrew-approach", label: "How WhyCrew approaches SOAR" },
   { id: "faq", label: "Frequently asked questions" },
 ];
 
-const USE_CASE_TABLE = {
-  head: ["Use case", "Without SOAR", "With SOAR"],
+const CAPABILITIES_TABLE = {
+  head: ["Capability", "What it does"],
   rows: [
+    ["Playbook automation", "Runs ready-made or custom steps on its own"],
     [
-      "Phishing response",
-      "Analyst manually pulls the email, checks the sender, and blocks it by hand",
-      "A playbook extracts indicators, checks them against threat feeds, and blocks or quarantines automatically",
+      "Case management",
+      "Tracks each incident, its timeline, and its notes in one place",
+    ],
+    ["Tool integrations", "Connects SOAR to the tools you already use"],
+    ["Alert enrichment", "Adds threat context to alerts automatically"],
+    [
+      "Dashboards and reporting",
+      "Shows live data on speed, alert counts, and playbook results",
     ],
     [
-      "Alert triage & enrichment",
-      "Analyst opens five tools to gather context before deciding whether an alert matters",
-      "Context is pulled and attached to the alert automatically, before an analyst ever opens it",
+      "Threat intelligence integration",
+      "Checks alerts against known threat data to speed up review",
     ],
+  ],
+};
+
+const TOOL_TABLE = {
+  head: ["Tool", "Primary function", "Automates response?"],
+  rows: [
+    ["SIEM", "Collects and studies security data; sends alerts", "No"],
+    ["SOAR", "Takes alerts, runs playbooks, and acts on threats", "Yes"],
     [
-      "Account compromise",
-      "Analyst manually disables the account, resets credentials, and notifies the user",
-      "A playbook isolates the account and starts the reset process the moment compromise is confirmed",
-    ],
-    [
-      "Vulnerability management",
-      "Findings sit in a spreadsheet until someone manually opens tickets and chases owners",
-      "Findings are triaged, ticketed, and routed to the right owner automatically",
-    ],
-    [
-      "Threat hunting support",
-      "Analyst manually queries multiple tools to test a hypothesis across sources",
-      "A playbook queries every connected tool at once and returns results in one place",
+      "XDR",
+      "Links data across devices, networks, and the cloud",
+      "Yes (deeper)",
     ],
   ],
 };
 
 const FAQS: Faq[] = [
   {
-    q: "Is SOAR the same as SIEM?",
-    a: "No. SIEM finds and connects events across your systems. SOAR automates what happens after — running a playbook against what SIEM (or another detection source) has already flagged. They're built to work together, not to replace each other.",
+    q: "What is SOAR in cybersecurity?",
+    a: "It's software that connects your security tools, handles repeat tasks on its own, and follows set steps — called playbooks — to respond to threats.",
   },
   {
-    q: "Does SOAR replace analysts?",
-    a: "No. SOAR removes repetitive, well-defined work so analysts spend their time on judgment calls a playbook can't make. It functions as a force multiplier, not a replacement for human expertise.",
+    q: "What does SOAR stand for?",
+    a: "SOAR stands for Security Orchestration, Automation, and Response.",
   },
   {
-    q: "What is a SOAR playbook?",
-    a: "A predefined, step-by-step procedure that runs automatically once a condition is met — for example, isolating a laptop the moment malware is confirmed on it, instead of waiting for an analyst to do it manually.",
+    q: "What is the difference between SOAR and SIEM?",
+    a: "SIEM collects and studies security data and sends alerts when something looks wrong. SOAR goes further: it automates the response through playbooks. SIEM finds problems. SOAR fixes them.",
   },
   {
-    q: "Is SOAR hard to set up?",
-    a: "It takes real effort. SOAR is only as good as the playbooks behind it, and those need to be designed deliberately, tested, and maintained as the tools they connect to change. Most teams also build trust in a playbook gradually, running it in a supervised mode before letting it act on its own.",
+    q: "Is SOAR the same as XDR?",
+    a: "No. XDR (Extended Detection and Response) finds and stops threats across devices, networks, and the cloud. SOAR focuses on linking tools and automating the response across all of them. Many teams use both.",
   },
   {
-    q: "Can a small security team use SOAR?",
-    a: "Yes — that's often where it matters most. SOAR lets a small team hold its own against an alert volume that would otherwise require hiring several more analysts just to keep up.",
+    q: "What are SOAR playbooks?",
+    a: "Set, step-by-step plans that tell SOAR exactly what to do for each type of threat. They're the core of any SOAR system, and they're what keeps every response fast and consistent.",
+  },
+  {
+    q: "Does SOAR replace security analysts?",
+    a: "No. SOAR handles routine work, which frees analysts to focus on hard cases and real threats. It's a helper, not a replacement.",
+  },
+  {
+    q: "What types of tasks can SOAR automate?",
+    a: "SOAR can add threat details to alerts, check threat data, respond to phishing, lock accounts, block bad IPs, isolate infected devices, open tickets, alert your team, and log every action it takes.",
+  },
+  {
+    q: "Who should use SOAR?",
+    a: "SOAR works best for teams with a lot of alerts and a lot of repeat manual tasks. Mid-size and large SOC teams use it most.",
+  },
+  {
+    q: "Is SOAR the same as security automation?",
+    a: "Not quite. Automation is one piece of SOAR — the part that runs tasks without a person clicking through them. SOAR also includes orchestration (linking your tools) and response (the case and decision layer). Automation is a piece of SOAR, not a stand-in for the whole thing.",
+  },
+  {
+    q: "Do small security teams actually need SOAR?",
+    a: "It depends more on alert volume than team size. A small team drowning in alerts from a dozen disconnected tools often gets more value from SOAR than a larger team running a simpler stack. The trigger isn't headcount — it's whether manual triage has become the bottleneck.",
+  },
+  {
+    q: "What does a SOAR platform actually connect to?",
+    a: "Most commonly a SIEM or XDR for detection, an EDR tool for endpoint action, a firewall for containment, a ticketing system for case tracking, and one or more threat feeds for enrichment. The value scales with how many of these are actually wired together — easy to describe, harder to build well.",
   },
 ];
 
@@ -154,30 +193,31 @@ export default function Page() {
         toc={TOC}
         cta={{
           heading: "See what SOAR would actually automate in your SOC",
-          body: "We'll map your current alert volume against the manual steps your team repeats most often, and show you which of them a playbook could take over first.",
+          body: "We'll map your current alert volume against the manual steps your team repeats most often, and show you which of them a playbook could take over first — and what it would take to own the result instead of renting it.",
           label: "Book an Architecture Audit",
           href: CTA_HREF,
         }}
       >
+        <QuickAnswer>
+          SOAR is a type of security software. It connects your security
+          tools, handles repeat, low-level tasks on its own, and follows set
+          steps to deal with threats — either acting automatically or
+          guiding an analyst through the right procedure.
+        </QuickAnswer>
+
         <P>
-          SOAR is security software that connects your existing tools into
-          one system and follows predetermined procedures to handle
-          repetitive work automatically, so a threat gets acted on the moment
-          it&apos;s confirmed instead of whenever an analyst gets to it.
-        </P>
-        <P>
-          This guide covers what SOAR stands for, what it actually changes
-          for a security team, where it delivers the most value, and where
-          its limits are.
+          This guide covers what SOAR stands for, why it matters, how it
+          actually works, what it can automate, where its limits are, and why
+          so many SOAR rollouts stall before they deliver on that promise.
         </P>
 
         <div className="mt-10">
           <KeyTakeaways
             items={[
-              "SOAR (Security Orchestration, Automation, and Response) connects your security tools and runs predefined playbooks against confirmed threats, cutting response time from minutes to seconds.",
-              "It breaks down into three jobs: orchestration connects your tools, automation runs the playbook, and response takes the action — either on its own or by guiding an analyst.",
-              "It's a force multiplier, not a replacement. SOAR still depends on well-designed playbooks, real setup effort, and a human who signs off before it runs unsupervised.",
-              "Smaller teams get the most visible benefit: SOAR lets a lean SOC manage an alert volume that would otherwise require hiring several more analysts.",
+              "SOAR links all your security tools into one system and handles repeat tasks on its own, using predefined step-by-step plans called playbooks.",
+              "It cuts response time from minutes to seconds, eases analyst burnout, and lets small teams handle alert volumes that would otherwise require several more hires.",
+              "The platform itself is roughly a third of the outcome. The other two-thirds is the engineering behind it — playbooks built around how your team actually works, integrations that get maintained, and analysts who trust the automation enough to lean on it.",
+              "It's a force multiplier, not a replacement for analysts. Weak playbooks, stale integrations, or a team that doesn't trust the automation will stall a rollout regardless of which platform you buy.",
             ]}
           />
         </div>
@@ -185,133 +225,415 @@ export default function Page() {
         <H2 id="what-soar-stands-for">What Does SOAR Stand For?</H2>
         <P>
           SOAR stands for Security Orchestration, Automation, and Response.
-          Each word describes a distinct job the platform does:
+          Each word does its own job:
         </P>
         <Bullets
           items={[
             <>
-              <Strong>Orchestration:</Strong> connecting security tools —
-              firewalls, SIEM, EDR, threat feeds — so they work together
-              instead of sitting in isolation, each with its own console and
-              its own login.
+              <Strong>Orchestration:</Strong> linking your tools together.
+              Firewalls, SIEM systems, EDR tools, and threat feeds all
+              connect and stop working alone — they start working as one
+              system.
             </>,
             <>
-              <Strong>Automation:</Strong> running playbooks, which are
-              predefined, step-by-step procedures, to carry out routine work
-              without a person clicking through it manually.
+              <Strong>Automation:</Strong> the software does routine work for
+              you, following set steps called playbooks. No one has to click
+              through each step by hand.
             </>,
             <>
-              <Strong>Response:</Strong> taking action once a threat is
-              confirmed — either autonomously, or by walking an analyst
-              through the correct procedure instead of leaving them to
-              improvise one.
+              <Strong>Response:</Strong> taking action fast. The system can
+              act on its own, or guide an analyst through the right steps —
+              either way, it happens the moment a threat shows up.
             </>,
           ]}
         />
         <P>
-          Put together, SOAR is what turns &ldquo;we detected something&rdquo;
-          into &ldquo;we already acted on it, and here&apos;s the record.&rdquo;
-          See{" "}
-          <Ref to="what-is-siem">What Is SIEM?</Ref> for how detection works
-          upstream of it, and{" "}
-          <Ref to="soar-playbooks-guide">
-            what a SOAR playbook actually looks like
-          </Ref>{" "}
-          for a closer look at automation in practice.
+          Together, these three parts turn slow, manual security work into
+          something fast and steady. Gartner gave this category its name in
+          2015, at a point when cloud tools and virtual systems were growing
+          faster than security teams could hire to keep up with them. SOAR
+          was built to close that gap.
         </P>
 
-        <H2 id="what-it-changes">
-          What Does SOAR Actually Change for a Security Team?
+        <H2 id="why-it-matters">Why Is SOAR Important in Cybersecurity?</H2>
+        <P>
+          Security teams face a real problem: too many alerts come in, and
+          too few people are available to check them. Most alerts turn out
+          to be false alarms anyway, which makes checking each one by hand
+          slow, costly, and a good way to let a real threat slip through the
+          cracks.
+        </P>
+        <P>
+          SOAR fixes this by taking over the boring, low-level work, which
+          frees analysts to focus on the threats that actually need a human
+          eye. Teams that use it typically see:
+        </P>
+        <Bullets
+          items={[
+            <>
+              <Strong>Faster response:</Strong> a task that once took 20 to
+              30 minutes can run in seconds.
+            </>,
+            <>
+              <Strong>Fewer mistakes:</Strong> the same steps run the same
+              way, every single time.
+            </>,
+            <>
+              <Strong>Less alert fatigue:</Strong> analysts spend time on
+              real threats, not noise.
+            </>,
+            <>
+              <Strong>Better scale:</Strong> small teams can handle huge
+              alert loads.
+            </>,
+            <>
+              <Strong>Stronger compliance:</Strong> every action gets
+              logged, which makes audits easier.
+            </>,
+          ]}
+        />
+        <P>
+          In one deployment along these lines, automating alert checks cut
+          Tier-1 analyst workload by 78% for a team handling roughly 12,000
+          alerts a day — the kind of result SOAR aims to deliver.
+        </P>
+
+        <H2 id="how-soar-works">How Does SOAR Work?</H2>
+        <P>
+          SOAR connects your tools, automates repeat tasks, and guides your
+          team through each incident using playbooks. The basic flow: an
+          alert comes in, SOAR checks it against threat data, then takes
+          action either on its own or with an analyst&apos;s help. Here is
+          each part in more depth.
+        </P>
+
+        <H3>Security Orchestration</H3>
+        <P>
+          Orchestration is the glue. It links your tools — SIEM, EDR
+          (endpoint detection and response), threat feeds, email security,
+          firewalls, and identity systems — using APIs and ready-made
+          connections.
+        </P>
+        <P>
+          Without SOAR, analysts jump between many screens, copy data by
+          hand, and piece together the full picture themselves. With SOAR,
+          tools talk to each other on their own, and everything flows into
+          one clear workflow.
+        </P>
+
+        <H3>Security Automation</H3>
+        <P>
+          Once your tools connect, automation takes over the busywork. SOAR
+          uses playbooks — step-by-step plans made in advance — that can:
+        </P>
+        <Bullets
+          items={[
+            "Add threat details to an alert",
+            "Block a bad IP address",
+            "Isolate an infected computer",
+            "Turn off a hacked user account",
+            "Open, update, or close a ticket",
+            "Alert the right person on your team",
+          ]}
+        />
+        <P>
+          These steps run in seconds, the same way every time, with no
+          analyst needing to do them by hand.
+        </P>
+
+        <H3>Incident Response</H3>
+        <P>
+          Orchestration and automation come together in one screen, where
+          analysts can handle the whole incident: sorting real threats from
+          false alarms, deciding what matters most, and starting the right
+          playbook, all from one place. SOAR also helps after an incident
+          ends — teams can review what happened, see how the threat got in,
+          and close that gap for next time.
+        </P>
+
+        <H2 id="capabilities">Common SOAR Capabilities</H2>
+        <P>Most SOAR tools share the same core set of features:</P>
+        <DataTable
+          caption="Core SOAR capabilities and what each one does"
+          head={CAPABILITIES_TABLE.head}
+          rows={CAPABILITIES_TABLE.rows}
+        />
+
+        <H2 id="use-cases">SOAR Use Cases: What Can SOAR Automate?</H2>
+        <P>SOAR works best on tasks you do over and over. The most common:</P>
+        <Bullets
+          items={[
+            <>
+              <Strong>Phishing response:</Strong> SOAR checks a reported
+              email against threat data, then pulls it from every inbox it
+              reached.
+            </>,
+            <>
+              <Strong>Alert triage and enrichment:</Strong> SOAR pulls in
+              context the moment an alert lands — no analyst has to dig for
+              it by hand.
+            </>,
+            <>
+              <Strong>Account compromise response:</Strong> SOAR can check
+              the alert, lock the account, log out active sessions, and log
+              every step for later review.
+            </>,
+            <>
+              <Strong>Vulnerability management:</Strong> SOAR ranks scan
+              results by risk, opens fix tickets, and tracks progress so
+              security and IT teams stay in sync.
+            </>,
+            <>
+              <Strong>Threat hunting support:</Strong> SOAR gathers and links
+              clues — indicators of compromise (IOCs) — across systems,
+              making hunts faster and more consistent.
+            </>,
+          ]}
+        />
+
+        <H2 id="phishing-example">
+          Real-World Example: How SOAR Handles a Phishing Attack
+        </H2>
+        <Numbered
+          items={[
+            <>
+              <Strong>Alert received:</Strong> an email tool flags a bad
+              message and sends it to SOAR.
+            </>,
+            <>
+              <Strong>Enrichment:</Strong> SOAR checks the sender, the links,
+              and any attachments against threat data.
+            </>,
+            <>
+              <Strong>Verdict:</Strong> the playbook confirms the email is a
+              threat.
+            </>,
+            <>
+              <Strong>Response:</Strong> SOAR removes the email from every
+              inbox, and blocks the sender and any bad links.
+            </>,
+            <>
+              <Strong>Documentation:</Strong> SOAR opens a case and logs
+              every step, creating a clear record.
+            </>,
+          ]}
+        />
+        <P>
+          This whole process often finishes in under a minute — usually
+          before anyone even clicks the link. By hand, the same check can
+          take 20 to 30 minutes.
+        </P>
+
+        <H2 id="benefits">Benefits of SOAR</H2>
+        <Bullets
+          items={[
+            <>
+              <Strong>Speed:</Strong> response time (MTTR) drops from
+              minutes to seconds.
+            </>,
+            <>
+              <Strong>Consistency:</Strong> every incident follows the same
+              trusted steps.
+            </>,
+            <>
+              <Strong>Efficiency:</Strong> analysts get hours back each
+              week.
+            </>,
+            <>
+              <Strong>Scalability:</Strong> small teams can handle large
+              alert loads.
+            </>,
+            <>
+              <Strong>Compliance:</Strong> every action gets logged, ready
+              for audits.
+            </>,
+            <>
+              <Strong>Collaboration:</Strong> security, IT, and leadership
+              all see the same case.
+            </>,
+          ]}
+        />
+
+        <H2 id="limitations">Limitations of SOAR</H2>
+        <P>SOAR is powerful, but it has real limits:</P>
+        <Bullets
+          items={[
+            <>
+              <Strong>Playbooks must be good.</Strong> SOAR only does what
+              you tell it to do — weak playbooks give weak results.
+            </>,
+            <>
+              <Strong>Setup takes work.</Strong> Connecting tools and
+              building playbooks takes real time.
+            </>,
+            <>
+              <Strong>It won&apos;t replace your team.</Strong> SOAR handles
+              routine work; people still make the tough calls.
+            </>,
+            <>
+              <Strong>Automation needs limits.</Strong> A bad rule can lock
+              out the wrong account or system.
+            </>,
+            <>
+              <Strong>Bad data means bad results.</Strong> Messy alerts lead
+              to messy automation.
+            </>,
+          ]}
+        />
+        <P>
+          Think of SOAR as a helper, not a replacement. Build good playbooks,
+          keep your data clean, and start that way from day one.
+        </P>
+
+        <H2 id="why-rollouts-stall">
+          The Real Reason Most SOAR Rollouts Stall
         </H2>
         <P>
-          Organizations running SOAR typically see the same handful of
-          changes, regardless of which platform they use:
+          Here&apos;s something most vendor pages skip: SOAR platforms are
+          genuinely useful, and they&apos;re also one of the more commonly
+          abandoned tools in a security stack. A few patterns show up again
+          and again.
+        </P>
+        <P>
+          <Strong>Playbooks need upkeep, not a one-time build.</Strong> An
+          API changes on the vendor&apos;s end, a field gets renamed, and a
+          playbook that worked fine in the pilot quietly breaks in
+          production. Nobody notices until an incident where it was meant to
+          fire — and didn&apos;t.
+        </P>
+        <P>
+          <Strong>Integration debt piles up fast.</Strong> Connecting five
+          tools sounds simple. Connecting fifteen is a different story —
+          each one has its own API quirks, rate limits, and login method.
+          That&apos;s a real engineering project, and most security teams
+          don&apos;t have a spare engineer to own it long-term.
+        </P>
+        <P>
+          <Strong>
+            The team that builds the playbooks usually isn&apos;t the team
+            that has to trust them.
+          </Strong>{" "}
+          Analysts are rightly cautious about letting software take actions
+          on their behalf, especially anything touching production systems
+          or user accounts. Without input from the people running the SOC
+          day to day, automation gets built that nobody fully trusts — so it
+          sits unused.
+        </P>
+        <P>
+          This is the real gap between buying a SOAR license and having a
+          SOAR program that actually cuts workload. The platform itself is
+          maybe 30 percent of the outcome. The other 70 percent is the
+          engineering behind it: playbooks built around how your team
+          actually works, integrations that get kept up instead of quietly
+          rotting, and analysts who trust the automation enough to lean on it
+          during a real incident.
+        </P>
+
+        <H2 id="who-uses-soar">Who Actually Uses SOAR</H2>
+        <P>SOAR earns its keep fastest in two kinds of teams.</P>
+        <P>
+          <Strong>MSSPs running detection for multiple clients</Strong> hit
+          an alert volume that no manual process can absorb. When
+          you&apos;re triaging for ten or fifty customers at once,
+          automating the repeat parts of each case isn&apos;t optional —
+          it&apos;s what makes the business math work.
+        </P>
+        <P>
+          <Strong>
+            Regulated enterprises with lean internal security teams
+          </Strong>{" "}
+          get a different benefit: consistency. A playbook runs the same
+          enrichment and containment steps every time, which matters when
+          auditors ask how a specific incident type gets handled. You need a
+          documented, repeatable answer, not &ldquo;it depends who was on
+          shift.&rdquo;
+        </P>
+        <P>
+          The workload shift shows up in practice, not just in theory. In one
+          such engagement, a SOC cut Tier-1 analyst workload by 78 percent,
+          handling roughly 12,000 alerts a day, by automating the enrichment
+          and triage steps that used to eat most of an analyst&apos;s day.
+        </P>
+
+        <H2 id="compliance">
+          SOAR and Compliance: Where NIS2 and DORA Come In
+        </H2>
+        <P>
+          For EU-regulated firms, SOAR isn&apos;t just about speed — it&apos;s
+          a compliance matter too. The NIS2 Directive sets tight
+          incident-reporting windows that are hard to hit with manual triage
+          alone. DORA puts similar pressure on financial firms around how
+          fast they classify and respond to incidents. A documented,
+          automated response flow doesn&apos;t just save time — it gives you
+          the audit trail regulators want to see.
+        </P>
+
+        <H2 id="buying-checklist">What to Look For in a SOAR Platform</H2>
+        <P>
+          Picking a SOAR platform usually comes down to five practical
+          questions:
         </P>
         <Bullets
           items={[
             <>
-              <Strong>Response times drop from minutes to seconds.</Strong> A
-              playbook doesn&apos;t wait for someone to be available.
+              <Strong>Does it connect to what you already run?</Strong> Check
+              for native integrations with your SIEM or XDR, your EDR tool,
+              your firewall, your ticketing system, and your threat feeds —
+              not just a generic &ldquo;API available&rdquo; claim.
             </>,
             <>
-              <Strong>The same procedure runs the same way every time.</Strong>{" "}
-              A tired analyst at 3 a.m. and a sharp one at 10 a.m. produce
-              identical results, because the playbook doesn&apos;t vary.
+              <Strong>Can your team actually build and edit playbooks?</Strong>{" "}
+              Some platforms need a developer for every change; others give
+              analysts a visual builder. That difference decides whether
+              playbooks stay current after launch.
             </>,
             <>
-              <Strong>Analysts stop burning out on repetition.</Strong>{" "}
-              Removing the manual, repetitive share of the workload leaves
-              analysts with the judgment calls that actually need a person.
+              <Strong>How is it priced?</Strong> Many SOAR tools price by
+              alert volume or automation count — a model that gets more
+              expensive exactly when automation is working hardest, during a
+              busy month or a growing client base.
             </>,
             <>
-              <Strong>Smaller teams can carry a bigger alert volume.</Strong>{" "}
-              A lean SOC can hold its own against a volume that would
-              otherwise demand several more hires.
+              <Strong>What happens when an integration breaks?</Strong> Ask
+              who&apos;s responsible for fixing it: you, the vendor, or
+              nobody until someone notices during an incident.
             </>,
             <>
-              <Strong>Audit trails get better, not just faster.</Strong> Every
-              automated action is logged the same way every time, which is
-              exactly what an auditor or a regulator wants to see.
+              <Strong>Do you own what you build?</Strong> With a licensed
+              platform, your playbooks and integrations usually live inside
+              someone else&apos;s system. If you ever switch vendors, that
+              work doesn&apos;t travel with you.
             </>,
           ]}
         />
 
-        <H2 id="practical-applications">Where SOAR Gets Used</H2>
-        <P>
-          SOAR shows up most often in a handful of recurring use cases —
-          phishing response, alert triage and enrichment, account compromise
-          handling, vulnerability management, and threat hunting support.
-          Here&apos;s the shift each one makes:
-        </P>
+        <H2 id="soar-vs-siem-vs-xdr">SOAR vs. SIEM vs. XDR: What&apos;s the Difference?</H2>
         <DataTable
-          caption="Common SOAR use cases, before and after automation"
-          head={USE_CASE_TABLE.head}
-          rows={USE_CASE_TABLE.rows}
-          highlightCol={2}
+          caption="How SOAR, SIEM, and XDR differ in function and response"
+          head={TOOL_TABLE.head}
+          rows={TOOL_TABLE.rows}
         />
         <P>
-          The scale these use cases operate at can be significant. In one
-          widely cited deployment, SOAR automation cut Tier-1 analyst
-          workload by 78% while the SOC was processing roughly 12,000 alerts
-          a day — the kind of volume that makes fully manual triage
-          impossible to sustain.
+          <Ref to="what-is-siem">SIEM</Ref> finds problems. SOAR fixes them.
+          XDR does both, at a deeper level. Many teams use all three
+          together — see how they fit an MSSP setup in{" "}
+          <Ref to="multi-tenant-siem-architecture">
+            Multi-Tenant SIEM for MSSPs
+          </Ref>
+          .
         </P>
 
-        <H2 id="soar-vs-siem">SOAR vs. SIEM</H2>
+        <H2 id="whycrew-approach">How WhyCrew Approaches SOAR</H2>
         <P>
-          SOAR and SIEM get grouped together constantly, and for good reason
-          — most SOCs run both. But they do different jobs.{" "}
-          <Ref to="what-is-siem">SIEM</Ref> collects and connects events
-          across your systems and tells you something happened. SOAR picks up
-          from there and acts on it: isolating a compromised laptop or
-          disabling a stolen account without waiting for a human to click a
-          button.
+          Most SOAR tools work like a rental: you pay a fee that grows as
+          your alerts grow. WhyCrew builds it differently. We build your
+          SOAR system — the playbooks, the connections, the case tracking —
+          as something you own. At the end of the project, you get the full
+          source code; it&apos;s yours to keep.
         </P>
         <P>
-          Neither replaces the other. A SIEM with no SOAR behind it still
-          requires a person to act on every alert by hand. A SOAR with no
-          SIEM (or other detection source) feeding it has nothing to
-          orchestrate a response to.
-        </P>
-
-        <H2 id="limitations">What SOAR Doesn&apos;t Do</H2>
-        <P>
-          SOAR is a force multiplier, not a complete replacement for human
-          expertise, and it comes with real constraints worth knowing before
-          you commit to it.
-        </P>
-        <Bullets
-          items={[
-            "It's only as good as the playbooks behind it — a poorly designed playbook automates a bad decision just as fast as a good one.",
-            "It takes significant setup effort up front, and connecting every tool correctly is real engineering work, not a checkbox.",
-            "It demands ongoing maintenance, since a playbook built against one vendor's API breaks quietly the day that vendor changes it.",
-            "It requires earned analyst trust — most teams run a new playbook in a supervised mode before letting it act unsupervised.",
-          ]}
-        />
-        <P>
-          None of that makes SOAR not worth it. It means the platform is a
-          multiplier on top of a team that already knows what it&apos;s
-          doing, not a substitute for one that doesn&apos;t.
+          For a growing MSSP, that means automation gets cheaper per alert
+          as you scale. It does not get more expensive.
         </P>
 
         <H2 id="faq">Frequently Asked Questions</H2>
