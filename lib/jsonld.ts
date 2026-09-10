@@ -31,10 +31,7 @@ export const organizationLd = () => ({
   },
   slogan: "Stop renting. Start owning.",
   // Entity disambiguation — carried over from the previous site's schema.
-  sameAs: [
-    "https://www.linkedin.com/company/whycrew",
-    "https://twitter.com/whycrew",
-  ],
+  sameAs: ["https://www.linkedin.com/company/whycrew"],
   knowsAbout: [
     "SIEM development",
     "SOAR automation",

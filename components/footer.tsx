@@ -6,8 +6,8 @@ import { LEGAL_PAGES } from "@/lib/legal";
 import { ADDRESS, CTA_HREF, EXTERNAL_REL, SERVICES, SITE } from "@/lib/site";
 
 /**
- * Same profile URLs as the Organization JSON-LD's `sameAs` (lib/jsonld.ts) —
- * one canonical pair, not a second copy that can drift out of sync.
+ * Same profile URL as the Organization JSON-LD's `sameAs` (lib/jsonld.ts) —
+ * one canonical value, not a second copy that can drift out of sync.
  */
 const SOCIAL_LINKS = [
   {
@@ -15,13 +15,6 @@ const SOCIAL_LINKS = [
     href: "https://www.linkedin.com/company/whycrew",
     icon: (
       <path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.11 1 2.49 1s2.49 1.12 2.49 2.5zM.24 8.25h4.5V23h-4.5V8.25zM8.5 8.25h4.31v2.01h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.53c0-1.56-.03-3.57-2.18-3.57-2.18 0-2.51 1.7-2.51 3.46V23H8.5V8.25z" />
-    ),
-  },
-  {
-    label: "X",
-    href: "https://twitter.com/whycrew",
-    icon: (
-      <path d="M18.244 2h3.256l-7.51 8.59L23 22h-6.938l-5.435-7.11L4.36 22H1.1l8.034-9.19L1 2h7.113l4.915 6.5L18.244 2Zm-1.143 18h1.804L7.02 4H5.08l12.02 16Z" />
     ),
   },
 ];
