@@ -331,9 +331,9 @@ export default function Page() {
 
         <H3>Security Automation</H3>
         <P>
-          Once your tools connect, automation takes over the busywork. SOAR
-          uses <Ref to="soar-playbooks-guide">playbooks</Ref> — step-by-step
-          plans made in advance. These playbooks can:
+          Once your tools connect, automation takes over the busywork.{" "}
+          <Ref to="soar-playbooks-guide">SOAR uses playbooks</Ref> —
+          step-by-step plans made in advance. These playbooks can:
         </P>
         <Bullets
           items={[
