@@ -61,11 +61,12 @@ const FRAMEWORK_PANELS: FrameworkPanel[] = [
   {
     key: "sama-csf",
     label: "SAMA CSF Compliance",
-    heading: "Why Subdomain 3.14 Changes Everything for SAMA-Regulated Firms",
+    heading: "Why SAMA CSF 3.14 Changes Everything for Saudi Financial Institutions",
     paragraphs: [
-      "If SAMA supervises your organization — bank, insurer, payment provider, or licensed fintech — Subdomain 3.14 is the control your platform has to meet.",
-      "Here's what it actually requires: a SIEM that aggregates every security event in one place, a SOC team providing round-the-clock response, and log storage that meets SAMA's own retention expectations. SAMA typically grades this subdomain at Level 4 on its 0-to-5 maturity scale — its highest bar for most domains.",
-      "WhyCrew builds that platform for you, engineered around Subdomain 3.14 from day one — not adapted from something built for another market. At the end of the build, you get the full platform and the source code. This is real engineering work, not a checkbox to tick for your regulator.",
+      "If SAMA, the Saudi Central Bank, regulates your organization — banks, insurers, financing companies, payment providers, money exchangers, credit bureaus, and fintechs all fall under this — its Cyber Security Framework (CSF) is the rulebook you follow.",
+      "The framework covers four domains and 32 subdomains in total. The one that matters most for a SIEM is subdomain 3.14, Cyber Security Event Management. It expects a centralized SIEM to capture your events, a SOC to correlate and triage them 24/7, and log retention that meets SAMA's regulatory bar.",
+      "Most SAMA-regulated entities need to reach at least Level 3 maturity across the framework — and Level 4 specifically for event management, the highest standard SAMA sets for most areas.",
+      "WhyCrew builds that platform for you, engineered around subdomain 3.14 from day one — not bolted on as an afterthought. At the end of the build, you get the full platform and the source code, with no license fee continuing after handover.",
     ],
   },
 ];
