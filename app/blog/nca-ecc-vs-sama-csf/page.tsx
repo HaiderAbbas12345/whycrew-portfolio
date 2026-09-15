@@ -15,7 +15,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug } from "@/lib/blog";
-import { CTA_HREF, EXTERNAL_REL, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("nca-ecc-vs-sama-csf")!;
 const PATH = `/blog/${post.slug}`;
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
 
 const TOC: TocEntry[] = [
   { id: "key-takeaways", label: "Key takeaways" },
-  { id: "two-rules", label: "Two rules, two regulators" },
   { id: "quick-comparison", label: "Quick comparison" },
+  { id: "two-rules", label: "Two rules, two regulators" },
   { id: "nca-ecc", label: "What is NCA ECC?" },
   { id: "sama-csf", label: "What is SAMA CSF?" },
   { id: "who-needs-which", label: "Who needs which rule" },
@@ -55,7 +55,6 @@ const TOC: TocEntry[] = [
   { id: "common-mistakes", label: "Common mistakes to dodge" },
   { id: "security-tools", label: "What both rules need from your tools" },
   { id: "faq", label: "Frequently asked questions" },
-  { id: "summary", label: "Final summary" },
 ];
 
 const COMPARISON_TABLE = {
@@ -134,15 +133,6 @@ const FAQS: Faq[] = [
     q: "Where do I check which rule officially applies to me?",
     a: "For NCA ECC, check NCA's own published papers. For SAMA CSF, check SAMA's own framework notice. Always go to the primary source before you build a compliance plan.",
   },
-];
-
-const SUMMARY_POINTS = [
-  "NCA ECC covers government offices, infrastructure, and many Saudi firms",
-  "SAMA CSF covers banks, insurers, and money firms watched by SAMA",
-  "Some firms need both rules. That's mainly key money firms and MSSPs serving SAMA clients.",
-  "One rule does not replace the other. Each has its own regulator, and its own check.",
-  "Both rules need the same core tools: a real SIEM, an active SOC, and solid log storage",
-  "Outsourcing does not remove your duty. You still carry the risk for your vendors.",
 ];
 
 function articleLd() {
@@ -224,6 +214,14 @@ export default function Page() {
           />
         </div>
 
+        <H2 id="quick-comparison">Quick Comparison: NCA ECC vs SAMA CSF</H2>
+        <P>Here is a simple side-by-side view of the two rulebooks.</P>
+        <DataTable
+          caption="Quick comparison of NCA ECC and SAMA CSF"
+          head={COMPARISON_TABLE.head}
+          rows={COMPARISON_TABLE.rows}
+        />
+
         <H2 id="two-rules">Two Rules. Two Regulators. Two Very Different Jobs.</H2>
         <P>Saudi Arabia has two main cybersecurity regulators.</P>
         <Bullets
@@ -243,14 +241,6 @@ export default function Page() {
           Their checks are not the same. Passing one group&apos;s check does
           not satisfy the other.
         </P>
-
-        <H2 id="quick-comparison">Quick Comparison: NCA ECC vs SAMA CSF</H2>
-        <P>Here is a simple side-by-side view of the two rulebooks.</P>
-        <DataTable
-          caption="Quick comparison of NCA ECC and SAMA CSF"
-          head={COMPARISON_TABLE.head}
-          rows={COMPARISON_TABLE.rows}
-        />
 
         <H2 id="nca-ecc">What Is NCA ECC?</H2>
         <P>
@@ -612,25 +602,6 @@ export default function Page() {
         <div className="mt-6">
           <FaqAccordion faqs={FAQS} columns={1} />
         </div>
-
-        <H2 id="summary">Final Summary</H2>
-        <P>Here is what matters most:</P>
-        <Bullets items={SUMMARY_POINTS} />
-        <P>
-          Your next step: Use the 3-step check above. Find out which rule
-          fits you. Check the official NCA and SAMA papers to be sure. Then
-          build your SIEM and SOC around your real needs. Do it before you
-          build, not after.{" "}
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel={EXTERNAL_REL}
-            className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
-          >
-            Book a 20-minute call
-          </a>{" "}
-          if you&apos;d rather run the check with us directly.
-        </P>
       </ArticleShell>
     </>
   );
