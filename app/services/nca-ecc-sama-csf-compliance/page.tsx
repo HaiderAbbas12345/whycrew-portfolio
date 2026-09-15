@@ -375,7 +375,8 @@ export default function Page() {
               href="/blog/nca-ecc-vs-sama-csf"
               className="text-accent underline-offset-4 hover:underline"
             >
-              NCA ECC vs SAMA CSF: Which One Applies to You?
+              NCA ECC vs SAMA CSF: Which Saudi Cybersecurity Rule Applies to
+              You?
             </a>
             .
           </p>

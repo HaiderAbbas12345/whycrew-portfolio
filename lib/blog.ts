@@ -139,14 +139,14 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "nca-ecc-vs-sama-csf",
-    title: "NCA ECC vs SAMA CSF (2026): Which One Applies to You?",
-    metaTitle: "NCA ECC vs SAMA CSF: Which Applies to You?",
+    title: "NCA ECC vs SAMA CSF: Which Saudi Cybersecurity Rule Applies to You?",
+    metaTitle: "NCA ECC vs SAMA CSF (2026): Which One Applies to You?",
     metaDescription:
-      "NCA ECC and SAMA CSF are separate frameworks — meeting one doesn't satisfy the other. Use this 3-step check to find which applies to you.",
+      "NCA ECC and SAMA CSF are separate rules. When you need both, use a 3-step check to find the right one before wasting months on the wrong one.",
     summary:
-      "Different regulators, different control counts, different assessment models — and no credit toward one framework for meeting the other. The three-step check for which framework applies, where dual compliance kicks in, and the compliance errors that cost the most time.",
+      "Two regulators, two rulebooks, no shared pass. The three-step check for which rule applies, the two cases where you need both, and the mistakes that cost firms the most time.",
     datePublished: "2026-09-15",
-    readTime: "9 min read",
+    readTime: "10 min read",
     topics: ["NCA ECC", "SAMA CSF", "SIEM & SOAR", "MSSP & White-Label"],
     cluster: "NCA ECC & SAMA CSF Compliance",
   },

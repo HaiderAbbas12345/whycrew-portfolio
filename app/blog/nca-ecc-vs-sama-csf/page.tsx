@@ -44,95 +44,105 @@ export const metadata: Metadata = {
 
 const TOC: TocEntry[] = [
   { id: "key-takeaways", label: "Key takeaways" },
-  { id: "overview", label: "Two regulators, two oversight models" },
-  { id: "quick-comparison", label: "NCA ECC vs SAMA CSF at a glance" },
-  { id: "nca-ecc", label: "Understanding NCA ECC" },
-  { id: "sama-csf", label: "Understanding SAMA CSF" },
-  { id: "dual-compliance", label: "Dual compliance scenarios" },
-  { id: "three-step-check", label: "The three-step check" },
+  { id: "two-rules", label: "Two rules, two regulators" },
+  { id: "quick-comparison", label: "Quick comparison" },
+  { id: "nca-ecc", label: "What is NCA ECC?" },
+  { id: "sama-csf", label: "What is SAMA CSF?" },
+  { id: "who-needs-which", label: "Who needs which rule" },
+  { id: "both-rules", label: "When you need both" },
+  { id: "three-step-check", label: "The 3-step check" },
   { id: "key-differences", label: "Key differences" },
-  { id: "common-errors", label: "Common compliance errors" },
-  { id: "shared-requirements", label: "Shared core requirements" },
-  { id: "whycrew-approach", label: "How WhyCrew approaches this" },
+  { id: "common-mistakes", label: "Common mistakes to dodge" },
+  { id: "security-tools", label: "What both rules need from your tools" },
   { id: "faq", label: "Frequently asked questions" },
+  { id: "summary", label: "Final summary" },
 ];
 
 const COMPARISON_TABLE = {
-  head: ["Feature", "NCA ECC", "SAMA CSF"],
+  head: ["Category", "NCA ECC", "SAMA CSF"],
   rows: [
-    ["Who created it", "National Cybersecurity Authority", "Saudi Central Bank"],
+    ["Who made it", "National Cybersecurity Authority", "Saudi Central Bank"],
     [
-      "Applicable entities",
-      "Government, critical infrastructure, many businesses",
+      "Who must follow it",
+      "Government, key infrastructure, many businesses",
       "Banks, insurers, fintechs, payment firms",
     ],
-    ["Control structure", "108 main controls + 92 sub-controls", "32 subdomains"],
+    ["Number of controls", "108 main controls + 92 sub-controls", "32 subdomains"],
     [
-      "System monitoring requirement",
-      "Control 2-12: SIEM plus continuous log review",
-      "Subdomain 3.14: SIEM plus 24/7 SOC",
+      "Watch-your-systems rule",
+      "Control 2-12: SIEM plus steady log checks",
+      "Subdomain 3.14: SIEM plus a 24/7 SOC",
     ],
     [
-      "Log retention period",
-      "12 months (18 for critical systems)",
-      "Risk-class dependent, no fixed duration",
+      "How long to keep logs",
+      "12 months (18 for key systems)",
+      "Based on your risk class, no fixed number",
     ],
-    ["Assessment methodology", "Pass/fail determination", "Six-point scale (0–5)"],
+    ["How you get graded", "Pass or fail", "6-level scale, 0 to 5"],
     [
-      "Special licensing",
-      "Tier 1 or Tier 2 MSOC license required",
-      "No specific license — responsibility stays with the organization",
+      "Need a special license?",
+      "Yes — Tier 1 or Tier 2 MSOC license",
+      "No, the firm carries the duty itself",
     ],
-    ["Regulatory integration", "Operates independently", "Operates independently"],
-    ["Unified assessment", "No combined evaluation", "No combined evaluation"],
+    ["Do the two rules link up?", "No", "No"],
+    ["One check for both?", "No", "No"],
   ],
 };
 
 const MATURITY_TABLE = {
-  head: ["Level", "Classification", "Characteristics"],
+  head: ["Level", "Name", "What It Means"],
   rows: [
-    ["0", "Non-existent", "Zero implemented controls"],
-    ["1", "Initial", "Unstructured, ad hoc approach"],
-    ["2", "Developing", "Partial controls lacking consistency"],
-    [
-      "3",
-      "Defined",
-      "Documented, consistent implementation (minimum passing level)",
-    ],
-    ["4", "Managed", "Regularly monitored and evaluated"],
-    ["5", "Optimizing", "Continuous improvement orientation"],
+    ["0", "Non-existent", "No controls at all"],
+    ["1", "Initial", "Random, with no plan"],
+    ["2", "Developing", "Some controls, not steady"],
+    ["3", "Defined", "Written down and steady. This is SAMA's lowest pass."],
+    ["4", "Managed", "Tracked and checked often"],
+    ["5", "Optimizing", "Always getting better"],
   ],
 };
 
 const FAQS: Faq[] = [
   {
-    q: "Can a single organization require compliance with both frameworks?",
-    a: "Yes, particularly for critical-infrastructure-designated financial institutions and MSSPs serving SAMA-regulated clients. Each regulator conducts an independent assessment.",
+    q: "Can both NCA ECC and SAMA CSF apply to the same firm?",
+    a: "Yes. This is most common for money firms marked as key infrastructure, and for MSSPs that serve SAMA-watched clients. Each regulator checks on its own — there is no single combined check.",
   },
   {
-    q: "Does SAMA CSF represent NCA ECC specifically adapted for banking?",
-    a: "No. Two distinct regulators developed these frameworks using different architectural approaches and evaluation methodologies.",
+    q: "Is SAMA CSF just NCA ECC, but for banks?",
+    a: "No. Two different regulators built these rules. They have different parts and different grading systems. Treat them as the same thing, and you'll leave real gaps.",
   },
   {
-    q: "Does NCA ECC certification automatically satisfy SAMA CSF requirements?",
-    a: "No. Each framework requires independent verification and certification. There's no crossover credit between them.",
+    q: "Does passing NCA ECC mean you pass SAMA CSF too?",
+    a: "No. There is no shared pass and no shared certificate. If you need both, you prove you meet both, one at a time.",
   },
   {
-    q: "Does NCA ECC contain 108 or 114 controls?",
-    a: "The current version, ECC-2:2024, contains 108 main controls plus 92 sub-controls. The retired ECC-1:2018 contained 114 controls.",
+    q: "Does NCA ECC have 108 controls or 114 controls?",
+    a: "114 controls belonged to the old version, ECC-1:2018. The current version, ECC-2:2024, has 108 main controls plus 92 smaller sub-controls. Always use the current version for audits.",
   },
   {
-    q: "Which framework imposes stricter log retention requirements?",
-    a: "NCA ECC specifies absolute minimums — 12 months, 18 for critical systems. SAMA CSF delegates the duration to your risk classification, which makes a direct comparison hard to draw.",
+    q: "Which rule has stricter log storage rules?",
+    a: "NCA ECC is more exact: 12 months, or 18 for key systems. SAMA CSF gives no fixed number — it depends on your risk class. Neither one wins on \"stricter\" every time.",
   },
   {
-    q: "Which rules govern MSSPs with SAMA-regulated clients?",
-    a: "NCA MSOC licensing covers the provider's own infrastructure. The platform must additionally meet SAMA CSF Subdomain 3.14 whenever it serves a SAMA-regulated client.",
+    q: "Is NCNICC the same thing as NCA ECC?",
+    a: "No. NCNICC is a lighter, separate NCA rule for private firms not marked as key infrastructure. It covers a different group, using a different set of controls.",
   },
   {
-    q: "Where should organizations verify their applicable requirements?",
-    a: "Consult official NCA documentation and SAMA framework guidance directly before structuring a compliance program. This guide is a starting point for orientation, not a substitute for that review.",
+    q: "I run an MSSP with SAMA clients. Which rule applies to me?",
+    a: "Both. Your NCA MSOC license covers your own firm, but your platform must also meet your clients' SAMA CSF rules — Subdomain 3.14 matters most here. That duty applies even if SAMA does not watch you directly.",
   },
+  {
+    q: "Where do I check which rule officially applies to me?",
+    a: "For NCA ECC, check NCA's own published papers. For SAMA CSF, check SAMA's own framework notice. Always go to the primary source before you build a compliance plan.",
+  },
+];
+
+const SUMMARY_POINTS = [
+  "NCA ECC covers government offices, infrastructure, and many Saudi firms",
+  "SAMA CSF covers banks, insurers, and money firms watched by SAMA",
+  "Some firms need both rules — mainly key money firms and MSSPs serving SAMA clients",
+  "One rule does not replace the other — each has its own regulator and its own check",
+  "Both rules need the same core tools: a real SIEM, an active SOC, and solid log storage",
+  "Outsourcing does not remove your duty — you still carry the risk for your vendors",
 ];
 
 function articleLd() {
@@ -185,325 +195,419 @@ export default function Page() {
         post={post}
         toc={TOC}
         cta={{
-          heading: "Find out which framework actually applies to you",
+          heading: "Find out which rule applies to you",
           body: "We'll run the three-step check against your organization, map the gap between what you have and what Control 2-12 or Subdomain 3.14 requires, and show you what a platform built to satisfy both would look like.",
           label: "Book a Compliance Architecture Audit",
           href: CTA_HREF,
         }}
       >
         <QuickAnswer>
-          Saudi Arabia maintains two separate cybersecurity frameworks. NCA
-          ECC, from the National Cybersecurity Authority, applies to
-          government entities, critical infrastructure, and many businesses.
-          SAMA CSF, from the Saudi Central Bank, applies specifically to
-          financial institutions. Meeting one does not satisfy the other —
-          building to the wrong one can cost you months.
+          Saudi Arabia has two main cybersecurity rules. One is NCA ECC. The
+          other is SAMA CSF. Two different groups made these rules. NCA ECC
+          covers government bodies, key infrastructure, and many businesses.
+          SAMA CSF covers banks and other money firms. Some firms must follow
+          both. Following one rule does not mean you follow the other — pick
+          the wrong one, and you could waste months building the wrong
+          controls.
         </QuickAnswer>
 
         <div className="mt-10">
           <KeyTakeaways
             items={[
-              <>
-                <Strong>They're independent:</Strong> NCA ECC and SAMA CSF are
-                run by different regulators with different control counts,
-                retention rules, and assessment models.
-              </>,
-              <>
-                <Strong>Both require a SIEM:</Strong> NCA ECC's Control 2-12
-                and SAMA CSF's Subdomain 3.14 each mandate SIEM-based
-                monitoring — with different scope and maturity expectations.
-              </>,
-              <>
-                <Strong>Dual compliance is real:</Strong> critical-
-                infrastructure-designated financial institutions and MSSPs
-                serving SAMA-regulated clients need both, at once.
-              </>,
-              <>
-                <Strong>A three-step check</Strong> settles which framework
-                applies before you build anything against the wrong one.
-              </>,
+              "What NCA ECC is, and who must follow it",
+              "What SAMA CSF is, and who must follow it",
+              "When you need to follow both",
+              "A simple 3-step check to find your rule",
+              "Common mistakes, and how to dodge them",
             ]}
           />
         </div>
 
-        <H2 id="overview">Two Regulators, Two Independent Oversight Models</H2>
+        <H2 id="two-rules">Two Rules. Two Regulators. Two Very Different Jobs.</H2>
+        <P>Saudi Arabia has two main cybersecurity regulators.</P>
+        <Bullets
+          items={[
+            <>
+              The <Strong>National Cybersecurity Authority (NCA)</Strong>{" "}
+              watches cybersecurity across the whole country.
+            </>,
+            <>
+              The <Strong>Saudi Central Bank (SAMA)</Strong> watches banks and
+              money firms only.
+            </>,
+          ]}
+        />
         <P>
-          The National Cybersecurity Authority (NCA) provides comprehensive
-          cybersecurity governance across Saudi Arabia. The Saudi Central Bank
-          (SAMA) focuses exclusively on financial-sector security. These
-          entities operate without coordination, maintaining separate
-          regulatory frameworks and assessment processes.
-        </P>
-        <P>
-          That independence is the part worth sitting with. Satisfying one
-          regulator's requirements provides no assurance of compliance with
-          the other's standards — even when the underlying control (a SIEM,
-          continuous monitoring, log retention) looks similar on paper.
+          These two groups work independently. Their rules are not the same.
+          Their checks are not the same. Passing one group&apos;s check does
+          not satisfy the other.
         </P>
 
-        <H2 id="quick-comparison">NCA ECC vs SAMA CSF at a Glance</H2>
+        <H2 id="quick-comparison">Quick Comparison: NCA ECC vs SAMA CSF</H2>
+        <P>Here is a simple side-by-side view of the two rulebooks.</P>
         <DataTable
           caption="Quick comparison of NCA ECC and SAMA CSF"
           head={COMPARISON_TABLE.head}
           rows={COMPARISON_TABLE.rows}
         />
 
-        <H2 id="nca-ecc">Understanding NCA ECC</H2>
+        <H2 id="nca-ecc">What Is NCA ECC?</H2>
         <P>
-          NCA ECC (Essential Cybersecurity Controls) establishes minimum
-          security requirements across Saudi Arabia. The current version,
-          ECC-2:2024, addresses four principal domains:
+          NCA ECC stands for Essential Cybersecurity Controls. It sets the
+          base level of cyber safety for Saudi Arabia. The National
+          Cybersecurity Authority built this rule. Government offices must
+          follow it. So must key infrastructure sites. Many private firms
+          must follow it too.
+        </P>
+        <P>
+          The current version is ECC-2:2024. It covers four main parts:
         </P>
         <Numbered
           items={[
             <>
-              <Strong>Cybersecurity Governance</Strong> — organizational
-              accountability and risk management structures.
+              <Strong>Cybersecurity Governance</Strong> covers who is in
+              charge and how risk gets managed.
             </>,
             <>
-              <Strong>Cyber Defense</Strong> — protective technical
-              mechanisms.
+              <Strong>Cyber Defense</Strong> covers the tools that guard your
+              systems.
             </>,
             <>
-              <Strong>Cybersecurity Resilience</Strong> — continuity during
-              disruptions.
+              <Strong>Cybersecurity Resilience</Strong> covers staying up
+              when something breaks.
             </>,
             <>
-              <Strong>Third-Party and Cloud Security</Strong> — vendor and
-              cloud platform oversight.
+              <Strong>Third-Party and Cloud Security</Strong> covers watching
+              your vendors and cloud tools.
             </>,
           ]}
         />
 
-        <H3>Additional NCA Frameworks That May Apply</H3>
+        <H3>Other NCA Rules That May Apply</H3>
         <P>
-          Depending on your sector and systems, one or more of these can layer
-          on top of ECC:
+          NCA ECC is just the start. More rules may stack on top, depending on
+          what your firm does.
         </P>
         <Bullets
           items={[
             <>
-              <Strong>CSCC</Strong> — critical systems, requiring 18-month log
-              retention and continuous monitoring.
+              <Strong>CSCC</Strong> applies to systems marked
+              &ldquo;critical.&rdquo; It needs 18 months of logs, plus
+              round-the-clock monitoring, file checks, and user-behavior
+              checks.
             </>,
             <>
-              <Strong>CCC</Strong> — cloud service security.
+              <Strong>CCC</Strong> applies to cloud services.
             </>,
             <>
-              <Strong>OTCC</Strong> — operational technology security.
+              <Strong>OTCC</Strong> applies to factory and plant systems.
             </>,
             <>
-              <Strong>DCC</Strong> — data protection.
+              <Strong>DCC</Strong> applies to data protection.
             </>,
             <>
-              <Strong>TCC</Strong> — remote workforce security.
+              <Strong>TCC</Strong> applies to staff who work from home.
             </>,
           ]}
         />
-
-        <H3>NCA ECC System Monitoring Requirements</H3>
         <P>
-          Control 2-12 mandates continuous SIEM-based log gathering,
-          persistent monitoring activity, and log preservation spanning a
-          minimum of 12 months — extended to 18 months for systems designated
-          as critical.
+          Think of ECC as the floor. Other rules stack on top when they fit
+          your case.
         </P>
 
-        <H3>MSSP and MSOC Considerations</H3>
+        <H3>What NCA ECC Says About Watching Your Systems</H3>
+        <P>Control 2-12 is the big rule for security teams. It says you must:</P>
+        <Bullets
+          items={[
+            "Use a SIEM tool to gather and check your security logs",
+            "Watch your logs all the time, not just once a week",
+            "Keep logs for at least 12 months — 18 months for a \"critical\" system",
+          ]}
+        />
         <P>
-          Organizations providing managed security services must obtain NCA
-          MSOC licensing. If you're running detection for multiple clients
-          under that license, tenant isolation and cost management stop being
-          optional — see{" "}
+          Not sure what a SIEM is, or what one should cost?{" "}
+          <Ref to="what-is-siem">Our guide breaks it down in plain words.</Ref>
+        </P>
+
+        <H3>What If You Run an MSSP?</H3>
+        <P>
+          An MSSP handles security for other firms. NCA has a special license
+          track for this, called MSOC licensing. It splits into Tier 1 and
+          Tier 2. NCA ECC is still your main rulebook.
+        </P>
+        <P>
+          Do you run many clients on one SIEM platform?{" "}
           <Ref to="multi-tenant-siem-architecture">
-            our guide to multi-tenant SIEM architecture
+            Multi-Tenant SIEM for MSSPs: A Full Guide
           </Ref>{" "}
-          for how that gets built.
+          shows you how to keep each client&apos;s data apart, and how to keep
+          your costs in check.
         </P>
 
-        <H2 id="sama-csf">Understanding SAMA CSF</H2>
+        <H2 id="sama-csf">What Is SAMA CSF?</H2>
         <P>
-          SAMA CSF (Cyber Security Framework) applies exclusively to
-          financial-sector entities under Saudi Central Bank supervision.
+          SAMA CSF stands for Cyber Security Framework. The Saudi Central Bank
+          built it. It only applies to financial firms that SAMA watches —
+          think banks, insurers, and payment firms.
         </P>
 
-        <H3>Entities Subject to SAMA CSF</H3>
+        <H3>Who Must Follow SAMA CSF?</H3>
+        <P>Your firm must follow SAMA CSF if it is any of these:</P>
         <Bullets
           items={[
-            "Conventional and Islamic banking institutions",
-            "Insurance and reinsurance providers",
-            "Financing organizations",
-            "Payment service providers",
-            "Currency exchange businesses",
-            "Credit bureaus",
-            "Licensed fintech companies",
+            "A regular or Islamic bank",
+            "An insurance or reinsurance firm",
+            "A financing company",
+            "A payment service firm",
+            "A money exchange shop",
+            "A credit bureau",
+            "A fintech firm with a SAMA license",
           ]}
         />
-
-        <H3>SAMA CSF Structural Components</H3>
         <P>
-          The framework organizes into four primary domains containing 32
-          subdomains:
+          SAMA CSF covers your whole firm — your systems, your staff, your
+          steps, and even the outside vendors you use.
         </P>
+
+        <H3>How SAMA CSF Is Built</H3>
+        <P>SAMA CSF has 4 main domains, split into 32 smaller subdomains:</P>
         <Numbered
           items={[
             <>
-              <Strong>Leadership and Governance</Strong> — 7 subdomains.
+              <Strong>Leadership and Governance</Strong> — 7 subdomains
             </>,
             <>
-              <Strong>Risk Management and Compliance</Strong> — 5 subdomains.
+              <Strong>Risk Management and Rule-Following</Strong> — 5
+              subdomains
             </>,
             <>
-              <Strong>Operations and Technology</Strong> — 17 subdomains.
+              <Strong>Operations and Technology</Strong> — 17 subdomains, the
+              biggest group
             </>,
             <>
-              <Strong>Third-Party Cyber Security</Strong> — 3 subdomains.
+              <Strong>Third-Party Cyber Security</Strong> — 3 subdomains
             </>,
           ]}
         />
-
-        <H3>System Monitoring: Subdomain 3.14</H3>
         <P>
-          Cyber Security Event Management requires SIEM infrastructure
-          aggregating security events, SOC team deployment providing
-          round-the-clock response capabilities, and log storage meeting
-          regulatory specifications.
+          Subdomain 3.14, called Cyber Security Event Management, matters most
+          for security teams. It asks for:
         </P>
+        <Bullets
+          items={[
+            "A SIEM that gathers every security event in one place",
+            "A SOC team (Security Operations Center) that checks alerts and reacts around the clock",
+            "Log storage that meets what the regulator expects",
+          ]}
+        />
 
-        <H3>SAMA's Maturity Assessment Model</H3>
+        <H3>How SAMA Grades Your Cybersecurity</H3>
+        <P>
+          SAMA does not use a simple pass-or-fail test. It uses a six-level
+          scale:
+        </P>
         <DataTable
-          caption="SAMA's six-point maturity scale"
+          caption="SAMA's six-level maturity scale"
           head={MATURITY_TABLE.head}
           rows={MATURITY_TABLE.rows}
         />
         <P>
-          Subdomain 3.14 typically requires Level 4 maturity — SAMA's highest
-          standard for most domains.
+          Level 3 is the lowest pass. Subdomain 3.14 is a risky area — there,
+          SAMA wants Level 4, the highest bar SAMA sets for most areas.
+        </P>
+        <P>
+          <Strong>Note:</Strong> some old sources say SAMA CSF uses four
+          levels. That&apos;s out of date — the real scale has six levels now.
+          Always check SAMA&apos;s own papers before you use any numbers in an
+          audit.
         </P>
 
-        <H2 id="dual-compliance">Dual Compliance Scenarios</H2>
-        <H3>Case 1: Financial Institution With Critical Infrastructure Designation</H3>
+        <H2 id="who-needs-which">Who Needs to Follow Which Rule?</H2>
+        <P>Here is the short version:</P>
+        <Bullets
+          items={[
+            "NCA ECC applies to government offices, key infrastructure, most private Saudi firms, and licensed MSSPs",
+            "SAMA CSF applies to banks, insurers, payment firms, SAMA-licensed fintechs, and their vendors",
+          ]}
+        />
         <P>
-          A banking organization designated as critical infrastructure by NCA
-          must satisfy both SAMA CSF requirements and NCA ECC controls
-          simultaneously.
+          Run a bank? SAMA CSF is your main rule. Run key national
+          infrastructure? NCA ECC is yours. Some firms need both.
         </P>
-        <H3>Case 2: MSSPs Serving Financial Clients</H3>
+
+        <H2 id="both-rules">When Do You Need to Follow Both Rules?</H2>
+        <P>Two cases come up most often.</P>
+        <H3>Case 1: A Money Firm With Key Infrastructure</H3>
         <P>
-          An MSSP holding NCA MSOC licensure must ensure its platform
-          architecture supports SAMA CSF Subdomain 3.14 whenever it serves
-          SAMA-regulated clients.
+          A Saudi bank is still a Saudi firm. Say NCA marks one of its
+          systems as &ldquo;key infrastructure.&rdquo; Then NCA ECC rules
+          apply too — this sits on top of SAMA CSF.
+        </P>
+        <H3>Case 2: MSSPs That Serve Money Firms</H3>
+        <P>
+          Say you hold an NCA MSOC license, but you also serve SAMA-watched
+          clients. Your platform must still meet SAMA&apos;s Subdomain 3.14.
+          Your clients&apos; duties become your platform&apos;s job too.
+        </P>
+        <P>Plan for both rules from the start if:</P>
+        <Bullets
+          items={[
+            "You are a money firm marked as key infrastructure",
+            "You are an MSSP serving SAMA-watched clients",
+          ]}
+        />
+        <P>
+          Starting with one rule and adding the other later costs more. Gaps
+          almost always show up at check time.
         </P>
 
         <H2 id="three-step-check">
-          A Three-Step Framework Identification Process
+          How to Figure Out Which Rule Applies to You
         </H2>
+        <P>Work through these three steps.</P>
         <Numbered
           items={[
             <>
-              <Strong>Step 1 — Does SAMA oversee your organization?</Strong>{" "}
-              (banks, insurers, payment firms, SAMA-licensed fintechs.) Yes →
-              go to Step 2. No → go to Step 3.
+              <Strong>
+                Step 1: Does SAMA watch your firm?
+              </Strong>{" "}
+              (Banks, insurers, payment firms, SAMA-licensed fintechs.) Yes →
+              SAMA CSF applies, go to Step 2. No → go to Step 3.
             </>,
             <>
               <Strong>
-                Step 2 — Has NCA classified any organizational systems as
-                critical infrastructure?
+                Step 2: Does NCA mark any of your systems as
+                &ldquo;critical&rdquo;?
               </Strong>{" "}
-              Yes → both frameworks apply; plan for dual compliance. No → SAMA
-              CSF is your primary obligation.
+              Yes → both NCA ECC and SAMA CSF apply, plan for both. No → SAMA
+              CSF is your main rule.
             </>,
             <>
               <Strong>
-                Step 3 — Does your organization provide managed security
-                services?
+                Step 3: Are you an MSSP or a security operations firm?
               </Strong>{" "}
-              Serving SAMA-regulated clients → NCA MSOC licensing applies to
-              your operations, and your platform must additionally satisfy
-              SAMA Subdomain 3.14. General MSOC operations → NCA ECC applies
-              with the appropriate licensing tier. Neither → NCA ECC likely
-              applies if you're operating within Saudi Arabia.
+              Yes, with SAMA-watched clients → NCA MSOC licensing covers your
+              own firm, but your platform must also meet SAMA&apos;s
+              Subdomain 3.14. Yes, running a general MSOC → NCA ECC applies,
+              with a Tier 1 or Tier 2 MSOC license. No → NCA ECC likely
+              applies if you&apos;re a Saudi firm.
             </>,
           ]}
         />
-
-        <H2 id="key-differences">Critical Distinctions Between Frameworks</H2>
         <P>
-          <Strong>Regulatory objectives.</Strong> NCA ECC addresses
-          national-level security across multiple sectors. SAMA CSF narrowly
-          focuses on financial-system protection.
-        </P>
-        <P>
-          <Strong>Performance metrics.</Strong> NCA ECC employs binary
-          compliance assessment. SAMA CSF uses graduated maturity scoring
-          across six levels.
-        </P>
-        <P>
-          <Strong>Data retention standards.</Strong> NCA ECC specifies exact
-          retention periods. SAMA CSF delegates that determination to
-          organizational risk classification.
-        </P>
-        <P>
-          <Strong>Vendor accountability.</Strong> Both frameworks agree on one
-          thing: primary responsibility stays with the implementing
-          organization regardless of which third party runs the tooling.
+          <Strong>Key point:</Strong> does SAMA watch you, and are you marked
+          as key infrastructure too? Then plan for both rules from day one —
+          fixing it later costs a lot more.
         </P>
 
-        <H2 id="common-errors">Common Compliance Errors</H2>
+        <H2 id="key-differences">Key Differences Between the Two Rules</H2>
         <P>
-          <Strong>Financial proximity does not equal SAMA jurisdiction.</Strong>{" "}
-          Organizations operating adjacent to financial services — payment
-          processors, lending platforms, buy-now-pay-later providers — may
-          fall outside SAMA oversight absent direct licensing.
+          <Strong>Different goals.</Strong> NCA ECC guards Saudi
+          Arabia&apos;s national cyber safety, spanning government,
+          infrastructure, and business as a whole. SAMA CSF guards the money
+          system alone.
         </P>
         <P>
-          <Strong>Single-framework sufficiency is a myth.</Strong> No
-          crossover compliance exists between the two. Each regulator
-          maintains independent evaluation criteria.
+          <Strong>Different grading systems.</Strong> NCA ECC is pass or
+          fail — you either meet the control, or you don&apos;t. SAMA CSF
+          grades you on a 0-to-5 scale, with Level 3 as the lowest pass.
         </P>
         <P>
-          <Strong>Outsourcing does not eliminate accountability.</Strong>{" "}
-          Delegating SIEM or SOC functions to an external vendor transfers
-          operational execution, not organizational accountability.
+          <Strong>Different log storage rules.</Strong> NCA ECC gives you a
+          fixed number: 12 months, or 18 for key systems. SAMA CSF says
+          storage must &ldquo;meet regulatory expectations,&rdquo; with no
+          fixed number — SAMA checks this case by case.
         </P>
-
-        <H2 id="shared-requirements">Shared Core Requirements</H2>
-        <P>Both frameworks demand:</P>
-        <Bullets
-          items={[
-            "Centralized log aggregation through SIEM architecture",
-            "Dedicated security operations capability providing rapid response",
-            "Auditable log retention infrastructure",
-          ]}
-        />
         <P>
-          Organizations frequently run into escalating expenses through
-          per-gigabyte SIEM pricing models built for a different market
-          entirely. Platform ownership instead of vendor rental can generate
-          substantial savings — one MSSP{" "}
-          <Ref to="siem-rent-to-owned-case-study">
-            recovered $270,000 over 24 months
-          </Ref>{" "}
-          by making that switch.
+          <Strong>Vendor duty stays with you.</Strong> Both rules agree here.
+          You are on the hook for what your vendors do. Handing your SIEM or
+          SOC to a third party does not move that duty — it just adds one
+          more relationship to manage.
         </P>
 
-        <H2 id="whycrew-approach">
-          How WhyCrew Approaches NCA ECC and SAMA CSF
+        <H2 id="common-mistakes">Common Mistakes to Dodge</H2>
+        <P>
+          <Strong>
+            Mistake 1: Thinking &ldquo;close to finance&rdquo; means
+            SAMA-watched.
+          </Strong>{" "}
+          Not every firm near money gets watched by SAMA. Payment gateways,
+          buy-now-pay-later apps, and some lending platforms may sit outside
+          SAMA&apos;s watch, unless they hold a real SAMA license. Always
+          check first.
+        </P>
+        <P>
+          <Strong>Mistake 2: Thinking one rule covers both.</Strong> There is
+          no shortcut here. Passing NCA ECC does not mean you satisfy SAMA
+          CSF. Passing SAMA CSF does not mean you satisfy NCA ECC. Each
+          regulator checks its own rule, on its own.
+        </P>
+        <P>
+          <Strong>Mistake 3: Thinking outsourcing removes your duty.</Strong>{" "}
+          Say you hand your SIEM or SOC to a vendor. You still carry the duty
+          to follow the rule. The vendor just adds one more relationship to
+          manage — your duty stays the same.
+        </P>
+
+        <H2 id="security-tools">
+          What Both Rules Need From Your Security Tools
         </H2>
         <P>
-          Most compliance vendors sell a generic monitoring product and leave
-          you to map it onto Control 2-12 or Subdomain 3.14 yourself. WhyCrew
-          builds{" "}
-          <Ref to="nca-ecc-sama-csf-compliance">
-            the SIEM and SOC platform itself
-          </Ref>{" "}
-          purpose-built to both, whichever one — or both — apply to you, then
-          hands over full ownership. No per-GB pricing, no license renewal,
-          and no dependency on a vendor's roadmap when a regulator asks for
-          something new.
+          Both NCA ECC and SAMA CSF need the same core things from your
+          setup:
+        </P>
+        <Bullets
+          items={[
+            "A SIEM that gathers and watches your logs",
+            "A SOC that reacts fast and fixes alerts",
+            "Log storage you can show a regulator on request",
+          ]}
+        />
+        <P>
+          The fine print differs — NCA gives you a time limit, SAMA gives you
+          a maturity score — but the core need is the same for both.
         </P>
         <P>
-          Not sure yet which framework applies to you?{" "}
+          The most common cost problem: many firms rent a SIEM tool that
+          charges by how much data it stores. Every new client or system
+          pushes the bill up. One MSSP fixed this by moving to a platform it
+          fully owned. The result:{" "}
+          <Ref to="siem-rent-to-owned-case-study">
+            $270,000 saved over 24 months
+          </Ref>
+          . Of that, $110,000 was saved in year one alone.
+        </P>
+        <P>
+          Own your SIEM, and there are no per-gigabyte fees, no vendor
+          lock-in, and full control of your log storage. Weighing your
+          options?{" "}
+          <Ref to="open-source-vs-custom-siem">
+            Open-Source vs. Custom-Built SIEM: The Real Trade-off
+          </Ref>{" "}
+          walks through both paths honestly.
+        </P>
+        <P>
+          When the SIEM and SOC behind either framework are something you
+          build, WhyCrew designs{" "}
+          <Ref to="nca-ecc-sama-csf-compliance">
+            the platform to satisfy Control 2-12 and Subdomain 3.14 directly
+          </Ref>
+          , owned outright at handover.
+        </P>
+
+        <H2 id="faq">Frequently Asked Questions</H2>
+        <div className="mt-6">
+          <FaqAccordion faqs={FAQS} columns={1} />
+        </div>
+
+        <H2 id="summary">Final Summary</H2>
+        <P>Here is what matters most:</P>
+        <Bullets items={SUMMARY_POINTS} />
+        <P>
+          Your next step: use the three-step check above to find out which
+          rule fits you. Check the official NCA and SAMA papers to be sure.
+          Then build your SIEM and SOC around your real needs — do it before
+          you build, not after.{" "}
           <a
             href={CTA_HREF}
             target="_blank"
@@ -512,13 +616,8 @@ export default function Page() {
           >
             Book a 20-minute call
           </a>{" "}
-          and we'll run the three-step check with you.
+          if you&apos;d rather run the check with us directly.
         </P>
-
-        <H2 id="faq">Frequently Asked Questions</H2>
-        <div className="mt-6">
-          <FaqAccordion faqs={FAQS} columns={1} />
-        </div>
       </ArticleShell>
     </>
   );
