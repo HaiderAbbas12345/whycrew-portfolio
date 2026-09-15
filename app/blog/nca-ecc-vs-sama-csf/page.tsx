@@ -5,7 +5,6 @@ import {
   DataTable,
   H2,
   H3,
-  KeyTakeaways,
   Numbered,
   P,
   QuickAnswer,
@@ -43,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 const TOC: TocEntry[] = [
-  { id: "key-takeaways", label: "Key takeaways" },
+  { id: "what-you-will-learn", label: "What you will learn" },
   { id: "quick-comparison", label: "Quick comparison" },
   { id: "two-rules", label: "Two rules, two regulators" },
   { id: "nca-ecc", label: "What is NCA ECC?" },
@@ -202,17 +201,16 @@ export default function Page() {
           one, fast.
         </QuickAnswer>
 
-        <div className="mt-10">
-          <KeyTakeaways
-            items={[
-              "What NCA ECC is, and who must follow it",
-              "What SAMA CSF is, and who must follow it",
-              "When you need to follow both",
-              "A simple 3-step check to find your rule",
-              "Common mistakes, and how to dodge them",
-            ]}
-          />
-        </div>
+        <H2 id="what-you-will-learn">What You Will Learn</H2>
+        <Bullets
+          items={[
+            "What NCA ECC is, and who must follow it",
+            "What SAMA CSF is, and who must follow it",
+            "When you need to follow both",
+            "A simple 3-step check to find your rule",
+            "Common mistakes, and how to dodge them",
+          ]}
+        />
 
         <H2 id="quick-comparison">Quick Comparison: NCA ECC vs SAMA CSF</H2>
         <P>Here is a simple side-by-side view of the two rulebooks.</P>
@@ -316,8 +314,8 @@ export default function Page() {
           ]}
         />
         <P>
-          Not sure what a SIEM is? Not sure what one should cost?{" "}
-          <Ref to="what-is-siem">Our guide breaks it down in plain words.</Ref>
+          Not sure <Ref to="what-is-siem">what a SIEM is</Ref>? Not sure what
+          one should cost? Our guide breaks it down in plain words.
         </P>
 
         <H3>What If You Run an MSSP?</H3>
