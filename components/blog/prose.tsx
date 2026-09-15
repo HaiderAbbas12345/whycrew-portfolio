@@ -133,7 +133,16 @@ export function QuickAnswer({ children }: { children: ReactNode }) {
   );
 }
 
-export function KeyTakeaways({ items }: { items: ReactNode[] }) {
+export function KeyTakeaways({
+  items,
+  label = "Key takeaways",
+  id = "key-takeaways",
+}: {
+  items: ReactNode[];
+  /** Override when the content doc names this section something else. */
+  label?: string;
+  id?: string;
+}) {
   return (
     <aside className="rounded-lg border border-line/70 bg-surface/60 p-6 sm:p-7">
       {/*
@@ -143,10 +152,10 @@ export function KeyTakeaways({ items }: { items: ReactNode[] }) {
         contents still anchors to it.
       */}
       <p
-        id="key-takeaways"
+        id={id}
         className="mb-5 scroll-mt-28 font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-brand-hi"
       >
-        Key takeaways
+        {label}
       </p>
       <ul className="space-y-3.5">
         {items.map((it, i) => (

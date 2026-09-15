@@ -5,6 +5,7 @@ import {
   DataTable,
   H2,
   H3,
+  KeyTakeaways,
   Numbered,
   P,
   QuickAnswer,
@@ -201,16 +202,19 @@ export default function Page() {
           one, fast.
         </QuickAnswer>
 
-        <H2 id="what-you-will-learn">What You Will Learn</H2>
-        <Bullets
-          items={[
-            "What NCA ECC is, and who must follow it",
-            "What SAMA CSF is, and who must follow it",
-            "When you need to follow both",
-            "A simple 3-step check to find your rule",
-            "Common mistakes, and how to dodge them",
-          ]}
-        />
+        <div className="mt-10">
+          <KeyTakeaways
+            label="What you will learn"
+            id="what-you-will-learn"
+            items={[
+              "What NCA ECC is, and who must follow it",
+              "What SAMA CSF is, and who must follow it",
+              "When you need to follow both",
+              "A simple 3-step check to find your rule",
+              "Common mistakes, and how to dodge them",
+            ]}
+          />
+        </div>
 
         <H2 id="quick-comparison">Quick Comparison: NCA ECC vs SAMA CSF</H2>
         <P>Here is a simple side-by-side view of the two rulebooks.</P>
