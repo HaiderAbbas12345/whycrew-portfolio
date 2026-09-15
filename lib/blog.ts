@@ -137,6 +137,19 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "Platform Ownership", "NIS2", "DORA"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "nca-ecc-vs-sama-csf",
+    title: "NCA ECC vs SAMA CSF (2026): Which One Applies to You?",
+    metaTitle: "NCA ECC vs SAMA CSF: Which Applies to You?",
+    metaDescription:
+      "NCA ECC and SAMA CSF are separate frameworks — meeting one doesn't satisfy the other. Use this 3-step check to find which applies to you.",
+    summary:
+      "Different regulators, different control counts, different assessment models — and no credit toward one framework for meeting the other. The three-step check for which framework applies, where dual compliance kicks in, and the compliance errors that cost the most time.",
+    datePublished: "2026-09-15",
+    readTime: "9 min read",
+    topics: ["NCA ECC", "SAMA CSF", "SIEM & SOAR", "MSSP & White-Label"],
+    cluster: "NCA ECC & SAMA CSF Compliance",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -171,6 +184,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
    */
   "custom-siem-soar-services": "/services/custom-siem-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
+  "nca-ecc-sama-csf-compliance": "/services/nca-ecc-sama-csf-compliance",
 
   /** Published articles. */
   "siem-cost-licensing": "/blog/siem-cost-licensing-vs-custom-built",
@@ -182,6 +196,10 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "soar-playbooks-guide": "/blog/soar-playbooks-explained",
   "what-is-siem": "/blog/what-is-siem",
   "what-is-soar": "/blog/what-is-soar",
+  "nca-ecc-vs-sama-csf": "/blog/nca-ecc-vs-sama-csf",
+
+  /** Published case studies. */
+  "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",
 };
 
 export const resolveLink = (key: string): string | null =>

@@ -84,6 +84,8 @@ export const RESOURCE_TOPICS = [
   "NIS2",
   "DORA",
   "GDPR",
+  "NCA ECC",
+  "SAMA CSF",
   "Migration",
   "Multi-Tenancy",
   "Platform Ownership",
@@ -214,6 +216,18 @@ export const RESOURCES: Resource[] = [
     status: "live",
     href: "/blog/what-is-soar",
     date: "2026-09-10",
+  },
+  {
+    id: "blog-nca-ecc-vs-sama-csf",
+    type: "Blog",
+    topics: ["NCA ECC", "SAMA CSF", "SIEM & SOAR", "MSSP & White-Label"],
+    title: "NCA ECC vs SAMA CSF (2026): Which One Applies to You?",
+    summary:
+      "Different regulators, different control counts, different assessment models — and no credit toward one framework for meeting the other. The three-step check for which framework applies, where dual compliance kicks in, and the compliance errors that cost the most time.",
+    format: "9 min read",
+    status: "live",
+    href: "/blog/nca-ecc-vs-sama-csf",
+    date: "2026-09-15",
   },
   {
     id: "cs-siem-rent-to-owned-platform",

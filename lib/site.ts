@@ -145,7 +145,8 @@ export type ServiceKey =
   | "custom-siem-soar-development"
   | "ai-powered-soc-automation"
   | "mssp-engineering-partner"
-  | "nis2-dora-compliance-automation";
+  | "nis2-dora-compliance-automation"
+  | "nca-ecc-sama-csf-compliance";
 
 export interface ServiceSummary {
   slug: ServiceKey;
@@ -211,6 +212,18 @@ export const SERVICES: ServiceSummary[] = [
     metaTitle: "NIS2 & DORA Compliance Automation for MSSPs | WhyCrew",
     metaDescription:
       "WhyCrew automates NIS2 & DORA compliance for essential entities, financial operators, and MSSPs — incident reporting, ICT risk, and audit-ready evidence.",
+  },
+  {
+    slug: "nca-ecc-sama-csf-compliance",
+    href: "/services/nca-ecc-sama-csf-compliance",
+    name: "NCA ECC & SAMA CSF Compliance",
+    navLabel: "NCA ECC & SAMA CSF",
+    short: "Own the SIEM your NCA ECC and SAMA CSF audit runs on",
+    blurb:
+      "A SIEM and SOC platform built to satisfy NCA ECC Control 2-12 and SAMA CSF Subdomain 3.14 — owned outright, audit-ready, with zero ongoing licensing fees.",
+    metaTitle: "NCA ECC & SAMA CSF Compliance: Own Your SIEM | WhyCrew",
+    metaDescription:
+      "Stop licensing a SIEM for NCA ECC and SAMA CSF compliance. WhyCrew builds one you own outright, audit-ready, with zero ongoing fees.",
   },
 ];
 

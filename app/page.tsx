@@ -140,6 +140,17 @@ const SERVICE_DETAIL: Record<
     ],
     cta: "Explore Compliance Automation",
   },
+  "nca-ecc-sama-csf-compliance": {
+    intro:
+      "We build the SIEM and SOC platform that satisfies NCA ECC Control 2-12 and SAMA CSF Subdomain 3.14, whether one framework applies to you or both. Owned outright at handover, with audit-ready evidence in the format each regulator expects and zero ongoing licensing fees.",
+    bullets: [
+      "Meets NCA ECC Control 2-12 and SAMA CSF Subdomain 3.14 out of the box",
+      "One platform for organizations under either framework, or both",
+      "Architecture documented for NCA MSOC licensing",
+      "Full platform ownership at handover, no recurring fees",
+    ],
+    cta: "Explore NCA ECC & SAMA CSF Compliance",
+  },
 };
 
 const RESULTS = [
