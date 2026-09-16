@@ -113,14 +113,6 @@ export const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-BNMPZB5NQN";
 
 /**
- * Microsoft Clarity project — session recordings and heatmaps, alongside GA4.
- * Unset the env var to an empty string to switch it off without a code change;
- * the tag is skipped entirely rather than loaded with no project.
- */
-export const CLARITY_PROJECT_ID =
-  process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "y7w4w5shbx";
-
-/**
  * Google Tag Manager container. Tags added in the GTM UI then ship without a
  * deploy. Set the env var to an empty string to switch it off without a code
  * change; both halves of the snippet (the loader in components/analytics.tsx
