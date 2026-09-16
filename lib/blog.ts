@@ -150,6 +150,20 @@ export const POSTS: BlogPost[] = [
     topics: ["NCA ECC", "SAMA CSF", "SIEM & SOAR", "MSSP & White-Label"],
     cluster: "NCA ECC & SAMA CSF Compliance",
   },
+  {
+    slug: "on-premise-ai-soc-automation-vs-cloud-security-copilot",
+    title:
+      "On-Premise AI SOC Automation: Why Keeping AI In-House Beats a Cloud Security Copilot",
+    metaTitle: "On-Premise AI SOC Automation vs. Cloud Security Copilot",
+    metaDescription:
+      "On-premise AI SOC automation keeps a private LLM inside your perimeter for full data sovereignty. See how it beats a cloud security copilot.",
+    summary:
+      "A cloud copilot sends your logs, alerts and weak spots to someone else's servers. A private LLM keeps them inside your perimeter. The hidden risks, the three deployment setups, a six-step build plan, and a decision checklist.",
+    datePublished: "2026-09-16",
+    readTime: "13 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA", "GDPR"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -197,6 +211,8 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "what-is-siem": "/blog/what-is-siem",
   "what-is-soar": "/blog/what-is-soar",
   "nca-ecc-vs-sama-csf": "/blog/nca-ecc-vs-sama-csf",
+  "on-premise-ai-soc-automation":
+    "/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot",
 
   /** Published case studies. */
   "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",

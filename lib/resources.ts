@@ -230,6 +230,19 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-15",
   },
   {
+    id: "blog-on-premise-ai-soc-automation-vs-cloud-security-copilot",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA", "GDPR"],
+    title:
+      "On-Premise AI SOC Automation: Why Keeping AI In-House Beats a Cloud Security Copilot",
+    summary:
+      "A cloud copilot sends your logs, alerts and weak spots to someone else's servers. A private LLM keeps them inside your perimeter. The hidden risks, the three deployment setups, a six-step build plan, and a decision checklist.",
+    format: "13 min read",
+    status: "live",
+    href: "/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot",
+    date: "2026-09-16",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
