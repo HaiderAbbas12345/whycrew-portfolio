@@ -138,6 +138,15 @@ export const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
   "TYYuh-ev2DxwW0Of-KVoqFbn-RkdU6BojgN0dW5lXrg";
 
+/**
+ * Bing Webmaster Tools ownership token, rendered as
+ * <meta name="msvalidate.01">. Bing re-checks this periodically, so it has to
+ * stay on the page after verification, not just until it passes.
+ */
+export const BING_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ||
+  "CAA8F38C34158D4E79236F1ADADCAF0A";
+
 export const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
 export const FOUNDER_LINKEDIN = process.env.NEXT_PUBLIC_FOUNDER_LINKEDIN || "";
 

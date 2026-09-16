@@ -5,7 +5,12 @@ import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { CookieConsent } from "@/components/cookie-consent";
 import { organizationLd, websiteLd } from "@/lib/jsonld";
-import { GOOGLE_SITE_VERIFICATION, OG_IMAGE, SITE } from "@/lib/site";
+import {
+  BING_SITE_VERIFICATION,
+  GOOGLE_SITE_VERIFICATION,
+  OG_IMAGE,
+  SITE,
+} from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -80,7 +85,13 @@ export const metadata: Metadata = {
   category: "technology",
   // Carried over from the previous deployment so Search Console ownership and
   // the existing property survive the cutover.
-  verification: { google: GOOGLE_SITE_VERIFICATION },
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
+    // `other` is how the Metadata API emits a name/content pair verbatim —
+    // there is no first-class `bing` key, and msvalidate.01 must render with
+    // that exact name for Bing to match it.
+    other: { "msvalidate.01": BING_SITE_VERIFICATION },
+  },
 };
 
 export const viewport: Viewport = {
