@@ -10,7 +10,6 @@ import {
   Heading,
   Hairline,
   ProcessSteps,
-  Quote,
   Section,
   StatBar,
 } from "@/components/ui/primitives";
@@ -154,24 +153,6 @@ const SERVICE_DETAIL: Record<
   },
 };
 
-const RESULTS = [
-  {
-    metric: "€340K",
-    unit: "Saved per year",
-    body: "A German MSSP with 40+ enterprise clients migrated from a legacy SIEM platform to a custom-built Elasticsearch data lake. Zero downtime, delivered over 6 weeks.",
-  },
-  {
-    metric: "12 min",
-    unit: "Average alert-to-resolution time",
-    body: "A Netherlands-based SOC handling 12,000 daily alerts deployed our on-premise LLM triage agents. Tier-1 analyst workload dropped by 78%.",
-  },
-  {
-    metric: "3 wks",
-    unit: "NIS2 audit readiness",
-    body: "A French financial services firm (€2B AUM) used WhyCrew to map, document, and automate all 10 NIS2 Article 21 measures before a supervisory audit.",
-  },
-];
-
 /**
  * The four studies surfaced on the homepage, in the order the section is meant
  * to read, each paired with the one figure its card leads on.
@@ -196,13 +177,6 @@ const FEATURED_STUDIES = [
   if (!lead) throw new Error(`${slug} has no metric labelled "${metric}"`);
   return { slug, title: study.title, lead };
 });
-
-const PROJECT_RESULTS = [
-  { value: "62%", label: "SIEM Cost Reduction" },
-  { value: "0 hours", label: "Migration Downtime" },
-  { value: "6 weeks", label: "Time to Production" },
-  { value: "100%", label: "Platform Ownership" },
-];
 
 const PROCESS = [
   {
@@ -436,55 +410,7 @@ export default function HomePage() {
           What Teams Save When They Stop Renting.
         </Heading>
 
-        <Stagger className="mt-12 grid gap-5 md:grid-cols-3">
-          {RESULTS.map((r) => (
-            <StaggerItem key={r.metric}>
-              <Card className="h-full p-7">
-                <div className="text-2xl font-semibold text-accent sm:text-3xl">
-                  {r.metric}
-                </div>
-                <div className="mt-1.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
-                  {r.unit}
-                </div>
-                <p className="mt-5 text-[13.5px] leading-relaxed text-muted">
-                  {r.body}
-                </p>
-              </Card>
-            </StaggerItem>
-          ))}
-        </Stagger>
-
-        <Reveal className="mt-8">
-          <Quote author="Marcus Weber" role="CTO, NordSec GmbH, Hamburg, Germany">
-            We were paying €45,000 per month in SIEM licensing. WhyCrew built a
-            replacement data lake, migrated 18 months of logs with zero
-            downtime, and trained our engineering team in four weeks.
-          </Quote>
-        </Reveal>
-
-        <Reveal className="mt-8">
-          {/* These are the NordSec engagement's own measured figures, not a
-              site-wide average. Labelling them keeps the 62% here from reading
-              as a contradiction of the 40–70% typical range quoted above. */}
-          <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
-            NordSec GmbH engagement
-          </p>
-          <div className="grid grid-cols-2 divide-line/60 overflow-hidden rounded-lg border border-line/70 bg-surface/40 sm:grid-cols-4 sm:divide-x">
-            {PROJECT_RESULTS.map((p) => (
-              <div key={p.label} className="px-5 py-7 text-center">
-                <div className="text-2xl font-semibold text-bright sm:text-3xl">
-                  {p.value}
-                </div>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
-                  {p.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-
-        {/* -------------------------------------- case studies */}
-        <Stagger className="mt-16 grid gap-5 sm:grid-cols-2">
+        <Stagger className="mt-12 grid gap-5 sm:grid-cols-2">
           {FEATURED_STUDIES.map((c) => (
             <StaggerItem key={c.slug}>
               <Link
@@ -495,10 +421,7 @@ export default function HomePage() {
                   Case study
                 </p>
 
-                {/*
-                  h3, not h2: these sit under the section's own h2, the same
-                  level the results cards above them occupy.
-                */}
+                {/* h3, not h2: these sit under the section's own h2. */}
                 <h3 className="mt-4 text-[15px] font-semibold leading-snug text-bright transition-colors duration-400 group-hover:text-accent-hi">
                   {c.title}
                 </h3>
