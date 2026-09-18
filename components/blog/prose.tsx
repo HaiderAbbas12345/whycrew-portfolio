@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { resolveLink } from "@/lib/blog";
@@ -182,6 +183,42 @@ export function KeyTakeaways({
         ))}
       </ul>
     </aside>
+  );
+}
+
+/* ----------------------------------------------------------------- figures */
+
+/**
+ * An article diagram.
+ *
+ * No caption: the content docs place these between two specific paragraphs
+ * and supply alt text only, so the alt is the whole of the accessible text
+ * and nothing is invented to sit under the image. Intrinsic dimensions are
+ * passed rather than measured so the layout reserves the right space and the
+ * page does not shift as the image decodes.
+ */
+export function Figure({
+  src,
+  alt,
+  width,
+  height,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}) {
+  return (
+    <figure className="mt-8">
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes="(min-width: 768px) 48rem, 100vw"
+        className="w-full rounded-lg border border-line/70"
+      />
+    </figure>
   );
 }
 

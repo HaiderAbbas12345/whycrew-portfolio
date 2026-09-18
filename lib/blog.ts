@@ -164,6 +164,20 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA", "GDPR"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "soc-analyst-tiers-tier-1-2-3",
+    title:
+      "SOC Analyst Tiers Explained: Tier 1 vs. Tier 2 vs. Tier 3 (and Where AI Actually Fits)",
+    metaTitle: "SOC Tiers: Tier 1 vs. Tier 2 vs. Tier 3 Analyst Explained",
+    metaDescription:
+      "What does a Tier 1, Tier 2, or Tier 3 SOC analyst do? A simple guide to every SOC tier, how they are different, and where AI fits in today.",
+    summary:
+      "Tier 1 checks alerts and clears false alarms. Tier 2 digs into real threats and stops them. Tier 3 hunts hidden threats and leads the response to big attacks. What each tier does, how they differ, and where AI fits in today.",
+    datePublished: "2026-09-18",
+    readTime: "10 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -196,6 +210,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
    * that says "guide" means a content article, and pointing it at a service
    * page sends the reader somewhere they weren't promised.
    */
+  "ai-soc-automation-services": "/services/ai-powered-soc-automation",
   "custom-siem-soar-services": "/services/custom-siem-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
   "nca-ecc-sama-csf-compliance": "/services/nca-ecc-sama-csf-compliance",
@@ -213,6 +228,13 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "nca-ecc-vs-sama-csf": "/blog/nca-ecc-vs-sama-csf",
   "on-premise-ai-soc-automation":
     "/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot",
+  "soc-analyst-tiers": "/blog/soc-analyst-tiers-tier-1-2-3",
+
+  /**
+   * Linked from the SOC tiers article but not written yet, so it resolves to
+   * null and renders as plain text rather than a link to a 404.
+   */
+  "ai-soc-analyst-vs-tier-1-analyst": null,
 
   /** Published case studies. */
   "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",

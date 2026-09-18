@@ -243,6 +243,19 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-16",
   },
   {
+    id: "blog-soc-analyst-tiers-tier-1-2-3",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    title:
+      "SOC Analyst Tiers Explained: Tier 1 vs. Tier 2 vs. Tier 3 (and Where AI Actually Fits)",
+    summary:
+      "Tier 1 checks alerts and clears false alarms. Tier 2 digs into real threats and stops them. Tier 3 hunts hidden threats and leads the response to big attacks. What each tier does, how they differ, and where AI fits in today.",
+    format: "10 min read",
+    status: "live",
+    href: "/blog/soc-analyst-tiers-tier-1-2-3",
+    date: "2026-09-18",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
