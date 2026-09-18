@@ -231,15 +231,11 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "soc-analyst-tiers": "/blog/soc-analyst-tiers-tier-1-2-3",
 
   /**
-   * NOT YET PUBLISHED — this path 404s today.
-   *
-   * It is mapped anyway, deliberately, because the content doc links the
-   * anchor and the article is to match the doc exactly. That is the one
-   * exception to the rule above: every other unwritten target stays null so
-   * it renders as plain text. Publishing the article at this slug is what
-   * makes the link correct — until then it is a known broken internal link.
+   * Linked from the SOC tiers article but not written yet, so it resolves to
+   * null and renders as plain text rather than a link to a 404. Give it the
+   * path "/blog/ai-soc-analyst-vs-tier-1-analyst" once that article exists.
    */
-  "ai-soc-analyst-vs-tier-1-analyst": "/blog/ai-soc-analyst-vs-tier-1-analyst",
+  "ai-soc-analyst-vs-tier-1-analyst": null,
 
   /** Published case studies. */
   "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",
