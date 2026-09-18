@@ -23,27 +23,28 @@ import {
   WordsUp,
 } from "@/components/motion";
 import { faqLd, serviceListLd, type Faq } from "@/lib/jsonld";
+import { CASE_STUDIES } from "@/lib/case-studies";
 import { CTA_HREF, OG_IMAGE, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
 
 export const metadata: Metadata = {
   // `absolute` opts out of the root layout's "%s | WhyCrew" title template.
-  title: { absolute: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs" },
+  title: { absolute: "Own Your SIEM & SOC Platform | Custom Build for MSSPs" },
   description:
-    "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
+    "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs",
+    title: "Own Your SIEM & SOC Platform | Custom Build for MSSPs",
     description:
-      "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
+      "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",
     url: SITE.url,
     images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     images: OG_IMAGE,
-    title: "Own Your SIEM, Not Rent It | Custom Platform for MSSPs",
+    title: "Own Your SIEM & SOC Platform | Custom Build for MSSPs",
     description:
-      "Vendor SIEM licensing scales against you. WhyCrew builds a custom security platform you fully own no per-GB fees, no lock-in. EU-proven. Book a call.",
+      "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",
   },
 };
 
@@ -62,7 +63,7 @@ const DELIVERABLES = [
     body: "Multi-tenant platforms you fully own, with no per-GB licensing and no vendor dependency.",
   },
   {
-    title: "Deploy AI Agents In-House",
+    title: "Run AI Security Agents In-House",
     body: "Private LLM agents that keep every alert, investigation, and inference entirely within your own infrastructure.",
   },
   {
@@ -70,7 +71,7 @@ const DELIVERABLES = [
     body: "A rebrandable SOC platform that gets you to market fast, without building from scratch.",
   },
   {
-    title: "Automate EU Compliance",
+    title: "Stay Audit-Ready for EU Regulators",
     body: "Stay audit-ready across NIS2 and DORA, without the manual overhead.",
   },
 ];
@@ -171,6 +172,31 @@ const RESULTS = [
   },
 ];
 
+/**
+ * The four studies surfaced on the homepage, in the order the section is meant
+ * to read, each paired with the one figure its card leads on.
+ *
+ * `metric` names a label from that study's own `metrics` in the registry, and
+ * the value is looked up rather than repeated here, so a figure can never
+ * drift between the card and the study page. It is a label and not an index
+ * because the lead figure is not always the study's first metric — the
+ * threat-intel study leads on triage reduction, not the licence saving — and
+ * because a wrong label fails the build instead of silently showing the wrong
+ * number.
+ */
+const FEATURED_STUDIES = [
+  { slug: "mssp-engineering-capacity-pod", metric: "Engineering output vs. one hire" },
+  { slug: "owned-threat-intelligence-pipeline", metric: "Reduction in manual triage" },
+  { slug: "in-house-dark-web-monitoring", metric: "Annual vendor bill eliminated" },
+  { slug: "siem-rent-to-owned-platform", metric: "Saved across 24 months" },
+].map(({ slug, metric }) => {
+  const study = CASE_STUDIES.find((c) => c.slug === slug);
+  if (!study) throw new Error(`Unknown case study slug: ${slug}`);
+  const lead = study.metrics.find((m) => m.label === metric);
+  if (!lead) throw new Error(`${slug} has no metric labelled "${metric}"`);
+  return { slug, title: study.title, lead };
+});
+
 const PROJECT_RESULTS = [
   { value: "62%", label: "SIEM Cost Reduction" },
   { value: "0 hours", label: "Migration Downtime" },
@@ -193,7 +219,7 @@ const PROCESS = [
   },
   {
     title: "We Hand You the Keys",
-    body: "You receive a fully owned platform, complete with API docs, runbooks, and hands-on training. We stay available for upgrades and support, but the platform is yours to run and evolve. You set the roadmap. You decide what comes next.",
+    body: "You receive a fully owned platform, ready for your team to run, with full technical handover included. We stay available for upgrades and support, but the platform is yours to run and evolve. You set the roadmap. You decide what comes next.",
   },
 ];
 
@@ -208,11 +234,11 @@ const FAQS: Faq[] = [
   },
   {
     q: "How much does a typical SIEM migration cost?",
-    a: "Projects are scoped and priced individually based on log volume, retention requirements, and integration complexity. Most clients see a 40–70% reduction in total SIEM cost within the first 12 months. You receive a fixed-price proposal after the initial architecture audit.",
+    a: "It depends on your ingestion volume, retention needs, and integration complexity. Most clients see a 40–70% cost reduction within the first 12 months. You’ll get a fixed-price proposal after an initial architecture audit.",
   },
   {
     q: "Do you own the platform WhyCrew builds for you?",
-    a: "Yes. Everything we build is yours. You own the platform, including the source code, and all underlying components. We provide the engineering, and you own the output outright. That means you control the infrastructure, the roadmap, and the data, with no ongoing licensing and no vendor dependency. Every engagement includes API documentation, deployment runbooks, and hands-on engineering training so your team can run and evolve it independently.",
+    a: "Yes. Every engagement transfers full ownership — the platform, the source code, and all underlying infrastructure to you. You control the roadmap and the data, with no ongoing licensing and no vendor dependency. You also get API documentation, deployment runbooks, and hands-on engineering training, so your team can run and evolve it independently.",
   },
   {
     q: "Is the AI SOC automation truly on-premise?",
@@ -248,32 +274,33 @@ export default function HomePage() {
         <div className="container-page">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.9rem]">
-              <WordsUp
-                text="The Engineering Partner Behind"
-                delay={0.15}
-              />
+              <WordsUp text="Own Your SIEM & SOC Platform" delay={0.15} />
               <br className="hidden sm:block" />{" "}
-              <WordsUp text="Independent Security Teams" delay={0.42} gradient />
+              <WordsUp
+                text="Built for MSSPs, Not Rented From Vendors"
+                delay={0.42}
+                gradient
+              />
             </h1>
 
             <Reveal delay={0.85} distance={16} mount>
               <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-relaxed text-body sm:text-base">
-                We build custom security platforms, AI agents, and compliance
-                automation for MSSPs and regulated operators — with a track
-                record across Europe&apos;s most demanding regulatory
-                environments, including NIS2, DORA, and GDPR. No subscriptions.
-                No vendor lock-in. We design your architecture, build the
-                platform, deliver it as a fully owned asset, and train your
-                team. You cut licensing costs, own the roadmap, and keep
-                complete control of your data.
+                Your SIEM shouldn&apos;t be a subscription. We design, build,
+                and hand you a custom SIEM and SOC platform powered by in-house
+                AI agents, fully yours, with no per-GB fees and no vendor
+                lock-in, engineered for MSSPs and regulated operators across
+                Europe&apos;s and Saudi Arabia&apos;s toughest regulatory
+                environments (NIS2, DORA, GDPR, NCA ECC, SAMA CSF). You own the
+                roadmap, cut licensing costs for good, and keep complete control
+                of your data.
               </p>
             </Reveal>
 
             <Reveal delay={1} distance={14} mount>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
                 <Button href={CTA_HREF}>Book a 20-Min Strategy Call</Button>
-                <Button href="/#results" variant="ghost">
-                  See SIEM Migration Results
+                <Button href="/case-studies" variant="ghost">
+                  Read the Case Studies
                 </Button>
               </div>
             </Reveal>
@@ -294,7 +321,7 @@ export default function HomePage() {
       <Section id="deliver">
         <Eyebrow>What we deliver — at a glance</Eyebrow>
         <Heading sub="One engineering partner. Full ownership at every layer.">
-          What We Deliver, At a Glance
+          Custom SIEM, SOC &amp; Compliance Platforms At a Glance
         </Heading>
 
         <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -324,9 +351,7 @@ export default function HomePage() {
       {/* ============================================ MARGIN PROBLEM */}
       <Section className="border-y border-line/40 bg-ink/40">
         <Backdrop variant="section" />
-        <Eyebrow tone="brand">
-          Why MSSPs move away from vendor-locked SIEM tools
-        </Eyebrow>
+        <Eyebrow tone="brand">The licensing problem</Eyebrow>
         <Heading
           sub={
             <>
@@ -340,7 +365,7 @@ export default function HomePage() {
             </>
           }
         >
-          Vendor licensing scales — your pricing usually doesn&apos;t
+          Why MSSPs Move Away From Vendor-Locked SIEM Tools
         </Heading>
 
         <Stagger className="mt-12 grid gap-5 md:grid-cols-3">
@@ -362,8 +387,8 @@ export default function HomePage() {
       {/* ============================================ SERVICES */}
       <Section id="services">
         <Eyebrow>We build it. You own it.</Eyebrow>
-        <Heading sub="Four core engineering services, each delivered as a fully owned asset with source code, documentation, and training included.">
-          Four core engineering services
+        <Heading sub="Each service includes fully owned platform source code, documentation, and training.">
+          Security Platform Engineering Services for MSSPs
         </Heading>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
@@ -407,8 +432,8 @@ export default function HomePage() {
       <Section id="results" className="border-y border-line/40 bg-ink/40">
         <Backdrop variant="section" />
         <Eyebrow>Real results from real deployments</Eyebrow>
-        <Heading sub="Europe's toughest regulatory environments are where we've built our track record. The same architecture and ownership model applies everywhere else.">
-          Europe&apos;s toughest regulatory environments — proven track record
+        <Heading sub="No projections, no rounded-up numbers — just what actually happened after they switched.">
+          What Teams Save When They Stop Renting.
         </Heading>
 
         <Stagger className="mt-12 grid gap-5 md:grid-cols-3">
@@ -457,13 +482,57 @@ export default function HomePage() {
             ))}
           </div>
         </Reveal>
+
+        {/* -------------------------------------- case studies */}
+        <Stagger className="mt-16 grid gap-5 sm:grid-cols-2">
+          {FEATURED_STUDIES.map((c) => (
+            <StaggerItem key={c.slug}>
+              <Link
+                href={`/case-studies/${c.slug}`}
+                className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-7 transition-colors duration-500 hover:border-accent/40"
+              >
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-faint">
+                  Case study
+                </p>
+
+                {/*
+                  h3, not h2: these sit under the section's own h2, the same
+                  level the results cards above them occupy.
+                */}
+                <h3 className="mt-4 text-[15px] font-semibold leading-snug text-bright transition-colors duration-400 group-hover:text-accent-hi">
+                  {c.title}
+                </h3>
+
+                <p className="mt-5 flex flex-wrap items-baseline gap-2.5">
+                  <span className="text-2xl font-semibold text-accent">
+                    {c.lead.value}
+                  </span>
+                  <span className="text-[13.5px] leading-relaxed text-muted">
+                    {c.lead.label}
+                  </span>
+                </p>
+
+                <span className="mt-auto pt-6 text-[13px] font-semibold text-accent">
+                  Read the case study{" "}
+                  <span className="inline-block transition-transform duration-400 group-hover:translate-x-1">
+                    &rarr;
+                  </span>
+                </span>
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
+
+        <Reveal className="mt-10 flex justify-center">
+          <Button href="/case-studies">View All Case Studies</Button>
+        </Reveal>
       </Section>
 
       {/* ============================================ PROCESS */}
       <Section id="how-it-works">
         <Eyebrow>How it works</Eyebrow>
         <Heading sub="One fixed price. Four stages. You approve every decision, and you walk away owning everything.">
-          Live in 12 Weeks, Not 18 Months
+          Deploy Your Custom SIEM in 12 Weeks, Not 18 Months
         </Heading>
         <div className="mt-12">
           <ProcessSteps steps={PROCESS} />
@@ -472,8 +541,10 @@ export default function HomePage() {
 
       {/* ============================================ FAQ */}
       <Section id="faq" className="border-y border-line/40 bg-ink/40">
-        <Eyebrow>Frequently asked questions</Eyebrow>
-        <Heading>Everything you need to know</Heading>
+        <Eyebrow>Before you book a call</Eyebrow>
+        <Heading>
+          Frequently Asked Questions About Custom SIEM &amp; SOC Platforms
+        </Heading>
         <div className="mt-10">
           <FaqAccordion faqs={FAQS} />
         </div>
