@@ -178,6 +178,21 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "ai-soc-analyst-vs-tier-1-analyst",
+    title:
+      "AI SOC Analyst Vs. Traditional Tier-1 Analyst: What Actually Changes",
+    metaTitle:
+      "AI SOC Analyst vs. Traditional Tier-1 Analyst: What Actually Changes",
+    metaDescription:
+      "AI SOC analyst vs Tier-1 analyst: what changes, what stays human, and where the automation ceiling sits. Real numbers, not vendor hype.",
+    summary:
+      "AI handles about 70-80% of first-pass triage. A Tier-1 human still owns the unclear cases, the business-risk calls, and the accountability. Where the split actually falls, and where the L1 automation ceiling sits.",
+    datePublished: "2026-09-21",
+    readTime: "9 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -229,13 +244,14 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "on-premise-ai-soc-automation":
     "/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot",
   "soc-analyst-tiers": "/blog/soc-analyst-tiers-tier-1-2-3",
+  "ai-soc-analyst-vs-tier-1-analyst": "/blog/ai-soc-analyst-vs-tier-1-analyst",
 
   /**
-   * Linked from the SOC tiers article but not written yet, so it resolves to
-   * null and renders as plain text rather than a link to a 404. Give it the
-   * path "/blog/ai-soc-analyst-vs-tier-1-analyst" once that article exists.
+   * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
+   * root rather than at a service page, so it gets its own key instead of
+   * being folded into one of the /services entries above.
    */
-  "ai-soc-analyst-vs-tier-1-analyst": null,
+  "custom-soc-platform": "/",
 
   /** Published case studies. */
   "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",

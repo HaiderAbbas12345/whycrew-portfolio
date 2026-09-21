@@ -256,6 +256,19 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-18",
   },
   {
+    id: "blog-ai-soc-analyst-vs-tier-1-analyst",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    title:
+      "AI SOC Analyst Vs. Traditional Tier-1 Analyst: What Actually Changes",
+    summary:
+      "AI handles about 70-80% of first-pass triage. A Tier-1 human still owns the unclear cases, the business-risk calls, and the accountability. Where the split actually falls, and where the L1 automation ceiling sits.",
+    format: "9 min read",
+    status: "live",
+    href: "/blog/ai-soc-analyst-vs-tier-1-analyst",
+    date: "2026-09-21",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

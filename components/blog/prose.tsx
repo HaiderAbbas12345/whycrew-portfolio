@@ -123,13 +123,29 @@ export function Bullets({ items }: { items: ReactNode[] }) {
 
 /* --------------------------------------------------------------- callouts */
 
-export function QuickAnswer({ children }: { children: ReactNode }) {
+export function QuickAnswer({
+  children,
+  block = false,
+}: {
+  children: ReactNode;
+  /**
+   * Set when the content doc's Quick Answer section runs to more than one
+   * paragraph. The body then wraps in a <div> instead of a <p>, so the page
+   * can pass <P> children without nesting a <p> inside a <p> — which the
+   * parser would silently split, breaking the callout's layout.
+   */
+  block?: boolean;
+}) {
   return (
     <div className="relative overflow-hidden rounded-lg border border-accent/25 bg-accent/6 p-6 sm:p-7">
       <p className="mb-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-accent">
         Quick answer
       </p>
-      <p className="text-[15px] leading-[1.7] text-body">{children}</p>
+      {block ? (
+        <div className="[&>p:first-child]:mt-0">{children}</div>
+      ) : (
+        <p className="text-[15px] leading-[1.7] text-body">{children}</p>
+      )}
     </div>
   );
 }
