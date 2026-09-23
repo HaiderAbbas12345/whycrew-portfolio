@@ -153,7 +153,16 @@ export function Stagger({
   const reduced = useReducedMotion();
   const Comp = motion[as] as typeof motion.div;
 
-  if (reduced) {
+  /**
+   * Same deferral as Reveal and WordsUp. Swapping the motion component for a
+   * plain element during render changed the served markup for a reduced-motion
+   * visitor, which is a hydration mismatch; gating it on `mounted` keeps the
+   * first client render identical to the server.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (mounted && reduced) {
     const Plain = as as React.ElementType;
     return <Plain className={className}>{children}</Plain>;
   }
@@ -183,7 +192,16 @@ export function StaggerItem({
   const reduced = useReducedMotion();
   const Comp = motion[as] as typeof motion.div;
 
-  if (reduced) {
+  /**
+   * Same deferral as Reveal and WordsUp. Swapping the motion component for a
+   * plain element during render changed the served markup for a reduced-motion
+   * visitor, which is a hydration mismatch; gating it on `mounted` keeps the
+   * first client render identical to the server.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (mounted && reduced) {
     const Plain = as as React.ElementType;
     return <Plain className={className}>{children}</Plain>;
   }
@@ -219,7 +237,21 @@ export function WordsUp({
   const hl = new Set((highlight ?? []).map((w) => w.toLowerCase()));
   const wrap = `${gradient ? "text-gradient " : ""}${className ?? ""}`;
 
-  if (reduced) return <span className={wrap}>{text}</span>;
+  /**
+   * Deferred to after mount, for the same reason CountUp renders `to`
+   * unconditionally. useReducedMotion() reads null on the server but the real
+   * preference on the client's very first render, so returning the plain-text
+   * branch here served one DOM and hydrated another — React #418, which shows
+   * up as a text-content mismatch. It only fires for visitors who actually
+   * have reduced motion enabled, which is why a default browser never saw it.
+   *
+   * The first client render now matches the server exactly; the swap to plain
+   * text happens on the next tick, before the lift has any distance to run.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (mounted && reduced) return <span className={wrap}>{text}</span>;
 
   return (
     <span className={wrap}>
