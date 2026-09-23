@@ -83,11 +83,6 @@ export function useConsent(): { consent: ConsentState | null; ready: boolean } {
  * with a leading dot, because GA writes to `.whycrew.com` while a cookie set
  * by a script on the page defaults to the host — clearing only one of the two
  * leaves the other in place and the visitor still identified.
- *
- * `_clck`, `_clsk` and `CLID` are Microsoft Clarity's, and Clarity has been
- * removed. They stay in this list on purpose: anyone who visited while the tag
- * was live still carries them, and this is the only code that expires them.
- * Dropping the patterns would strand those cookies in returning browsers.
  */
 function clearAnalyticsCookies() {
   const NAMES = [/^_ga/, /^_gid$/, /^_gat/, /^_clck$/, /^_clsk$/, /^CLID$/];

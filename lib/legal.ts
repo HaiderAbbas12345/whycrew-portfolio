@@ -111,6 +111,13 @@ export const COOKIE_GROUPS: CookieGroup[] = [
         expiry: "Up to 24 months",
       },
       {
+        name: "_clck, _clsk",
+        provider: "Microsoft Clarity (Microsoft Corporation)",
+        purpose:
+          "Records how pages are used — heatmaps and session replay — to find layout and usability problems.",
+        expiry: "1 day to 12 months",
+      },
+      {
         name: "Container-managed tags",
         provider: "Google Tag Manager (Google LLC)",
         purpose:
