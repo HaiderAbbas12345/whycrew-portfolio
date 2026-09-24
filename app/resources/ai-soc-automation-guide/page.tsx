@@ -301,6 +301,10 @@ export default function Page() {
           body: "AI takes the repeat first pass — triage, enrichment, correlation — while your analysts keep the irreversible calls and the accountability. It runs inside your own infrastructure, with no outside API calls.",
           label: "Book an Architecture Audit",
           href: CTA_HREF,
+          secondary: {
+            label: "AI-powered SOC automation",
+            href: "/services/ai-powered-soc-automation",
+          },
         }}
       >
         {/*

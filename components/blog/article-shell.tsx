@@ -42,7 +42,14 @@ export function ArticleShell({
   post: BlogPost;
   toc: TocEntry[];
   children: ReactNode;
-  cta: { heading: string; body: string; label: string; href: string };
+  cta: {
+    heading: string;
+    body: string;
+    label: string;
+    href: string;
+    /** Optional ghost button beside the primary one. */
+    secondary?: { label: string; href: string };
+  };
 }) {
   const published = formatDate(post.datePublished);
 
@@ -167,8 +174,13 @@ export function ArticleShell({
             <p className="mt-3 max-w-xl text-[14.5px] leading-relaxed text-body">
               {cta.body}
             </p>
-            <div className="mt-7">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button href={cta.href}>{cta.label}</Button>
+              {cta.secondary && (
+                <Button href={cta.secondary.href} variant="ghost">
+                  {cta.secondary.label}
+                </Button>
+              )}
             </div>
           </div>
 
