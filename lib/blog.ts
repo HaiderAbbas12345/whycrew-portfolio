@@ -3,7 +3,9 @@
  *
  * Posts live at /blog/<slug> as their own route folder under app/blog/, and
  * register their metadata here so the Resources hub, the sitemap, and the
- * article JSON-LD all read from one place.
+ * article JSON-LD all read from one place. A content doc whose slug names
+ * /resources/ instead sets `section: "resources"`, and its route folder lives
+ * under app/resources/.
  *
  * To publish a post:
  *   1. add an entry to POSTS below
@@ -28,6 +30,11 @@ export interface BlogPost {
   topics: string[];
   /** Content cluster this belongs to, used for related-post grouping. */
   cluster: string;
+  /**
+   * Route prefix. Omitted means /blog; set to "resources" when the content
+   * doc's slug puts the article under /resources/.
+   */
+  section?: "blog" | "resources";
 }
 
 export const POSTS: BlogPost[] = [
@@ -193,9 +200,28 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "ai-soc-automation-guide",
+    section: "resources",
+    title:
+      "AI SOC Automation: The Complete Guide To Automating Security Operations (Without Losing Control)",
+    metaTitle: "AI SOC Automation in 2026: A Guide for Security Teams",
+    metaDescription:
+      "Learn how AI SOC automation works in 2026, what to automate first, what still needs a human, and how to evaluate platforms without vendor hype.",
+    summary:
+      "What AI SOC automation automates well, what still needs a human, and a reversibility test for deciding which is which. The five-stage workflow, Tier 1 and Tier 2 automation, platform evaluation criteria, governance, and a phased rollout.",
+    datePublished: "2026-09-23",
+    readTime: "17 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
+
+/** Site path of a post: /blog/<slug>, or /resources/<slug> for a resources guide. */
+export const postPath = (post: Pick<BlogPost, "slug" | "section">) =>
+  `/${post.section ?? "blog"}/${post.slug}`;
 
 /**
  * A slug as breadcrumb text. The hyphens read as punctuation in a crumb, so
@@ -245,6 +271,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
     "/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot",
   "soc-analyst-tiers": "/blog/soc-analyst-tiers-tier-1-2-3",
   "ai-soc-analyst-vs-tier-1-analyst": "/blog/ai-soc-analyst-vs-tier-1-analyst",
+  "ai-soc-automation-guide": "/resources/ai-soc-automation-guide",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site

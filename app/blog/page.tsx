@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd } from "@/lib/jsonld";
-import { POSTS } from "@/lib/blog";
+import { POSTS, postPath } from "@/lib/blog";
 import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const TITLE = "Blog — SIEM, SOAR & SOC Engineering | WhyCrew";
@@ -76,10 +76,10 @@ function blogLd() {
     publisher: { "@id": `${SITE.url}/#organization` },
     blogPost: ORDERED.map((p) => ({
       "@type": "BlogPosting",
-      "@id": `${SITE.url}/blog/${p.slug}#article`,
+      "@id": `${SITE.url}${postPath(p)}#article`,
       headline: p.title,
       description: p.metaDescription,
-      url: `${SITE.url}/blog/${p.slug}`,
+      url: `${SITE.url}${postPath(p)}`,
       datePublished: p.datePublished,
       dateModified: p.dateModified ?? p.datePublished,
       author: { "@id": `${SITE.url}/#organization` },
@@ -143,7 +143,7 @@ export default function BlogIndexPage() {
           {ORDERED.map((p) => (
             <StaggerItem key={p.slug}>
               <Link
-                href={`/blog/${p.slug}`}
+                href={postPath(p)}
                 className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40"
               >
                 <p className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">

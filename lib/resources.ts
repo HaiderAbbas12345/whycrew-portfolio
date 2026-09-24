@@ -269,6 +269,19 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-21",
   },
   {
+    id: "blog-ai-soc-automation-guide",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR"],
+    title:
+      "AI SOC Automation: The Complete Guide To Automating Security Operations (Without Losing Control)",
+    summary:
+      "What AI SOC automation automates well, what still needs a human, and a reversibility test for deciding which is which. The five-stage workflow, Tier 1 and Tier 2 automation, platform evaluation criteria, governance, and a phased rollout.",
+    format: "17 min read",
+    status: "live",
+    href: "/resources/ai-soc-automation-guide",
+    date: "2026-09-23",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

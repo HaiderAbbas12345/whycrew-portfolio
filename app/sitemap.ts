@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { POSTS } from "@/lib/blog";
+import { POSTS, postPath } from "@/lib/blog";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { LEGAL_PAGES } from "@/lib/legal";
 import { SERVICES, SITE } from "@/lib/site";
@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...POSTS.filter((p) => Boolean(p.slug)).map((p) => ({
-      url: `${BASE_URL}/blog/${p.slug}`,
+      url: `${BASE_URL}${postPath(p)}`,
       lastModified: safeDate(p.dateModified ?? p.datePublished),
       changeFrequency: "monthly" as const,
       priority: 0.7,

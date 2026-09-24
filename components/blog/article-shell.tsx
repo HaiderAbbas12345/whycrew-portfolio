@@ -4,7 +4,7 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
-import { breadcrumbLabel, type BlogPost } from "@/lib/blog";
+import { breadcrumbLabel, postPath, type BlogPost } from "@/lib/blog";
 import { CTA_HREF, EXTERNAL_REL } from "@/lib/site";
 
 export interface TocEntry {
@@ -59,8 +59,10 @@ export function ArticleShell({
               // mobile. The JSON-LD on each post carries the same string,
               // because structured breadcrumbs have to match the visible ones.
               { name: "Home", path: "/" },
-              { name: "Blog", path: "/blog" },
-              { name: breadcrumbLabel(post.slug), path: `/blog/${post.slug}` },
+              post.section === "resources"
+                ? { name: "Resources", path: "/resources" }
+                : { name: "Blog", path: "/blog" },
+              { name: breadcrumbLabel(post.slug), path: postPath(post) },
             ]}
           />
 

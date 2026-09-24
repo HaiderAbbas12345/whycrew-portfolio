@@ -126,8 +126,11 @@ export function Bullets({ items }: { items: ReactNode[] }) {
 export function QuickAnswer({
   children,
   block = false,
+  label = "Quick answer",
 }: {
   children: ReactNode;
+  /** Override when the content doc capitalises the heading differently. */
+  label?: string;
   /**
    * Set when the content doc's Quick Answer section runs to more than one
    * paragraph. The body then wraps in a <div> instead of a <p>, so the page
@@ -139,7 +142,7 @@ export function QuickAnswer({
   return (
     <div className="relative overflow-hidden rounded-lg border border-accent/25 bg-accent/6 p-6 sm:p-7">
       <p className="mb-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-accent">
-        Quick answer
+        {label}
       </p>
       {block ? (
         <div className="[&>p:first-child]:mt-0">{children}</div>
