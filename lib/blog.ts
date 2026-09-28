@@ -215,6 +215,19 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "soc-analyst-burnout",
+    title: "SOC Analyst Burnout: Why Tier-1 Teams Quit and How to Fix It",
+    metaTitle: "Tier-1 Alert Fatigue: Why SOC Analysts Burn Out",
+    metaDescription:
+      "SOC analyst burnout and Tier-1 alert fatigue are pushing teams to quit. Here's what causes it, how it hurts detection, and what fixes it.",
+    summary:
+      "Tier-1 burnout comes from how the job is built, not from headcount: alerts with no context, tool sprawl, speed-over-accuracy metrics, and no growth path. The warning signs, what it does to MTTD and MTTR, and the structural fixes that keep analysts.",
+    datePublished: "2026-09-28",
+    readTime: "13 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "MSSP & White-Label"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -272,6 +285,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "soc-analyst-tiers": "/blog/soc-analyst-tiers-tier-1-2-3",
   "ai-soc-analyst-vs-tier-1-analyst": "/blog/ai-soc-analyst-vs-tier-1-analyst",
   "ai-soc-automation-guide": "/resources/ai-soc-automation-guide",
+  "soc-analyst-burnout": "/blog/soc-analyst-burnout",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site

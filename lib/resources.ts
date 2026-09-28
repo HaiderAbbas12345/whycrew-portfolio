@@ -282,6 +282,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-23",
   },
   {
+    id: "blog-soc-analyst-burnout",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "MSSP & White-Label"],
+    title: "SOC Analyst Burnout: Why Tier-1 Teams Quit and How to Fix It",
+    summary:
+      "Tier-1 burnout comes from how the job is built, not from headcount: alerts with no context, tool sprawl, speed-over-accuracy metrics, and no growth path. The warning signs, what it does to MTTD and MTTR, and the structural fixes that keep analysts.",
+    format: "13 min read",
+    status: "live",
+    href: "/blog/soc-analyst-burnout",
+    date: "2026-09-28",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
