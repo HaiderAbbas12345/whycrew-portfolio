@@ -294,6 +294,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-28",
   },
   {
+    id: "blog-what-is-ai-soc",
+    type: "Blog",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA"],
+    title: "What Is an AI SOC? Agentic AI, Architecture & Compliance Guide",
+    summary:
+      "What an AI SOC is and how it differs from AI bolted onto a tool: agentic AI vs. GenAI, autonomy levels per action type, SOAR vs. AI SOC, the five-layer architecture, the maturity model, and the audit trail regulators expect.",
+    format: "14 min read",
+    status: "live",
+    href: "/blog/what-is-ai-soc",
+    date: "2026-09-30",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

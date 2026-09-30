@@ -228,6 +228,19 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR", "MSSP & White-Label"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "what-is-ai-soc",
+    title: "What Is an AI SOC? Agentic AI, Architecture & Compliance Guide",
+    metaTitle: "What Is an AI SOC? Agentic AI & Compliance Guide",
+    metaDescription:
+      "Learn what an AI SOC is: agentic AI vs. GenAI, autonomy levels, SOAR vs. AI SOC, the 5-layer architecture, and compliance for NIS2, DORA, and GDPR.",
+    summary:
+      "What an AI SOC is and how it differs from AI bolted onto a tool: agentic AI vs. GenAI, autonomy levels per action type, SOAR vs. AI SOC, the five-layer architecture, the maturity model, and the audit trail regulators expect.",
+    datePublished: "2026-09-30",
+    readTime: "14 min read",
+    topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA"],
+    cluster: "AI-Powered SOC Automation",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -268,6 +281,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "custom-siem-soar-services": "/services/custom-siem-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
   "nca-ecc-sama-csf-compliance": "/services/nca-ecc-sama-csf-compliance",
+  "nis2-dora-compliance-automation": "/services/nis2-dora-compliance-automation",
 
   /** Published articles. */
   "siem-cost-licensing": "/blog/siem-cost-licensing-vs-custom-built",
@@ -286,6 +300,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "ai-soc-analyst-vs-tier-1-analyst": "/blog/ai-soc-analyst-vs-tier-1-analyst",
   "ai-soc-automation-guide": "/resources/ai-soc-automation-guide",
   "soc-analyst-burnout": "/blog/soc-analyst-burnout",
+  "what-is-ai-soc": "/blog/what-is-ai-soc",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
