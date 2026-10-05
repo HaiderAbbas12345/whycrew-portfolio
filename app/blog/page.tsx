@@ -170,17 +170,6 @@ export default function BlogIndexPage() {
                   {p.summary}
                 </p>
 
-                <div className="mt-5 flex flex-wrap items-center gap-1.5">
-                  {p.topics.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-line/60 px-2.5 py-1 text-[10.5px] text-faint"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
                 <div className="mt-6 border-t border-line-soft pt-4">
                   <Link
                     href={postPath(p)}

@@ -1,11 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { HelpfulPrompt, ShareArticle } from "@/components/blog/article-engagement";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
 import { breadcrumbLabel, postPath, type BlogPost } from "@/lib/blog";
-import { CTA_HREF, EXTERNAL_REL } from "@/lib/site";
+import { CTA_HREF, EXTERNAL_REL, SITE } from "@/lib/site";
+
+/** Same profile as the footer and the Organization JSON-LD `sameAs`. */
+const COMPANY_LINKEDIN = "https://www.linkedin.com/company/whycrew";
 
 export interface TocEntry {
   id: string;
@@ -93,19 +98,6 @@ export function ArticleShell({
                 <span className="text-accent">WhyCrew Engineering</span>
               </div>
             </Reveal>
-
-            <Reveal delay={0.24} mount>
-              <div className="mt-5 flex flex-wrap gap-1.5">
-                {post.topics.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-line/60 px-2.5 py-1 text-[10.5px] text-faint"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
           </div>
         </div>
       </section>
@@ -165,21 +157,73 @@ export function ArticleShell({
           </aside>
         </div>
 
-        {/* ---------------------------------------- about / byline */}
-        <div className="mt-16 max-w-3xl border-t border-line-soft pt-8">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
-            Authored by
-          </p>
-          <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
-            WhyCrew is an engineering firm that builds custom SIEM, SOAR, and
-            AI-powered SOC platforms, then hands full ownership over to the
-            client instead of renting it back as a subscription. The team
-            works with MSSPs and regulated operators across Europe, Saudi
-            Arabia, and North America, building in compliance for NIS2, DORA,
-            and NCA ECC/SAMA CSF from day one, with deployments typically
-            live in 12 weeks. This article was researched and written by the
-            WhyCrew engineering team.
-          </p>
+        {/* ---------------------------------------- share / feedback / byline */}
+        <div className="mt-16 max-w-3xl space-y-10 border-t border-line-soft pt-10">
+          <ShareArticle url={`${SITE.url}${postPath(post)}`} title={post.title} />
+
+          <HelpfulPrompt slug={post.slug} />
+
+          <section
+            aria-label="About the author"
+            className="flex flex-col gap-7 rounded-3xl border border-line/70 bg-surface/60 p-7 sm:flex-row sm:gap-10 sm:p-10"
+          >
+            <Image
+              src="/WhyCrew.jpeg"
+              alt="WhyCrew Engineers"
+              width={112}
+              height={112}
+              className="h-24 w-24 shrink-0 rounded-full object-cover ring-2 ring-line sm:h-28 sm:w-28"
+            />
+            <div className="min-w-0">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-faint">
+                Written by
+              </p>
+              <p className="mt-3 text-2xl font-semibold text-bright sm:text-[1.75rem]">
+                WhyCrew Engineers
+              </p>
+              <p className="mt-2 text-[15px] font-semibold text-accent">
+                SIEM, SOAR &amp; AI SOC Engineering Team
+              </p>
+              <p className="mt-4 text-[14.5px] leading-[1.8] text-muted">
+                WhyCrew is an engineering firm that builds custom SIEM, SOAR, and
+                AI-powered SOC platforms, then hands full ownership over to the
+                client instead of renting it back as a subscription. The team
+                works with MSSPs and regulated operators across Europe, Saudi
+                Arabia, and North America, building in compliance for NIS2, DORA,
+                and NCA ECC/SAMA CSF from day one, with deployments typically
+                live in 12 weeks. This article was researched and written by the
+                WhyCrew engineering team.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[14.5px] font-semibold">
+                <a
+                  href={COMPANY_LINKEDIN}
+                  target="_blank"
+                  rel={EXTERNAL_REL}
+                  className="group inline-flex items-center gap-1.5 text-accent hover:text-accent-hi"
+                >
+                  LinkedIn
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-400 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  >
+                    ↗
+                  </span>
+                </a>
+                <Link
+                  href="/blog"
+                  className="group inline-flex items-center gap-1.5 text-accent hover:text-accent-hi"
+                >
+                  More from our engineers
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-400 group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </section>
         </div>
 
         {/* ---------------------------------------- closing CTA */}
