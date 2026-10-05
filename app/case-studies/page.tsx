@@ -13,9 +13,9 @@ import { breadcrumbLd } from "@/lib/jsonld";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
-const TITLE = "Case Studies — MSSP & SOC Platform Builds | WhyCrew";
+const TITLE = "MSSP & SOC Platform Case Studies | WhyCrew";
 const DESCRIPTION =
-  "Measured outcomes from completed WhyCrew engagements: what the platform cost before, what changed, and what it saved.";
+  "Real client engagements with measured results across SIEM migrations, AI SOC automation, and compliance builds, the numbers clients saw after go-live.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template — the brand
@@ -89,15 +89,22 @@ export default function CaseStudiesIndexPage() {
             ]}
           />
           <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
-            <WordsUp text="What the work" delay={0.12} />{" "}
-            <WordsUp text="actually returned." delay={0.34} gradient />
+            <WordsUp text="Case Studies:" delay={0.12} />{" "}
+            <WordsUp
+              text="Measured Results From Real MSSP and SOC Platform Builds"
+              delay={0.34}
+              gradient
+            />
           </h1>
 
           <Reveal delay={0.55} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              Completed engagements, with the numbers the client measured
-              afterwards &mdash; not projections, and not a vendor&apos;s own
-              benchmark.
+              Four completed engagements, each with the numbers the client
+              measured after go-live, not a projection or a vendor&apos;s
+              own benchmark. Covers MSSP engineering consolidation, an owned
+              threat-intelligence pipeline, in-house dark-web monitoring,
+              and a move off per-gigabyte SIEM licensing. Each case study
+              links to the full cost, timeline, and outcome breakdown.
             </p>
           </Reveal>
 
@@ -115,10 +122,7 @@ export default function CaseStudiesIndexPage() {
         <Stagger className="grid gap-5 sm:grid-cols-2">
           {ORDERED.map((c) => (
             <StaggerItem key={c.slug}>
-              <Link
-                href={`/case-studies/${c.slug}`}
-                className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40"
-              >
+              <div className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40">
                 <p className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">
                   <time dateTime={c.datePublished} className="text-accent">
                     {formatDate(c.datePublished)}
@@ -159,7 +163,10 @@ export default function CaseStudiesIndexPage() {
                 </dl>
 
                 <div className="mt-6 border-t border-line-soft pt-4">
-                  <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent">
+                  <Link
+                    href={`/case-studies/${c.slug}`}
+                    className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-accent-hi"
+                  >
                     Read the case study
                     <span
                       aria-hidden
@@ -167,9 +174,9 @@ export default function CaseStudiesIndexPage() {
                     >
                       →
                     </span>
-                  </span>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </StaggerItem>
           ))}
         </Stagger>

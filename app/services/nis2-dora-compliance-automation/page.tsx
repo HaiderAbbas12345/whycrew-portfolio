@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
 import { FaqAccordion } from "@/components/ui/faq";
 import {
@@ -388,6 +389,20 @@ export default function Page() {
             </StaggerItem>
           ))}
         </Stagger>
+
+        <Reveal className="mt-8 max-w-3xl text-[14px] leading-relaxed text-body">
+          <p>
+            Wondering what a SIEM actually needs to deliver to support all
+            eight of these, mechanically?{" "}
+            <Link
+              href="/blog/siem-nis2-dora-compliance"
+              className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              See the full breakdown
+            </Link>
+            .
+          </p>
+        </Reveal>
       </Section>
 
       {/* ------------------------------------------------ frameworks */}

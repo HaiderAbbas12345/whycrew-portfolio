@@ -99,8 +99,16 @@ const nextConfig: NextConfig = {
         destination: "/services/mssp-engineering-partner",
         permanent: true,
       },
-      { source: "/security-products", destination: "/services/custom-siem-soar-development", permanent: true },
-      { source: "/integrations", destination: "/services/custom-siem-soar-development", permanent: true },
+      {
+        source: "/security-products",
+        destination: "/services/custom-siem-development",
+        permanent: true,
+      },
+      {
+        source: "/integrations",
+        destination: "/services/custom-siem-development",
+        permanent: true,
+      },
       { source: "/ai-workflows", destination: "/services/ai-powered-soc-automation", permanent: true },
       { source: "/workflow-automation", destination: "/services/ai-powered-soc-automation", permanent: true },
       /**
@@ -125,6 +133,18 @@ const nextConfig: NextConfig = {
         source: "/contact",
         has: [{ type: "query", key: "topic", value: "support" }],
         destination: "/support",
+        permanent: true,
+      },
+      /**
+       * The combined SIEM & SOAR service page was split into two dedicated
+       * ones (custom-siem-development, custom-soar-development) and its own
+       * page.tsx deleted. This old URL would otherwise 404 rather than
+       * carry over whatever ranking/backlinks it had, so it points at the
+       * closer of the two successors.
+       */
+      {
+        source: "/services/custom-siem-soar-development",
+        destination: "/services/custom-siem-development",
         permanent: true,
       },
     ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
-import { FaqAccordion } from "@/components/ui/faq";
+import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
 import {
   Card,
   CheckList,
@@ -196,14 +197,28 @@ const AUDIENCES = [
   },
 ];
 
-const FAQS: Faq[] = [
+const FAQS: FaqItem[] = [
   {
     q: "Does any data leave our environment?",
     a: "No. Every component runs inside your perimeter, from model inference and alert processing to investigation data and audit logs. Nothing ever reaches an external endpoint.",
   },
   {
     q: "How is this different from Microsoft Security Copilot or other cloud AI SOC tools?",
-    a: "Cloud copilots route your alert data through external APIs and shared inference layers. WhyCrew makes zero external API calls. You own the platform, including the model, the source code, and the audit trail. A cloud copilot is a subscription you rent. WhyCrew is a platform you keep.",
+    a: "Cloud copilots route your alert data through external APIs and shared inference layers. WhyCrew runs entirely inside your own environment, zero outbound API calls. See the full comparison for the complete technical breakdown.",
+    aNode: (
+      <>
+        Cloud copilots route your alert data through external APIs and
+        shared inference layers. WhyCrew runs entirely inside your own
+        environment, zero outbound API calls. See{" "}
+        <Link
+          href="/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot"
+          className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+        >
+          the full comparison
+        </Link>{" "}
+        for the complete technical breakdown.
+      </>
+    ),
   },
   {
     q: "Do we own the platform after handover?",
@@ -358,7 +373,23 @@ export default function Page() {
       {/* ------------------------------------------------ vs copilot */}
       <Section>
         <Eyebrow>On-premise vs. cloud copilot</Eyebrow>
-        <Heading sub="Cloud copilots promise AI-assisted SOC operations. But for MSSPs, regulated operators, and organizations under NIS2, DORA, or GDPR, that same architecture creates the very risks you set out to eliminate.">
+        <Heading
+          sub={
+            <>
+              Cloud copilots promise AI-assisted SOC operations, but for
+              MSSPs and regulated operators, that architecture creates the
+              very risks you&apos;re trying to eliminate. Here&apos;s the
+              difference at a glance — for the full breakdown, see{" "}
+              <Link
+                href="/blog/on-premise-ai-soc-automation-vs-cloud-security-copilot"
+                className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+              >
+                the complete comparison
+              </Link>
+              .
+            </>
+          }
+        >
           Why On-Premise Beats a Security Copilot
         </Heading>
         <Reveal className="mt-10">

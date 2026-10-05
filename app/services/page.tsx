@@ -12,9 +12,9 @@ import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, serviceListLd } from "@/lib/jsonld";
 import { CTA_HREF, OG_IMAGE, SERVICES, SITE } from "@/lib/site";
 
-const TITLE = "Security Engineering Services for MSSPs & Regulated Operators";
+const TITLE = "Security Engineering Services for MSSPs";
 const DESCRIPTION =
-  "Custom SIEM & SOAR development, AI SOC automation, white-label MSSP platforms, and NIS2 & DORA compliance automation — built once, handed over fully owned.";
+  "Custom SIEM, SOAR, AI-powered SOC automation, and NIS2/DORA/NCA ECC compliance platforms, built once and fully owned, with no vendor lock-in.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -67,16 +67,22 @@ export default function ServicesPage() {
           />
           <h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-5xl">
             <WordsUp
-              text="We build it. You own it."
+              text="Security Engineering Services: Custom SIEM, SOC & Compliance Platforms You Own"
               delay={0.1}
-              highlight={["own"]}
+              highlight={["Own"]}
             />
           </h1>
           <Reveal delay={0.5} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              Every engagement ends the same way: source code, infrastructure,
-              documentation, and roadmap transfer to your team. No per-GB
-              licensing, no per-tenant fees, no dependency on us after handover.
+              WhyCrew designs and builds the security platform, you end up
+              owning, not renting. That covers custom SIEM and SOAR
+              development, AI-powered SOC automation running entirely
+              inside your own environment, white-label platforms for
+              MSSPs, and compliance automation for NIS2, DORA, NCA ECC,
+              and SAMA CSF. Every engagement ends the same way: full
+              source code, full documentation, and no recurring license
+              tied to us. You talk to the engineers building it, not a
+              sales team.
             </p>
           </Reveal>
         </div>

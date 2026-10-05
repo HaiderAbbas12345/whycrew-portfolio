@@ -165,8 +165,25 @@ export function ArticleShell({
           </aside>
         </div>
 
+        {/* ---------------------------------------- about / byline */}
+        <div className="mt-16 max-w-3xl border-t border-line-soft pt-8">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
+            Authored by
+          </p>
+          <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
+            WhyCrew is an engineering firm that builds custom SIEM, SOAR, and
+            AI-powered SOC platforms, then hands full ownership over to the
+            client instead of renting it back as a subscription. The team
+            works with MSSPs and regulated operators across Europe, Saudi
+            Arabia, and North America, building in compliance for NIS2, DORA,
+            and NCA ECC/SAMA CSF from day one, with deployments typically
+            live in 12 weeks. This article was researched and written by the
+            WhyCrew engineering team.
+          </p>
+        </div>
+
         {/* ---------------------------------------- closing CTA */}
-        <div className="mt-16 max-w-3xl">
+        <div className="mt-10 max-w-3xl">
           <div className="relative overflow-hidden rounded-lg border border-line/70 bg-gradient-to-br from-surface/85 via-surface/45 to-brand/10 p-8 sm:p-10">
             <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
               {cta.heading}
@@ -184,7 +201,7 @@ export function ArticleShell({
             </div>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/resources"
               className="group inline-flex items-center gap-2 text-[13px] font-semibold text-muted transition-colors hover:text-accent"

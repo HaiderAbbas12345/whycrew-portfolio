@@ -95,17 +95,28 @@ const SERVICE_DETAIL: Record<
   string,
   { intro: string; bullets: string[]; cta: string }
 > = {
-  "custom-siem-soar-development": {
+  "custom-siem-development": {
     intro:
-      "We build custom SIEM platforms to fit your exact operations: multi-tenant data lake architecture, custom detection engines, SOAR playbook development, and zero-downtime migration from any legacy or vendor-locked platform. Every component is engineered to your spec and delivered as a fully owned, production-ready platform.",
+      "WhyCrew's SIEM engineering team builds a security data platform around your actual log volume, detection needs, and compliance scope: an open-format security data lake, custom detection logic, and zero-downtime migration off any legacy or vendor-locked platform. Every component is engineered to your spec and delivered as a fully owned, production-ready platform.",
     bullets: [
-      "Zero-downtime migration from legacy and vendor-locked SIEM platforms",
-      "Multi-tenant data lake architecture",
-      "Custom detection logic and correlation rules",
-      "SOAR playbook engineering",
+      "Zero-downtime migration from Splunk, Sentinel, QRadar, or any legacy platform",
+      "Open-format security data lake architecture",
+      "SIEM ingestion pipeline tuning and optimization",
+      "Custom detection logic built against your real environment",
       "A fully deployed platform delivered as a permanent, owned asset, with no ongoing licensing required",
     ],
     cta: "Explore SIEM Engineering",
+  },
+  "custom-soar-development": {
+    intro:
+      "We build custom SOAR playbooks around your actual escalation paths, ticketing system, chat tools, and enrichment sources, then hand you the full automation library to own and extend, instead of locking it inside a licensed SOAR platform's proprietary logic. Most teams see Tier-1 handling time drop by 70–80% once the first playbooks go live.",
+    bullets: [
+      "Playbooks built around your actual escalation paths and tools",
+      "Automated enrichment, triage, and containment workflows",
+      "Full playbook ownership, no per-automation licensing",
+      "Integrates with your existing SIEM, ticketing, and chat tools",
+    ],
+    cta: "Explore SOAR Engineering",
   },
   "ai-powered-soc-automation": {
     intro:

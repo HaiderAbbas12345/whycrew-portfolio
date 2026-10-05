@@ -1,19 +1,28 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import type { Faq } from "@/lib/jsonld";
+
+/**
+ * `a` stays the plain-text answer — it's what feeds the FAQPage JSON-LD and
+ * is the accessible fallback. `aNode`, when present, is what actually
+ * renders, for the rare answer that needs an inline link `a` can't carry.
+ */
+export interface FaqItem extends Faq {
+  aNode?: ReactNode;
+}
 
 export function FaqAccordion({
   faqs,
   columns = 2,
 }: {
-  faqs: Faq[];
+  faqs: FaqItem[];
   columns?: 1 | 2;
 }) {
   const [open, setOpen] = useState<number | null>(0);
   const uid = useId();
 
-  const item = (f: Faq, i: number) => {
+  const item = (f: FaqItem, i: number) => {
     const isOpen = open === i;
     const panelId = `${uid}-panel-${i}`;
 
@@ -79,7 +88,7 @@ export function FaqAccordion({
         >
           <div className="overflow-hidden">
             <p className="pb-6 pr-10 text-[13.5px] leading-relaxed text-muted">
-              {f.a}
+              {f.aNode ?? f.a}
             </p>
           </div>
         </div>

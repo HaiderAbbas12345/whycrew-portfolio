@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
 import { FaqAccordion } from "@/components/ui/faq";
 import {
@@ -304,7 +305,23 @@ export default function Page() {
       {/* ------------------------------------------------ framework tabs */}
       <Section>
         <Eyebrow>Built for the rule that applies to you</Eyebrow>
-        <Heading sub="Same owned-platform approach, engineered around whichever framework governs your organization.">
+        <Heading
+          sub={
+            <>
+              Same owned-platform approach, engineered around whichever
+              framework governs your organization — NCA ECC for critical
+              infrastructure and government-adjacent entities, SAMA CSF for
+              financial institutions. Not sure which one applies to you?{" "}
+              <Link
+                href="/blog/nca-ecc-vs-sama-csf"
+                className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+              >
+                Read the full comparison
+              </Link>
+              .
+            </>
+          }
+        >
           Built for the Rule That Applies to You
         </Heading>
         <div className="mt-10">
@@ -346,6 +363,27 @@ export default function Page() {
             rows={COST_TABLE.rows}
             highlightCol={3}
           />
+        </Reveal>
+        <Reveal className="mt-6 max-w-3xl text-[14px] leading-relaxed text-body">
+          <p>
+            For the general cost math behind licensed vs. open-source vs.
+            custom-built SIEM, independent of any specific compliance
+            framework, see{" "}
+            <Link
+              href="/blog/siem-cost-licensing-vs-custom-built"
+              className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              the full cost comparison
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/blog/open-source-vs-custom-built-siem"
+              className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              the open-source vs. custom-built breakdown
+            </Link>
+            .
+          </p>
         </Reveal>
       </Section>
 

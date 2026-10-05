@@ -104,6 +104,12 @@ export interface Resource {
   status: "live" | "planned";
   /** Required once status is "live". */
   href?: string;
+  /**
+   * Overrides the type label shown on the card (e.g. an entry living at
+   * /resources/... rather than /blog/...). Doesn't affect the tab it's
+   * grouped under, filtering, or counts — those still key off `type`.
+   */
+  badgeLabel?: string;
   /** ISO date, shown on live items. */
   date?: string;
   /**
@@ -280,6 +286,7 @@ export const RESOURCES: Resource[] = [
     status: "live",
     href: "/resources/ai-soc-automation-guide",
     date: "2026-09-23",
+    badgeLabel: "Resources",
   },
   {
     id: "blog-soc-analyst-burnout",

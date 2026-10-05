@@ -14,9 +14,9 @@ import { breadcrumbLd } from "@/lib/jsonld";
 import { RESOURCES, liveResources } from "@/lib/resources";
 import { OG_IMAGE, SITE } from "@/lib/site";
 
-const TITLE = "Resources — SIEM, SOC & Compliance Guides | WhyCrew";
+const TITLE = "SIEM, SOC & Compliance Resources | WhyCrew";
 const DESCRIPTION =
-  "Engineering write-ups on SIEM & SOAR, AI SOC automation, and NIS2/DORA compliance for MSSPs and regulated operators.";
+  "Practical SIEM, SOC, and NIS2/DORA/NCA ECC compliance guides for MSSPs and regulated operators, written by the engineers who built them.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
@@ -118,15 +118,19 @@ export default function ResourcesPage() {
             ]}
           />
           <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
-            <WordsUp text="Everything we know," delay={0.12} />{" "}
-            <WordsUp text="in one place." delay={0.34} gradient />
+            <WordsUp text="SIEM, SOC & Compliance Resources" delay={0.12} />{" "}
+            <WordsUp text="for MSSPs and Regulated Teams" delay={0.34} gradient />
           </h1>
 
           <Reveal delay={0.55} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              In-depth engineering write-ups for MSSPs and regulated
-              operators — organised by what you&apos;re trying to do, not by
-              what department wrote it.
+              A working library of SIEM, SOC, and compliance resources for
+              MSSPs and regulated operators. Includes both blog write-ups
+              and in-depth case studies covering platform migrations, AI
+              SOC automation, multi-tenancy, and frameworks like NIS2,
+              DORA, NCA ECC, and SAMA CSF. Everything here comes from real
+              client builds, not generic templates, and nothing requires an
+              email to access.
             </p>
           </Reveal>
 

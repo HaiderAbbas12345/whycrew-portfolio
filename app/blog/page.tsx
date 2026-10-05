@@ -13,9 +13,9 @@ import { breadcrumbLd } from "@/lib/jsonld";
 import { POSTS, postPath } from "@/lib/blog";
 import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
-const TITLE = "Blog — SIEM, SOAR & SOC Engineering | WhyCrew";
+const TITLE = "SIEM, SOAR & AI SOC Engineering Blog | WhyCrew";
 const DESCRIPTION =
-  "Engineering write-ups on SIEM and SOAR development, AI SOC automation, multi-tenant architecture, and NIS2/DORA compliance for MSSPs.";
+  "Engineering write-ups on SIEM, SOAR, and AI SOC automation, written by the engineers who build these platforms, not a content team.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template — the brand
@@ -117,15 +117,19 @@ export default function BlogIndexPage() {
             ]}
           />
           <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
-            <WordsUp text="Engineering notes" delay={0.12} />{" "}
-            <WordsUp text="from the build." delay={0.34} gradient />
+            <WordsUp text="Engineering Notes on SIEM, SOAR," delay={0.12} />{" "}
+            <WordsUp text="and AI SOC Automation" delay={0.34} gradient />
           </h1>
 
           <Reveal delay={0.55} mount>
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              Long-form write-ups on SIEM and SOAR development, SOC automation,
-              multi-tenant architecture, and EU compliance &mdash; written by
-              the engineers who ship the platforms, not a content team.
+              Long-form engineering write-ups on building and running SIEM,
+              SOAR, and AI SOC platforms. Topics span AI-powered SOC
+              automation, multi-tenant MSSP architecture, and compliance
+              engineering for NIS2, DORA, and similar frameworks. Every post
+              comes from the engineers who actually build these systems, not
+              a content team repackaging documentation. Nothing here is
+              gated behind an email form.
             </p>
           </Reveal>
 
@@ -142,10 +146,7 @@ export default function BlogIndexPage() {
         <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {ORDERED.map((p) => (
             <StaggerItem key={p.slug}>
-              <Link
-                href={postPath(p)}
-                className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40"
-              >
+              <div className="group flex h-full flex-col rounded-lg border border-line/70 bg-surface/75 p-6 transition-colors duration-500 hover:border-accent/40">
                 <p className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">
                   <time dateTime={p.datePublished} className="text-accent">
                     {formatDate(p.datePublished)}
@@ -181,7 +182,10 @@ export default function BlogIndexPage() {
                 </div>
 
                 <div className="mt-6 border-t border-line-soft pt-4">
-                  <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent">
+                  <Link
+                    href={postPath(p)}
+                    className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-accent-hi"
+                  >
                     Read more
                     <span
                       aria-hidden
@@ -189,9 +193,9 @@ export default function BlogIndexPage() {
                     >
                       →
                     </span>
-                  </span>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </StaggerItem>
           ))}
         </Stagger>

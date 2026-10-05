@@ -18,10 +18,18 @@ const PAGE_SIZE = 9;
 
 /* ------------------------------------------------------------------ card */
 
-function TypeBadge({ type, format }: { type: ResourceType; format: string }) {
+function TypeBadge({
+  type,
+  format,
+  label,
+}: {
+  type: ResourceType;
+  format: string;
+  label?: string;
+}) {
   return (
     <p className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">
-      <span className="text-accent">{type}</span>
+      <span className="text-accent">{label ?? type}</span>
       <span className="text-line" aria-hidden>
         /
       </span>
@@ -36,7 +44,7 @@ function ResourceCard({ r }: { r: Resource }) {
   const inner = (
     <>
       <div className="flex items-start justify-between gap-4">
-        <TypeBadge type={r.type} format={r.format} />
+        <TypeBadge type={r.type} format={r.format} label={r.badgeLabel} />
         {r.gated && (
           <span
             title="Requires an email to download"
@@ -65,7 +73,7 @@ function ResourceCard({ r }: { r: Resource }) {
         {r.summary}
       </p>
 
-      <div className="mt-5 flex flex-wrap items-center gap-1.5">
+      {/* <div className="mt-5 flex flex-wrap items-center gap-1.5">
         {r.topics.map((t) => (
           <span
             key={t}
@@ -74,7 +82,7 @@ function ResourceCard({ r }: { r: Resource }) {
             {t}
           </span>
         ))}
-      </div>
+      </div> */}
 
       <div className="mt-6 border-t border-line-soft pt-4">
         {planned ? (
@@ -83,7 +91,10 @@ function ResourceCard({ r }: { r: Resource }) {
             Coming soon
           </span>
         ) : (
-          <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent">
+          <Link
+            href={r.href ?? "#"}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-accent-hi"
+          >
             {r.gated ? "Download" : "Read more"}
             <span
               aria-hidden
@@ -91,7 +102,7 @@ function ResourceCard({ r }: { r: Resource }) {
             >
               →
             </span>
-          </span>
+          </Link>
         )}
       </div>
     </>
@@ -112,12 +123,11 @@ function ResourceCard({ r }: { r: Resource }) {
   }
 
   return (
-    <Link
-      href={r.href ?? "#"}
+    <div
       className={`group ${base} border-line/70 bg-surface/75 hover:border-accent/40`}
     >
       {inner}
-    </Link>
+    </div>
   );
 }
 
@@ -173,17 +183,25 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return resources.filter((r) => {
-      if (type !== "All" && r.type !== type) return false;
-      if (topic && !r.topics.includes(topic)) return false;
-      if (!q) return true;
-      return (
-        r.title.toLowerCase().includes(q) ||
-        r.summary.toLowerCase().includes(q) ||
-        r.type.toLowerCase().includes(q) ||
-        r.topics.some((t) => t.toLowerCase().includes(q))
-      );
-    });
+    return resources
+      .filter((r) => {
+        if (type !== "All" && r.type !== type) return false;
+        if (topic && !r.topics.includes(topic)) return false;
+        if (!q) return true;
+        return (
+          r.title.toLowerCase().includes(q) ||
+          r.summary.toLowerCase().includes(q) ||
+          r.type.toLowerCase().includes(q) ||
+          r.topics.some((t) => t.toLowerCase().includes(q))
+        );
+      })
+      // Newest first. Undated items (shouldn't happen for live resources)
+      // sink to the bottom instead of jumbling the order.
+      .sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return b.date.localeCompare(a.date);
+      });
   }, [resources, type, topic, query]);
 
   const visible = filtered.slice(0, shown);
@@ -229,7 +247,7 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
 
       {/* ---------------------------------------------- topic + search */}
       <div className="mt-6 flex flex-col gap-5 border-t border-line-soft pt-6 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex flex-wrap items-center gap-1.5">
+        {/* <div className="flex flex-wrap items-center gap-1.5">
           <span className="mr-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
             Topic
           </span>
@@ -253,7 +271,7 @@ export function ResourceExplorer({ resources }: { resources: Resource[] }) {
               </button>
             );
           })}
-        </div>
+        </div> */}
 
         <div className="relative shrink-0 lg:w-72">
           <label htmlFor="resource-search" className="sr-only">

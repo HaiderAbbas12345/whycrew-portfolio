@@ -151,7 +151,8 @@ export const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "";
 export const FOUNDER_LINKEDIN = process.env.NEXT_PUBLIC_FOUNDER_LINKEDIN || "";
 
 export type ServiceKey =
-  | "custom-siem-soar-development"
+  | "custom-siem-development"
+  | "custom-soar-development"
   | "ai-powered-soc-automation"
   | "mssp-engineering-partner"
   | "nis2-dora-compliance-automation"
@@ -175,16 +176,28 @@ export interface ServiceSummary {
  */
 export const SERVICES: ServiceSummary[] = [
   {
-    slug: "custom-siem-soar-development",
-    href: "/services/custom-siem-soar-development",
-    name: "Custom SIEM & SOAR Development",
-    navLabel: "Custom SIEM & SOAR",
-    short: "Own the platform your SOC runs on",
+    slug: "custom-siem-development",
+    href: "/services/custom-siem-development",
+    name: "Custom SIEM Development",
+    navLabel: "Custom SIEM Development",
+    short: "Stop renting your SIEM capability",
     blurb:
-      "Multi-tenant data lake architecture, custom detection engines, SOAR playbook development, and zero-downtime migration off any legacy or vendor-locked platform.",
-    metaTitle: "Custom SIEM & SOAR Development | Cut Costs 40-70%",
+      "A security data lake, custom detection logic tuned to your environment, and zero-downtime migration off Splunk, Sentinel, or QRadar — delivered as a platform you own outright, typically live in 12 weeks.",
+    metaTitle: "Custom SIEM Development & Migration | WhyCrew",
     metaDescription:
-      "Stop renting your SIEM. WhyCrew builds custom SIEM & SOAR platforms you own outright — zero-downtime migration, 40-70% cost cut. Book a free audit.",
+      "Custom SIEM development around your log sources, retention, and compliance needs, with zero-downtime migration off Splunk, Sentinel, or QRadar.",
+  },
+  {
+    slug: "custom-soar-development",
+    href: "/services/custom-soar-development",
+    name: "Custom SOAR Development",
+    navLabel: "Custom SOAR Development",
+    short: "Turn manual triage into automated playbooks",
+    blurb:
+      "SOAR playbooks built around your actual escalation paths, ticketing system, and chat tools — handed over as an automation library you own and extend, not a licensed platform.",
+    metaTitle: "Custom SOAR Development & Integration | WhyCrew",
+    metaDescription:
+      "Custom SOAR development with playbooks and connectors built for your SIEM, EDR, and ticketing tools, plus audit trails ready for NIS2 and DORA.",
   },
   {
     slug: "ai-powered-soc-automation",
