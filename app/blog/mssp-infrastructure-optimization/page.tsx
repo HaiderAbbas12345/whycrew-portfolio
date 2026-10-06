@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("mssp-infrastructure-optimization")!;
 const PATH = postPath(post);
@@ -654,7 +654,7 @@ export default function Page() {
             </p>
           </div>
           <div className="shrink-0">
-            <Button href={CTA_HREF}>Book a free review</Button>
+            <Button href="/contact">Book a free review</Button>
             <p className="mt-2 text-[12px] text-faint">
               30 minutes · engineer, not sales
             </p>
@@ -946,7 +946,7 @@ export default function Page() {
             across with zero downtime, and hand you the code.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Button href={CTA_HREF}>Talk to an engineer</Button>
+            <Button href="/contact">Talk to an engineer</Button>
             <Button href="/case-studies" variant="ghost">
               See case studies
             </Button>
