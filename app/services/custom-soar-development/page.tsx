@@ -164,17 +164,6 @@ const FAQS: Faq[] = [
   },
 ];
 
-const RELATED_RESOURCES = [
-  { label: "What Is SOAR?", href: "/blog/what-is-soar" },
-  { label: "SOAR Playbooks Explained", href: "/blog/soar-playbooks-explained" },
-  { label: "What Is an AI SOC?", href: "/blog/what-is-ai-soc" },
-];
-
-const MORE_READING = [
-  { label: "SOC Analyst Burnout", href: "/blog/soc-analyst-burnout" },
-  { label: "SOC Analyst Tiers: Tier 1, 2, 3", href: "/blog/soc-analyst-tiers-tier-1-2-3" },
-];
-
 const LINK =
   "text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent";
 
@@ -192,42 +181,6 @@ function ChipGrid({ items }: { items: string[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-function LinkCard({
-  title,
-  links,
-}: {
-  title: string;
-  links: { label: string; href: string }[];
-}) {
-  return (
-    <Card className="h-full p-7" interactive={false}>
-      <nav aria-label={title}>
-        <p className="mb-5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
-          {title}
-        </p>
-        <ul className="space-y-3">
-          {links.map((l) => (
-            <li key={l.label}>
-              <Link
-                href={l.href}
-                className="group inline-flex items-center gap-2 text-[14px] text-body transition-colors duration-300 hover:text-accent"
-              >
-                {l.label}
-                <span
-                  aria-hidden
-                  className="text-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent"
-                >
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </Card>
   );
 }
 
@@ -515,32 +468,6 @@ export default function Page() {
         <Heading>Frequently Asked Questions</Heading>
         <div className="mt-10">
           <FaqAccordion faqs={FAQS} />
-        </div>
-      </Section>
-
-      {/* ============================================ RELATED LINKS */}
-      <Section className="border-y border-line/40 bg-ink/40">
-        <div className="grid gap-5 md:grid-cols-3">
-          <Reveal>
-            <Card className="h-full p-7" interactive={false}>
-              <span className="text-base font-semibold tracking-tight text-bright">
-                Why<span className="text-brand-hi">Crew</span>
-              </span>
-              <p className="mt-4 text-[13.5px] leading-relaxed text-muted">
-                Engineering-led SIEM, SOAR, and AI SOC platforms, built once
-                and fully owned.
-              </p>
-              <p className="mt-6 border-t border-line-soft pt-4 text-[12px] text-faint">
-                WhyCrew · whycrew.com
-              </p>
-            </Card>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <LinkCard title="Related Resources" links={RELATED_RESOURCES} />
-          </Reveal>
-          <Reveal delay={0.16}>
-            <LinkCard title="More Reading" links={MORE_READING} />
-          </Reveal>
         </div>
       </Section>
 
