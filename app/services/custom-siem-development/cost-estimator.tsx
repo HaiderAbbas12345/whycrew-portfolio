@@ -16,8 +16,8 @@ export function CostEstimator({ tiers }: { tiers: CostTier[] }) {
   const tier = tiers.find((t) => t.key === active) ?? tiers[0];
 
   return (
-    <div className="rounded-lg border border-line/40 bg-surface/15 p-6 sm:p-8">
-      <div className="flex flex-wrap gap-3 border-b border-line/40 pb-6">
+    <div className="rounded-lg border border-line/70 bg-surface/75 p-6 sm:p-8">
+      <div className="flex flex-wrap gap-3 border-b border-line-soft pb-6">
         {tiers.map((t) => (
           <button
             key={t.key}
@@ -35,7 +35,7 @@ export function CostEstimator({ tiers }: { tiers: CostTier[] }) {
         ))}
       </div>
 
-      <div className="mt-6 grid gap-8 sm:grid-cols-2">
+      <div className="mt-8 grid gap-8 sm:grid-cols-2">
         <div>
           <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-faint">
             WhyCrew Build Cost · One-Time
@@ -56,7 +56,7 @@ export function CostEstimator({ tiers }: { tiers: CostTier[] }) {
         </div>
       </div>
 
-      <p className="mt-6 text-[12.5px] leading-relaxed text-faint">
+      <p className="mt-8 border-t border-line-soft pt-6 text-[12.5px] leading-relaxed text-faint">
         Derived from the 40–70% average savings WhyCrew clients report
         against licensed SIEM platforms. For an exact number scoped to your
         environment, book a free architecture audit.

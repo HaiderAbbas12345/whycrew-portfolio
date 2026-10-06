@@ -3,6 +3,7 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
+  Eyebrow,
   Section,
   StatBar,
   type Stat,
@@ -10,6 +11,7 @@ import {
 import { Parallax, Reveal, WordsUp } from "@/components/motion";
 
 export function ServiceHero({
+  eyebrow,
   title,
   highlight,
   lead,
@@ -20,9 +22,12 @@ export function ServiceHero({
   breadcrumbName,
   breadcrumbPath,
 }: {
+  /** Optional kicker above the h1. */
+  eyebrow?: string;
   title: string;
   highlight?: string[];
-  lead: string;
+  /** Optional accent line under the h1. */
+  lead?: string;
   intro: ReactNode;
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
@@ -42,15 +47,19 @@ export function ServiceHero({
           ]}
         />
 
+        {eyebrow && <Eyebrow tone="brand">{eyebrow}</Eyebrow>}
+
         <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
           <WordsUp text={title} delay={0.12} highlight={highlight} />
         </h1>
 
-        <Reveal delay={0.5} distance={16} mount>
-          <p className="mt-6 max-w-3xl text-lg font-medium leading-snug text-accent-hi sm:text-xl">
-            {lead}
-          </p>
-        </Reveal>
+        {lead && (
+          <Reveal delay={0.5} distance={16} mount>
+            <p className="mt-6 max-w-3xl text-lg font-medium leading-snug text-accent-hi sm:text-xl">
+              {lead}
+            </p>
+          </Reveal>
+        )}
 
         <Reveal delay={0.6} distance={14} mount>
           <div className="mt-6 max-w-3xl space-y-4 text-[15px] leading-relaxed text-body">

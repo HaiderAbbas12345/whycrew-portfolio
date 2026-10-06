@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Backdrop } from "@/components/ui/backdrop";
+import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
 import {
-  Breadcrumb,
   Card,
   CompareTable,
   Eyebrow,
   Heading,
   Section,
 } from "@/components/ui/primitives";
-import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
 
@@ -176,11 +175,59 @@ const MORE_READING = [
   { label: "SOC Analyst Tiers: Tier 1, 2, 3", href: "/blog/soc-analyst-tiers-tier-1-2-3" },
 ];
 
-function Tag({ children }: { children: string }) {
+const LINK =
+  "text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent";
+
+/** Even 2-up grid of bordered chips, so short and long labels line up. */
+function ChipGrid({ items }: { items: string[] }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-brand px-4 py-2 text-[13px] font-semibold text-white">
-      {children}
-    </span>
+    <ul className="grid gap-3 sm:grid-cols-2">
+      {items.map((t) => (
+        <li
+          key={t}
+          className="flex items-center gap-3 rounded-lg border border-line/70 bg-surface/75 px-5 py-4 text-[14px] font-medium text-bright"
+        >
+          <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LinkCard({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <Card className="h-full p-7" interactive={false}>
+      <nav aria-label={title}>
+        <p className="mb-5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
+          {title}
+        </p>
+        <ul className="space-y-3">
+          {links.map((l) => (
+            <li key={l.label}>
+              <Link
+                href={l.href}
+                className="group inline-flex items-center gap-2 text-[14px] text-body transition-colors duration-300 hover:text-accent"
+              >
+                {l.label}
+                <span
+                  aria-hidden
+                  className="text-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent"
+                >
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </Card>
   );
 }
 
@@ -217,158 +264,129 @@ export default function Page() {
         }}
       />
 
-      {/* ============================================ HERO */}
-      <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
-        <Backdrop />
-        <div className="container-page">
-          <Breadcrumb
-            trail={[
-              { name: "Home", path: "/" },
-              { name: "Services", path: "/services" },
-              { name: svc.navLabel, path: svc.href },
-            ]}
-          />
-
-          <Eyebrow tone="brand">SOAR Engineering Services</Eyebrow>
-
-          <h1 className="max-w-4xl text-4xl font-semibold leading-[1.07] sm:text-5xl lg:text-[3.4rem]">
-            <WordsUp
-              text="Custom SOAR Development: Turn Manual Triage Into Automated Playbooks"
-              delay={0.12}
-            />
-          </h1>
-
-          <Reveal delay={0.6} distance={14} mount>
-            <p className="mt-6 max-w-3xl text-[15px] leading-relaxed text-body">
-              WhyCrew builds custom SOAR playbooks around your actual
-              escalation paths, ticketing system, chat tools, and enrichment
-              sources, then hands you the full automation library to own and
-              extend, instead of locking it inside a licensed SOAR platform&apos;s
-              proprietary logic. Most teams see Tier-1 handling time drop by
-              70–80% once the first playbooks go live.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.72} distance={12} mount>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Button href={CTA_HREF}>Book a Free Automation Audit</Button>
-              <Button href="/contact" variant="ghost">
-                Talk to an Engineer
-              </Button>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.85} className="mt-10 border-t border-line/60 pt-8" mount>
-            <div className="flex flex-wrap gap-x-14 gap-y-6">
-              {HERO_STATS.map((s) => (
-                <div key={s.label}>
-                  <div className="text-2xl font-semibold text-bright sm:text-[1.65rem]">
-                    {s.value}
-                  </div>
-                  <p className="mt-1.5 text-[12.5px] text-faint">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <ServiceHero
+        eyebrow="SOAR Engineering Services"
+        title="Custom SOAR Development: Turn Manual Triage Into Automated Playbooks"
+        highlight={["Automated", "Playbooks"]}
+        intro={
+          <p>
+            WhyCrew builds custom SOAR playbooks around your actual
+            escalation paths, ticketing system, chat tools, and enrichment
+            sources, then hands you the full automation library to own and
+            extend, instead of locking it inside a licensed SOAR platform&apos;s
+            proprietary logic. Most teams see Tier-1 handling time drop by
+            70–80% once the first playbooks go live.
+          </p>
+        }
+        primaryCta={{ label: "Book a Free Automation Audit", href: CTA_HREF }}
+        secondaryCta={{ label: "Talk to an Engineer", href: "/contact" }}
+        stats={HERO_STATS}
+        breadcrumbName={svc.navLabel}
+        breadcrumbPath={svc.href}
+      />
 
       {/* ============================================ THE PROBLEM */}
       <Section>
-        <Eyebrow>The Alert Volume Problem</Eyebrow>
-        <Heading>The Same Decision, Made a Hundred Times a Shift</Heading>
-        <Reveal className="mt-6 max-w-3xl space-y-4 text-[15px] leading-relaxed text-body">
-          <p>
-            A Tier-1 analyst fielding thousands of alerts a day spends most
-            of a shift making the same handful of decisions over and over:
-            is this phishing, is this a false positive, does this need to go
-            to Tier 2. None of that requires judgment. It requires speed, and
-            speed is exactly what gets lost when every decision involves
-            opening four tools and copying context between them by hand.
-          </p>
-          <p>
-            That repetition is also what burns analysts out, and what a
-            generic, out-of-the-box SOAR platform doesn&apos;t actually fix,
-            since its default playbooks assume a generic environment that
-            isn&apos;t yours.{" "}
-            <Link
-              href="/blog/what-is-soar"
-              className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
-            >
-              What SOAR actually automates, and why most implementations
-              stall →
-            </Link>
-          </p>
-        </Reveal>
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Eyebrow>The Alert Volume Problem</Eyebrow>
+            <Heading>The Same Decision, Made a Hundred Times a Shift</Heading>
+          </div>
+          <Reveal className="space-y-4 text-[15px] leading-relaxed text-body">
+            <p>
+              A Tier-1 analyst fielding thousands of alerts a day spends most
+              of a shift making the same handful of decisions over and over:
+              is this phishing, is this a false positive, does this need to go
+              to Tier 2. None of that requires judgment. It requires speed, and
+              speed is exactly what gets lost when every decision involves
+              opening four tools and copying context between them by hand.
+            </p>
+            <p>
+              That repetition is also what burns analysts out, and what a
+              generic, out-of-the-box SOAR platform doesn&apos;t actually fix,
+              since its default playbooks assume a generic environment that
+              isn&apos;t yours.{" "}
+              <Link href="/blog/what-is-soar" className={LINK}>
+                What SOAR actually automates, and why most implementations
+                stall →
+              </Link>
+            </p>
+          </Reveal>
+        </div>
       </Section>
 
       {/* ============================================ ONE PLAYBOOK */}
       <Section className="border-y border-line/40 bg-ink/40">
-        <Eyebrow>One Playbook, Start to Finish</Eyebrow>
-        <Heading>From Alert to Resolution in Under Five Minutes</Heading>
-        <Reveal className="mt-6 max-w-3xl text-[15px] leading-relaxed text-body">
-          <p>
-            This is what&apos;s actually being delivered, not a feature on a
-            slide. Phishing response, start to finish:
-          </p>
-        </Reveal>
-
-        <div className="mt-10 max-w-2xl">
-          {PLAYBOOK_STEPS.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.08} className="relative">
-              <div className="relative flex gap-5 pb-9 last:pb-0">
-                {i < PLAYBOOK_STEPS.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="absolute left-[15px] top-9 bottom-0 w-px bg-line"
-                  />
-                )}
-                <span className="relative z-10 grid size-8 shrink-0 place-items-center rounded-full bg-brand font-mono text-[12.5px] font-bold text-white">
-                  {i + 1}
-                </span>
-                <div>
-                  <h3 className="text-[15px] font-semibold text-bright">
-                    {s.title}
-                  </h3>
-                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">
-                    {s.body}
-                  </p>
-                </div>
-              </div>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <Eyebrow tone="brand">One Playbook, Start to Finish</Eyebrow>
+            <Heading>From Alert to Resolution in Under Five Minutes</Heading>
+            <Reveal className="mt-6 space-y-4 text-[15px] leading-relaxed text-body">
+              <p>
+                This is what&apos;s actually being delivered, not a feature on
+                a slide. Phishing response, start to finish:
+              </p>
             </Reveal>
-          ))}
+            <Reveal className="mt-4 text-[15px] leading-relaxed text-body">
+              <p>
+                That&apos;s one playbook: what used to take 45–90 minutes end
+                to end now closes in under five. We build four other playbook
+                types the same way, each solving a different repetitive
+                task.{" "}
+                <Link href="/blog/soar-playbooks-explained" className={LINK}>
+                  See the other playbook types and how MSSPs run them across
+                  client environments →
+                </Link>
+              </p>
+            </Reveal>
+            <Reveal className="mt-8">
+              <Button href="/contact" variant="ghost">
+                Talk to an Engineer
+              </Button>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.1}>
+            <Card className="p-7 sm:p-9" interactive={false}>
+              <ol>
+                {PLAYBOOK_STEPS.map((s, i) => (
+                  <li key={s.title} className="relative flex gap-5 pb-8 last:pb-0">
+                    {i < PLAYBOOK_STEPS.length - 1 && (
+                      <span
+                        aria-hidden
+                        className="absolute left-[17px] top-10 bottom-1 w-px bg-line"
+                      />
+                    )}
+                    <span className="relative z-10 grid size-9 shrink-0 place-items-center rounded-md border border-brand/35 bg-brand/12 font-mono text-xs font-bold text-brand-hi">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="pt-1.5">
+                      <h3 className="text-[15px] font-semibold leading-snug text-bright">
+                        {s.title}
+                      </h3>
+                      <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+                        {s.body}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </Card>
+          </Reveal>
         </div>
-
-        <Reveal className="mt-4 max-w-3xl text-[15px] leading-relaxed text-body">
-          <p>
-            That&apos;s one playbook: what used to take 45–90 minutes end to
-            end now closes in under five. We build four other playbook types
-            the same way, each solving a different repetitive task.{" "}
-            <Link
-              href="/blog/soar-playbooks-explained"
-              className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
-            >
-              See the other playbook types and how MSSPs run them across
-              client environments →
-            </Link>
-          </p>
-        </Reveal>
-
-        <Reveal className="mt-8">
-          <Button href="/contact" variant="ghost">
-            Talk to an Engineer
-          </Button>
-        </Reveal>
       </Section>
 
       {/* ============================================ WHERE THIS PAYS OFF */}
       <Section>
         <Heading>Where This Pays Off</Heading>
-        <Stagger className="mt-12 grid gap-5 lg:grid-cols-3">
-          {PAYOFF_CARDS.map((c) => (
+        <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {PAYOFF_CARDS.map((c, i) => (
             <StaggerItem key={c.title}>
-              <Card className="h-full p-7">
-                <h3 className="text-[15px] font-semibold leading-snug">
+              <Card className="group h-full p-7">
+                <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-brand-hi transition-colors duration-400 group-hover:text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-[15px] font-semibold leading-snug">
                   {c.title}
                 </h3>
                 <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
@@ -382,27 +400,30 @@ export default function Page() {
 
       {/* ============================================ BUILT TO WORK WITH WHAT YOU RUN */}
       <Section className="border-y border-line/40 bg-ink/40">
-        <Heading>Built to Work With What You Already Run</Heading>
-        <Reveal className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-          <p>
-            A custom SOAR layer doesn&apos;t replace your SIEM, your
-            ticketing system, or your chat tool. It sits across them and
-            automates the handoffs between them. We integrate with
-            what&apos;s already in your stack rather than asking you to
-            replatform around one vendor&apos;s supported-integrations list.
-          </p>
-        </Reveal>
-        <Reveal className="mt-6 flex flex-wrap gap-2.5">
-          {STACK_TAGS.map((t) => (
-            <Tag key={t}>{t}</Tag>
-          ))}
-        </Reveal>
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div>
+            <Heading>Built to Work With What You Already Run</Heading>
+            <Reveal className="mt-6 text-[15px] leading-relaxed text-body">
+              <p>
+                A custom SOAR layer doesn&apos;t replace your SIEM, your
+                ticketing system, or your chat tool. It sits across them and
+                automates the handoffs between them. We integrate with
+                what&apos;s already in your stack rather than asking you to
+                replatform around one vendor&apos;s supported-integrations
+                list.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1}>
+            <ChipGrid items={STACK_TAGS} />
+          </Reveal>
+        </div>
       </Section>
 
       {/* ============================================ LICENSED VS CUSTOM-BUILT */}
       <Section>
         <Heading>Licensed SOAR Platforms vs. Custom-Built</Heading>
-        <Reveal className="mt-10">
+        <Reveal className="mt-12">
           <CompareTable
             head={COMPARE_TABLE.head}
             rows={COMPARE_TABLE.rows}
@@ -412,61 +433,68 @@ export default function Page() {
       </Section>
 
       {/* ============================================ SCOPED TO YOUR ENVIRONMENT */}
-      <section className="relative overflow-hidden py-24 sm:py-28">
-        <Backdrop />
-        <div className="container-page">
-          <Eyebrow tone="brand">What Determines Price</Eyebrow>
-          <Heading>Scoped to Your Environment, Not a Published Band</Heading>
-          <Reveal className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-            <p>
-              Playbook count and integration complexity vary far more between
-              organizations than log volume does, so every SOAR engagement
-              is scoped individually.
-            </p>
-          </Reveal>
-          <Reveal className="mt-6 flex flex-wrap gap-2.5">
-            {PRICE_TAGS.map((t) => (
-              <Tag key={t}>{t}</Tag>
-            ))}
-          </Reveal>
-          <Reveal className="mt-6 text-[14px] leading-relaxed text-body">
-            <p>
-              Most engagements scope and quote within a week of the
-              automation audit.
-            </p>
-          </Reveal>
-          <Reveal className="mt-8">
-            <Button href={CTA_HREF}>Get a Fixed-Price Quote</Button>
-          </Reveal>
+      <Section className="border-y border-line/40 bg-ink/40">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div>
+            <Eyebrow tone="brand">What Determines Price</Eyebrow>
+            <Heading>Scoped to Your Environment, Not a Published Band</Heading>
+            <Reveal className="mt-6 text-[15px] leading-relaxed text-body">
+              <p>
+                Playbook count and integration complexity vary far more
+                between organizations than log volume does, so every SOAR
+                engagement is scoped individually.
+              </p>
+            </Reveal>
+          </div>
+          <div>
+            <Reveal delay={0.1}>
+              <ChipGrid items={PRICE_TAGS} />
+            </Reveal>
+            <Reveal className="mt-6 text-[14px] leading-relaxed text-body">
+              <p>
+                Most engagements scope and quote within a week of the
+                automation audit.
+              </p>
+            </Reveal>
+            <Reveal className="mt-6">
+              <Button href={CTA_HREF}>Get a Fixed-Price Quote</Button>
+            </Reveal>
+          </div>
         </div>
-      </section>
+      </Section>
 
       {/* ============================================ WHAT CHANGES IN 90 DAYS */}
-      <Section>
-        <Eyebrow>What Changes in the First 90 Days</Eyebrow>
-        <Stagger className="mt-10 grid gap-8 sm:grid-cols-3">
+      <Section id="results">
+        <Heading>What Changes in the First 90 Days</Heading>
+        <Stagger className="mt-12 grid gap-5 sm:grid-cols-3">
           {DAYS_90_STATS.map((s) => (
             <StaggerItem key={s.label}>
-              <div className="border-l-2 border-accent pl-5">
-                <div className="text-2xl font-semibold text-bright sm:text-[1.6rem]">
+              <Card className="h-full p-7">
+                <div className="text-2xl font-semibold tracking-tight text-gradient sm:text-[1.75rem]">
                   {s.value}
                 </div>
-                <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
                   {s.label}
                 </p>
-              </div>
+              </Card>
             </StaggerItem>
           ))}
         </Stagger>
       </Section>
 
       {/* ============================================ HOW WE BUILD IT */}
-      <Section className="border-t border-line/40 bg-ink/40">
+      <Section id="process" className="border-y border-line/40 bg-ink/40">
         <Heading>How We Build It</Heading>
         <Stagger className="mt-12 grid gap-5 sm:grid-cols-3">
-          {BUILD_PHASES.map((p) => (
+          {BUILD_PHASES.map((p, i) => (
             <StaggerItem key={p.phase}>
-              <Card className="h-full p-7">
+              <Card className="group h-full p-7">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="grid size-9 place-items-center rounded-md border border-brand/35 bg-brand/12 font-mono text-xs font-bold text-brand-hi transition-all duration-500 group-hover:border-accent/50 group-hover:bg-accent/12 group-hover:text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="h-px flex-1 bg-gradient-to-r from-line to-transparent" />
+                </div>
                 <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-accent">
                   {p.phase}
                 </p>
@@ -482,43 +510,19 @@ export default function Page() {
         </Stagger>
       </Section>
 
-      {/* ============================================ READY TO AUTOMATE CTA */}
-      <section className="relative overflow-hidden py-24 sm:py-32">
-        <Backdrop />
-        <div className="container-page relative text-center">
-          <Reveal>
-            <h2 className="mx-auto max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl lg:text-[2.8rem]">
-              Ready to Automate the Repetitive 80%?
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
-              No cost, no obligation. Just an honest look at which of your
-              repetitive alerts are worth automating first, and what it
-              would take.
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <Button href={CTA_HREF}>Book a Free Automation Audit</Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ============================================ FAQ */}
       <Section id="faq">
         <Heading>Frequently Asked Questions</Heading>
         <div className="mt-10">
-          <FaqAccordion faqs={FAQS} columns={1} />
+          <FaqAccordion faqs={FAQS} />
         </div>
       </Section>
 
       {/* ============================================ RELATED LINKS */}
-      <section className="relative overflow-hidden border-t border-line/60 bg-ink">
-        <div className="container-page py-16">
-          <div className="grid gap-10 sm:grid-cols-[minmax(200px,280px)_1fr]">
-            <div>
+      <Section className="border-y border-line/40 bg-ink/40">
+        <div className="grid gap-5 md:grid-cols-3">
+          <Reveal>
+            <Card className="h-full p-7" interactive={false}>
               <span className="text-base font-semibold tracking-tight text-bright">
                 Why<span className="text-brand-hi">Crew</span>
               </span>
@@ -526,52 +530,27 @@ export default function Page() {
                 Engineering-led SIEM, SOAR, and AI SOC platforms, built once
                 and fully owned.
               </p>
-            </div>
-
-            <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-              <nav aria-label="Related Resources">
-                <p className="mb-4 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
-                  Related Resources
-                </p>
-                <ul className="space-y-2.5">
-                  {RELATED_RESOURCES.map((l) => (
-                    <li key={l.label}>
-                      <Link
-                        href={l.href}
-                        className="text-[13px] text-muted underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-bright"
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-
-              <nav aria-label="More Reading">
-                <p className="mb-4 font-mono text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
-                  More Reading
-                </p>
-                <ul className="space-y-2.5">
-                  {MORE_READING.map((l) => (
-                    <li key={l.label}>
-                      <Link
-                        href={l.href}
-                        className="text-[13px] text-muted underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-bright"
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <p className="mt-12 border-t border-line-soft pt-6 text-[12px] text-faint">
-            WhyCrew · whycrew.com
-          </p>
+              <p className="mt-6 border-t border-line-soft pt-4 text-[12px] text-faint">
+                WhyCrew · whycrew.com
+              </p>
+            </Card>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <LinkCard title="Related Resources" links={RELATED_RESOURCES} />
+          </Reveal>
+          <Reveal delay={0.16}>
+            <LinkCard title="More Reading" links={MORE_READING} />
+          </Reveal>
         </div>
-      </section>
+      </Section>
+
+      {/* ============================================ READY TO AUTOMATE CTA */}
+      <ServiceCta
+        title="Ready to Automate"
+        highlight="the Repetitive 80%?"
+        body="No cost, no obligation. Just an honest look at which of your repetitive alerts are worth automating first, and what it would take."
+        primary={{ label: "Book a Free Automation Audit", href: CTA_HREF }}
+      />
     </>
   );
 }
