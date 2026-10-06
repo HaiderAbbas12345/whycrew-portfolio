@@ -43,11 +43,18 @@ export function ArticleShell({
   toc,
   children,
   cta,
+  dek,
 }: {
   post: BlogPost;
   toc: TocEntry[];
   children: ReactNode;
-  cta: {
+  /** Standfirst under the <h1>, when the content doc has one. */
+  dek?: string;
+  /**
+   * Closing CTA card. Omitted when the content doc places its own CTA inside
+   * the article body, so the page doesn't end on a second, invented one.
+   */
+  cta?: {
     heading: string;
     body: string;
     label: string;
@@ -84,6 +91,14 @@ export function ArticleShell({
                 {post.title}
               </h1>
             </Reveal>
+
+            {dek && (
+              <Reveal delay={0.1} mount>
+                <p className="mt-5 max-w-2xl text-[16.5px] leading-[1.7] text-body sm:text-[17px]">
+                  {dek}
+                </p>
+              </Reveal>
+            )}
 
             <Reveal delay={0.18} mount>
               <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint">
@@ -228,6 +243,7 @@ export function ArticleShell({
 
         {/* ---------------------------------------- closing CTA */}
         <div className="mt-10 max-w-3xl">
+          {cta && (
           <div className="relative overflow-hidden rounded-lg border border-line/70 bg-gradient-to-br from-surface/85 via-surface/45 to-brand/10 p-8 sm:p-10">
             <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
               {cta.heading}
@@ -244,6 +260,7 @@ export function ArticleShell({
               )}
             </div>
           </div>
+          )}
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <Link

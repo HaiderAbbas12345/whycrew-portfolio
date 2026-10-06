@@ -241,6 +241,19 @@ export const POSTS: BlogPost[] = [
     topics: ["AI SOC Automation", "SIEM & SOAR", "NIS2", "DORA"],
     cluster: "AI-Powered SOC Automation",
   },
+  {
+    slug: "mssp-infrastructure-optimization",
+    title: "How MSSPs Cut Infrastructure Costs Without Losing Detection",
+    metaTitle: "MSSP Infrastructure Optimization: How to Cut Cost per Client",
+    metaDescription:
+      "MSSP infrastructure optimization lowers cost per client. Learn the 4 pillars, a 6-step playbook, and the metrics that protect margin as you grow.",
+    summary:
+      "How managed security providers cut SIEM costs, automate Tier 1 triage, and grow margin with every client they add.",
+    datePublished: "2026-10-06",
+    readTime: "11 min read",
+    topics: ["MSSP & White-Label", "SIEM & SOAR", "AI SOC Automation"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -301,6 +314,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "ai-soc-automation-guide": "/resources/ai-soc-automation-guide",
   "soc-analyst-burnout": "/blog/soc-analyst-burnout",
   "what-is-ai-soc": "/blog/what-is-ai-soc",
+  "mssp-infrastructure-optimization": "/blog/mssp-infrastructure-optimization",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
@@ -311,6 +325,10 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
 
   /** Published case studies. */
   "siem-rent-to-owned-case-study": "/case-studies/siem-rent-to-owned-platform",
+  "owned-threat-intel-case-study":
+    "/case-studies/owned-threat-intelligence-pipeline",
+  "mssp-engineering-pod-case-study": "/case-studies/mssp-engineering-capacity-pod",
+  "case-studies": "/case-studies",
 };
 
 export const resolveLink = (key: string): string | null =>

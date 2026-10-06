@@ -313,6 +313,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-09-30",
   },
   {
+    id: "blog-mssp-infrastructure-optimization",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR", "AI SOC Automation"],
+    title: "How MSSPs Cut Infrastructure Costs Without Losing Detection",
+    summary:
+      "How managed security providers cut SIEM costs, automate Tier 1 triage, and grow margin with every client they add.",
+    format: "11 min read",
+    status: "live",
+    href: "/blog/mssp-infrastructure-optimization",
+    date: "2026-10-06",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
