@@ -92,7 +92,7 @@ export const EXTERNAL_REL = "nofollow noopener noreferrer";
 
 /** WhyCrew's Microsoft Bookings page — the default CTA destination. */
 const OUTLOOK_BOOKING_URL =
-  "https://outlook.office.com/bookwithme/user/fc18944866164d86b10284f39503c65e@whycrew.com/meetingtype/9MYETObQEEGGKKO1yo4Bag2?bookingcode=c83e957f-ffc4-477b-adad-bd9a1fcea659&anonymous&ismsaljsauthenabled&ep=mlink";
+  "https://bookings.cloud.microsoft/bookwithme/user/fc18944866164d86b10284f39503c65e@whycrew.com/meetingtype/9MYETObQEEGGKKO1yo4Bag2?bookingcode=473be50e-ed05-4c93-8378-0175bed3d856&anonymous&ismsaljsauthenabled&ep=mlink";
 
 /**
  * Where every "Book a call" CTA points.
