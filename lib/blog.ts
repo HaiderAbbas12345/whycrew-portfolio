@@ -40,15 +40,15 @@ export interface BlogPost {
 export const POSTS: BlogPost[] = [
   {
     slug: "siem-cost-licensing-vs-custom-built",
-    title: "How Much Does a SIEM Cost? Licensing vs. Custom-Built",
-    metaTitle: "SIEM Cost: Licensed vs. Custom-Built Compared",
+    title: "SIEM Cost and Pricing in 2026: What You'll Actually Pay",
+    metaTitle: "SIEM Cost & Managed SIEM Pricing (2026 Guide)",
     metaDescription:
-      "Licensed SIEMs cost €50K–€500K+ per year. Custom-built SIEMs cut long-term spend but require upfront investment. Find out which model fits your environment.",
+      "See the real 2026 SIEM cost. Most quotes leave out storage and staff. Managed SIEM pricing starts at $3K/mo. Estimate yours with a free calculator.",
     summary:
-      "Licensed SIEMs charge on ingestion, retention, and feature tiers. Custom-built platforms trade that for upfront engineering. Where the break-even actually falls, and which model fits which environment.",
+      "SIEM quotes are hard to compare. Vendors bill on different meters, and most quotes leave out the two costs that grow fastest: storage and people. 2026 prices, managed SIEM rates and a free cost calculator.",
     datePublished: "2026-08-18",
-    dateModified: "2026-08-19",
-    readTime: "9 min read",
+    dateModified: "2026-10-07",
+    readTime: "20 min read",
     topics: ["SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },

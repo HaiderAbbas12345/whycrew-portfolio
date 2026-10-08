@@ -44,12 +44,21 @@ export function ArticleShell({
   children,
   cta,
   dek,
+  showUpdated = false,
+  notes = [],
 }: {
   post: BlogPost;
   toc: TocEntry[];
   children: ReactNode;
   /** Standfirst under the <h1>, when the content doc has one. */
   dek?: string;
+  /**
+   * Show "Updated <dateModified>" in place of the publish date, for a post
+   * whose content doc carries its revision date in the byline.
+   */
+  showUpdated?: boolean;
+  /** Extra byline items from the content doc, e.g. "Prices checked October 2026". */
+  notes?: string[];
   /**
    * Closing CTA card. Omitted when the content doc places its own CTA inside
    * the article body, so the page doesn't end on a second, invented one.
@@ -64,6 +73,8 @@ export function ArticleShell({
   };
 }) {
   const published = formatDate(post.datePublished);
+  const updated =
+    showUpdated && post.dateModified ? post.dateModified : null;
 
   return (
     <>
@@ -102,7 +113,19 @@ export function ArticleShell({
 
             <Reveal delay={0.18} mount>
               <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint">
-                <time dateTime={post.datePublished}>{published}</time>
+                {updated ? (
+                  <time dateTime={updated}>Updated {formatDate(updated)}</time>
+                ) : (
+                  <time dateTime={post.datePublished}>{published}</time>
+                )}
+                {notes.map((n) => (
+                  <span key={n} className="contents">
+                    <span aria-hidden className="text-line">
+                      /
+                    </span>
+                    <span>{n}</span>
+                  </span>
+                ))}
                 <span aria-hidden className="text-line">
                   /
                 </span>

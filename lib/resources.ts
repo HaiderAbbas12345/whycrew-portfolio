@@ -131,13 +131,13 @@ export const RESOURCES: Resource[] = [
     id: "blog-siem-cost-licensing-vs-custom-built",
     type: "Blog",
     topics: ["SIEM & SOAR", "Platform Ownership"],
-    title: "How Much Does a SIEM Cost? Licensing vs. Custom-Built",
+    title: "SIEM Cost and Pricing in 2026: What You'll Actually Pay",
     summary:
-      "Licensed SIEMs charge on ingestion, retention, and feature tiers. Custom-built platforms trade that for upfront engineering. Where the break-even actually falls, and which model fits which environment.",
-    format: "9 min read",
+      "SIEM quotes are hard to compare. Vendors bill on different meters, and most quotes leave out the two costs that grow fastest: storage and people. 2026 prices, managed SIEM rates and a free cost calculator.",
+    format: "20 min read",
     status: "live",
     href: "/blog/siem-cost-licensing-vs-custom-built",
-    date: "2026-08-18",
+    date: "2026-10-07",
   },
   {
     id: "blog-open-source-vs-custom-built-siem",
