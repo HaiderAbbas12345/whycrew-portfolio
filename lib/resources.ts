@@ -191,10 +191,10 @@ export const RESOURCES: Resource[] = [
     id: "blog-soar-playbooks-explained",
     type: "Blog",
     topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
-    title: "What Are SOAR Playbooks? Use Cases, Examples, and MSSP Scale",
+    title: "What Is a SOAR Playbook in Incident Response? (With Examples)",
     summary:
-      "A playbook turns a detection into a logged response in seconds. Which alerts to automate first, the four playbook types that pay off, where fixed branches break down, and what changes when you run them across many client environments.",
-    format: "15 min read",
+      "A SOAR playbook runs a predefined response the moment an alert fires and logs every step it takes. How playbooks work, 12 step-by-step examples, which alerts to automate first, and what changes when MSSPs run them across many clients.",
+    format: "18 min read",
     status: "live",
     href: "/blog/soar-playbooks-explained",
     date: "2026-09-01",

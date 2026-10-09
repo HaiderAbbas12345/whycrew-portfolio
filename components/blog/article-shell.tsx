@@ -46,6 +46,10 @@ export function ArticleShell({
   dek,
   showUpdated = false,
   notes = [],
+  byline,
+  tocLabel = "On this page",
+  tocNumbered = false,
+  tocCta = true,
 }: {
   post: BlogPost;
   toc: TocEntry[];
@@ -59,6 +63,17 @@ export function ArticleShell({
   showUpdated?: boolean;
   /** Extra byline items from the content doc, e.g. "Prices checked October 2026". */
   notes?: string[];
+  /**
+   * Replaces the whole byline row, for a design that spells it out exactly
+   * (author, date format, extra notes). Items are separated by a middle dot.
+   */
+  byline?: ReactNode[];
+  /** Heading above the sticky contents list. */
+  tocLabel?: string;
+  /** Prefix contents entries with 01, 02, … as some designs do. */
+  tocNumbered?: boolean;
+  /** Show the audit link under the contents list. */
+  tocCta?: boolean;
   /**
    * Closing CTA card. Omitted when the content doc places its own CTA inside
    * the article body, so the page doesn't end on a second, invented one.
@@ -112,6 +127,20 @@ export function ArticleShell({
             )}
 
             <Reveal delay={0.18} mount>
+              {byline ? (
+                <p className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12.5px] text-faint">
+                  {byline.map((item, i) => (
+                    <span key={i} className="contents">
+                      {i > 0 && (
+                        <span aria-hidden className="text-line">
+                          ·
+                        </span>
+                      )}
+                      <span>{item}</span>
+                    </span>
+                  ))}
+                </p>
+              ) : (
               <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-faint">
                 {updated ? (
                   <time dateTime={updated}>Updated {formatDate(updated)}</time>
@@ -135,6 +164,7 @@ export function ArticleShell({
                 </span>
                 <span className="text-accent">WhyCrew Engineering</span>
               </div>
+              )}
             </Reveal>
           </div>
         </div>
@@ -152,21 +182,30 @@ export function ArticleShell({
               className="sticky top-28"
             >
               <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
-                On this page
+                {tocLabel}
               </p>
               <ul className="space-y-2.5">
-                {toc.map((t) => (
+                {toc.map((t, i) => (
                   <li key={t.id}>
                     <a
                       href={`#${t.id}`}
-                      className="block text-[12.5px] leading-snug text-muted transition-colors duration-300 hover:text-accent"
+                      className="flex gap-2.5 text-[12.5px] leading-snug text-muted transition-colors duration-300 hover:text-accent"
                     >
-                      {t.label}
+                      {tocNumbered && (
+                        <span
+                          aria-hidden
+                          className="shrink-0 font-mono text-[10.5px] leading-[1.7] text-faint"
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      )}
+                      <span>{t.label}</span>
                     </a>
                   </li>
                 ))}
               </ul>
 
+              {tocCta && (
               <div className="mt-9">
                 <p className="text-[12.5px] leading-relaxed text-muted">
                   Want this modelled against your own numbers?
@@ -191,6 +230,7 @@ export function ArticleShell({
                   </span>
                 </a>
               </div>
+              )}
             </nav>
           </aside>
         </div>

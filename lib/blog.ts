@@ -106,14 +106,15 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "soar-playbooks-explained",
-    title: "What Are SOAR Playbooks? Use Cases, Examples, and MSSP Scale",
-    metaTitle: "What Are SOAR Playbooks? Examples, Uses & MSSP Scale",
+    title: "What Is a SOAR Playbook in Incident Response? (With Examples)",
+    metaTitle: "Build a SOAR Playbook That Cuts Response Time",
     metaDescription:
-      "See how SOAR playbooks work, real use cases, and where they break down as MSSPs scale. Practical examples, ROI, and what to fix first.",
+      "Most SOCs see the alert but respond too late. Learn how SOAR playbooks fix that, with 12 real examples from SOC and MSSP teams we work with.",
     summary:
-      "A playbook turns a detection into a logged response in seconds. Which alerts to automate first, the four playbook types that pay off, where fixed branches break down, and what changes when you run them across many client environments.",
+      "A SOAR playbook runs a predefined response the moment an alert fires and logs every step it takes. How playbooks work, 12 step-by-step examples, which alerts to automate first, and what changes when MSSPs run them across many clients.",
     datePublished: "2026-09-01",
-    readTime: "15 min read",
+    dateModified: "2026-10-09",
+    readTime: "18 min read",
     topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
     cluster: "Custom SIEM & SOAR Development",
   },
