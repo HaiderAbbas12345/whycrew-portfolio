@@ -1,0 +1,316 @@
+/*
+ * 3D treatments for the two interactive diagrams, ported from the design.
+ * Tailwind can't express the perspective planes, the keyframed track dots or
+ * the hover/active depth changes cleanly, so they live here.
+ */
+
+/* --------------------------------------------------------- pipeline tour */
+
+.scene {
+  perspective: 1100px;
+  perspective-origin: 50% 0%;
+}
+
+.plane {
+  position: relative;
+  transform: rotateX(30deg);
+  transform-style: preserve-3d;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  padding: 26px 6px 46px;
+}
+
+.track {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 20px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #1d2a4d, #2a3a66, #1d2a4d);
+}
+
+.dot {
+  position: absolute;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px rgba(45, 212, 168, 0.9);
+  animation: flow 4.8s linear infinite;
+}
+.dot2 { animation-delay: 1.6s; }
+.dot3 { animation-delay: 3.2s; }
+
+@keyframes flow {
+  0% { left: 0; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: calc(100% - 10px); opacity: 0; }
+}
+
+.block {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  min-height: 118px;
+  padding: 14px 12px;
+  border-radius: 16px;
+  border: 1.5px solid #26345c;
+  color: var(--color-body);
+  background: linear-gradient(170deg, #132042, #0b1326);
+  box-shadow: 0 10px 0 #070d1c, 0 22px 30px rgba(0, 0, 0, 0.55);
+  transform: translateZ(0);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.block:hover {
+  transform: translateZ(10px);
+  border-color: #3d55a8;
+}
+.block:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.block.on {
+  transform: translateZ(26px);
+  border-color: var(--color-accent);
+  background: linear-gradient(170deg, #123a3a, #0b1d24);
+  box-shadow: 0 10px 0 #06231f, 0 0 0 4px rgba(45, 212, 168, 0.12), 0 30px 40px rgba(0, 0, 0, 0.6);
+}
+
+.num {
+  display: block;
+  margin-bottom: 10px;
+  font: 600 12px/1 var(--font-mono, ui-monospace), monospace;
+  color: var(--color-brand-hi);
+}
+.block.on .num { color: var(--color-accent); }
+
+.name {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-bright);
+}
+
+.sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #94a3c4;
+}
+
+/* Small mono toggle used by both diagrams and the estimator. */
+.ctl {
+  appearance: none;
+  cursor: pointer;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #26345c;
+  background: transparent;
+  color: var(--color-body);
+  font: 600 11px/1 var(--font-mono, ui-monospace), monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.ctl:hover {
+  border-color: var(--color-brand-hi);
+  color: var(--color-bright);
+}
+.ctl.on {
+  border-color: var(--color-brand-hi);
+  color: var(--color-brand-hi);
+  background: rgba(91, 131, 255, 0.08);
+}
+.ctl:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------- correlation demo */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.stackScene { perspective: 1000px; }
+
+.stack {
+  display: grid;
+  gap: 12px;
+  transform: rotateY(14deg) rotateX(6deg);
+  transform-style: preserve-3d;
+}
+
+.ev {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #1d2a4d;
+  background: linear-gradient(170deg, #0f1830, #0a1122);
+  color: var(--color-faint);
+  opacity: 0.55;
+  box-shadow: 0 8px 0 #060b17, 0 18px 24px rgba(0, 0, 0, 0.45);
+  transform: translateZ(0);
+  transition: transform 0.45s ease, opacity 0.45s ease, border-color 0.45s ease;
+}
+.ev:hover { opacity: 0.85; }
+.ev:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.ev.on {
+  opacity: 1;
+  color: var(--color-body);
+  border-color: var(--color-brand-hi);
+  transform: translateZ(22px);
+  box-shadow: 0 8px 0 #0d1a44, 0 0 0 4px rgba(91, 131, 255, 0.12), 0 26px 34px rgba(0, 0, 0, 0.55);
+}
+
+.time {
+  font: 600 13px/1 var(--font-mono, ui-monospace), monospace;
+  color: inherit;
+}
+
+.src {
+  display: block;
+  font: 600 10.5px/1.5 var(--font-mono, ui-monospace), monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-hi);
+}
+.ev:not(.on) .src { color: #4a5a8a; }
+
+.txt {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-bright);
+}
+.ev:not(.on) .txt { color: #8e9bc0; }
+
+.chk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 14.5px;
+  color: var(--color-faint);
+  transition: color 0.4s ease;
+}
+.chk.on { color: var(--color-bright); }
+
+.box {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #26345c;
+  color: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.4s ease;
+}
+.chk.on .box {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #04140f;
+}
+
+.alert {
+  margin-top: 14px;
+  padding: 20px;
+  border-radius: 18px;
+  border: 2px solid #1d2a4d;
+  background: #0b1222;
+  opacity: 0.5;
+  transform: perspective(900px) rotateX(0deg);
+  transition: all 0.5s ease;
+}
+.alert.on {
+  opacity: 1;
+  border-color: rgba(240, 169, 107, 0.75);
+  background: linear-gradient(160deg, rgba(240, 169, 107, 0.18), #0b1222 70%);
+  transform: perspective(900px) translateZ(30px) rotateX(-4deg);
+  box-shadow: 0 0 0 4px rgba(240, 169, 107, 0.1), 0 24px 40px rgba(0, 0, 0, 0.55);
+}
+
+.badge {
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: #1d2a4d;
+  color: var(--color-faint);
+  font: 700 11px/1 var(--font-mono, ui-monospace), monospace;
+  letter-spacing: 0.16em;
+  transition: all 0.4s ease;
+}
+.alert.on .badge {
+  background: #f0a96b;
+  color: #1a0f05;
+}
+
+/* ------------------------------------------------------------- estimator */
+
+.range {
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 10px 0 0;
+  background: transparent;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+.range:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .stack { transform: rotateX(8deg); }
+}
+
+@media (max-width: 640px) {
+  .plane {
+    gap: 6px;
+    transform: rotateX(18deg);
+    padding: 18px 0 38px;
+  }
+  .block {
+    min-height: 92px;
+    padding: 10px 7px;
+    border-radius: 12px;
+  }
+  .name { font-size: 12px; }
+  .sub { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: none; display: none; }
+  .block, .ev, .alert, .chk, .box { transition: none; }
+}

@@ -325,6 +325,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-06",
   },
   {
+    id: "blog-open-source-seim",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
+    title: "Open Source SIEM: The Best Free SIEM Tools and Systems Compared",
+    summary:
+      "The seven free and open source SIEM tools worth a look, from Wazuh and Security Onion to OpenSearch Security Analytics. Licenses, what they really cost to run, and when a free SIEM stops being enough.",
+    format: "27 min read",
+    status: "live",
+    href: "/blog/open-source-seim",
+    date: "2026-10-12",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

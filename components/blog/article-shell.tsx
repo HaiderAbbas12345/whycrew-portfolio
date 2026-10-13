@@ -50,6 +50,8 @@ export function ArticleShell({
   tocLabel = "On this page",
   tocNumbered = false,
   tocCta = true,
+  author = "WhyCrew Engineering",
+  sidebar,
 }: {
   post: BlogPost;
   toc: TocEntry[];
@@ -74,6 +76,13 @@ export function ArticleShell({
   tocNumbered?: boolean;
   /** Show the audit link under the contents list. */
   tocCta?: boolean;
+  /** Author name at the end of the default byline row. */
+  author?: string;
+  /**
+   * Replaces the sticky contents list, for a design whose side column holds
+   * something else (a CTA card, say) instead of a table of contents.
+   */
+  sidebar?: ReactNode;
   /**
    * Closing CTA card. Omitted when the content doc places its own CTA inside
    * the article body, so the page doesn't end on a second, invented one.
@@ -162,7 +171,7 @@ export function ArticleShell({
                 <span aria-hidden className="text-line">
                   /
                 </span>
-                <span className="text-accent">WhyCrew Engineering</span>
+                <span className="text-accent">{author}</span>
               </div>
               )}
             </Reveal>
@@ -176,6 +185,9 @@ export function ArticleShell({
           <article className="min-w-0 max-w-3xl">{children}</article>
 
           {/* ---------------------------------------- sticky TOC */}
+          {sidebar ? (
+          <aside className="hidden lg:block">{sidebar}</aside>
+          ) : (
           <aside className="hidden lg:block">
             <nav
               aria-label="On this page"
@@ -233,6 +245,7 @@ export function ArticleShell({
               )}
             </nav>
           </aside>
+          )}
         </div>
 
         {/* ---------------------------------------- share / feedback / byline */}

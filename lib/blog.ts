@@ -35,6 +35,11 @@ export interface BlogPost {
    * doc's slug puts the article under /resources/.
    */
   section?: "blog" | "resources";
+  /**
+   * Last breadcrumb, when the design spells it differently from the slug
+   * (the slug can't be changed without breaking the published URL).
+   */
+  crumb?: string;
 }
 
 export const POSTS: BlogPost[] = [
@@ -255,6 +260,21 @@ export const POSTS: BlogPost[] = [
     topics: ["MSSP & White-Label", "SIEM & SOAR", "AI SOC Automation"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "open-source-seim",
+    title: "Open Source SIEM: The Best Free SIEM Tools and Systems Compared",
+    metaTitle: "Open Source SIEM: 7 Best Free SIEM Tools (2026 Guide)",
+    metaDescription:
+      "Compare the best open source SIEM tools, including Wazuh, Security Onion, and OpenSearch. See licenses, real costs, and how to choose.",
+    summary:
+      "The seven free and open source SIEM tools worth a look, from Wazuh and Security Onion to OpenSearch Security Analytics. Licenses, what they really cost to run, and when a free SIEM stops being enough.",
+    datePublished: "2026-10-12",
+    dateModified: "2026-10-12",
+    readTime: "27 min read",
+    topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
+    cluster: "Custom SIEM & SOAR Development",
+    crumb: "Open source SIEM",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -271,7 +291,8 @@ export const postPath = (post: Pick<BlogPost, "slug" | "section">) =>
  * to carry the same string or Google treats the structured data as not
  * matching the page.
  */
-export const breadcrumbLabel = (slug: string) => slug.replace(/-/g, " ");
+export const breadcrumbLabel = (slug: string) =>
+  postBySlug(slug)?.crumb ?? slug.replace(/-/g, " ");
 
 /* ---------------------------------------------------------------------------
  * Internal link registry
@@ -316,6 +337,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "soc-analyst-burnout": "/blog/soc-analyst-burnout",
   "what-is-ai-soc": "/blog/what-is-ai-soc",
   "mssp-infrastructure-optimization": "/blog/mssp-infrastructure-optimization",
+  "open-source-siem": "/blog/open-source-seim",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
