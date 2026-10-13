@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 const TOC: TocEntry[] = [
-  { id: "what-is", label: "SOAR Playbook Definition" },
+  { id: "what-is", label: "What Is a SOAR Playbook?" },
   { id: "how-it-works", label: "How It Works" },
   { id: "vs-runbook", label: "Playbook vs Runbook vs Rule" },
   { id: "types", label: "Types of Playbooks" },
@@ -185,9 +185,9 @@ function Meters({ items }: { items: { k: string; v: string }[] }) {
 function Takeaways({ items }: { items: ReactNode[] }) {
   return (
     <div className="mt-8 border-l-2 border-accent py-1 pl-5 sm:pl-6">
-      <h3 className="text-[17px] font-semibold leading-snug text-bright">
+      <p className="text-[17px] font-semibold leading-snug text-bright">
         Key Takeaways
-      </h3>
+      </p>
       <Bullets items={items} />
     </div>
   );
@@ -841,7 +841,7 @@ export default function Page() {
             By <Strong>WhyCrew Engineers</Strong>
           </>,
           <time key="updated" dateTime={post.dateModified}>
-            Updated October 9, 2026
+            Updated October 13, 2026
           </time>,
           "Stats checked October 2026",
           post.readTime,
@@ -905,11 +905,16 @@ export default function Page() {
           ]}
         />
 
-        <H3 id="key-terms">Key Terms</H3>
+        <p
+          id="key-terms"
+          className="scroll-mt-28 pt-8 text-[17px] font-semibold leading-snug text-bright"
+        >
+          Key Terms
+        </p>
         <P>These are the abbreviations used throughout this guide.</P>
         <KeyTerms />
 
-        <H2 id="what-is">SOAR Playbook Definition</H2>
+        <H2 id="what-is">What Is a SOAR Playbook?</H2>
         <P>
           A SOAR playbook is a response procedure written as a workflow that
           your SOAR platform can run by itself. Once the trigger fires, it

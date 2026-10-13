@@ -117,8 +117,8 @@ export const POSTS: BlogPost[] = [
       "Most SOCs see the alert but respond too late. Learn how SOAR playbooks fix that, with 12 real examples from SOC and MSSP teams we work with.",
     summary:
       "A SOAR playbook runs a predefined response the moment an alert fires and logs every step it takes. How playbooks work, 12 step-by-step examples, which alerts to automate first, and what changes when MSSPs run them across many clients.",
-    datePublished: "2026-09-01",
-    dateModified: "2026-10-09",
+    datePublished: "2026-10-13",
+    dateModified: "2026-10-13",
     readTime: "18 min read",
     topics: ["SIEM & SOAR", "AI SOC Automation", "MSSP & White-Label"],
     cluster: "Custom SIEM & SOAR Development",
