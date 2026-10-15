@@ -145,7 +145,7 @@ export const POSTS: BlogPost[] = [
       "SIEM (Security Information and Event Management) collects and correlates logs to detect threats in real time. Learn how SIEM works with real examples.",
     summary:
       "SIEM collects log and event data from across your environment, correlates related events, and alerts analysts to threats in real time. How the five-step pipeline works, a worked brute-force example, the six architecture layers, MITRE ATT&CK use cases, and how SIEM compares with SOC, SOAR, XDR, and EDR.",
-    datePublished: "2026-09-07",
+    datePublished: "2026-10-15",
     dateModified: "2026-10-15",
     readTime: "14 min read",
     topics: ["SIEM & SOAR", "Platform Ownership", "NIS2", "DORA"],

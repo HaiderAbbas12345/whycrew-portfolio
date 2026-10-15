@@ -209,7 +209,7 @@ export const RESOURCES: Resource[] = [
     format: "14 min read",
     status: "live",
     href: "/blog/what-is-siem",
-    date: "2026-09-07",
+    date: "2026-10-15",
   },
   {
     id: "blog-what-is-soar",
