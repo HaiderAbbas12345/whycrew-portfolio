@@ -15,7 +15,7 @@ import {
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug } from "@/lib/blog";
-import { CTA_HREF, EXTERNAL_REL, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("what-is-soar")!;
 const PATH = `/blog/${post.slug}`;
@@ -649,8 +649,6 @@ export default function Page() {
           Trying to decide whether to rent a SOAR tool or build your own?{" "}
           <a
             href={CTA_HREF}
-            target="_blank"
-            rel={EXTERNAL_REL}
             className="text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
           >
             Book a 20-minute call

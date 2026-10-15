@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 
 const post = postBySlug("soar-playbooks-explained")!;
 const PATH = postPath(post);
@@ -1875,7 +1875,7 @@ export default function Page() {
             next.
           </CtaBody>
           <div className="mt-5 flex flex-wrap gap-2.5">
-            <Button href="/contact">Book an Architecture Audit</Button>
+            <Button href={CTA_HREF}>Book an Architecture Audit</Button>
           </div>
         </CtaCard>
 

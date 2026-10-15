@@ -95,18 +95,26 @@ const OUTLOOK_BOOKING_URL =
   "https://bookings.cloud.microsoft/bookwithme/user/fc18944866164d86b10284f39503c65e@whycrew.com/meetingtype/9MYETObQEEGGKKO1yo4Bag2?bookingcode=473be50e-ed05-4c93-8378-0175bed3d856&anonymous&ismsaljsauthenabled&ep=mlink";
 
 /**
- * Where every "Book a call" CTA points.
- *
- * A booking page, not `tel:${SITE.phone}`. The dialler href did nothing on a
- * desktop browser, which is where most of the visitors these CTAs are written
- * for actually read them. The number is still reachable — the footer and the
- * contact page both print it as their own tel: link.
+ * The calendar itself. Offered inside the booking popup once the visitor's
+ * details are in, for anyone who wants to pick a slot straight away.
  *
  * NEXT_PUBLIC_BOOKING_URL still wins when it is set, so a Cal.com or Calendly
  * link can replace the Bookings page from the environment without a code change.
  */
-export const CTA_HREF = BOOKING_URL || OUTLOOK_BOOKING_URL;
-export const IS_EXTERNAL_CTA = true;
+export const BOOKING_PAGE_URL = BOOKING_URL || OUTLOOK_BOOKING_URL;
+
+/**
+ * Where every "Book a call" CTA points.
+ *
+ * With JavaScript running, BookingModalProvider intercepts any click on a link
+ * to this href and opens the booking popup in place — the visitor never leaves
+ * the page. Without it, the link still lands on the contact form, so the CTA
+ * is never dead.
+ *
+ * Use this constant for every booking CTA rather than spelling the path out:
+ * the popup matches on the exact href.
+ */
+export const CTA_HREF = "/contact#form";
 
 /** GA4 property carried over from the previous deployment. */
 export const GA_MEASUREMENT_ID =

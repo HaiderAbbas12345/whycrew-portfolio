@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThankYouModal } from "@/components/ui/thank-you-modal";
-import { SITE } from "@/lib/site";
+import { submitLead, type LeadStatus } from "@/lib/submit-lead";
 
-const COMPANY_SIZES = ["1–10", "11–50", "51–200", "200+"];
+export const COMPANY_SIZES = ["1–10", "11–50", "51–200", "200+"];
 
-const INTERESTS = [
+export const INTERESTS = [
   "Custom SIEM & SOAR Development",
   "AI SOC Automation",
   "White-Label MSSP Platform",
@@ -19,17 +19,10 @@ const INTERESTS = [
   "Not sure yet",
 ];
 
-type Status =
-  | { kind: "idle" }
-  | { kind: "sending" }
-  | { kind: "sent"; reference: number | null }
-  | { kind: "unconfigured"; mailto: string }
-  | { kind: "error"; message: string };
-
-const field =
+export const field =
   "w-full rounded-md border border-line/70 bg-void/60 px-4 py-3 text-[14px] text-bright placeholder:text-faint outline-none transition-all duration-400 focus:border-accent/60 focus:bg-void focus:shadow-[0_0_0_3px_rgba(45,212,168,0.12)]";
 
-const label =
+export const label =
   "mb-2 block font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-muted";
 
 export function ContactForm({
@@ -43,7 +36,7 @@ export function ContactForm({
   defaultInterest?: string;
 } = {}) {
   const params = useSearchParams();
-  const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [status, setStatus] = useState<LeadStatus>({ kind: "idle" });
   const [interest, setInterest] = useState(defaultInterest);
 
   /**
@@ -71,61 +64,13 @@ export function ContactForm({
     >;
 
     setStatus({ kind: "sending" });
+    const result = await submitLead(data);
+    setStatus(result);
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        const ok = (await res.json().catch(() => ({}))) as {
-          reference?: number | null;
-        };
-        setStatus({ kind: "sent", reference: ok.reference ?? null });
-        setModalOpen(true);
-        form.reset();
-        setInterest("");
-        return;
-      }
-
-      const body = (await res.json().catch(() => ({}))) as {
-        configured?: boolean;
-        error?: string;
-      };
-
-      if (body.configured === false) {
-        const subject = encodeURIComponent(
-          `[${data.interest || "Enquiry"}] ${data.company || ""} — ${data.name || ""}`
-        );
-        const lines = [
-          `Name: ${data.name ?? ""}`,
-          `Work email: ${data.email ?? ""}`,
-          `Company: ${data.company ?? ""}`,
-          `Company size: ${data.companySize ?? ""}`,
-          `Looking to build: ${data.interest ?? ""}`,
-          "",
-          data.message ?? "",
-        ];
-        setStatus({
-          kind: "unconfigured",
-          mailto: `mailto:${SITE.email}?subject=${subject}&body=${encodeURIComponent(
-            lines.join("\n")
-          )}`,
-        });
-        return;
-      }
-
-      setStatus({
-        kind: "error",
-        message: body.error ?? "Something went wrong. Please try again.",
-      });
-    } catch {
-      setStatus({
-        kind: "error",
-        message: "Network error. Please try again or email us directly.",
-      });
+    if (result.kind === "sent") {
+      setModalOpen(true);
+      form.reset();
+      setInterest("");
     }
   }
 

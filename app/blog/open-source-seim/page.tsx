@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
 import {
   CorrelationReplay,
   PipelineTour,
@@ -421,7 +421,7 @@ function SideCta() {
       <p className="mb-3.5 text-base font-semibold leading-[1.4] text-bright">
         One platform, every client, full source code.
       </p>
-      <Button href="/contact" className="w-full" magnetic={false}>
+      <Button href={CTA_HREF} className="w-full" magnetic={false}>
         Book a Call
       </Button>
     </div>
@@ -1203,7 +1203,7 @@ export default function Page() {
           title="Not sure whether to tune your open source SIEM or build your own platform?"
           body="Talk to the engineers who build these systems. In a short technical call we review your log volumes, client count and compliance scope, and tell you honestly whether open source is enough, or what a fixed-price, fully owned platform would look like."
           label="Book a free architecture audit"
-          href="/contact"
+          href={CTA_HREF}
         />
 
         <H2 id="frequently-asked-questions-about-open-source-siem">
