@@ -139,14 +139,15 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "what-is-siem",
-    title: "What Is SIEM? How It Works and What It Costs",
-    metaTitle: "What Is SIEM? Meaning, Cost & How It Works",
+    title: "What Is SIEM? Meaning, How It Works & Examples",
+    metaTitle: "What Is SIEM? Security Information and Event Management",
     metaDescription:
-      "What is SIEM? A clear guide covering how it works, real cost numbers, and when building your own makes more sense than renting.",
+      "SIEM (Security Information and Event Management) collects and correlates logs to detect threats in real time. Learn how SIEM works with real examples.",
     summary:
-      "The four steps every SIEM runs, what it changes for the team using it, and where it sits next to SOAR and EDR. Plus the cost split between licensing a vendor platform and owning one.",
+      "SIEM collects log and event data from across your environment, correlates related events, and alerts analysts to threats in real time. How the five-step pipeline works, a worked brute-force example, the six architecture layers, MITRE ATT&CK use cases, and how SIEM compares with SOC, SOAR, XDR, and EDR.",
     datePublished: "2026-09-07",
-    readTime: "10 min read",
+    dateModified: "2026-10-15",
+    readTime: "14 min read",
     topics: ["SIEM & SOAR", "Platform Ownership", "NIS2", "DORA"],
     cluster: "Custom SIEM & SOAR Development",
   },

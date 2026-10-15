@@ -1,0 +1,118 @@
+/*
+ * The SIEM architecture diagram, ported from the design. SVG fills, strokes
+ * and the glow filters on the travelling pulses can't be expressed in
+ * Tailwind classes on SVG children cleanly, so they live here, on the site's
+ * colour tokens.
+ */
+
+.frame {
+  margin-top: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--color-line) 70%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-surface) 50%, transparent);
+  padding: 1.125rem;
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+.frame svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+}
+
+.caption {
+  margin-top: 0.625rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-faint);
+}
+
+.box {
+  fill: var(--color-surface-2);
+  stroke: var(--color-line);
+  stroke-width: 1.25;
+}
+
+.chip {
+  fill: var(--color-void);
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+
+.main {
+  fill: color-mix(in oklab, var(--color-accent) 10%, transparent);
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.edge {
+  fill: none;
+  stroke: var(--color-muted);
+  stroke-width: 1.25;
+}
+
+.head {
+  fill: var(--color-accent);
+}
+
+.title {
+  fill: var(--color-bright);
+  font: 700 15px var(--font-sans), system-ui, sans-serif;
+}
+
+.name {
+  fill: var(--color-bright);
+  font: 600 13px var(--font-sans), system-ui, sans-serif;
+}
+
+.num {
+  fill: var(--color-accent);
+  font: 600 11px var(--font-mono), ui-monospace, monospace;
+}
+
+.body {
+  fill: var(--color-body);
+  font: 400 11.5px var(--font-sans), system-ui, sans-serif;
+}
+
+.chipText {
+  fill: var(--color-body);
+  font: 500 11.5px var(--font-sans), system-ui, sans-serif;
+}
+
+/* Light pulses that travel along each connector into the next box. */
+.pulse path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 22 200;
+  filter: drop-shadow(0 0 3px var(--color-accent))
+    drop-shadow(0 0 8px var(--color-accent));
+}
+
+.pulse circle {
+  fill: var(--color-bright);
+  filter: drop-shadow(0 0 4px var(--color-accent))
+    drop-shadow(0 0 10px var(--color-accent))
+    drop-shadow(0 0 16px var(--color-accent));
+}
+
+.hit rect {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 8px var(--color-accent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse,
+  .hit {
+    display: none;
+  }
+}
