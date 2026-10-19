@@ -51,6 +51,7 @@ export function ArticleShell({
   tocNumbered = false,
   tocCta = true,
   author = "WhyCrew Engineering",
+  datePrefix,
   sidebar,
 }: {
   post: BlogPost;
@@ -78,6 +79,8 @@ export function ArticleShell({
   tocCta?: boolean;
   /** Author name at the end of the default byline row. */
   author?: string;
+  /** Word before the publish date in the default byline, e.g. "Published". */
+  datePrefix?: string;
   /**
    * Replaces the sticky contents list, for a design whose side column holds
    * something else (a CTA card, say) instead of a table of contents.
@@ -154,7 +157,9 @@ export function ArticleShell({
                 {updated ? (
                   <time dateTime={updated}>Updated {formatDate(updated)}</time>
                 ) : (
-                  <time dateTime={post.datePublished}>{published}</time>
+                  <time dateTime={post.datePublished}>
+                    {datePrefix ? `${datePrefix} ${published}` : published}
+                  </time>
                 )}
                 {notes.map((n) => (
                   <span key={n} className="contents">

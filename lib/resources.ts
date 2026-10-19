@@ -337,6 +337,19 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-12",
   },
   {
+    id: "blog-what-is-an-mssp",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR", "Platform Ownership"],
+    title:
+      "What Is An MSSP? Managed Security Service Providers Explained (2026 Guide)",
+    summary:
+      "An MSSP is an outsourced security team that monitors and protects your systems 24/7 from a shared SOC. What MSSPs do, how they compare with an MSP, a SOC, and an MDR provider, 2026 US pricing, compliance by industry, and how to choose one.",
+    format: "19 min read",
+    status: "live",
+    href: "/blog/what-is-an-mssp",
+    date: "2026-10-19",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

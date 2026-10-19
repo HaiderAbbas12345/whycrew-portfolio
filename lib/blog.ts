@@ -276,6 +276,21 @@ export const POSTS: BlogPost[] = [
     cluster: "Custom SIEM & SOAR Development",
     crumb: "Open source SIEM",
   },
+  {
+    slug: "what-is-an-mssp",
+    title:
+      "What Is An MSSP? Managed Security Service Providers Explained (2026 Guide)",
+    metaTitle: "What Is An MSSP? Managed Security Services (2026 Guide)",
+    metaDescription:
+      "What is an MSSP? An MSSP monitors and protects your systems 24/7 from a SOC. See what MSSPs do, how they differ from MSPs and MDR.",
+    summary:
+      "An MSSP is an outsourced security team that monitors and protects your systems 24/7 from a shared SOC. What MSSPs do, how they compare with an MSP, a SOC, and an MDR provider, 2026 US pricing, compliance by industry, and how to choose one.",
+    datePublished: "2026-10-19",
+    dateModified: "2026-10-19",
+    readTime: "19 min read",
+    topics: ["MSSP & White-Label", "SIEM & SOAR", "Platform Ownership"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -339,6 +354,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "what-is-ai-soc": "/blog/what-is-ai-soc",
   "mssp-infrastructure-optimization": "/blog/mssp-infrastructure-optimization",
   "open-source-siem": "/blog/open-source-seim",
+  "what-is-an-mssp": "/blog/what-is-an-mssp",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
