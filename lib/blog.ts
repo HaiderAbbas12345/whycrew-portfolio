@@ -291,6 +291,20 @@ export const POSTS: BlogPost[] = [
     topics: ["MSSP & White-Label", "SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "mssp-pricing",
+    title: "MSSP Pricing 2026: What Managed Security Services Cost",
+    metaTitle: "MSSP Pricing 2026: What Managed Security Services Cost",
+    metaDescription:
+      "Managed security services cost most US SMBs $2,000 to $25,000 a month in 2026. See MSSP pricing models, per-user rates, and hidden fees.",
+    summary:
+      "Most small and mid-size US businesses pay $2,000 to $25,000 a month for managed security in 2026. A 2026 price list, cost by company size, the six pricing models, published vendor rates, what costs extra, and a free MSSP pricing calculator.",
+    datePublished: "2026-10-21",
+    dateModified: "2026-10-21",
+    readTime: "12 min read",
+    topics: ["MSSP & White-Label", "Platform Ownership"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -355,6 +369,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "mssp-infrastructure-optimization": "/blog/mssp-infrastructure-optimization",
   "open-source-siem": "/blog/open-source-seim",
   "what-is-an-mssp": "/blog/what-is-an-mssp",
+  "mssp-pricing": "/blog/mssp-pricing",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site

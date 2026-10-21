@@ -350,6 +350,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-19",
   },
   {
+    id: "blog-mssp-pricing",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "Platform Ownership"],
+    title: "MSSP Pricing 2026: What Managed Security Services Cost",
+    summary:
+      "Most small and mid-size US businesses pay $2,000 to $25,000 a month for managed security in 2026. A 2026 price list, cost by company size, the six pricing models, published vendor rates, what costs extra, and a free MSSP pricing calculator.",
+    format: "12 min read",
+    status: "live",
+    href: "/blog/mssp-pricing",
+    date: "2026-10-21",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
