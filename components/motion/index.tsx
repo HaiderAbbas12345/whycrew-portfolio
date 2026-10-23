@@ -245,7 +245,23 @@ export function WordsUp({
 }) {
   const words = text.split(" ");
   const hl = new Set((highlight ?? []).map((w) => w.toLowerCase()));
-  const wrap = `${gradient ? "text-gradient " : ""}${className ?? ""}`;
+  const wrap = className ?? "";
+
+  /**
+   * The gradient goes on each word, not the wrapper. background-clip: text on
+   * a parent doesn't paint into inline-block children, so a wrapper gradient
+   * left every animated word transparent. Each word instead shows its own
+   * slice of one phrase-wide gradient: the background is sized to n words and
+   * shifted by the word's index, so the colours still run continuously across
+   * the phrase.
+   */
+  const gradientSlice = (i: number): React.CSSProperties =>
+    gradient
+      ? {
+          backgroundSize: `${words.length * 100}% 100%`,
+          backgroundPosition: `${words.length > 1 ? (i / (words.length - 1)) * 100 : 0}% 0`,
+        }
+      : {};
 
   /**
    * Plain spans and a CSS animation, no framer-motion. This is almost always
@@ -266,9 +282,14 @@ export function WordsUp({
             className={
               hl.has(w.toLowerCase().replace(/[.,]/g, ""))
                 ? "hero-word text-accent-hi"
-                : "hero-word"
+                : gradient
+                  ? "hero-word text-gradient"
+                  : "hero-word"
             }
-            style={{ animationDelay: `${delay + i * 0.055}s` }}
+            style={{
+              animationDelay: `${delay + i * 0.055}s`,
+              ...gradientSlice(i),
+            }}
           >
             {w}
           </span>
