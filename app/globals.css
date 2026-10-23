@@ -402,6 +402,45 @@
 }
 
 /* ============================================================
+   Above-the-fold entrances — WordsUp (.hero-word) and Reveal mount
+   (.wc-rise). Transform only, never opacity, so the text is painted
+   from the first frame even if JavaScript never runs; and pure CSS,
+   so the motion starts without waiting for hydration.
+   ============================================================ */
+
+.hero-word {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word {
+    animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .wc-rise {
+    animation: wc-rise var(--wc-rise-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1)
+      var(--wc-rise-delay, 0s) both;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(30%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes wc-rise {
+  from {
+    transform: translate(var(--wc-rise-x, 0), var(--wc-rise-y, 0));
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* ============================================================
    Reduced motion — hard stop on everything decorative
    ============================================================ */
 

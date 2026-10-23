@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { Backdrop } from "@/components/ui/backdrop";
 import { FaqAccordion } from "@/components/ui/faq";
@@ -12,7 +11,8 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { ADDRESS, OG_IMAGE, SERVICES, SITE } from "@/lib/site";
+import { ADDRESS, ROBOTS, SERVICES, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "Contact WhyCrew — Talk to an Engineer, Not Sales";
 const DESCRIPTION =
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
+  robots: ROBOTS,
   // This page previously declared neither, so both its OpenGraph and Twitter
   // previews fell back to the root layout's site-wide copy.
   openGraph: {
@@ -32,12 +33,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: `${SITE.url}/contact`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/contact"),
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/contact"),
   },
 };
 
@@ -340,13 +342,7 @@ export default function ContactPage() {
         <Eyebrow>Send us the details</Eyebrow>
         <Heading>Six fields. That&apos;s it.</Heading>
         <Reveal className="mt-10">
-          <Suspense
-            fallback={
-              <div className="h-[32rem] animate-pulse rounded-lg border border-line/70 bg-surface/40" />
-            }
-          >
-            <ContactForm />
-          </Suspense>
+          <ContactForm />
         </Reveal>
       </Section>
 

@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { ROBOTS, SITE } from "@/lib/site";
+import { ogImage, ogImageLd } from "@/lib/og";
 import { ArchitectureDiagram } from "./architecture-diagram";
 
 const post = postBySlug("what-is-siem")!;
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
   title: { absolute: post.metaTitle },
   description: post.metaDescription,
   alternates: { canonical: PATH },
+  robots: ROBOTS,
   openGraph: {
     type: "article",
     title: post.metaTitle,
@@ -26,12 +28,13 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
-    images: OG_IMAGE,
+    images: ogImage(PATH),
   },
   twitter: {
     card: "summary_large_image",
     title: post.metaTitle,
     description: post.metaDescription,
+    images: ogImage(PATH),
   },
 };
 
@@ -119,7 +122,7 @@ function articleLd() {
     isPartOf: { "@id": `${SITE.url}/#website` },
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
-    image: `${SITE.url}/WhyCrew.jpeg`,
+    image: ogImageLd(PATH),
     articleSection: post.cluster,
     keywords: post.topics.join(", "),
   };
@@ -839,7 +842,7 @@ export default function Page() {
         />
         <P>
           Teams with engineers to spare often start with{" "}
-          <A href="/blog/open-source-seim">open-source SIEM tools</A> like Wazuh.
+          <A href="/blog/open-source-siem">open-source SIEM tools</A> like Wazuh.
           MSSPs that outgrow per-client licensing usually end up weighing{" "}
           <A href="/blog/open-source-vs-custom-built-siem">
             open-source against custom-built SIEM

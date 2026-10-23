@@ -47,30 +47,29 @@ export const ADDRESS = {
 export const ADDRESS_ONE_LINE = `${ADDRESS.street}, ${ADDRESS.locality}, ${ADDRESS.region} ${ADDRESS.postalCode}, ${ADDRESS.countryName}`;
 
 /**
- * The link-preview image — og:image and twitter:image.
+ * robots / googlebot for every indexable page.
  *
- * Defined once and spread into every page's `openGraph`, because Next.js
- * *overwrites* the openGraph object rather than deep-merging it: a page that
- * declares its own openGraph without `images` drops the one inherited from
- * app/layout.tsx, and the page ends up with no og:image at all.
- *
- * The URL is absolute. Relative paths resolve against metadataBase, but
- * several scrapers (WhatsApp and older LinkedIn among them) do not follow
- * that, and simply skip the tag.
- *
- * NOTE: WhyCrew.jpeg is the 800x800 square logo, so it is letterboxed or
- * centre-cropped in the 1.91:1 slot `summary_large_image` expects. Replacing
- * it with a purpose-made 1200x630 image is the remaining task here — swap the
- * three values below and every page follows.
+ * Set per page rather than once in app/layout.tsx, because the 404 page
+ * inherits the root layout's metadata: with this in the layout, every unknown
+ * URL served Next's own `noindex` alongside "index, follow" and a googlebot
+ * line — two contradictory directives on one page. The same goes for the
+ * canonical and og:url, which each page also declares itself.
  */
-export const OG_IMAGE = [
-  {
-    url: "https://www.whycrew.com/WhyCrew.jpeg",
-    width: 800,
-    height: 800,
-    alt: "WhyCrew — the engineering partner behind independent security teams",
+export const ROBOTS = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-video-preview": -1,
+    "max-image-preview": "large" as const,
+    "max-snippet": -1,
   },
-];
+};
+
+/*
+ * Link-preview images (og:image, twitter:image) are per page — see lib/og.ts.
+ */
 
 export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "";
 

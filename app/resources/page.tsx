@@ -12,7 +12,8 @@ import {
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { RESOURCES, liveResources } from "@/lib/resources";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { ROBOTS, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "SIEM, SOC & Compliance Resources | WhyCrew";
 const DESCRIPTION =
@@ -24,18 +25,20 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/resources" },
+  robots: ROBOTS,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: `${SITE.url}/resources`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/resources"),
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/resources"),
   },
 };
 

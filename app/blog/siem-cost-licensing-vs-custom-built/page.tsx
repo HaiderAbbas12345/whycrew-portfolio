@@ -17,7 +17,8 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { ROBOTS, SITE } from "@/lib/site";
+import { ogImage, ogImageLd } from "@/lib/og";
 import { SiemCostCalculator } from "./siem-cost-calculator";
 
 const post = postBySlug("siem-cost-licensing-vs-custom-built")!;
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
   title: { absolute: post.metaTitle },
   description: post.metaDescription,
   alternates: { canonical: PATH },
+  robots: ROBOTS,
   openGraph: {
     type: "article",
     title: post.metaTitle,
@@ -36,12 +38,13 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
-    images: OG_IMAGE,
+    images: ogImage(PATH),
   },
   twitter: {
     card: "summary_large_image",
     title: post.metaTitle,
     description: post.metaDescription,
+    images: ogImage(PATH),
   },
 };
 
@@ -123,7 +126,7 @@ function articleLd() {
     isPartOf: { "@id": `${SITE.url}/#website` },
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
-    image: `${SITE.url}/WhyCrew.jpeg`,
+    image: ogImageLd(PATH),
     articleSection: post.cluster,
     keywords: post.topics.join(", "),
   };

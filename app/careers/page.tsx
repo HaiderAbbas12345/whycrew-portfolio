@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
@@ -14,11 +13,12 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { OG_IMAGE, SITE } from "@/lib/site";
+import { ROBOTS, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "Careers at WhyCrew — Engineering Roles, No Sales Team";
 const DESCRIPTION =
-  "Build custom SIEM platforms, AI SOC agents, and compliance automation that clients own outright. Remote-first engineering roles at WhyCrew — apply directly to an engineer.";
+  "Remote-first engineering roles at WhyCrew. Build custom SIEM platforms, AI SOC agents and compliance automation that clients own outright.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template — the brand
@@ -26,17 +26,19 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/careers" },
+  robots: ROBOTS,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: `${SITE.url}/careers`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/careers"),
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/careers"),
   },
 };
 
@@ -292,13 +294,7 @@ export default function CareersPage() {
           Send it to an engineer
         </Heading>
         <Reveal className="mt-10">
-          <Suspense
-            fallback={
-              <div className="h-[32rem] animate-pulse rounded-lg border border-line/70 bg-surface/40" />
-            }
-          >
-            <ContactForm defaultInterest="Careers" />
-          </Suspense>
+          <ContactForm defaultInterest="Careers" />
         </Reveal>
       </Section>
 

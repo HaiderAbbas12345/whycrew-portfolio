@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
@@ -14,27 +13,30 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
-import { OG_IMAGE, SERVICES, SITE } from "@/lib/site";
+import { ROBOTS, SERVICES, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "Client Support — WhyCrew Platform Support & Incident Line";
 const DESCRIPTION =
-  "Support for teams running a WhyCrew-built platform. Report a security incident on the 24/7 line, or raise an upgrade, tuning, or runbook request with the engineers who built it.";
+  "Support for teams running a WhyCrew-built platform: a 24/7 security incident line plus upgrades, tuning and runbooks from the engineers who built it.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/support" },
+  robots: ROBOTS,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: `${SITE.url}/support`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/support"),
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/support"),
   },
 };
 
@@ -245,13 +247,7 @@ export default function SupportPage() {
           </div>
 
           <Reveal delay={0.1}>
-            <Suspense
-              fallback={
-                <div className="h-[32rem] animate-pulse rounded-lg border border-line/70 bg-surface/40" />
-              }
-            >
-              <ContactForm defaultInterest="Existing client support" />
-            </Suspense>
+            <ContactForm defaultInterest="Existing client support" />
           </Reveal>
         </div>
       </Section>

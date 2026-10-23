@@ -14,7 +14,8 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const svc = serviceBySlug("mssp-engineering-partner");
 
@@ -24,18 +25,20 @@ export const metadata: Metadata = {
   title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
+  robots: ROBOTS,
   openGraph: {
     title: svc.metaTitle,
     description: svc.metaDescription,
     url: svc.href,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage(svc.href),
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {
     card: "summary_large_image",
     title: svc.metaTitle,
     description: svc.metaDescription,
+    images: ogImage(svc.href),
   },
 };
 
@@ -354,7 +357,7 @@ export default function Page() {
         <Reveal className="mt-12">
           <Card className="p-8" interactive={false}>
             <p className="text-[15px] leading-relaxed text-body">
-              A German MSSP saved €340K/year switching to an owned platform.
+              A German MSSP saved $380K/year switching to an owned platform.
             </p>
             <Link
               href="/case-studies/siem-rent-to-owned-platform"

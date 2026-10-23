@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThankYouModal } from "@/components/ui/thank-you-modal";
@@ -35,7 +34,6 @@ export function ContactForm({
    */
   defaultInterest?: string;
 } = {}) {
-  const params = useSearchParams();
   const [status, setStatus] = useState<LeadStatus>({ kind: "idle" });
   const [interest, setInterest] = useState(defaultInterest);
 
@@ -48,12 +46,18 @@ export function ContactForm({
 
   // Deep links like /contact?topic=mssp preselect the routing dropdown. Kept
   // for links already in the wild; nothing on the site points here any more.
+  //
+  // Read from window.location after mount rather than useSearchParams():
+  // on a statically rendered page that hook opts everything up to the nearest
+  // <Suspense> out of server rendering, so the served HTML carried only a
+  // loading placeholder and no <form> at all — invisible to crawlers and to
+  // anyone without JavaScript.
   useEffect(() => {
-    const topic = params.get("topic");
+    const topic = new URLSearchParams(window.location.search).get("topic");
     if (topic === "careers") setInterest("Careers");
     if (topic === "support") setInterest("Existing client support");
     if (topic === "mssp") setInterest("White-Label MSSP Platform");
-  }, [params]);
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

@@ -4,50 +4,86 @@ import { CASE_STUDIES } from "@/lib/case-studies";
 import { LEGAL_PAGES } from "@/lib/legal";
 import { SERVICES, SITE } from "@/lib/site";
 
-const now = new Date();
 const BASE_URL = SITE.url.replace(/\/+$/, "");
 
+/**
+ * When each static page's content last changed. lastmod used to be the build
+ * time, so it moved on every deploy whether anything changed or not, and
+ * Google learns to ignore dates that do that. Bump a page's date here when
+ * you change what it says (not when you restyle it).
+ */
+const PAGE_UPDATED = {
+  "/": "2026-10-05",
+  "/about": "2026-09-08",
+  "/services": "2026-10-05",
+  "/contact": "2026-08-27",
+  "/careers": "2026-08-25",
+  "/support": "2026-08-25",
+} as const;
+
+/** Per service, keyed by href. */
+const SERVICE_UPDATED: Record<string, string> = {
+  "/services/custom-siem-development": "2026-10-23",
+  "/services/custom-soar-development": "2026-10-06",
+  "/services/ai-powered-soc-automation": "2026-10-23",
+  "/services/mssp-engineering-partner": "2026-10-23",
+  "/services/nis2-dora-compliance-automation": "2026-10-05",
+  "/services/nca-ecc-sama-csf-compliance": "2026-10-05",
+};
+
+/** Fallback for an entry with no date: the newest static page date. */
+const FALLBACK = "2026-10-23";
+
 function safeDate(value: unknown): Date {
-  if (!value) return now;
-  const d = new Date(value as string);
-  return isNaN(d.getTime()) ? now : d;
+  const d = new Date((value as string) || FALLBACK);
+  return isNaN(d.getTime()) ? new Date(FALLBACK) : d;
+}
+
+/** The latest of several dates — an index page changes when its newest item does. */
+function newest(dates: (string | undefined)[]): Date {
+  return new Date(
+    Math.max(...dates.map((d) => safeDate(d).getTime()))
+  );
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const postDates = POSTS.map((p) => p.dateModified ?? p.datePublished);
+  const caseDates = CASE_STUDIES.map((c) => c.dateModified ?? c.datePublished);
+
   return [
     {
       url: BASE_URL,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/"]),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${BASE_URL}/about`,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/about"]),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${BASE_URL}/services`,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/services"]),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     ...SERVICES.filter((s) => Boolean(s.href)).map((s) => ({
       url: `${BASE_URL}${s.href}`,
-      lastModified: now,
+      lastModified: safeDate(SERVICE_UPDATED[s.href]),
       changeFrequency: "monthly" as const,
       priority: 0.9,
     })),
     {
       url: `${BASE_URL}/resources`,
-      lastModified: now,
+      lastModified: newest([...postDates, ...caseDates]),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: now,
+      lastModified: newest(postDates),
       changeFrequency: "weekly",
       priority: 0.8,
     },
@@ -59,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${BASE_URL}/case-studies`,
-      lastModified: now,
+      lastModified: newest(caseDates),
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -71,19 +107,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${BASE_URL}/contact`,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/contact"]),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/careers`,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/careers"]),
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${BASE_URL}/support`,
-      lastModified: now,
+      lastModified: safeDate(PAGE_UPDATED["/support"]),
       changeFrequency: "monthly",
       priority: 0.6,
     },

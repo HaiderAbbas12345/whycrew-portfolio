@@ -1,6 +1,17 @@
+import type { Metadata } from "next";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion";
+
+/**
+ * "Page Not Found | WhyCrew" via the root title template. The root layout no
+ * longer sets a canonical, og:url or robots, so all an unknown URL carries is
+ * this title and "noindex, follow" — and the 404 status, which Next sets.
+ */
+export const metadata: Metadata = {
+  title: "Page Not Found",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

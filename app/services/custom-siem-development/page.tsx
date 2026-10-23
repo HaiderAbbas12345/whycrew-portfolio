@@ -13,7 +13,8 @@ import {
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, OG_IMAGE, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 import { CostEstimator, type CostTier } from "./cost-estimator";
 
 const svc = serviceBySlug("custom-siem-development");
@@ -22,17 +23,19 @@ export const metadata: Metadata = {
   title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
+  robots: ROBOTS,
   openGraph: {
     title: svc.metaTitle,
     description: svc.metaDescription,
     url: svc.href,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage(svc.href),
   },
   twitter: {
     card: "summary_large_image",
     title: svc.metaTitle,
     description: svc.metaDescription,
+    images: ogImage(svc.href),
   },
 };
 
@@ -105,25 +108,25 @@ const COST_TIERS: CostTier[] = [
   {
     key: "under-500gb",
     label: "Under 500 GB/day",
-    buildCost: "€60,000–€100,000",
+    buildCost: "$67,000–$112,000",
     buildNote: "Single tenant tier",
-    licensedCost: "€100,000–€333,333",
+    licensedCost: "$112,000–$374,000",
     licensedNote: "vs. a per-GB license",
   },
   {
     key: "500gb-2tb",
     label: "500 GB–2 TB/day",
-    buildCost: "€100,000–€250,000",
+    buildCost: "$112,000–$280,000",
     buildNote: "Multi-tenant MSSP tier",
-    licensedCost: "€166,667–€833,333",
+    licensedCost: "$187,000–$934,000",
     licensedNote: "vs. a per-GB license",
   },
   {
     key: "2tb-plus",
     label: "2 TB+/day",
-    buildCost: "€250,000–€400,000",
+    buildCost: "$280,000–$448,000",
     buildNote: "Regulated operator tier",
-    licensedCost: "€416,667–€1,333,333",
+    licensedCost: "$467,000–$1,495,000",
     licensedNote: "vs. a per-GB license",
   },
 ];
@@ -149,7 +152,7 @@ const ENGAGEMENT_STEPS = [
 
 const CASE_METRICS = [
   { value: "62%", label: "cost reduction" },
-  { value: "€340K", label: "saved per year" },
+  { value: "$380K", label: "saved per year" },
   { value: "0", label: "hours downtime" },
   { value: "100%", label: "platform ownership" },
 ];
@@ -462,7 +465,7 @@ export default function Page() {
             <Reveal className="mt-6 max-w-2xl text-[15px] leading-relaxed text-body">
               <p>
                 A German MSSP running 40+ enterprise clients was paying
-                €45,000 a month in SIEM licensing. WhyCrew&apos;s SIEM
+                $50,000 a month in SIEM licensing. WhyCrew&apos;s SIEM
                 engineering team replaced it with a custom-built
                 Elasticsearch data lake, migrated 18 months of historical
                 logs with zero downtime, and trained their engineering team
@@ -471,10 +474,10 @@ export default function Page() {
             </Reveal>
             <Reveal className="mt-6">
               <Link
-                href="/case-studies"
+                href="/case-studies/siem-rent-to-owned-platform"
                 className={`text-[14px] font-semibold ${LINK}`}
               >
-                See the full case study →
+                See how a similar migration saved $270K →
               </Link>
             </Reveal>
           </div>

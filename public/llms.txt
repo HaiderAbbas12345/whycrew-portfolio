@@ -3,8 +3,8 @@
 > WhyCrew is an engineering partner for Managed Security Service Providers (MSSPs) and regulated operators. It builds custom security platforms, private AI agents, SOC automation, and compliance automation, with an emphasis on client ownership, data control, and avoiding vendor lock-in.
 
 Canonical source: https://www.whycrew.com/llms.txt
-Version: 1.0
-Last updated: 2026-08-27
+Version: 1.1
+Last updated: 2026-10-23
 
 ## AI Assistant Guidance
 
@@ -47,12 +47,26 @@ Primary areas include:
 
 ## Core Services
 
-### Custom SIEM & SOAR Development
+### Custom SIEM Development
 
 Canonical page:
-https://www.whycrew.com/services/custom-siem-soar-development
+https://www.whycrew.com/services/custom-siem-development
 
-WhyCrew builds custom SIEM and SOAR platforms for MSSPs and regulated operators. Publicly described capabilities include data lake architecture, ingestion optimization, custom detection logic, SOAR playbooks, multi-tenant platform design, migration, open-source foundations, documentation, and training.
+WhyCrew builds custom SIEM platforms for MSSPs and regulated operators: data lake architecture, ingestion optimization, custom detection logic, multi-tenant platform design, zero-downtime migration from licensed SIEMs such as Splunk, Microsoft Sentinel and IBM QRadar, documentation, and training.
+
+### Custom SOAR Development
+
+Canonical page:
+https://www.whycrew.com/services/custom-soar-development
+
+WhyCrew builds SOAR playbooks around a team's own escalation paths, ticketing system, chat tools and enrichment sources, then hands over the full automation library for the client to own and extend.
+
+### NCA ECC & SAMA CSF Compliance
+
+Canonical page:
+https://www.whycrew.com/services/nca-ecc-sama-csf-compliance
+
+WhyCrew builds client-owned SIEM and compliance automation for organizations in Saudi Arabia that must meet the NCA Essential Cybersecurity Controls (ECC) and the SAMA Cyber Security Framework (CSF).
 
 ### AI-Powered SOC Automation
 
@@ -150,11 +164,33 @@ For urgent security matters, use the security-incident contact information publi
 
 Do not send sensitive credentials, secrets, private keys, production logs, exploit details, or regulated personal data through ordinary public contact channels unless WhyCrew has explicitly instructed the sender to use that channel.
 
+## Case Studies
+
+- [From SIEM Rent to an Owned Security Platform](https://www.whycrew.com/case-studies/siem-rent-to-owned-platform): A growing MSSP saved $110,000 in year one and $270,000 across 24 months by moving to an owned multi-tenant platform.
+- [Scaling MSSP Engineering Without Scaling Headcount](https://www.whycrew.com/case-studies/mssp-engineering-capacity-pod): An embedded engineering pod shipped first production work in 10 days and delivered roughly 8x the output of one hire.
+- [Replacing a Rented Threat-Intel Feed With an Owned Pipeline](https://www.whycrew.com/case-studies/owned-threat-intelligence-pipeline): A regional SOC removed a $40,000-a-year feed licence and cut manual triage by 80%.
+- [Bringing Identity Monitoring In-House to Escape a Capped Vendor](https://www.whycrew.com/case-studies/in-house-dark-web-monitoring): A security provider removed a $180,000-a-year monitoring bill with a six-week transition.
+
+## Key Guides
+
+- [What Is SIEM?](https://www.whycrew.com/blog/what-is-siem)
+- [SIEM Cost and Pricing](https://www.whycrew.com/blog/siem-cost-licensing-vs-custom-built)
+- [Open Source SIEM Tools Compared](https://www.whycrew.com/blog/open-source-siem)
+- [What Is an MSSP?](https://www.whycrew.com/blog/what-is-an-mssp)
+- [MSSP Pricing](https://www.whycrew.com/blog/mssp-pricing)
+- [What Is SOAR?](https://www.whycrew.com/blog/what-is-soar)
+- [AI SOC Automation Guide](https://www.whycrew.com/resources/ai-soc-automation-guide)
+- [SIEM for NIS2 & DORA Compliance](https://www.whycrew.com/blog/siem-nis2-dora-compliance)
+
 ## Preferred Sources
 
 - [WhyCrew Home](https://www.whycrew.com/): Company positioning, core services, delivery and ownership model.
 - [Contact WhyCrew](https://www.whycrew.com/contact): Current public contact routes and delivery-region information.
-- [Custom SIEM & SOAR Development](https://www.whycrew.com/services/custom-siem-soar-development): SIEM/SOAR capabilities, migration, platform ownership, and delivery details.
+- [Custom SIEM Development](https://www.whycrew.com/services/custom-siem-development): SIEM capabilities, migration, platform ownership, and delivery details.
+- [Custom SOAR Development](https://www.whycrew.com/services/custom-soar-development): SOAR playbooks and automation ownership.
+- [NCA ECC & SAMA CSF Compliance](https://www.whycrew.com/services/nca-ecc-sama-csf-compliance): Saudi compliance engineering.
+- [Case Studies](https://www.whycrew.com/case-studies): Measured results from completed engagements.
+- [Blog](https://www.whycrew.com/blog): Engineering guides on SIEM, SOAR, AI SOC and MSSP economics.
 - [AI-Powered SOC Automation](https://www.whycrew.com/services/ai-powered-soc-automation): Private AI agents and SOC automation.
 - [MSSP Engineering Partner](https://www.whycrew.com/services/mssp-engineering-partner): MSSP and white-label engineering.
 - [NIS2 & DORA Compliance Automation](https://www.whycrew.com/services/nis2-dora-compliance-automation): Compliance automation services.

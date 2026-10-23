@@ -23,7 +23,8 @@ import {
 } from "@/components/motion";
 import { faqLd, serviceListLd, type Faq } from "@/lib/jsonld";
 import { CASE_STUDIES } from "@/lib/case-studies";
-import { CTA_HREF, OG_IMAGE, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SERVICES, SITE, TRUST_STRIP } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 export const metadata: Metadata = {
   // `absolute` opts out of the root layout's "%s | WhyCrew" title template.
@@ -31,16 +32,18 @@ export const metadata: Metadata = {
   description:
     "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",
   alternates: { canonical: "/" },
+  robots: ROBOTS,
   openGraph: {
+    type: "website",
     title: "Own Your SIEM & SOC Platform | Custom Build for MSSPs",
     description:
       "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",
     url: SITE.url,
-    images: OG_IMAGE,
+    images: ogImage("/"),
   },
   twitter: {
     card: "summary_large_image",
-    images: OG_IMAGE,
+    images: ogImage("/"),
     title: "Own Your SIEM & SOC Platform | Custom Build for MSSPs",
     description:
       "Stop renting your SIEM. WhyCrew builds a custom SIEM & SOC platform for MSSPs that you own — no per-GB fees, no lock-in, NIS2/DORA-ready. Book a call.",

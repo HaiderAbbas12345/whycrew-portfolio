@@ -3,7 +3,8 @@ import Link from "next/link";
 import { LegalContact, LegalShell } from "@/components/legal/legal-shell";
 import { Bullets, DataTable, H2, H3, P, Strong } from "@/components/blog/prose";
 import { legalBySlug } from "@/lib/legal";
-import { ADDRESS, OG_IMAGE, SITE } from "@/lib/site";
+import { ADDRESS, ROBOTS, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const page = legalBySlug("privacy-policy")!;
 
@@ -11,17 +12,19 @@ export const metadata: Metadata = {
   title: { absolute: page.metaTitle },
   description: page.metaDescription,
   alternates: { canonical: `/${page.slug}` },
+  robots: ROBOTS,
   openGraph: {
     title: page.metaTitle,
     description: page.metaDescription,
     url: `${SITE.url}/${page.slug}`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage(`/${page.slug}`),
   },
   twitter: {
     card: "summary_large_image",
     title: page.metaTitle,
     description: page.metaDescription,
+    images: ogImage(`/${page.slug}`),
   },
 };
 

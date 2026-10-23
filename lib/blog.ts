@@ -36,15 +36,17 @@ export interface BlogPost {
    */
   section?: "blog" | "resources";
   /**
-   * Last breadcrumb, when the design spells it differently from the slug
-   * (the slug can't be changed without breaking the published URL).
+   * Last breadcrumb — the page's short title. Kept separate from the slug so
+   * the trail and the BreadcrumbList JSON-LD read as a name ("What Is SIEM?")
+   * rather than a lowercased URL fragment.
    */
-  crumb?: string;
+  crumb: string;
 }
 
 export const POSTS: BlogPost[] = [
   {
     slug: "siem-cost-licensing-vs-custom-built",
+    crumb: "SIEM Cost and Pricing",
     title: "SIEM Cost and Pricing in 2026: What You'll Actually Pay",
     metaTitle: "SIEM Cost & Managed SIEM Pricing (2026 Guide)",
     metaDescription:
@@ -59,6 +61,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "open-source-vs-custom-built-siem",
+    crumb: "Open-Source vs. Custom-Built SIEM",
     title: "Open-Source vs. Custom-Built SIEM: The Real Trade-off",
     metaTitle: "Open-Source vs. Custom-Built SIEM: Key Facts",
     metaDescription:
@@ -72,6 +75,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "siem-migration-guide-zero-downtime",
+    crumb: "SIEM Migration Guide",
     title: "SIEM Migration Guide: Move Off Legacy With Zero Downtime",
     metaTitle: "SIEM Migration: Move Off Legacy With Zero Downtime",
     metaDescription:
@@ -79,12 +83,14 @@ export const POSTS: BlogPost[] = [
     summary:
       "A zero-downtime switch means running both systems on live traffic until the new one catches the same threats. The seven phases, the three risks that break migrations, and why MSSPs should move one client at a time.",
     datePublished: "2026-08-21",
+    dateModified: "2026-10-23",
     readTime: "8 min read",
     topics: ["SIEM & SOAR", "Migration", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
   {
     slug: "multi-tenant-siem-architecture-mssps",
+    crumb: "Multi-Tenant SIEM for MSSPs",
     title: "Multi-Tenant SIEM for MSSPs: A Full Guide",
     metaTitle: "Multi-Tenant SIEM Architecture for MSSP: A Full Guide",
     metaDescription:
@@ -98,6 +104,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "siem-nis2-dora-compliance",
+    crumb: "SIEM for NIS2 & DORA Compliance",
     title: "SIEM for NIS2 & DORA Compliance: What Your Platform Must Deliver",
     metaTitle: "SIEM for NIS2 & DORA Compliance: A Guide",
     metaDescription:
@@ -111,6 +118,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "soar-playbooks-explained",
+    crumb: "SOAR Playbooks",
     title: "What Is a SOAR Playbook in Incident Response? (With Examples)",
     metaTitle: "Build a SOAR Playbook That Cuts Response Time",
     metaDescription:
@@ -125,6 +133,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "what-is-soar",
+    crumb: "What Is SOAR?",
     title: "What Is SOAR? Security Orchestration, Automation, and Response Explained",
     metaTitle: "What Is SOAR? Simple Guide to Security Automation",
     metaDescription:
@@ -139,6 +148,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "what-is-siem",
+    crumb: "What Is SIEM?",
     title: "What Is SIEM? Meaning, How It Works & Examples",
     metaTitle: "What Is SIEM? Security Information and Event Management",
     metaDescription:
@@ -153,6 +163,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "nca-ecc-vs-sama-csf",
+    crumb: "NCA ECC vs. SAMA CSF",
     title: "NCA ECC vs SAMA CSF: Which Saudi Cybersecurity Rule Applies to You?",
     metaTitle: "NCA ECC vs SAMA CSF (2026): Which One Applies to You?",
     metaDescription:
@@ -166,6 +177,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "on-premise-ai-soc-automation-vs-cloud-security-copilot",
+    crumb: "On-Premise AI SOC vs. Cloud Copilot",
     title:
       "On-Premise AI SOC Automation: Why Keeping AI In-House Beats a Cloud Security Copilot",
     metaTitle: "On-Premise AI SOC Automation vs. Cloud Security Copilot",
@@ -180,6 +192,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "soc-analyst-tiers-tier-1-2-3",
+    crumb: "SOC Analyst Tiers",
     title:
       "SOC Analyst Tiers Explained: Tier 1 vs. Tier 2 vs. Tier 3 (and Where AI Actually Fits)",
     metaTitle: "SOC Tiers: Tier 1 vs. Tier 2 vs. Tier 3 Analyst Explained",
@@ -194,10 +207,10 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "ai-soc-analyst-vs-tier-1-analyst",
+    crumb: "AI SOC Analyst vs. Tier-1 Analyst",
     title:
       "AI SOC Analyst Vs. Traditional Tier-1 Analyst: What Actually Changes",
-    metaTitle:
-      "AI SOC Analyst vs. Traditional Tier-1 Analyst: What Actually Changes",
+    metaTitle: "AI SOC Analyst vs. Tier-1 Analyst: What Actually Changes",
     metaDescription:
       "AI SOC analyst vs Tier-1 analyst: what changes, what stays human, and where the automation ceiling sits. Real numbers, not vendor hype.",
     summary:
@@ -209,6 +222,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "ai-soc-automation-guide",
+    crumb: "AI SOC Automation Guide",
     section: "resources",
     title:
       "AI SOC Automation: The Complete Guide To Automating Security Operations (Without Losing Control)",
@@ -224,6 +238,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "soc-analyst-burnout",
+    crumb: "SOC Analyst Burnout",
     title: "SOC Analyst Burnout: Why Tier-1 Teams Quit and How to Fix It",
     metaTitle: "Tier-1 Alert Fatigue: Why SOC Analysts Burn Out",
     metaDescription:
@@ -237,6 +252,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "what-is-ai-soc",
+    crumb: "What Is an AI SOC?",
     title: "What Is an AI SOC? Agentic AI, Architecture & Compliance Guide",
     metaTitle: "What Is an AI SOC? Agentic AI & Compliance Guide",
     metaDescription:
@@ -250,6 +266,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "mssp-infrastructure-optimization",
+    crumb: "MSSP Infrastructure Optimization",
     title: "How MSSPs Cut Infrastructure Costs Without Losing Detection",
     metaTitle: "MSSP Infrastructure Optimization: How to Cut Cost per Client",
     metaDescription:
@@ -257,12 +274,14 @@ export const POSTS: BlogPost[] = [
     summary:
       "How managed security providers cut SIEM costs, automate Tier 1 triage, and grow margin with every client they add.",
     datePublished: "2026-10-06",
+    dateModified: "2026-10-23",
     readTime: "11 min read",
     topics: ["MSSP & White-Label", "SIEM & SOAR", "AI SOC Automation"],
     cluster: "Custom SIEM & SOAR Development",
   },
   {
-    slug: "open-source-seim",
+    slug: "open-source-siem",
+    crumb: "Open Source SIEM",
     title: "Open Source SIEM: The Best Free SIEM Tools and Systems Compared",
     metaTitle: "Open Source SIEM: 7 Best Free SIEM Tools (2026 Guide)",
     metaDescription:
@@ -274,10 +293,10 @@ export const POSTS: BlogPost[] = [
     readTime: "27 min read",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
     cluster: "Custom SIEM & SOAR Development",
-    crumb: "Open source SIEM",
   },
   {
     slug: "what-is-an-mssp",
+    crumb: "What Is an MSSP?",
     title:
       "What Is An MSSP? Managed Security Service Providers Explained (2026 Guide)",
     metaTitle: "What Is An MSSP? Managed Security Services (2026 Guide)",
@@ -293,6 +312,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "mssp-pricing",
+    crumb: "MSSP Pricing",
     title: "MSSP Pricing 2026: What Managed Security Services Cost",
     metaTitle: "MSSP Pricing 2026: What Managed Security Services Cost",
     metaDescription:
@@ -314,8 +334,8 @@ export const postPath = (post: Pick<BlogPost, "slug" | "section">) =>
   `/${post.section ?? "blog"}/${post.slug}`;
 
 /**
- * A slug as breadcrumb text. The hyphens read as punctuation in a crumb, so
- * they come out as spaces; the crumb is CSS-uppercased where it renders.
+ * A post's last breadcrumb: its `crumb`, falling back to the slug with the
+ * hyphens as spaces. The crumb is CSS-uppercased where it renders.
  *
  * Used by both the visible trail and the BreadcrumbList JSON-LD, which have
  * to carry the same string or Google treats the structured data as not
@@ -368,7 +388,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "soc-analyst-burnout": "/blog/soc-analyst-burnout",
   "what-is-ai-soc": "/blog/what-is-ai-soc",
   "mssp-infrastructure-optimization": "/blog/mssp-infrastructure-optimization",
-  "open-source-siem": "/blog/open-source-seim",
+  "open-source-siem": "/blog/open-source-siem",
   "what-is-an-mssp": "/blog/what-is-an-mssp",
   "mssp-pricing": "/blog/mssp-pricing",
 

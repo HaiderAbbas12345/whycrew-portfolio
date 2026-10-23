@@ -11,7 +11,8 @@ import {
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { CASE_STUDIES } from "@/lib/case-studies";
-import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "MSSP & SOC Platform Case Studies | WhyCrew";
 const DESCRIPTION =
@@ -23,18 +24,20 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/case-studies" },
+  robots: ROBOTS,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: `${SITE.url}/case-studies`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/case-studies"),
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/case-studies"),
   },
 };
 

@@ -41,23 +41,23 @@ const offsetFor = (d: Direction, dist: number) => {
 };
 
 /**
- * Opacity + transform only. Animating `filter: blur()` forces the browser to
- * re-rasterise the whole subtree every frame, which is what made staggered
- * card grids stutter — the GPU can composite opacity/transform for free but
- * not a changing blur radius.
+ * Transform only — never opacity. Content that ships at `opacity: 0` is
+ * invisible to anyone whose JavaScript is slow, blocked or broken, and Google
+ * times the page's LCP from when that content finally fades in, not from when
+ * it arrived. Movement alone keeps every word painted from the first frame.
+ * (Animating `filter: blur()` is out too: it forces the browser to
+ * re-rasterise the whole subtree every frame.)
  *
  * Two trigger modes:
  *
- *   default   reveals when the element scrolls into view (IntersectionObserver)
- *   mount      reveals as soon as the component mounts, no observer involved
+ *   default   rises when the element scrolls into view (IntersectionObserver)
+ *   mount      rises as soon as the HTML is parsed, in pure CSS
  *
- * `mount` exists for anything above the fold, and the page's <h1> in
- * particular. The server ships these elements at `opacity: 0`, so with the
- * observer they stay invisible until they intersect — and on a reload the
- * browser restores the previous scroll position (or jumps to a `#hash`)
- * *before* the observer's first callback, so an element already scrolled past
- * never intersects and never appears. That is exactly how the blog headline
- * vanished on refresh. Mount-triggered elements have no such dependency.
+ * `mount` is for anything above the fold, and the page's <h1> in particular.
+ * It renders no motion component at all: the `wc-rise` keyframes in
+ * globals.css start the moment the stylesheet applies, without waiting for
+ * React to download and hydrate, and only for visitors who haven't asked for
+ * reduced motion.
  */
 export function Reveal({
   children,
@@ -82,7 +82,7 @@ export function Reveal({
   const reduced = useReducedMotion();
   const Comp = motion[as] as typeof motion.div;
   const off = offsetFor(direction, distance);
-  const shown = { opacity: 1, x: 0, y: 0 };
+  const shown = { x: 0, y: 0 };
 
   /**
    * useReducedMotion() reads null on the server but the real preference on the
@@ -97,21 +97,31 @@ export function Reveal({
   useEffect(() => setMounted(true), []);
   const still = mounted && reduced;
 
-  // Reduced motion and mount mode both resolve on their own; only the default
-  // path attaches an observer.
-  const trigger =
-    still || mount
-      ? { animate: shown }
-      : {
-          whileInView: shown,
-          viewport: { once: true, margin: "-12% 0px -8% 0px" },
-        };
+  if (mount) {
+    const Plain = as as React.ElementType;
+    return (
+      <Plain
+        className={`wc-rise${className ? ` ${className}` : ""}`}
+        style={
+          {
+            "--wc-rise-x": `${off.x}px`,
+            "--wc-rise-y": `${off.y}px`,
+            "--wc-rise-delay": `${delay}s`,
+            "--wc-rise-duration": `${duration}s`,
+          } as React.CSSProperties
+        }
+      >
+        {children}
+      </Plain>
+    );
+  }
 
   return (
     <Comp
       className={className}
-      initial={{ opacity: 0, ...off }}
-      {...trigger}
+      initial={off}
+      whileInView={shown}
+      viewport={{ once: true, margin: "-12% 0px -8% 0px" }}
       transition={
         still
           ? { duration: 0 }
@@ -133,9 +143,9 @@ const staggerParent: Variants = {
 };
 
 const staggerChild: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  // Transform only, like Reveal: the card is readable before it rises.
+  hidden: { y: 24 },
   show: {
-    opacity: 1,
     y: 0,
     transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
   },
@@ -232,48 +242,33 @@ export function WordsUp({
   /** paint one continuous gradient across the whole phrase */
   gradient?: boolean;
 }) {
-  const reduced = useReducedMotion();
   const words = text.split(" ");
   const hl = new Set((highlight ?? []).map((w) => w.toLowerCase()));
   const wrap = `${gradient ? "text-gradient " : ""}${className ?? ""}`;
 
   /**
-   * Deferred to after mount, for the same reason CountUp renders `to`
-   * unconditionally. useReducedMotion() reads null on the server but the real
-   * preference on the client's very first render, so returning the plain-text
-   * branch here served one DOM and hydrated another — React #418, which shows
-   * up as a text-content mismatch. It only fires for visitors who actually
-   * have reduced motion enabled, which is why a default browser never saw it.
-   *
-   * The first client render now matches the server exactly; the swap to plain
-   * text happens on the next tick, before the lift has any distance to run.
+   * Plain spans and a CSS animation, no framer-motion. This is almost always
+   * the page's <h1>, so it has to be painted the moment the HTML lands: the
+   * old version shipped every word at `opacity: 0` and only revealed it once
+   * React had hydrated, which is what pushed homepage LCP to ~2.9 s. The
+   * `hero-word` keyframes move each word and never hide it, and the
+   * prefers-reduced-motion query in globals.css switches the motion off with
+   * no client-side branch — so there is nothing left to hydrate-mismatch.
    */
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  if (mounted && reduced) return <span className={wrap}>{text}</span>;
-
   return (
     <span className={wrap}>
       {words.map((w, i) => (
-        <span key={`${w}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
-          <motion.span
-            className={
-              hl.has(w.toLowerCase().replace(/[.,]/g, ""))
-                ? "inline-block text-accent-hi"
-                : "inline-block"
-            }
-            initial={{ y: "108%", opacity: 0 }}
-            animate={{ y: "0%", opacity: 1 }}
-            transition={{
-              duration: 0.9,
-              delay: delay + i * 0.055,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
-            {w}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
+        <span
+          key={`${w}-${i}`}
+          className={
+            hl.has(w.toLowerCase().replace(/[.,]/g, ""))
+              ? "hero-word text-accent-hi"
+              : "hero-word"
+          }
+          style={{ animationDelay: `${delay + i * 0.055}s` }}
+        >
+          {w}
+          {i < words.length - 1 ? " " : ""}
         </span>
       ))}
     </span>

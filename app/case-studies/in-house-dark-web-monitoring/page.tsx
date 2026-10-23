@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { CaseStudyShell } from "@/components/case-study/case-study-shell";
 import { Bullets, H2, P } from "@/components/blog/prose";
-import { breadcrumbLd } from "@/lib/jsonld";
+import { breadcrumbLd, serviceLdId } from "@/lib/jsonld";
 import { breadcrumbLabel, caseStudyBySlug } from "@/lib/case-studies";
-import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
+import { ogImage, ogImageLd } from "@/lib/og";
 
 const study = caseStudyBySlug("in-house-dark-web-monitoring")!;
 const PATH = `/case-studies/${study.slug}`;
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   title: { absolute: study.metaTitle },
   description: study.metaDescription,
   alternates: { canonical: PATH },
+  robots: ROBOTS,
   openGraph: {
     type: "article",
     title: study.metaTitle,
@@ -21,12 +23,13 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: study.datePublished,
     modifiedTime: study.dateModified ?? study.datePublished,
-    images: OG_IMAGE,
+    images: ogImage(PATH),
   },
   twitter: {
     card: "summary_large_image",
     title: study.metaTitle,
     description: study.metaDescription,
+    images: ogImage(PATH),
   },
 };
 
@@ -46,8 +49,13 @@ function caseStudyLd() {
     isPartOf: { "@id": `${SITE.url}/#website` },
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
-    image: `${SITE.url}/WhyCrew.jpeg`,
+    image: ogImageLd(PATH),
     articleSection: "Case Study",
+    about: { "@type": "Service", "@id": serviceLdId("/services/mssp-engineering-partner") },
+    mentions: [
+      { "@type": "Thing", name: "Dark web monitoring" },
+      { "@type": "Thing", name: "Credential exposure detection" },
+    ],
     keywords: study.topics.join(", "),
   };
 }

@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/primitives";
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, serviceListLd } from "@/lib/jsonld";
-import { CTA_HREF, OG_IMAGE, SERVICES, SITE } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SERVICES, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
 const TITLE = "Security Engineering Services for MSSPs";
 const DESCRIPTION =
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/services" },
+  robots: ROBOTS,
   // Without these the hub inherits the root layout's card wholesale, which
   // names the homepage — so a shared /services link showed the homepage title,
   // description, and og:url.
@@ -28,12 +30,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: `${SITE.url}/services`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/services"),
   },
   twitter: {
     card: "summary_large_image",
     title: `${TITLE} | ${SITE.name}`,
     description: DESCRIPTION,
+    images: ogImage("/services"),
   },
 };
 

@@ -22,6 +22,8 @@ export interface CaseStudy {
   slug: string;
   /** <h1> on the page. */
   title: string;
+  /** Last breadcrumb — the page's short title. */
+  crumb: string;
   /** Exact <title> from the content doc. */
   metaTitle: string;
   /** Exact meta description from the content doc. */
@@ -40,6 +42,7 @@ export interface CaseStudy {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "siem-rent-to-owned-platform",
+    crumb: "From SIEM Rent to an Owned Platform",
     title: "From SIEM Rent to an Owned Security Platform",
     metaTitle: "How a Growing MSSP Saved $270K in 24 Months",
     metaDescription:
@@ -57,10 +60,11 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "mssp-engineering-capacity-pod",
+    crumb: "MSSP Engineering Capacity Pod",
     title: "Scaling MSSP Engineering Without Scaling Headcount",
     metaTitle: "How an MSSP Got 8× Engineering Output Without New Hires",
     metaDescription:
-      "A real-world case study showing how an embedded WhyCrew engineering pod let a growing MSSP consolidate detection, ingestion, and automation work — shipping production work in 10 days without a four-person hire.",
+      "How an embedded WhyCrew engineering pod gave a growing MSSP 8× engineering output and shipped production work in 10 days, with no new hires.",
     summary:
       "A growing MSSP had one engineer covering work that realistically needed three or four. An embedded WhyCrew engineering pod consolidated detection, ingestion, and automation under one team, shipping production work in 10 days.",
     datePublished: "2026-09-08",
@@ -74,11 +78,11 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "owned-threat-intelligence-pipeline",
+    crumb: "Owned Threat-Intel Pipeline",
     title: "Replacing a Rented Threat-Intel Feed With an Owned Pipeline",
-    metaTitle:
-      "How a SOC Cut 80% of Manual Triage With an Owned Threat-Intel Pipeline",
+    metaTitle: "Case Study: 80% Less Manual Triage With Owned Threat Intel",
     metaDescription:
-      "A real-world case study showing how a regional SOC replaced a $40K/year threat-intelligence subscription with an owned ingestion and enrichment pipeline, cutting manual triage by 80%.",
+      "How a regional SOC replaced a $40K/year threat-intel subscription with an owned ingestion and enrichment pipeline and cut manual triage by 80%.",
     summary:
       "A regional SOC paid $40K a year for a commercial threat-intel feed that still left analysts checking domains and hashes by hand. An owned ingestion and enrichment pipeline cut manual triage by 80%.",
     datePublished: "2026-09-08",
@@ -92,11 +96,11 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "in-house-dark-web-monitoring",
+    crumb: "In-House Dark-Web Monitoring",
     title: "Bringing Identity Monitoring In-House to Escape a Capped Vendor",
-    metaTitle:
-      "How a Security Provider Cut a $180K Vendor Bill With In-House Monitoring",
+    metaTitle: "Case Study: Cutting a $180K Dark-Web Monitoring Bill",
     metaDescription:
-      "A real-world case study showing how a cybersecurity provider replaced a capped, $180K/year dark-web monitoring vendor with an owned collection pipeline in six weeks.",
+      "How a security provider replaced a capped $180K/year dark-web monitoring vendor with an owned collection pipeline in six weeks.",
     summary:
       "A cybersecurity provider paid $180K a year for dark-web monitoring capped by API limits and delayed alerts. A proprietary collection pipeline, deployed in six weeks, removed the caps entirely.",
     datePublished: "2026-09-08",
@@ -114,9 +118,9 @@ export const caseStudyBySlug = (slug: string) =>
   CASE_STUDIES.find((c) => c.slug === slug);
 
 /**
- * A slug as breadcrumb text — the same treatment the blog gives its last
- * crumb, so both sections read the same way. Re-exported from lib/blog rather
- * than reimplemented: the visible trail and the BreadcrumbList JSON-LD have to
- * carry an identical string, and one implementation is what guarantees that.
+ * A case study's last breadcrumb: its `crumb`, falling back to the slug with
+ * the hyphens as spaces. The visible trail and the BreadcrumbList JSON-LD both
+ * call this, so they always carry an identical string.
  */
-export { breadcrumbLabel } from "@/lib/blog";
+export const breadcrumbLabel = (slug: string) =>
+  caseStudyBySlug(slug)?.crumb ?? slug.replace(/-/g, " ");

@@ -8,14 +8,15 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
+import { ogImage, ogImageLd } from "@/lib/og";
 import {
   CorrelationReplay,
   PipelineTour,
   StorageEstimator,
 } from "./interactives";
 
-const post = postBySlug("open-source-seim")!;
+const post = postBySlug("open-source-siem")!;
 const PATH = postPath(post);
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   title: { absolute: post.metaTitle },
   description: post.metaDescription,
   alternates: { canonical: PATH },
+  robots: ROBOTS,
   openGraph: {
     type: "article",
     title: post.metaTitle,
@@ -31,12 +33,13 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
-    images: OG_IMAGE,
+    images: ogImage(PATH),
   },
   twitter: {
     card: "summary_large_image",
     title: post.metaTitle,
     description: post.metaDescription,
+    images: ogImage(PATH),
   },
 };
 
@@ -56,7 +59,7 @@ function articleLd() {
     isPartOf: { "@id": `${SITE.url}/#website` },
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
-    image: `${SITE.url}/WhyCrew.jpeg`,
+    image: ogImageLd(PATH),
     articleSection: post.cluster,
     keywords: post.topics.join(", "),
   };
@@ -901,7 +904,7 @@ export default function Page() {
           usually cost the most.
         </P>
         <Fig
-          src="/blog/open-source-seim/siem-cost-split.webp"
+          src="/blog/open-source-siem/siem-cost-split.webp"
           alt="Open source SIEM total cost split into storage, compute, engineering and SOC people, with the license as the smallest part."
           caption="The license is the smallest part of what an open source SIEM costs"
         />
@@ -951,7 +954,7 @@ export default function Page() {
           decides how fast, reliable and costly the platform will be.
         </P>
         <Fig
-          src="/blog/open-source-seim/single-vs-distributed-siem.webp"
+          src="/blog/open-source-siem/single-vs-distributed-siem.webp"
           alt="Single-node SIEM on one server compared with a distributed SIEM with collectors, a queue, a storage cluster and detection layer."
           caption="Splitting the SIEM into layers removes the single point of failure"
         />

@@ -10,6 +10,7 @@ export const organizationLd = () => ({
   "@type": "Organization",
   "@id": `${SITE.url}/#organization`,
   name: SITE.name,
+  legalName: SITE.legalName,
   url: SITE.url,
   logo: {
     "@type": "ImageObject",
@@ -31,6 +32,8 @@ export const organizationLd = () => ({
   },
   slogan: "Stop renting. Start owning.",
   // Entity disambiguation — carried over from the previous site's schema.
+  // Add each new company profile (Clutch, Crunchbase, G2, YouTube, X) here
+  // as it goes live.
   sameAs: ["https://www.linkedin.com/company/whycrew"],
   knowsAbout: [
     "SIEM development",
@@ -61,6 +64,18 @@ export const organizationLd = () => ({
       email: SITE.incidentEmail,
       availableLanguage: ["English"],
     },
+    {
+      "@type": "ContactPoint",
+      contactType: "press",
+      email: SITE.pressEmail,
+      availableLanguage: ["English"],
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "privacy",
+      email: SITE.legalEmail,
+      availableLanguage: ["English"],
+    },
   ],
 });
 
@@ -85,6 +100,9 @@ export const serviceListLd = () => ({
   })),
 });
 
+/** The @id of the Service node on a service page. */
+export const serviceLdId = (path: string) => `${SITE.url}${path}#service`;
+
 export const serviceLd = (opts: {
   name: string;
   description: string;
@@ -93,6 +111,9 @@ export const serviceLd = (opts: {
 }) => ({
   "@context": "https://schema.org",
   "@type": "Service",
+  // Case studies point at this with `about`, tying each result to the
+  // service that delivered it.
+  "@id": serviceLdId(opts.path),
   name: opts.name,
   description: opts.description,
   serviceType: opts.serviceType,

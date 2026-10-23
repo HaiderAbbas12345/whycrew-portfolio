@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
-import { CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
+import { ogImage, ogImageLd } from "@/lib/og";
 
 const post = postBySlug("what-is-an-mssp")!;
 const PATH = postPath(post);
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   title: { absolute: post.metaTitle },
   description: post.metaDescription,
   alternates: { canonical: PATH },
+  robots: ROBOTS,
   openGraph: {
     type: "article",
     title: post.metaTitle,
@@ -25,12 +27,13 @@ export const metadata: Metadata = {
     url: `${SITE.url}${PATH}`,
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
-    images: OG_IMAGE,
+    images: ogImage(PATH),
   },
   twitter: {
     card: "summary_large_image",
     title: post.metaTitle,
     description: post.metaDescription,
+    images: ogImage(PATH),
   },
 };
 
@@ -114,7 +117,7 @@ function articleLd() {
     author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
     about: { "@type": "Thing", name: "Managed security service provider" },
-    image: `${SITE.url}/WhyCrew.jpeg`,
+    image: ogImageLd(PATH),
     articleSection: post.cluster,
     keywords: post.topics.join(", "),
   };

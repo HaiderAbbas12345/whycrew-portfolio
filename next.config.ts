@@ -147,6 +147,12 @@ const nextConfig: NextConfig = {
         destination: "/services/custom-siem-development",
         permanent: true,
       },
+      /** Typo fix: the open-source SIEM article first shipped as "seim". */
+      {
+        source: "/blog/open-source-seim",
+        destination: "/blog/open-source-siem",
+        permanent: true,
+      },
     ];
   },
 

@@ -14,12 +14,12 @@ import {
 import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { CASE_STUDIES } from "@/lib/case-studies";
-import { ADDRESS, CTA_HREF, OG_IMAGE, SITE } from "@/lib/site";
+import { ADDRESS, CTA_HREF, ROBOTS, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 
-const TITLE =
-  "About WhyCrew — The Engineering Partner Behind Independent Security Teams";
+const TITLE = "About WhyCrew — Engineering Partner for Security Teams";
 const DESCRIPTION =
-  "WhyCrew designs, builds, and migrates custom SIEM, SOAR, and compliance automation platforms for MSSPs and regulated enterprises, then transfers full ownership to the client.";
+  "WhyCrew designs and builds custom SIEM, SOAR and compliance automation platforms for MSSPs and regulated teams, then hands over full ownership.";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template — the brand
@@ -27,18 +27,20 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/about" },
+  robots: ROBOTS,
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: `${SITE.url}/about`,
     type: "website",
-    images: OG_IMAGE,
+    images: ogImage("/about"),
   },
   // Without this the page inherits the root layout's site-wide Twitter card.
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ogImage("/about"),
   },
 };
 

@@ -6,12 +6,8 @@ import { BookingModalProvider } from "@/components/booking-modal";
 import { Analytics } from "@/components/analytics";
 import { CookieConsent } from "@/components/cookie-consent";
 import { organizationLd, websiteLd } from "@/lib/jsonld";
-import {
-  BING_SITE_VERIFICATION,
-  GOOGLE_SITE_VERIFICATION,
-  OG_IMAGE,
-  SITE,
-} from "@/lib/site";
+import { BING_SITE_VERIFICATION, GOOGLE_SITE_VERIFICATION, SITE } from "@/lib/site";
+import { ogImage } from "@/lib/og";
 import "./globals.css";
 
 const inter = Inter({
@@ -52,32 +48,23 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
   publisher: SITE.name,
-  alternates: { canonical: "/" },
+  // No alternates.canonical, openGraph.url or robots here. The 404 page
+  // inherits this object, and those three made every unknown URL claim to be
+  // the indexable homepage. Each page declares its own (robots via ROBOTS in
+  // lib/site.ts).
   openGraph: {
     type: "website",
     siteName: SITE.name,
     locale: SITE.locale,
-    url: SITE.url,
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
-    images: OG_IMAGE,
+    images: ogImage("/"),
   },
   twitter: {
     card: "summary_large_image",
     title: "Custom Security Platform Development for MSSPs | WhyCrew",
     description: SITE.description,
-    images: OG_IMAGE,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    images: ogImage("/"),
   },
   icons: {
     icon: "/WhyCrew.jpeg",
