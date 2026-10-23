@@ -11,6 +11,7 @@ import {
   type Variants,
 } from "framer-motion";
 import React, {
+  Fragment,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -258,18 +259,21 @@ export function WordsUp({
   return (
     <span className={wrap}>
       {words.map((w, i) => (
-        <span
-          key={`${w}-${i}`}
-          className={
-            hl.has(w.toLowerCase().replace(/[.,]/g, ""))
-              ? "hero-word text-accent-hi"
-              : "hero-word"
-          }
-          style={{ animationDelay: `${delay + i * 0.055}s` }}
-        >
-          {w}
-          {i < words.length - 1 ? " " : ""}
-        </span>
+        // The space sits outside the word: trailing whitespace inside an
+        // inline-block collapses away, which ran the headline together.
+        <Fragment key={`${w}-${i}`}>
+          <span
+            className={
+              hl.has(w.toLowerCase().replace(/[.,]/g, ""))
+                ? "hero-word text-accent-hi"
+                : "hero-word"
+            }
+            style={{ animationDelay: `${delay + i * 0.055}s` }}
+          >
+            {w}
+          </span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </span>
   );
