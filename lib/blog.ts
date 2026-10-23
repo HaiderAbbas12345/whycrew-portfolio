@@ -343,7 +343,8 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
    * page sends the reader somewhere they weren't promised.
    */
   "ai-soc-automation-services": "/services/ai-powered-soc-automation",
-  "custom-siem-soar-services": "/services/custom-siem-soar-development",
+  "custom-siem-services": "/services/custom-siem-development",
+  "custom-soar-services": "/services/custom-soar-development",
   "mssp-engineering-partner": "/services/mssp-engineering-partner",
   "nca-ecc-sama-csf-compliance": "/services/nca-ecc-sama-csf-compliance",
   "nis2-dora-compliance-automation": "/services/nis2-dora-compliance-automation",

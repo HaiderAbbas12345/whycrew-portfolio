@@ -267,7 +267,7 @@ export default function Page() {
         </P>
         <P>
           Our{" "}
-          <Ref to="custom-siem-soar-services">
+          <Ref to="custom-siem-services">
             custom SIEM development service
           </Ref>{" "}
           describes how this model is typically structured.

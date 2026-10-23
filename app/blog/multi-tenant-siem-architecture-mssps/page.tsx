@@ -454,7 +454,7 @@ export default function Page() {
         <P>
           <Strong>
             Choose a{" "}
-            <Ref to="custom-siem-soar-services">custom built platform</Ref>
+            <Ref to="custom-siem-services">custom-built multi-tenant SIEM</Ref>
           </Strong>{" "}
           if you manage 20 or more clients, deal with complex compliance rules,
           need strong branding, or want full control over your roadmap.

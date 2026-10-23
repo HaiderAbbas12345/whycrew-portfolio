@@ -357,7 +357,7 @@ export default function Page() {
               A German MSSP saved €340K/year switching to an owned platform.
             </p>
             <Link
-              href="/services/custom-siem-soar-development"
+              href="/case-studies/siem-rent-to-owned-platform"
               className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
             >
               See the full case study
@@ -452,8 +452,8 @@ export default function Page() {
         body="Twenty minutes with an engineer, not a channel rep. We map your target clients, your current platform, and the shortest route to production — then give you a fixed-price proposal."
         primary={{ label: "Book a Technical Consultation", href: CTA_HREF }}
         secondary={{
-          label: "Explore Custom SIEM & SOAR",
-          href: "/services/custom-siem-soar-development",
+          label: "Explore Custom SIEM Development",
+          href: "/services/custom-siem-development",
         }}
         footnote="Fixed price · You own the platform · Your roadmap · No pitch deck"
       />

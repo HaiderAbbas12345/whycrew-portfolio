@@ -210,7 +210,7 @@ export default function Page() {
             <>
               <Strong>Being stuck.</Strong> Teams that want full control move to
               systems they own. Our{" "}
-              <Ref to="custom-siem-soar-services">
+              <Ref to="custom-soar-services">
                 custom SOAR development
               </Ref>{" "}
               service is built for this.

@@ -770,7 +770,8 @@ export default function Page() {
         <P>
           Teams weighing whether to buy a platform outright, or build automation
           into their existing{" "}
-          <Ref to="custom-siem-soar-services">custom SIEM and SOAR stack</Ref>,
+          <Ref to="custom-siem-services">custom SIEM</Ref> and{" "}
+          <Ref to="custom-soar-services">SOAR stack</Ref>,
           usually land on the same answer. The evaluation criteria above matter
           more than which path gets you there.
         </P>

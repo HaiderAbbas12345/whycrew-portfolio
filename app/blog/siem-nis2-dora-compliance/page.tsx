@@ -472,9 +472,8 @@ export default function Page() {
           Custom is not for everyone. Small teams with simple needs may do fine
           with a well-tuned commercial tool. But once your log volume, sectors,
           or deadlines outgrow what a bought platform can handle, an{" "}
-          <Ref to="custom-siem-soar-services">
-            engineering-built SIEM and SOAR platform
-          </Ref>{" "}
+          <Ref to="custom-siem-services">engineering-built SIEM</Ref> and{" "}
+          <Ref to="custom-soar-services">SOAR platform</Ref>{" "}
           becomes the practical choice.
         </P>
 

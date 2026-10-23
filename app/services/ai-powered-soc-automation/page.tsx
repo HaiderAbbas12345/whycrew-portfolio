@@ -550,7 +550,7 @@ export default function Page() {
         highlight="Start Automating Intelligently."
         body="Your analysts should be hunting threats, not working through alert queues. WhyCrew deploys inside your infrastructure and hands you a platform you own outright."
         primary={{ label: "Book a Technical Consultation", href: CTA_HREF }}
-        secondary={{ label: "Explore Custom SIEM & SOAR", href: "/services/custom-siem-soar-development" }}
+        secondary={{ label: "Explore Custom SOAR Development", href: "/services/custom-soar-development" }}
         footnote="Fixed-price engagement · GDPR-aligned by architecture · Fully self-contained · You speak with engineers, not sales"
       />
     </>
