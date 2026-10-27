@@ -362,6 +362,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-21",
   },
   {
+    id: "blog-mdr-vs-mssp",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    title: "MDR vs MSSP: Core Technical Differences Explained",
+    summary:
+      "MDR stops threats; an MSSP alerts you. Compare MDR vs MSSP on response, cost ($20–$30 per user), pros and cons, and which fits your business.",
+    format: "11 min read",
+    status: "live",
+    href: "/blog/mdr-vs-mssp",
+    date: "2026-10-26",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

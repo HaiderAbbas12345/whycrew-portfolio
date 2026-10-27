@@ -324,6 +324,20 @@ export const POSTS: BlogPost[] = [
     readTime: "12 min read",
     topics: ["MSSP & White-Label", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
+  },  {
+    slug: "mdr-vs-mssp",
+    crumb: "MDR vs MSSP",
+    title: "MDR vs MSSP: Core Technical Differences Explained",
+    metaTitle: "MDR vs MSSP: Key Differences, Costs & Which You Need",
+    metaDescription:
+      "MDR stops threats; an MSSP alerts you. Compare MDR vs MSSP on response, cost ($20–$30 per user), pros and cons, and which fits your business.",
+    summary:
+      "MDR stops threats; an MSSP alerts you. Compare MDR vs MSSP on response, cost ($20–$30 per user), pros and cons, and which fits your business.",
+    datePublished: "2026-10-26",
+    dateModified: "2026-10-26",
+    readTime: "11 min read",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    cluster: "Custom SIEM & SOAR Development",
   },
 ];
 
@@ -391,6 +405,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "open-source-siem": "/blog/open-source-siem",
   "what-is-an-mssp": "/blog/what-is-an-mssp",
   "mssp-pricing": "/blog/mssp-pricing",
+  "mdr-vs-mssp": "/blog/mdr-vs-mssp",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
