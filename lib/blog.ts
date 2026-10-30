@@ -339,6 +339,21 @@ export const POSTS: BlogPost[] = [
     topics: ["MSSP & White-Label", "SIEM & SOAR"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "msp-vs-mssp",
+    crumb: "MSP vs MSSP",
+    title: "MSP Vs MSSP: What Is The Difference And Which Do You Need?",
+    metaTitle: "MSP vs MSSP: The Actual Key Differences",
+    metaDescription:
+      "MSP vs MSSP made simple. One keeps your IT running and the other stops attackers 24/7. Learn what each really does and when you need both.",
+    summary:
+      "MSP vs MSSP made simple. One keeps your IT running and the other stops attackers 24/7. Learn what each really does and when you need both.",
+    datePublished: "2026-10-28",
+    dateModified: "2026-10-28",
+    readTime: "17 min read",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -406,6 +421,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "what-is-an-mssp": "/blog/what-is-an-mssp",
   "mssp-pricing": "/blog/mssp-pricing",
   "mdr-vs-mssp": "/blog/mdr-vs-mssp",
+  "msp-vs-mssp": "/blog/msp-vs-mssp",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site

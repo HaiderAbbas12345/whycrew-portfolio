@@ -374,6 +374,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-26",
   },
   {
+    id: "blog-msp-vs-mssp",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    title: "MSP Vs MSSP: What Is The Difference And Which Do You Need?",
+    summary:
+      "MSP vs MSSP made simple. One keeps your IT running and the other stops attackers 24/7. Learn what each really does and when you need both.",
+    format: "17 min read",
+    status: "live",
+    href: "/blog/msp-vs-mssp",
+    date: "2026-10-28",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
