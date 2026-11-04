@@ -13,6 +13,7 @@ import { breadcrumbLd } from "@/lib/jsonld";
 import { POSTS, postPath } from "@/lib/blog";
 import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { authorLd } from "@/lib/authors";
 
 const TITLE = "SIEM, SOAR & AI SOC Engineering Blog | WhyCrew";
 const DESCRIPTION =
@@ -85,7 +86,7 @@ function blogLd() {
       url: `${SITE.url}${postPath(p)}`,
       datePublished: p.datePublished,
       dateModified: p.dateModified ?? p.datePublished,
-      author: { "@id": `${SITE.url}/#organization` },
+      author: authorLd(p.author),
     })),
   };
 }

@@ -70,13 +70,14 @@ export function ArticleShell({
       readTime={post.readTime}
       notes={notes}
       toc={toc}
+      author={post.author}
       footer={
         <>
           {/* -------------------------------- share / feedback / byline */}
           <div className="mt-16 space-y-10 border-t border-line-soft pt-10">
             <ShareArticle url={`${SITE.url}${path}`} title={post.title} />
             <HelpfulPrompt slug={post.slug} />
-            <AuthorBio />
+            <AuthorBio author={post.author} />
           </div>
 
           {/* -------------------------------- closing CTA */}

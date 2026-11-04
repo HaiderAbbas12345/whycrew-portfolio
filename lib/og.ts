@@ -1,4 +1,5 @@
 import { POSTS, postPath } from "./blog";
+import { AUTHORS, authorPath } from "./authors";
 import { CASE_STUDIES } from "./case-studies";
 import { LEGAL_PAGES } from "./legal";
 import { SERVICES, SITE } from "./site";
@@ -69,6 +70,9 @@ export const OG_CARDS: Record<string, OgCard> = {
       `/case-studies/${c.slug}`,
       { eyebrow: "Case Study", title: c.title },
     ])
+  ),
+  ...Object.fromEntries(
+    AUTHORS.map((a) => [authorPath(a.slug), { eyebrow: "Author", title: a.name }])
   ),
   ...Object.fromEntries(
     LEGAL_PAGES.map((l) => [`/${l.slug}`, { eyebrow: "Policy", title: l.title }])

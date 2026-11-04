@@ -37,6 +37,8 @@ export interface CaseStudy {
   topics: string[];
   /** Headline figures, rendered as a band under the title. */
   metrics: CaseStudyMetric[];
+  /** Author slug from lib/authors.ts; omitted means WhyCrew Engineers. */
+  author?: string;
 }
 
 export const CASE_STUDIES: CaseStudy[] = [

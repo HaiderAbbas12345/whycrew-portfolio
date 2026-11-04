@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { POSTS, postPath } from "@/lib/blog";
+import { AUTHORS, authorPath, itemsByAuthor } from "@/lib/authors";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { LEGAL_PAGES } from "@/lib/legal";
 import { SERVICES, SITE } from "@/lib/site";
@@ -104,6 +105,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: safeDate(c.dateModified ?? c.datePublished),
       changeFrequency: "yearly" as const,
       priority: 0.7,
+    })),
+    // An author page changes when that author publishes.
+    ...AUTHORS.map((a) => ({
+      url: `${BASE_URL}${authorPath(a.slug)}`,
+      lastModified: newest(itemsByAuthor(a.slug).map((i) => i.datePublished)),
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
     })),
     {
       url: `${BASE_URL}/contact`,

@@ -5,6 +5,7 @@ import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion";
+import { DEFAULT_AUTHOR, authorBySlug, authorPath } from "@/lib/authors";
 import { RATING_LABEL } from "@/lib/reviews";
 import { CTA_HREF, EXTERNAL_REL, SITE } from "@/lib/site";
 
@@ -24,10 +25,6 @@ import { CTA_HREF, EXTERNAL_REL, SITE } from "@/lib/site";
  * every article, including future ones, comes out the same.
  */
 
-/** Same profile as the footer and the Organization JSON-LD `sameAs`. */
-export const COMPANY_LINKEDIN = "https://www.linkedin.com/company/whycrew";
-
-const AUTHOR = "WhyCrew Engineers";
 
 /** Google's "preferred sources" page, pre-filled with our domain. */
 const PREFERRED_SOURCE_URL = `https://www.google.com/preferences/source?q=${
@@ -73,6 +70,7 @@ export function ArticleLayout({
   hero,
   children,
   footer,
+  author,
 }: {
   crumbs: { name: string; path: string }[];
   title: string;
@@ -93,7 +91,10 @@ export function ArticleLayout({
   children: ReactNode;
   /** Everything after the article: share, feedback, author bio, CTA. */
   footer: ReactNode;
+  /** Author slug from lib/authors.ts; omitted means WhyCrew Engineers. */
+  author?: string;
 }) {
+  const a = authorBySlug(author);
   const updated =
     dateModified && dateModified !== datePublished ? dateModified : null;
   const url = `${SITE.url}${path}`;
@@ -135,23 +136,34 @@ export function ArticleLayout({
               <div className="mt-8 flex flex-col gap-5 border-y border-line-soft py-5 md:flex-row md:items-center md:justify-between">
                 {/* author */}
                 <div className="flex items-center gap-3.5">
-                  <Image
-                    src="/WhyCrew.jpeg"
-                    alt=""
-                    width={44}
-                    height={44}
-                    className="size-11 shrink-0 rounded-full object-cover ring-2 ring-line"
-                  />
+                  <Link
+                    href={authorPath(a.slug)}
+                    tabIndex={-1}
+                    aria-hidden
+                    className="shrink-0"
+                  >
+                    <Image
+                      src={a.avatar}
+                      alt=""
+                      width={44}
+                      height={44}
+                      className="size-11 rounded-full object-cover ring-2 ring-line transition-shadow duration-300 hover:ring-accent/60"
+                    />
+                  </Link>
                   <div className="min-w-0">
                     <p className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[14px] text-body">
                       <span>
                         By{" "}
-                        <span className="font-semibold text-bright">
-                          {AUTHOR}
-                        </span>
+                        <Link
+                          href={authorPath(a.slug)}
+                          rel="author"
+                          className="font-semibold text-bright underline-offset-4 transition-colors duration-300 hover:text-accent hover:underline"
+                        >
+                          {a.name}
+                        </Link>
                       </span>
                       <a
-                        href={COMPANY_LINKEDIN}
+                        href={a.linkedin}
                         target="_blank"
                         rel={EXTERNAL_REL}
                         className="inline-flex items-center rounded-full border border-accent/35 bg-accent/10 px-2.5 py-0.5 text-[12px] font-semibold text-accent transition-colors duration-300 hover:border-accent/60 hover:text-accent-hi"
@@ -398,15 +410,16 @@ function SummarizeWith({ url }: { url: string }) {
 /* ------------------------------------------------ author bio */
 
 /** The bio card at the foot of every article — unchanged from the original. */
-export function AuthorBio() {
+export function AuthorBio({ author }: { author?: string }) {
+  const a = authorBySlug(author);
   return (
     <section
       aria-label="About the author"
       className="flex flex-col gap-7 rounded-3xl border border-line/70 bg-surface/60 p-7 sm:flex-row sm:gap-10 sm:p-10"
     >
       <Image
-        src="/WhyCrew.jpeg"
-        alt="WhyCrew Engineers"
+        src={a.avatar}
+        alt={a.name}
         width={112}
         height={112}
         className="h-24 w-24 shrink-0 rounded-full object-cover ring-2 ring-line sm:h-28 sm:w-28"
@@ -416,24 +429,36 @@ export function AuthorBio() {
           Written by
         </p>
         <p className="mt-3 text-2xl font-semibold text-bright sm:text-[1.75rem]">
-          WhyCrew Engineers
+          <Link
+            href={authorPath(a.slug)}
+            rel="author"
+            className="transition-colors duration-300 hover:text-accent"
+          >
+            {a.name}
+          </Link>
         </p>
         <p className="mt-2 text-[15px] font-semibold text-accent">
-          SIEM, SOAR &amp; AI SOC Engineering Team
+          {a.role}
         </p>
         <p className="mt-4 text-[14.5px] leading-[1.8] text-muted">
-          WhyCrew is an engineering firm that builds custom SIEM, SOAR, and
-          AI-powered SOC platforms, then hands full ownership over to the
-          client instead of renting it back as a subscription. The team
-          works with MSSPs and regulated operators across Europe, Saudi
-          Arabia, and North America, building in compliance for NIS2, DORA,
-          and NCA ECC/SAMA CSF from day one, with deployments typically
-          live in 12 weeks. This article was researched and written by the
-          WhyCrew engineering team.
+          {a.slug === DEFAULT_AUTHOR ? (
+            <>
+              WhyCrew is an engineering firm that builds custom SIEM, SOAR, and
+              AI-powered SOC platforms, then hands full ownership over to the
+              client instead of renting it back as a subscription. The team
+              works with MSSPs and regulated operators across Europe, Saudi
+              Arabia, and North America, building in compliance for NIS2, DORA,
+              and NCA ECC/SAMA CSF from day one, with deployments typically
+              live in 12 weeks. This article was researched and written by the
+              WhyCrew engineering team.
+            </>
+          ) : (
+            a.bio
+          )}
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[14.5px] font-semibold">
           <a
-            href={COMPANY_LINKEDIN}
+            href={a.linkedin}
             target="_blank"
             rel={EXTERNAL_REL}
             className="group inline-flex items-center gap-1.5 text-accent hover:text-accent-hi"
@@ -447,7 +472,7 @@ export function AuthorBio() {
             </span>
           </a>
           <Link
-            href="/blog"
+            href={authorPath(a.slug)}
             className="group inline-flex items-center gap-1.5 text-accent hover:text-accent-hi"
           >
             More from our engineers

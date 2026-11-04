@@ -16,6 +16,7 @@ import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug } from "@/lib/blog";
 import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
 import { ogImage, ogImageLd } from "@/lib/og";
+import { authorLd } from "@/lib/authors";
 
 const post = postBySlug(
   "on-premise-ai-soc-automation-vs-cloud-security-copilot"
@@ -186,7 +187,7 @@ function articleLd() {
     dateModified: post.dateModified ?? post.datePublished,
     inLanguage: "en",
     isPartOf: { "@id": `${SITE.url}/#website` },
-    author: { "@id": `${SITE.url}/#organization` },
+    author: authorLd(post.author),
     publisher: { "@id": `${SITE.url}/#organization` },
     image: ogImageLd(PATH),
     articleSection: post.cluster,

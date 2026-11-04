@@ -6,6 +6,7 @@ import { breadcrumbLd, serviceLdId } from "@/lib/jsonld";
 import { breadcrumbLabel, caseStudyBySlug } from "@/lib/case-studies";
 import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
 import { ogImage, ogImageLd } from "@/lib/og";
+import { authorLd } from "@/lib/authors";
 
 const study = caseStudyBySlug("owned-threat-intelligence-pipeline")!;
 const PATH = `/case-studies/${study.slug}`;
@@ -48,7 +49,7 @@ function caseStudyLd() {
     dateModified: study.dateModified ?? study.datePublished,
     inLanguage: "en",
     isPartOf: { "@id": `${SITE.url}/#website` },
-    author: { "@id": `${SITE.url}/#organization` },
+    author: authorLd(study.author),
     publisher: { "@id": `${SITE.url}/#organization` },
     image: ogImageLd(PATH),
     articleSection: "Case Study",

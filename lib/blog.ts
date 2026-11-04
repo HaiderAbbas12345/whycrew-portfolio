@@ -41,6 +41,8 @@ export interface BlogPost {
    * rather than a lowercased URL fragment.
    */
   crumb: string;
+  /** Author slug from lib/authors.ts; omitted means WhyCrew Engineers. */
+  author?: string;
 }
 
 export const POSTS: BlogPost[] = [

@@ -10,6 +10,7 @@ import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
 import { ROBOTS, SITE } from "@/lib/site";
 import { ogImage, ogImageLd } from "@/lib/og";
 import { ArchitectureDiagram } from "./architecture-diagram";
+import { authorLd } from "@/lib/authors";
 
 const post = postBySlug("what-is-siem")!;
 const PATH = postPath(post);
@@ -120,7 +121,7 @@ function articleLd() {
     dateModified: post.dateModified ?? post.datePublished,
     inLanguage: "en",
     isPartOf: { "@id": `${SITE.url}/#website` },
-    author: { "@id": `${SITE.url}/#organization` },
+    author: authorLd(post.author),
     publisher: { "@id": `${SITE.url}/#organization` },
     image: ogImageLd(PATH),
     articleSection: post.cluster,

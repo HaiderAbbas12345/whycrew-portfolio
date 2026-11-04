@@ -45,6 +45,7 @@ export function CaseStudyShell({
       dateModified={study.dateModified}
       readTime={study.readTime}
       toc={toc}
+      author={study.author}
       hero={
         <Reveal delay={0.26} mount>
           <dl className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -72,7 +73,7 @@ export function CaseStudyShell({
           <div className="mt-16 space-y-10 border-t border-line-soft pt-10">
             <ShareArticle url={`${SITE.url}${path}`} title={study.title} />
             <HelpfulPrompt slug={study.slug} />
-            <AuthorBio />
+            <AuthorBio author={study.author} />
           </div>
 
           {/* -------------------------------- closing CTA */}

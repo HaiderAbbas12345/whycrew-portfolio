@@ -9,6 +9,7 @@ import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
 import { CTA_HREF, ROBOTS, SITE } from "@/lib/site";
 import { ogImage, ogImageLd } from "@/lib/og";
+import { authorLd } from "@/lib/authors";
 
 const post = postBySlug("what-is-an-mssp")!;
 const PATH = postPath(post);
@@ -114,7 +115,7 @@ function articleLd() {
     dateModified: post.dateModified ?? post.datePublished,
     inLanguage: "en",
     isPartOf: { "@id": `${SITE.url}/#website` },
-    author: { "@id": `${SITE.url}/#organization` },
+    author: authorLd(post.author),
     publisher: { "@id": `${SITE.url}/#organization` },
     about: { "@type": "Thing", name: "Managed security service provider" },
     image: ogImageLd(PATH),
