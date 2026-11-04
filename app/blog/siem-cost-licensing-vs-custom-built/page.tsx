@@ -736,7 +736,6 @@ export default function Page() {
       <ArticleShell
         post={post}
         toc={TOC}
-        showUpdated
         notes={["Prices checked October 2026"]}
       >
         <Lead>

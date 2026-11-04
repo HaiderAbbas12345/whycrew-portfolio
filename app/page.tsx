@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Backdrop } from "@/components/ui/backdrop";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
+import { ReviewSlider } from "@/components/sections/reviews";
 import {
   ArrowList,
   Card,
@@ -475,6 +476,9 @@ export default function HomePage() {
           <ProcessSteps steps={PROCESS} />
         </div>
       </Section>
+
+      {/* ============================================ REVIEWS */}
+      <ReviewSlider />
 
       {/* ============================================ FAQ */}
       <Section id="faq" className="border-y border-line/40 bg-ink/40">

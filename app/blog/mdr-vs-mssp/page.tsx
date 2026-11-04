@@ -672,20 +672,6 @@ export default function Page() {
       <ArticleShell
         post={post}
         toc={TOC}
-        tocLabel="Contents"
-        tocNumbered
-        tocCta={false}
-        // One item, so the shell adds no "·" separators: the design spaces
-        // its byline items with a gap only.
-        byline={[
-          <span key="b" className="flex flex-wrap gap-x-4 gap-y-2">
-            <span>
-              By <span className="font-semibold text-body">WhyCrew Engineers</span>
-            </span>
-            <time dateTime={post.datePublished}>Published October 26, 2026</time>
-            <span>{post.readTime}</span>
-          </span>,
-        ]}
       >
         <Answer />
         <Takeaways />

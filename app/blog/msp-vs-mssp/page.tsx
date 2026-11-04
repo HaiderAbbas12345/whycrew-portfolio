@@ -206,19 +206,6 @@ export default function Page() {
       <ArticleShell
         post={post}
         toc={TOC}
-        tocLabel="Contents"
-        tocNumbered
-        tocCta={false}
-        // One item, so the shell adds no "·" separators between byline items.
-        byline={[
-          <span key="b" className="flex flex-wrap gap-x-4 gap-y-2">
-            <span>
-              By <span className="font-semibold text-body">WhyCrew Engineers</span>
-            </span>
-            <time dateTime={post.datePublished}>Published October 28, 2026</time>
-            <span>{post.readTime}</span>
-          </span>,
-        ]}
       >
         <div id="msp-vs-mssp-difference" className="scroll-mt-28">
           <QuickAnswer label="Quick Overview">

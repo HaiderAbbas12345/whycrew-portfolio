@@ -12,6 +12,7 @@ import { Reveal, Stagger, StaggerItem, WordsUp } from "@/components/motion";
 import { breadcrumbLd, serviceListLd } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, SERVICES, SITE } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const TITLE = "Security Engineering Services for MSSPs";
 const DESCRIPTION =
@@ -118,6 +119,12 @@ export default function ServicesPage() {
           ))}
         </Stagger>
       </Section>
+
+      <ServiceReview
+        review="ciso"
+        study="siem-rent-to-owned-platform"
+        metric="Saved across 24 months"
+      />
 
       <Section className="border-t border-line/40 bg-ink/40">
         <div className="text-center">

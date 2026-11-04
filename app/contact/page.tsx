@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
+import { ReviewPanel } from "@/components/sections/reviews";
 import { Backdrop } from "@/components/ui/backdrop";
 import { FaqAccordion } from "@/components/ui/faq";
 import {
@@ -341,9 +342,14 @@ export default function ContactPage() {
         <Backdrop variant="section" />
         <Eyebrow>Send us the details</Eyebrow>
         <Heading>Six fields. That&apos;s it.</Heading>
-        <Reveal className="mt-10">
-          <ContactForm />
-        </Reveal>
+        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-start lg:gap-10">
+          <Reveal className="min-w-0">
+            <ContactForm />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ReviewPanel />
+          </Reveal>
+        </div>
       </Section>
 
       {/* ============================================ REGIONS */}

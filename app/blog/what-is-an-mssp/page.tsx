@@ -280,7 +280,7 @@ export default function Page() {
         }}
       />
 
-      <ArticleShell post={post} toc={TOC} tocCta={false} datePrefix="Published">
+      <ArticleShell post={post} toc={TOC}>
         <H2 id="what-is-an-mssp">What Is An MSSP?</H2>
         <p className="mt-5 text-[16.5px] leading-[1.7] text-body sm:text-[17px]">
           An <Strong>MSSP (Managed Security Service Provider)</Strong> is a

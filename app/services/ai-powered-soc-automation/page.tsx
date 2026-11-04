@@ -15,6 +15,7 @@ import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("ai-powered-soc-automation");
 
@@ -509,6 +510,13 @@ export default function Page() {
           </Reveal>
         </div>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="uzair"
+        study="owned-threat-intelligence-pipeline"
+        metric="Reduction in manual triage"
+      />
 
       {/* ------------------------------------------------ process */}
       <Section id="process">

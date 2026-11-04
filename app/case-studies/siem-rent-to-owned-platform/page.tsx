@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CaseStudyShell } from "@/components/case-study/case-study-shell";
+import type { TocEntry } from "@/components/blog/article-layout";
 import { Bullets, H2, P } from "@/components/blog/prose";
 import { breadcrumbLd, serviceLdId } from "@/lib/jsonld";
 import { breadcrumbLabel, caseStudyBySlug } from "@/lib/case-studies";
@@ -61,6 +62,13 @@ function caseStudyLd() {
   };
 }
 
+const TOC: TocEntry[] = [
+  { id: "the-challenge", label: "The Challenge" },
+  { id: "the-approach", label: "The WhyCrew Approach" },
+  { id: "the-outcome", label: "The Outcome" },
+  { id: "why-it-matters", label: "Why This Matters for Growing MSSPs" },
+];
+
 export default function Page() {
   return (
     <>
@@ -83,6 +91,7 @@ export default function Page() {
 
       <CaseStudyShell
         study={study}
+        toc={TOC}
         cta={{
           heading: "See what a phased migration looks like for your stack",
           body: "If your SIEM costs are rising faster than your customer base, it may be time to evaluate whether your current licensing model still supports your margins. Talk to our team about what a phased migration could look like for your environment.",

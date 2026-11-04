@@ -16,6 +16,7 @@ import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
 import { CostEstimator, type CostTier } from "./cost-estimator";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("custom-siem-development");
 
@@ -500,6 +501,13 @@ export default function Page() {
           </Reveal>
         </div>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="ciso"
+        study="siem-rent-to-owned-platform"
+        metric="Saved across 24 months"
+      />
 
       {/* ============================================ HOW AN ENGAGEMENT WORKS */}
       <Section id="process">

@@ -836,19 +836,7 @@ export default function Page() {
       <ArticleShell
         post={post}
         toc={TOC}
-        tocLabel="Contents"
-        tocNumbered
-        tocCta={false}
-        byline={[
-          <>
-            By <Strong>WhyCrew Engineers</Strong>
-          </>,
-          <time key="updated" dateTime={post.dateModified}>
-            Updated October 13, 2026
-          </time>,
-          "Stats checked October 2026",
-          post.readTime,
-        ]}
+        notes={["Stats checked October 2026"]}
       >
         <QuickAnswer block>
           <p className="text-[16.5px] leading-[1.7] text-body">

@@ -15,6 +15,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("nis2-dora-compliance-automation");
 
@@ -457,6 +458,13 @@ export default function Page() {
           </Card>
         </Reveal>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="ciso"
+        study="in-house-dark-web-monitoring"
+        metric="Annual vendor bill eliminated"
+      />
 
       {/* ------------------------------------------------ process */}
       <Section id="process">

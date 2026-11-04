@@ -14,6 +14,7 @@ import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
 import { FrameworkTabs, type FrameworkPanel } from "./framework-tabs";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("nca-ecc-sama-csf-compliance");
 
@@ -483,6 +484,13 @@ export default function Page() {
           ))}
         </div>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="ciso"
+        study="siem-rent-to-owned-platform"
+        metric="Saved across 24 months"
+      />
 
       {/* ------------------------------------------------ what's not included */}
       <Section>

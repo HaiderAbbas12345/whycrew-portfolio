@@ -533,18 +533,6 @@ export default function Page() {
       <ArticleShell
         post={post}
         toc={TOC}
-        tocLabel="Contents"
-        tocNumbered
-        tocCta={false}
-        byline={[
-          <>
-            By <Strong>WhyCrew Engineers</Strong>
-          </>,
-          <time key="updated" dateTime={post.dateModified}>
-            Updated October 15, 2026
-          </time>,
-          post.readTime,
-        ]}
       >
         <div id="quick-answer" className="scroll-mt-28">
           <QuickAnswer block>

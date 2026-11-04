@@ -16,6 +16,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("mssp-engineering-partner");
 
@@ -409,6 +410,13 @@ export default function Page() {
           </Reveal>
         </div>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="ciso"
+        study="mssp-engineering-capacity-pod"
+        metric="Engineering output vs. one hire"
+      />
 
       {/* ------------------------------------------------ global */}
       <Section>

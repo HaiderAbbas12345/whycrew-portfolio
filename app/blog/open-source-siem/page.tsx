@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArticleShell } from "@/components/blog/article-shell";
+import { ArticleShell, type TocEntry } from "@/components/blog/article-shell";
 import { DataTable, H2, H3, P, QuickAnswer, Strong } from "@/components/blog/prose";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion, type FaqItem } from "@/components/ui/faq";
@@ -414,22 +414,29 @@ function Steps() {
   );
 }
 
-/** Side column: the design puts an MSSP call card here instead of contents. */
-function SideCta() {
-  return (
-    <div className="rounded-[20px] border border-accent/30 bg-gradient-to-br from-accent/8 to-surface/60 p-[22px]">
-      <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
-        For MSSPs
-      </p>
-      <p className="mb-3.5 text-base font-semibold leading-[1.4] text-bright">
-        One platform, every client, full source code.
-      </p>
-      <Button href={CTA_HREF} className="w-full" magnetic={false}>
-        Book a Call
-      </Button>
-    </div>
-  );
-}
+/* ---------------------------------------------------------- contents */
+
+const TOC: TocEntry[] = [
+  { id: "what-is-an-open-source-siem", label: "What Is an Open Source SIEM?" },
+  { id: "open-source-vs-source-available-vs-free-siem", label: "Open Source vs Source-Available vs Free SIEM" },
+  { id: "what-are-siem-tools-and-siem-systems", label: "What Are SIEM Tools and SIEM Systems?" },
+  { id: "how-does-an-open-source-siem-work", label: "How Does an Open Source SIEM Work?" },
+  { id: "the-best-open-source-siem-tools", label: "The Best Open Source SIEM Tools" },
+  { id: "open-source-siem-tools-compared", label: "Open Source SIEM Tools Compared" },
+  { id: "wazuh-vs-security-onion-which-one-should-you-choose", label: "Wazuh vs Security Onion: Which One Should You Choose?" },
+  { id: "the-best-free-siem-for-your-situation", label: "The Best Free SIEM for Your Situation" },
+  { id: "building-a-modular-open-source-soc-stack", label: "Building a Modular Open Source SOC Stack" },
+  { id: "top-commercial-siem-tools-and-how-they-compare-to-open-source", label: "Top Commercial SIEM Tools and How They Compare to Open Source" },
+  { id: "pros-and-cons-of-free-siem-systems", label: "Pros and Cons of Free SIEM Systems" },
+  { id: "how-much-does-an-open-source-siem-really-cost", label: "How Much Does an Open Source SIEM Really Cost?" },
+  { id: "self-hosted-siem-architecture-single-server-or-distributed", label: "Self-Hosted SIEM Architecture: Single Server or Distributed?" },
+  { id: "how-to-choose-and-deploy-a-free-siem", label: "How to Choose and Deploy a Free SIEM" },
+  { id: "detection-engineering-where-free-siems-succeed-or-fail", label: "Detection Engineering: Where Free SIEMs Succeed or Fail" },
+  { id: "security-and-compliance", label: "Security and Compliance" },
+  { id: "ai-and-the-future-of-siem", label: "AI and the Future of SIEM" },
+  { id: "when-a-free-open-source-siem-is-no-longer-enough", label: "When a Free Open Source SIEM Is No Longer Enough" },
+  { id: "frequently-asked-questions-about-open-source-siem", label: "Frequently Asked Questions About Open Source SIEM" },
+];
 
 /* ------------------------------------------------------------------- page */
 
@@ -459,10 +466,7 @@ export default function Page() {
 
       <ArticleShell
         post={post}
-        toc={[]}
-        showUpdated
-        author="WhyCrew Engineers"
-        sidebar={<SideCta />}
+        toc={TOC}
       >
         <QuickAnswer block>
           <p className="text-[16.5px] leading-[1.7] text-[#dbe3f4] sm:text-[17.5px]">

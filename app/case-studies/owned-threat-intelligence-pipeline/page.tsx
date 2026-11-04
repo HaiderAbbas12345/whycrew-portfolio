@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CaseStudyShell } from "@/components/case-study/case-study-shell";
+import type { TocEntry } from "@/components/blog/article-layout";
 import { Bullets, H2, P } from "@/components/blog/prose";
 import { breadcrumbLd, serviceLdId } from "@/lib/jsonld";
 import { breadcrumbLabel, caseStudyBySlug } from "@/lib/case-studies";
@@ -62,6 +63,13 @@ function caseStudyLd() {
   };
 }
 
+const TOC: TocEntry[] = [
+  { id: "the-challenge", label: "The Challenge" },
+  { id: "the-approach", label: "The WhyCrew Approach" },
+  { id: "the-outcome", label: "The Outcome" },
+  { id: "why-it-matters", label: "Why This Matters for SOC Teams" },
+];
+
 export default function Page() {
   return (
     <>
@@ -84,6 +92,7 @@ export default function Page() {
 
       <CaseStudyShell
         study={study}
+        toc={TOC}
         cta={{
           heading: "See what an owned threat-intel pipeline would replace",
           body: "If your team is still paying for a feed that leaves analysts doing manual lookups, an owned ingestion and enrichment pipeline usually pays for itself in reduced analyst time alone.",

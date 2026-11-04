@@ -14,6 +14,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
 import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
 import { ogImage } from "@/lib/og";
+import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("custom-soar-development");
 
@@ -437,6 +438,13 @@ export default function Page() {
           ))}
         </Stagger>
       </Section>
+
+      {/* ------------------------------------------------ client review */}
+      <ServiceReview
+        review="essome"
+        study="mssp-engineering-capacity-pod"
+        metric="Engineering output vs. one hire"
+      />
 
       {/* ============================================ HOW WE BUILD IT */}
       <Section id="process" className="border-y border-line/40 bg-ink/40">
