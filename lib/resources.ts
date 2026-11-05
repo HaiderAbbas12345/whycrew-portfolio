@@ -386,6 +386,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-10-28",
   },
   {
+    id: "blog-mssp-vs-soc",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    title: "MSSP Vs SOC: Key Differences, Costs And How To Choose (2026)",
+    summary:
+      "What is MSSP vs SOC? An MSSP is a provider, a SOC is the team that watches your systems. See cost, control, 24/7 coverage and how to choose.",
+    format: "14 min read",
+    status: "live",
+    href: "/blog/mssp-vs-soc",
+    date: "2026-11-05",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
