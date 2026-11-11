@@ -131,13 +131,13 @@ export const RESOURCES: Resource[] = [
     id: "blog-siem-cost-licensing-vs-custom-built",
     type: "Blog",
     topics: ["SIEM & SOAR", "Platform Ownership"],
-    title: "SIEM Cost and Pricing in 2026: What You'll Actually Pay",
+    title: "SIEM Cost And Pricing In 2026: What You'll Actually Pay",
     summary:
-      "SIEM quotes are hard to compare. Vendors bill on different meters, and most quotes leave out the two costs that grow fastest: storage and people. 2026 prices, managed SIEM rates and a free cost calculator.",
-    format: "20 min read",
+      "SIEM cost runs $30K to $200K a year for small businesses and $1M+ for enterprises. Compare 2026 prices from 13 vendors and managed SIEM monthly costs.",
+    format: "25 min read",
     status: "live",
     href: "/blog/siem-cost-licensing-vs-custom-built",
-    date: "2026-10-07",
+    date: "2026-11-11",
   },
   {
     id: "blog-open-source-vs-custom-built-siem",

@@ -49,15 +49,15 @@ export const POSTS: BlogPost[] = [
   {
     slug: "siem-cost-licensing-vs-custom-built",
     crumb: "SIEM Cost and Pricing",
-    title: "SIEM Cost and Pricing in 2026: What You'll Actually Pay",
-    metaTitle: "SIEM Cost & Managed SIEM Pricing (2026 Guide)",
+    title: "SIEM Cost And Pricing In 2026: What You'll Actually Pay",
+    metaTitle: "SIEM Cost 2026: Vendor Rates and Managed SIEM Pricing",
     metaDescription:
-      "See the real 2026 SIEM cost. Most quotes leave out storage and staff. Managed SIEM pricing starts at $3K/mo. Estimate yours with a free calculator.",
+      "SIEM cost runs $30K to $200K a year for small businesses and $1M+ for enterprises. Compare 2026 prices from 13 vendors and managed SIEM monthly costs.",
     summary:
-      "SIEM quotes are hard to compare. Vendors bill on different meters, and most quotes leave out the two costs that grow fastest: storage and people. 2026 prices, managed SIEM rates and a free cost calculator.",
+      "SIEM cost runs $30K to $200K a year for small businesses and $1M+ for enterprises. Compare 2026 prices from 13 vendors and managed SIEM monthly costs.",
     datePublished: "2026-08-18",
-    dateModified: "2026-10-07",
-    readTime: "20 min read",
+    dateModified: "2026-11-11",
+    readTime: "25 min read",
     topics: ["SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
