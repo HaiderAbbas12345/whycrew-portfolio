@@ -12,6 +12,7 @@ import {
   P,
   Strong,
 } from "@/components/blog/prose";
+import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq";
 import { breadcrumbLd, faqLd, type Faq } from "@/lib/jsonld";
 import { breadcrumbLabel, postBySlug, postPath } from "@/lib/blog";
@@ -131,15 +132,28 @@ function Formula() {
   );
 }
 
-/** The content doc's one CTA paragraph, framed like the other inline CTAs. */
-function CtaCard({ children }: { children: ReactNode }) {
+function CtaCard({
+  label,
+  title,
+  body,
+  children,
+}: {
+  label: string;
+  title: string;
+  body: string;
+  children: ReactNode;
+}) {
   return (
     <aside
-      aria-label="Build with WhyCrew"
+      aria-label={label}
       className="relative mt-10 rounded-lg border border-accent/30 bg-gradient-to-br from-accent/8 via-surface/60 to-surface/60 p-6 sm:p-7"
     >
       <span aria-hidden className="absolute -top-px left-7 h-0.5 w-14 bg-accent" />
-      <p className="text-[15px] italic leading-[1.75] text-body">{children}</p>
+      <h3 className="text-[1.4rem] font-semibold leading-tight tracking-tight text-bright">
+        {title}
+      </h3>
+      <p className="mt-3 text-[14.5px] leading-relaxed text-body">{body}</p>
+      <div className="mt-5 flex flex-wrap gap-2.5">{children}</div>
     </aside>
   );
 }
@@ -1297,18 +1311,15 @@ export default function Page() {
           </A>
           .
         </P>
-        <CtaCard>
-          <Strong>Stop renting your SIEM. Own the one that replaces it.</Strong>{" "}
-          WhyCrew engineers a SIEM around your log sources, your tenants and
-          your compliance rules, then hands over the source code,
-          infrastructure and documentation. Every build is quoted at a fixed
-          price for your log volume and tenants, reaches production in about 12
-          weeks and carries no per-GB license afterward. Send us your daily log
-          volume and tenant count for a{" "}
-          <A href="/services/custom-siem-development">
-            fixed-price custom SIEM estimate
-          </A>
-          .
+        <CtaCard
+          label="Build with WhyCrew"
+          title="Stop Renting Your SIEM. Own The One That Replaces It."
+          body="WhyCrew engineers a SIEM around your log sources, your tenants and your compliance rules, then hands over the source code, infrastructure and documentation. Every build is quoted at a fixed price for your log volume and tenants, reaches production in about 12 weeks and carries no per-GB license afterward. Send us your daily log volume and tenant count for a fixed-price estimate."
+        >
+          <Button href="/contact">Get a fixed-price estimate</Button>
+          <Button href="/services/custom-siem-development" variant="ghost">
+            How the build works
+          </Button>
         </CtaCard>
 
         {/* ----------------------------------------------------------- 14 */}
