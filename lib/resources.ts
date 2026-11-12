@@ -398,6 +398,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-11-05",
   },
   {
+    id: "blog-mssp-vs-soar",
+    type: "Blog",
+    topics: ["MSSP & White-Label", "SIEM & SOAR"],
+    title: "MSSP Vs SOAR: What Is The Difference And Which Do You Need?",
+    summary:
+      "MSSP vs SOAR compared on cost, 24/7 coverage, limits and how MSSPs use SOAR, so you pick the right security model for your business.",
+    format: "10 min read",
+    status: "live",
+    href: "/blog/mssp-vs-soar",
+    date: "2026-11-12",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],
