@@ -129,7 +129,7 @@ function CodeBlock({ label, code }: { label: string; code: string }) {
   );
 }
 
-/** Diagram from the doc: its label line, then its caption sentence. */
+/** Diagram from the doc: its label as the figure caption, then its sentence as a normal paragraph. */
 function Fig({
   file,
   height,
@@ -142,20 +142,22 @@ function Fig({
   children: ReactNode;
 }) {
   return (
-    <figure className="mt-8 mb-2">
-      <Image
-        src={`${IMG}/${file}`}
-        alt={label}
-        width={1344}
-        height={height}
-        sizes="(min-width: 768px) 48rem, 100vw"
-        className="block h-auto w-full rounded-lg border border-line/70 bg-white"
-      />
-      <figcaption className="mt-3 text-[13.5px] leading-relaxed text-faint">
-        <span className="block font-medium text-body">{label}</span>
-        <span className="mt-1 block">{children}</span>
-      </figcaption>
-    </figure>
+    <>
+      <figure className="mt-8 mb-2">
+        <Image
+          src={`${IMG}/${file}`}
+          alt={label}
+          width={1344}
+          height={height}
+          sizes="(min-width: 768px) 48rem, 100vw"
+          className="block h-auto w-full rounded-lg border border-line/70 bg-white"
+        />
+        <figcaption className="mt-3 text-[13.5px] font-medium leading-relaxed text-body">
+          {label}
+        </figcaption>
+      </figure>
+      <P>{children}</P>
+    </>
   );
 }
 
