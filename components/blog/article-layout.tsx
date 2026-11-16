@@ -144,7 +144,7 @@ export function ArticleLayout({
                   >
                     <Image
                       src={a.avatar}
-                      alt=""
+                      alt={a.name}
                       width={44}
                       height={44}
                       className="size-11 rounded-full object-cover ring-2 ring-line transition-shadow duration-300 hover:ring-accent/60"

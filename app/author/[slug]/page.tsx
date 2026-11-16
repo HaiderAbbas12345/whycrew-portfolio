@@ -157,7 +157,7 @@ export default async function AuthorPage({ params }: Props) {
                   <div className="overflow-hidden border-b border-line/60">
                     <Image
                       src={`/og${i.path}.png`}
-                      alt=""
+                      alt={i.title}
                       width={1200}
                       height={630}
                       sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
@@ -181,7 +181,7 @@ export default async function AuthorPage({ params }: Props) {
                     <div className="mt-6 flex items-center gap-3 border-t border-line-soft pt-4">
                       <Image
                         src={a.avatar}
-                        alt=""
+                        alt={a.name}
                         width={32}
                         height={32}
                         className="size-8 shrink-0 rounded-full object-cover ring-1 ring-line"

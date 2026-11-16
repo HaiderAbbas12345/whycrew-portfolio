@@ -15,17 +15,9 @@ export function H2({ id, children }: { id: string; children: ReactNode }) {
   return (
     <h2
       id={id}
-      className="group scroll-mt-28 pt-16 text-2xl font-semibold leading-tight text-bright first:pt-0 sm:text-[1.75rem]"
+      className="scroll-mt-28 pt-16 text-2xl font-semibold leading-tight text-bright first:pt-0 sm:text-[1.75rem]"
     >
-      <a href={`#${id}`} className="no-underline">
-        {children}
-        <span
-          aria-hidden
-          className="ml-2 select-none text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-60"
-        >
-          #
-        </span>
-      </a>
+      {children}
     </h2>
   );
 }
