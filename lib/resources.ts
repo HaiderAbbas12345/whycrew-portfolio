@@ -410,6 +410,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-11-12",
   },
   {
+    id: "blog-self-hosted-siem-system",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "Platform Ownership"],
+    title: "How To Build A Self-Hosted SIEM: Tools, Requirements And Setup",
+    summary:
+      "Self-hosted SIEM guide for beginners. Build one on Linux with Wazuh, deploy agents, add syslog, FIM and rules, then test it with simulated attacks.",
+    format: "10 min read",
+    status: "live",
+    href: "/blog/self-hosted-siem-system",
+    date: "2026-11-16",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

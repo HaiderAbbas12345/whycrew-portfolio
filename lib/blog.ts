@@ -386,6 +386,21 @@ export const POSTS: BlogPost[] = [
     topics: ["MSSP & White-Label", "SIEM & SOAR"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "self-hosted-siem-system",
+    crumb: "Self-Hosted SIEM",
+    title: "How To Build A Self-Hosted SIEM: Tools, Requirements And Setup",
+    metaTitle: "How to Build a Self-Hosted SIEM System",
+    metaDescription:
+      "Self-hosted SIEM guide for beginners. Build one on Linux with Wazuh, deploy agents, add syslog, FIM and rules, then test it with simulated attacks.",
+    summary:
+      "Self-hosted SIEM guide for beginners. Build one on Linux with Wazuh, deploy agents, add syslog, FIM and rules, then test it with simulated attacks.",
+    datePublished: "2026-11-16",
+    dateModified: "2026-11-16",
+    readTime: "10 min read",
+    topics: ["SIEM & SOAR", "Platform Ownership"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -456,6 +471,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "msp-vs-mssp": "/blog/msp-vs-mssp",
   "mssp-vs-soc": "/blog/mssp-vs-soc",
   "mssp-vs-soar": "/blog/mssp-vs-soar",
+  "self-hosted-siem-system": "/blog/self-hosted-siem-system",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site
