@@ -1,28 +1,18 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import { ServiceCta, ServiceHero } from "@/components/sections/service-shell";
-import { FaqAccordion } from "@/components/ui/faq";
-import {
-  ArrowList,
-  Card,
-  CheckList,
-  CompareTable,
-  Eyebrow,
-  Heading,
-  ProcessSteps,
-  Section,
-} from "@/components/ui/primitives";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/motion";
 import { breadcrumbLd, faqLd, serviceLd, type Faq } from "@/lib/jsonld";
-import { CTA_HREF, ROBOTS, serviceBySlug } from "@/lib/site";
+import { CTA_HREF, EXTERNAL_REL, ROBOTS, serviceBySlug } from "@/lib/site";
+import { REVIEW_PROFILES, reviewById } from "@/lib/reviews";
 import { ogImage } from "@/lib/og";
-import { ServiceReview } from "@/components/sections/reviews";
 
 const svc = serviceBySlug("mssp-engineering-partner");
 
 export const metadata: Metadata = {
   // `absolute` bypasses the root layout's "%s | WhyCrew" template so the title
-  // renders exactly as specified — the brand is already in the string.
+  // renders exactly as specified.
   title: { absolute: svc.metaTitle },
   description: svc.metaDescription,
   alternates: { canonical: svc.href },
@@ -43,135 +33,150 @@ export const metadata: Metadata = {
   },
 };
 
-const STATS = [
-  { value: "100%", label: "Platform & Code Ownership" },
-  { value: "12 wks", label: "Typical Time to Launch" },
-  { value: "0", label: "Ongoing Licensing Fees" },
-  { value: "40–70%", label: "Typical Margin Improvement" },
+/* ------------------------------------------------------------ content */
+
+const REPO_TREE: { branch: string; name: string; note?: string; owner?: boolean }[] = [
+  { branch: "├──", name: "portal/", note: "your logo, your domain" },
+  { branch: "├──", name: "siem/", note: "multi-tenant, isolated tenants" },
+  { branch: "├──", name: "soar/", note: "your escalation paths" },
+  { branch: "├──", name: "detections/", note: "mapped to MITRE ATT&CK" },
+  { branch: "├──", name: "ai-triage/", note: "private models, your infra" },
+  { branch: "├──", name: "compliance/", note: "NIS2, DORA, NCA ECC, SAMA CSF" },
+  { branch: "├──", name: "runbooks/" },
+  { branch: "└──", name: "OWNER", note: "you", owner: true },
 ];
 
-const MARGIN_BREAKERS = [
+const RENT_PROBLEMS = [
+  "Your brand sits on a product you don't control.",
+  "Every partner resells the same portal, detections and reports.",
+  "The vendor's biggest accounts set the roadmap.",
+  "Leaving means migrating every client, so you stay.",
+];
+
+const COMPARE_ROWS = [
+  ["Platform", "The vendor's", "Yours, with the source code"],
+  ["Cost as you grow", "Rises with every client", "Fixed build, no platform fees after"],
+  ["Branding", "White label, co-branded or “powered by”", "Your brand only"],
+  ["Roadmap", "Set by the vendor", "Set by you"],
+  ["Leaving", "Migrate every client", "Nothing to leave"],
+];
+
+const INSIDE: { title: string; body: string; href?: string }[] = [
   {
-    title: "Your tenth client costs the same cut as your first.",
-    body: "There's no economy of scale, because you never owned the platform to tune it. Every vendor prices access the same way, no matter how much volume you bring.",
+    title: "A Branded Client Portal",
+    body: "Your logo and domain. Several brands can run on one architecture.",
   },
   {
-    title: "You're building someone else's brand.",
-    body: "Every hour you spend onboarding a client makes the vendor's product stickier — not yours. End the relationship, and your client-facing brand walks out with it.",
+    title: "Multi-Tenant SIEM",
+    body: "One backend, each tenant isolated. A new client is configuration, not a project.",
+    href: "/services/custom-siem-development",
   },
   {
-    title: "You don't set the roadmap.",
-    body: "The vendor builds for their biggest direct accounts first. So you wait for the features your clients are asking you for today.",
+    title: "Detections You Control",
+    body: "Mapped to MITRE ATT&CK. Your team writes a new rule the same afternoon.",
+  },
+  {
+    title: "Response Playbooks",
+    body: "Escalation, ticketing and chat built around how your desk already works.",
+    href: "/services/custom-soar-development",
+  },
+  {
+    title: "AI Triage In Your Environment",
+    body: "Private open-weight models cut Tier-1 handling time by 70 to 80% in our engagements.",
+    href: "/services/ai-powered-soc-automation",
+  },
+  {
+    title: "Audit-Ready Reporting",
+    body: "NIS2, DORA, NCA ECC and SAMA CSF, with data kept in-region by default.",
   },
 ];
 
-const PARTNERSHIP_TABLE = {
-  head: ["", "Typical MSSP Vendor Partnership", "WhyCrew Engineering Partnership"],
-  rows: [
-    [
-      "Platform Ownership",
-      "You license access. The vendor owns the code.",
-      "You own the platform and source code outright",
-    ],
-    [
-      "Pricing Model",
-      "Per-seat or per-GB fees that climb with growth",
-      "Fixed-price build, zero ongoing platform fees",
-    ],
-    [
-      "Roadmap Control",
-      "The vendor prioritizes their own accounts",
-      "You decide what gets built next",
-    ],
-    [
-      "Differentiation",
-      "You run the same platform as every other partner",
-      "You run a platform engineered to your operations",
-    ],
-    [
-      "Exit Path",
-      "Migrate off the vendor's platform if things end",
-      "Nothing to migrate. You already own it.",
-    ],
-  ],
-};
-
-const BUILT_FOR = [
-  "MSSPs growing out of reseller economics and ready to own their platform",
-  "VARs and IT providers launching a managed SOC service for the first time",
-  "Operators migrating off a shared vendor platform and done paying per-tenant fees",
-];
-
-const BUILD_INCLUDES = [
-  "White-label SOC portal — your brand, your UX, from day one",
-  "Multi-tenant backend — every client's data stays isolated and yours to control",
-  "Platform ownership, including source code full transfer at handover, no escrow, no conditions",
-  "Migration support — if you're moving off a current platform, we build alongside it with zero downtime",
-  "Documentation and handover — runbooks, API docs, and hands-on training so your team runs it without us",
-];
-
-const GLOBAL_INCLUDES = [
-  "EU data residency and regional hosting: on-premise or in-region by default, not a special request",
-  "You own the platform, including the source code, handed directly to you at handover. No escrow, no waiting on a vendor failure condition. You hold the code from day one.",
-  "Audit-ready compliance documentation, built into the platform from the start",
-  "Full API docs and runbooks, so your team can extend the platform without calling us back",
+const PROOF: { value: string; body: string; href?: string; signal?: boolean }[] = [
+  {
+    value: "$110,000",
+    body: "Saved in year one by an MSSP that left an ingestion-billed SIEM.",
+    href: "/case-studies/siem-rent-to-owned-platform",
+    signal: true,
+  },
+  {
+    value: "40–70%",
+    body: "Lower platform costs in year one, flat as clients grow.",
+  },
+  {
+    value: "8x",
+    body: "The engineering output of one hire, at a similar cost.",
+    href: "/case-studies/mssp-engineering-capacity-pod",
+  },
 ];
 
 const PROCESS = [
-  {
-    title: "We scope it, then price it.",
-    body: "We map your target clients, your current platform if you have one, and the shortest route to production. You get a fixed-price proposal with a defined scope, no hourly clock, no budget surprises halfway through. If the scope doesn't fit, we say so before you sign anything.",
-  },
-  {
-    title: "You approve the blueprint before we build.",
-    body: "We design the data model, the white-label portal, and the detection logic, then put it in front of you. Nothing gets built until you've signed off on the architecture. Changes at the design stage cost nothing — changes mid-build do.",
-  },
-  {
-    title: "We prove it on a real client before you bet the business on it.",
-    body: "We build in two-week sprints and pilot against one live client account. Your first paying customer isn't your test run. By the time you cut over, your team has already seen it work.",
-  },
-  {
-    title: "You own it outright, and we hand over the keys.",
-    body: "Source code, documentation, and hands-on engineering training all transfer to your team. From that day forward, every client you add is margin, not another licensing tier. There's no support contract you're required to sign and no ongoing dependency on us.",
-  },
+  ["Scope and price.", "We map your clients and platform, then send a fixed proposal."],
+  ["Blueprint.", "Nothing gets built until you sign off."],
+  ["Two-week sprints.", "Piloted on one live client before cutover."],
+  ["Handover.", "Code, runbooks and training move to your team."],
 ];
 
 const FAQS: Faq[] = [
   {
-    q: "Do we need existing security engineering expertise to run this?",
-    a: "No. We build the platform for your team to operate, with full documentation and training included. You can launch with limited in-house security engineering and grow into it.",
+    q: "What Is A White Label SOC Platform?",
+    a: "A security operations platform an MSP or MSSP delivers to clients under its own brand. With most providers you rent access. With WhyCrew you own the platform and its source code.",
   },
   {
-    q: "Can we white-label this under multiple client-facing brands?",
-    a: "Yes. One architecture powers every branded front end, no separate license per brand.",
+    q: "Can An MSP Offer SOC Services Without Building A SOC From Scratch?",
+    a: "It can. We build the platform and its detections, then train your team to run it. AI triage takes on much of the Tier-1 load, so a small team can cover more clients.",
   },
   {
-    q: "How is this different from becoming a reseller of an existing SOC platform?",
-    a: "Reselling means someone else's product, pricing, and roadmap. We build the platform for you. You own the code, set your price, and never pay a per-tenant fee.",
+    q: "Do I Need In-House Security Engineers To Run It?",
+    a: "You don't need them on day one. Documentation and training come with every handover, and day-to-day operation doesn't depend on us.",
   },
   {
-    q: "What happens to our existing client data if we're migrating off a current platform?",
-    a: "We build the new platform alongside your current one, migrate your data with zero downtime, and cut over only after your team signs off.",
+    q: "How Long Does It Take To Launch?",
+    a: "About 12 weeks from kickoff to production. Migrating client data off an existing platform adds time, depending on volume and the number of tenants.",
   },
   {
-    q: "How long does it take to launch?",
-    a: "Most builds run 12 weeks from kickoff to production. Allow extra time if you're migrating existing client data.",
+    q: "Will You Ever Contact My Clients?",
+    a: "We don't. Your client relationships stay yours. After handover we have no access to the platform unless you buy optional support.",
   },
   {
-    q: "What is an MSSP engineering partner?",
-    a: "An MSSP engineering partner builds the SOC platform your managed security business runs on and hands you the source code outright. Unlike a vendor partnership, where you resell someone else's platform at their price, WhyCrew designs, builds, and transfers the platform to you for a fixed price. No ongoing licensing fees. No per-tenant charges. No dependency on us after handover.",
-  },
-  {
-    q: "Can WhyCrew replace our current reseller platform?",
-    a: "Yes. We build your new platform alongside your existing one, migrate your client data, and cut over only after your team signs off, with zero client-facing downtime. Once complete, the per-tenant fees stop, the vendor contract ends, and you own a platform built to your specs.",
-  },
-  {
-    q: "How much can an MSSP save by owning its platform?",
-    a: "Typically 40–70% in year one. Platform costs stay flat as you grow, while reseller fees keep climbing with every new client.",
+    q: "Can I Run More Than One Brand On The Platform?",
+    a: "One architecture can serve several white label brands, each with its own portal, and none needs its own license.",
   },
 ];
 
+/* ------------------------------------------------------------ styles */
+
+const WRAP = "mx-auto w-full max-w-[1200px] px-4 sm:px-8";
+const SPLIT =
+  "grid gap-12 lg:grid-cols-2 lg:gap-16";
+const H2 =
+  "text-[clamp(32px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-bright";
+const LEAD = "text-[17px] leading-[1.6] text-body";
+
+function NumberedList({ items }: { items: ReactNode[] }) {
+  return (
+    <ol className="m-0 list-none p-0">
+      {items.map((item, i) => (
+        <li
+          key={i}
+          className={`grid grid-cols-[48px_minmax(0,1fr)] gap-4 border-t py-5 text-[17px] leading-[1.6] text-body ${
+            i === 0 ? "border-line" : "border-line-soft"
+          } ${i === items.length - 1 ? "border-b border-b-line-soft" : ""}`}
+        >
+          <span className="font-semibold text-accent">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/* ------------------------------------------------------------ page */
+
 export default function Page() {
+  const review = reviewById("ciso");
+
   return (
     <>
       <script
@@ -182,7 +187,7 @@ export default function Page() {
               name: svc.name,
               description: svc.metaDescription,
               path: svc.href,
-              serviceType: "White-label MSSP SOC platform engineering",
+              serviceType: "White label SOC platform for MSPs and MSSPs",
             })
           ),
         }}
@@ -204,270 +209,296 @@ export default function Page() {
         }}
       />
 
-      <ServiceHero
-        title="MSSP Engineering Partner"
-        highlight={["Partner"]}
-        lead="Stop Reselling a Platform. Start Owning One."
-        intro={
-          <>
-            <p>
-              WhyCrew is an MSSP engineering partner that builds white-label SOC
-              platforms for MSSPs, VARs, and managed security operators who want
-              to own their stack outright, not rent it from a vendor. Most MSSP
-              partnership programs turn you into a reseller. You sell someone
-              else&apos;s platform, at their price, on their roadmap, for the
-              margin they leave you.
+      {/* ------------------------------------------------ hero */}
+      <section className="pt-32 pb-20 sm:pt-40 sm:pb-[88px]">
+        <div className={`${WRAP} grid items-center gap-12 lg:grid-cols-2 lg:gap-16`}>
+          <Reveal mount className="flex min-w-0 flex-col gap-6">
+            <h1 className="m-0 text-[clamp(40px,5.6vw,72px)] font-semibold leading-[1.02] tracking-[-0.035em] text-bright">
+              White Label SOC Platform, Yours To Own
+            </h1>
+            <p className="m-0 max-w-[30ch] text-xl leading-normal text-body">
+              Built for MSPs and MSSPs, handed over with the source code.
             </p>
-            <p>
-              WhyCrew builds your platform instead. You own the platform,
-              including the source code we hand over and walk away. You set the
-              price. You set the roadmap. You own the business.
+            <div className="mt-2 flex flex-wrap gap-3">
+              <Button href={CTA_HREF}>Book a technical consultation</Button>
+              <Button href="#proof" variant="ghost">
+                See the numbers
+              </Button>
+            </div>
+          </Reveal>
+
+          <Reveal mount delay={0.15} className="min-w-0">
+            <figure className="m-0">
+              <pre
+                aria-label="Repository tree of the platform you receive at handover"
+                className="m-0 overflow-x-auto whitespace-pre rounded-xl border border-line bg-surface p-6 font-mono text-[13px] leading-[1.9] text-bright sm:p-8 sm:text-[15px]"
+              >
+                <span className="text-accent">your-soc-platform/</span>
+                {REPO_TREE.map((r) => (
+                  <span key={r.name} className="block">
+                    {r.branch}{" "}
+                    {r.owner ? (
+                      <span className="text-accent">{r.name}</span>
+                    ) : (
+                      r.name
+                    )}
+                    {r.note && (
+                      <>
+                        {" ".repeat(Math.max(2, 16 - r.name.length))}
+                        <span className="text-[#8b9ac0]">{r.note}</span>
+                      </>
+                    )}
+                  </span>
+                ))}
+              </pre>
+              <figcaption className="mt-3.5 text-[15px] text-body">
+                What lands in your repository at handover. No license file to
+                renew.
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ problem */}
+      <section className="border-y border-line-soft bg-ink">
+        <div className={`${WRAP} ${SPLIT} items-start py-20 sm:py-[104px]`}>
+          <Reveal className="flex min-w-0 flex-col gap-5">
+            <h2 className={H2}>Every New Client Raises Your Rent</h2>
+            <p className={`${LEAD} max-w-[42ch]`}>
+              A rented white label SOC platform bills per endpoint or per user,
+              and the SIEM underneath often bills by data volume too. Your bill
+              grows with your revenue, so the margin never improves.
             </p>
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-accent">
-              20 minutes with an engineer, not a channel rep. No pitch deck.
-            </p>
-          </>
-        }
-        primaryCta={{
-          label: "Book a Technical Consultation",
-          href: CTA_HREF,
-        }}
-        secondaryCta={{ label: "See the Numbers", href: "#proof" }}
-        stats={STATS}
-        breadcrumbName={svc.navLabel}
-        breadcrumbPath={svc.href}
-      />
-
-      {/* ------------------------------------------------ margin */}
-      <Section>
-        <Eyebrow tone="danger">The reseller trap</Eyebrow>
-        <Heading sub="You didn't come here to learn what a reseller fee is. You're paying one right now, and it's climbing faster than your revenue per client.">
-          You Already Know What&apos;s Breaking Your Margin
-        </Heading>
-
-        <Stagger className="mt-12 grid gap-5 lg:grid-cols-3">
-          {MARGIN_BREAKERS.map((m, i) => (
-            <StaggerItem key={m.title}>
-              <Card className="h-full p-7">
-                <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-danger">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 text-[15px] font-semibold leading-snug">
-                  {m.title}
-                </h3>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
-                  {m.body}
-                </p>
-              </Card>
-            </StaggerItem>
-          ))}
-        </Stagger>
-
-        <Reveal className="mt-8">
-          <p className="text-[15px] font-semibold text-bright">
-            WhyCrew removes all three. Fixed price, your source code, your
-            roadmap.
-          </p>
-        </Reveal>
-      </Section>
+          </Reveal>
+          <Reveal delay={0.1} className="min-w-0">
+            <NumberedList items={RENT_PROBLEMS} />
+          </Reveal>
+        </div>
+      </section>
 
       {/* ------------------------------------------------ comparison */}
-      <Section className="border-y border-line/40 bg-ink/40">
-        <Eyebrow tone="brand">Vendor partnership vs. engineering partnership</Eyebrow>
-        <Heading>
-          MSSP Vendor Partnership vs. WhyCrew Engineering Partnership
-        </Heading>
-        <Reveal className="mt-10">
-          <CompareTable
-            head={PARTNERSHIP_TABLE.head}
-            rows={PARTNERSHIP_TABLE.rows}
-            highlightCol={2}
-          />
+      <section className={`${WRAP} py-20 sm:py-[104px]`}>
+        <Reveal className="mb-10 grid items-end gap-x-16 gap-y-6 lg:grid-cols-2">
+          <h2 className={H2}>Rented Vs. Owned White Label SOC Platform</h2>
+          <p className={`${LEAD} max-w-[46ch]`}>
+            An owned platform is a multi-tenant SOC stack we engineer for you,
+            then transfer. Your clients see only your brand, because there is
+            no vendor brand in it.
+          </p>
         </Reveal>
-      </Section>
-
-      {/* ------------------------------------------------ paths */}
-      <Section id="paths">
-        <Eyebrow>Which path fits your business?</Eyebrow>
-        <Heading sub="Two routes to platform ownership. Both end with your name on the code.">
-          Build from scratch, or migrate off a reseller
-        </Heading>
-
-        <Reveal className="mt-10">
-          <Card className="p-7" interactive={false}>
-            <h3 className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
-              Built for
-            </h3>
-            <ArrowList items={BUILT_FOR} />
-          </Card>
+        <Reveal delay={0.1} className="overflow-x-auto">
+          <table className="w-full min-w-[640px] border-collapse text-left text-[17px]">
+            <thead>
+              <tr className="border-b-2 border-line">
+                <th scope="col" className="w-[28%] py-3.5 pr-4 font-medium text-muted">
+                  What you compare
+                </th>
+                <th scope="col" className="px-4 py-3.5 font-medium text-muted">
+                  Rented white label SOC
+                </th>
+                <th scope="col" className="px-4 py-3.5 font-semibold text-accent">
+                  Owned, built by WhyCrew
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE_ROWS.map(([label, rented, owned]) => (
+                <tr key={label} className="border-b border-line-soft">
+                  <th scope="row" className="py-[18px] pr-4 font-medium text-bright">
+                    {label}
+                  </th>
+                  <td className="px-4 py-[18px] text-muted">{rented}</td>
+                  <td className="px-4 py-[18px] font-medium text-bright">{owned}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </Reveal>
+      </section>
 
-        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+      {/* ------------------------------------------------ inside */}
+      <section className="border-t border-line-soft">
+        <div className={`${WRAP} py-20 sm:py-[104px]`}>
           <Reveal>
-            <Card className="h-full p-8">
-              <h3 className="text-lg font-semibold">
-                Build Your Own MSSP From Scratch
-              </h3>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-body">
-                Bring the client relationships. We handle everything else. Every
-                build includes:
-              </p>
-              <div className="mt-6">
-                <CheckList items={BUILD_INCLUDES} />
-              </div>
-              <p className="mt-6 border-t border-line-soft pt-5 text-[13px] leading-relaxed text-muted">
-                <strong className="font-semibold text-bright">Best fit:</strong>{" "}
-                IT service providers expanding into security, consultancies and
-                VARs done reselling someone else&apos;s product, and teams that
-                want to offer a managed SOC without staffing a 24×7 desk on day
-                one.
-              </p>
-            </Card>
+            <h2 className={`${H2} mb-12`}>What&apos;s Inside The Platform</h2>
           </Reveal>
-
-          <Reveal delay={0.1}>
-            <Card className="h-full p-8">
-              <h3 className="text-lg font-semibold">
-                Migrate Off a Reseller Platform
-              </h3>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-body">
-                Your current platform keeps running while we build the new one
-                alongside it. We migrate your client data with zero downtime and
-                cut over only once your team signs off. You never run two
-                platforms on a client&apos;s dime.
-              </p>
-              <p className="mt-6 border-t border-line-soft pt-5 text-[13px] leading-relaxed text-muted">
-                <strong className="font-semibold text-bright">Best fit:</strong>{" "}
-                MSSPs paying recurring per-tenant fees to a platform vendor,
-                operators who&apos;ve hit the customization ceiling on a shared
-                platform, and any private-label provider ready to own the stack
-                they&apos;ve been renting.
-              </p>
-            </Card>
-          </Reveal>
+          <div className="grid gap-x-16 sm:grid-cols-2 lg:grid-cols-3">
+            {INSIDE.map((f, i) => (
+              <Reveal
+                key={f.title}
+                delay={(i % 3) * 0.06}
+                className="border-t border-line pt-6 pb-9"
+              >
+                <h3 className="m-0 mb-2 text-[22px] font-semibold tracking-[-0.01em] text-bright">
+                  {f.href ? (
+                    <Link href={f.href} className="transition-colors hover:text-accent">
+                      {f.title}
+                    </Link>
+                  ) : (
+                    f.title
+                  )}
+                </h3>
+                <p className={LEAD}>{f.body}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* ------------------------------------------------ proof */}
-      <Section id="proof" className="border-y border-line/40 bg-ink/40">
-        <Eyebrow>Proof of ownership</Eyebrow>
-        <Heading sub="Numbers from completed engagements, not projections.">
-          Annual Savings, Margin Improvement, and Time to Launch
-        </Heading>
+      <section id="proof" className="scroll-mt-24 border-y border-line bg-surface">
+        <div className={`${WRAP} flex flex-col gap-[72px] py-20 sm:py-28`}>
+          <div className="grid gap-12 md:grid-cols-3">
+            {PROOF.map((p, i) => (
+              <Reveal key={p.value} delay={i * 0.08} className="border-t border-line pt-6">
+                <p
+                  className={`m-0 text-[clamp(48px,6vw,80px)] font-semibold leading-none tracking-[-0.04em] ${
+                    p.signal ? "text-accent" : "text-bright"
+                  }`}
+                >
+                  {p.value}
+                </p>
+                <p className="mt-4 max-w-[32ch] text-[17px] leading-[1.6] text-[#8b9ac0]">
+                  {p.body}
+                </p>
+                {p.href && (
+                  <Link
+                    href={p.href}
+                    className="group mt-3 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent hover:text-accent-hi"
+                  >
+                    Read the case study
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
+                )}
+              </Reveal>
+            ))}
+          </div>
 
-        <Reveal className="mt-12">
-          <Card className="p-8" interactive={false}>
-            <p className="text-[15px] leading-relaxed text-body">
-              A German MSSP saved $380K/year switching to an owned platform.
-            </p>
-            <Link
-              href="/case-studies/siem-rent-to-owned-platform"
-              className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent hover:text-accent-hi"
-            >
-              See the full case study
-              <span
-                aria-hidden
-                className="transition-transform duration-400 group-hover:translate-x-1"
-              >
-                →
-              </span>
-            </Link>
-          </Card>
-        </Reveal>
-
-        <div className="mt-5 grid gap-5 sm:grid-cols-2">
-          <Reveal delay={0.08}>
-            <Card className="p-7">
-              <div className="text-3xl font-semibold text-gradient">
-                40–70%
-              </div>
-              <h3 className="mt-2 text-[14px] font-semibold">
-                Typical margin improvement
-              </h3>
-              <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
-                Across completed MSSP Engineering engagements, clients moving
-                from reseller licensing to an owned platform typically cut
-                platform costs by 40–70% in year one — and the gap keeps
-                widening as their client count grows, because their costs stay
-                flat while a reseller&apos;s fees keep rising.
-              </p>
-            </Card>
+          <Reveal>
+            <figure className="m-0 max-w-[900px]">
+              <blockquote className="m-0 text-[clamp(22px,2.4vw,30px)] font-medium leading-[1.4] tracking-[-0.015em] text-bright">
+                &ldquo;{review.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 text-base text-[#8b9ac0]">
+                Confidential client, Chief Information Security Officer. Rated
+                5.0 on Upwork.
+              </figcaption>
+            </figure>
           </Reveal>
-          <Reveal delay={0.16}>
-            <Card className="p-7">
-              <div className="text-3xl font-semibold text-gradient">
-                12 wks
-              </div>
-              <h3 className="mt-2 text-[14px] font-semibold">
-                Time to launch
-              </h3>
-              <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
-                That&apos;s the typical build window, kickoff to production.
-                Most clients are running live client accounts before their old
-                vendor contract even expires.
-              </p>
-            </Card>
+
+          <Reveal className="flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-line pt-8">
+            <p className="m-0 text-base text-[#8b9ac0]">Reviewed by clients on</p>
+            <ul aria-label="Review platforms" className="m-0 flex list-none flex-wrap gap-2.5 p-0">
+              <li>
+                <span className="inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-line bg-void px-3.5 py-2 text-[15px] font-semibold text-bright">
+                  Upwork
+                  <span className="inline-flex items-center gap-1 text-accent">
+                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" />
+                    </svg>
+                    5.0
+                  </span>
+                </span>
+              </li>
+              {REVIEW_PROFILES.map((p) => (
+                <li key={p.name}>
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel={EXTERNAL_REL}
+                    aria-label={`WhyCrew on ${p.name} (opens in a new tab)`}
+                    className="inline-flex min-h-11 items-center rounded-[10px] border border-line bg-void px-3.5 py-2 text-[15px] font-semibold text-bright transition-colors hover:border-brand-hi hover:text-accent"
+                  >
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
-      </Section>
+      </section>
 
-      {/* ------------------------------------------------ client review */}
-      <ServiceReview
-        review="ciso"
-        study="mssp-engineering-capacity-pod"
-        metric="Engineering output vs. one hire"
-      />
-
-      {/* ------------------------------------------------ global */}
-      <Section>
-        <Eyebrow tone="brand">Global track record</Eyebrow>
-        <Heading sub="WhyCrew works with MSSPs and regulated operators globally, but our deepest client concentration sits across the EU, where “our data runs on a US vendor's shared platform” kills deals before they start. Wherever you operate, every engagement includes:">
-          Strong Global Track Record. Particularly Deep in Europe.
-        </Heading>
-        <Reveal className="mt-10">
-          <Card className="p-8">
-            <CheckList items={GLOBAL_INCLUDES} />
-            <p className="mt-7 border-t border-line-soft pt-6 text-[13.5px] leading-relaxed text-muted">
-              Operators who need to prove platform control keep choosing this
-              model, from regulated financial infrastructure in Frankfurt and
-              healthcare networks in the Netherlands, to multi-tenant security
-              practices across the US, Canada, and APAC.
-            </p>
-          </Card>
+      {/* ------------------------------------------------ pricing + process */}
+      <section id="process" className={`${WRAP} ${SPLIT} scroll-mt-24 items-start py-20 sm:py-[104px]`}>
+        <Reveal className="flex min-w-0 flex-col gap-5">
+          <h2 className={H2}>One Fixed Price, Then It&apos;s Yours</h2>
+          <p className={`${LEAD} max-w-[44ch]`}>
+            No hourly billing, per-seat fee or per-GB fee. We quote after one
+            call about your client count, data volumes and current spend.
+            Support afterwards is optional.
+          </p>
+          <div>
+            <Button href={CTA_HREF}>Get a fixed quote</Button>
+          </div>
         </Reveal>
-      </Section>
-
-      {/* ------------------------------------------------ process */}
-      <Section id="process" className="border-y border-line/40 bg-ink/40">
-        <Eyebrow>How we actually build it</Eyebrow>
-        <Heading sub="One fixed price. Four stages. You approve every decision, and you walk away owning everything.">
-          How We Actually Build It
-        </Heading>
-        <div className="mt-12">
-          <ProcessSteps steps={PROCESS} />
-        </div>
-      </Section>
+        <Reveal delay={0.1} className="min-w-0">
+          <p className="mb-4 text-[15px] text-body">
+            About 12 weeks from kickoff to your first live client
+          </p>
+          <NumberedList
+            items={PROCESS.map(([title, body]) => (
+              <>
+                <strong className="font-semibold text-bright">{title}</strong>{" "}
+                {body}
+              </>
+            ))}
+          />
+        </Reveal>
+      </section>
 
       {/* ------------------------------------------------ faq */}
-      <Section id="faq">
-        <Eyebrow>Frequently asked questions</Eyebrow>
-        <Heading>MSSP engineering, answered</Heading>
-        <div className="mt-10">
-          <FaqAccordion faqs={FAQS} />
+      <section id="faq" className="scroll-mt-24 border-t border-line-soft bg-ink">
+        <div className={`${WRAP} flex flex-wrap items-start gap-x-16 gap-y-12 py-20 sm:py-[104px]`}>
+          <Reveal className="min-w-0 flex-[1_1_280px]">
+            <h2 className={H2}>Questions MSPs Ask First</h2>
+          </Reveal>
+          <Reveal delay={0.1} className="min-w-0 flex-[999_1_560px]">
+            {FAQS.map((f, i) => (
+              <details
+                key={f.q}
+                className={`group border-t py-[18px] ${
+                  i === 0 ? "border-line" : "border-line-soft"
+                } ${i === FAQS.length - 1 ? "border-b border-b-line-soft" : ""}`}
+              >
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-brand-hi [&::-webkit-details-marker]:hidden">
+                  <h3 className="m-0 text-[19px] font-semibold text-bright">{f.q}</h3>
+                  <span
+                    aria-hidden
+                    className="text-[26px] leading-none text-accent transition-transform duration-150 group-open:rotate-45 motion-reduce:transition-none"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-2.5 max-w-[60ch] text-[17px] leading-[1.6] text-body">
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </Reveal>
         </div>
-      </Section>
+      </section>
 
-      <ServiceCta
-        title="Stop Reselling a Platform."
-        highlight="Start Owning One."
-        body="Twenty minutes with an engineer, not a channel rep. We map your target clients, your current platform, and the shortest route to production — then give you a fixed-price proposal."
-        primary={{ label: "Book a Technical Consultation", href: CTA_HREF }}
-        secondary={{
-          label: "Explore Custom SIEM Development",
-          href: "/services/custom-siem-development",
-        }}
-        footnote="Fixed price · You own the platform · Your roadmap · No pitch deck"
-      />
+      {/* ------------------------------------------------ final cta */}
+      <section id="book" className="scroll-mt-24 border-t border-line">
+        <Reveal className={`${WRAP} flex flex-col items-start gap-6 py-24 sm:py-[120px]`}>
+          <h2 className="m-0 max-w-[14ch] text-[clamp(40px,5.6vw,72px)] font-semibold leading-[1.02] tracking-[-0.035em] text-bright">
+            Bring Your Current Platform Invoice
+          </h2>
+          <p className="m-0 max-w-[44ch] text-xl text-body">
+            In 20 minutes an engineer shows you what owning it would cost
+            instead.
+          </p>
+          <div className="mt-2">
+            <Button href={CTA_HREF}>Book a 20 minute strategy call</Button>
+          </div>
+        </Reveal>
+      </section>
     </>
   );
 }

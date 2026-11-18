@@ -226,9 +226,9 @@ export const SERVICES: ServiceSummary[] = [
     short: "Stop reselling a platform. Start owning one.",
     blurb:
       "White-label SOC platforms for MSSPs, VARs, and managed security operators who want to own their stack outright, not rent it from a vendor.",
-    metaTitle: "White-Label SOC Platform | MSSP Partner | WhyCrew",
+    metaTitle: "White Label SOC Platform for MSPs and MSSPs",
     metaDescription:
-      "WhyCrew is your MSSPs engineering partner — we build a white-label SOC platform you own outright. Full ownership, no reseller fees, no lock-in.",
+      "Own a white label SOC platform built for MSPs and MSSPs. Multi-tenant SIEM, SOAR and AI triage under your brand. Fixed price, source code included.",
   },
   {
     slug: "nis2-dora-compliance-automation",

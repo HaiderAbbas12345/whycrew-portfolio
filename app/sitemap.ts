@@ -27,7 +27,7 @@ const SERVICE_UPDATED: Record<string, string> = {
   "/services/custom-siem-development": "2026-10-23",
   "/services/custom-soar-development": "2026-10-06",
   "/services/ai-powered-soc-automation": "2026-10-23",
-  "/services/mssp-engineering-partner": "2026-10-23",
+  "/services/mssp-engineering-partner": "2026-11-18",
   "/services/nis2-dora-compliance-automation": "2026-10-05",
   "/services/nca-ecc-sama-csf-compliance": "2026-10-05",
 };
