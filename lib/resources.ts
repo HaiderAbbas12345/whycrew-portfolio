@@ -422,6 +422,18 @@ export const RESOURCES: Resource[] = [
     date: "2026-11-16",
   },
   {
+    id: "blog-soc-as-a-service",
+    type: "Blog",
+    topics: ["SIEM & SOAR", "MSSP & White-Label"],
+    title: "What Is SOC As A Service (SOCaaS) And How Does It Work?",
+    summary:
+      "SOC as a service gives you 24/7 threat monitoring, detection and incident response from an outside security team. Learn how it works, what it covers, its benefits and its trade-offs.",
+    format: "10 min read",
+    status: "live",
+    href: "/blog/soc-as-a-service",
+    date: "2026-11-26",
+  },
+  {
     id: "cs-siem-rent-to-owned-platform",
     type: "Case Study",
     topics: ["SIEM & SOAR", "Platform Ownership", "MSSP & White-Label"],

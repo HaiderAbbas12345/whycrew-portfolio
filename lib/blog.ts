@@ -401,6 +401,21 @@ export const POSTS: BlogPost[] = [
     topics: ["SIEM & SOAR", "Platform Ownership"],
     cluster: "Custom SIEM & SOAR Development",
   },
+  {
+    slug: "soc-as-a-service",
+    crumb: "SOC As A Service",
+    title: "What Is SOC As A Service (SOCaaS) And How Does It Work?",
+    metaTitle: "What Is SOC As A Service (SOCaaS)? How It Works",
+    metaDescription:
+      "SOC as a service gives you 24/7 threat monitoring, detection and incident response from an outside security team. Learn how it works, what it covers, its benefits and its trade-offs.",
+    summary:
+      "SOC as a service gives you 24/7 threat monitoring, detection and incident response from an outside security team. Learn how it works, what it covers, its benefits and its trade-offs.",
+    datePublished: "2026-11-26",
+    dateModified: "2026-11-26",
+    readTime: "10 min read",
+    topics: ["SIEM & SOAR", "MSSP & White-Label"],
+    cluster: "Custom SIEM & SOAR Development",
+  },
 ];
 
 export const postBySlug = (slug: string) => POSTS.find((p) => p.slug === slug);
@@ -472,6 +487,7 @@ export const INTERNAL_LINKS: Record<string, string | null> = {
   "mssp-vs-soc": "/blog/mssp-vs-soc",
   "mssp-vs-soar": "/blog/mssp-vs-soar",
   "self-hosted-siem-system": "/blog/self-hosted-siem-system",
+  "soc-as-a-service": "/blog/soc-as-a-service",
 
   /**
    * Home page. The AI-vs-Tier-1 doc points "custom SOC platform" at the site

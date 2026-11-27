@@ -204,6 +204,7 @@ Do not send sensitive credentials, secrets, private keys, production logs, explo
 - [AI SOC Analyst vs. Tier-1 Analyst](https://www.whycrew.com/blog/ai-soc-analyst-vs-tier-1-analyst): What changes when AI handles first-line triage.
 - [SOC Analyst Tiers Explained](https://www.whycrew.com/blog/soc-analyst-tiers-tier-1-2-3): Tier 1, Tier 2, and Tier 3 roles.
 - [SOC Analyst Burnout](https://www.whycrew.com/blog/soc-analyst-burnout): Why Tier-1 teams quit and how to fix it.
+- [What Is SOC as a Service (SOCaaS)?](https://www.whycrew.com/blog/soc-as-a-service): How it works, what it covers, costs, and trade-offs.
 
 ### MSSPs
 
